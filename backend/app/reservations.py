@@ -94,8 +94,11 @@ def undo(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
 
     The payer's remembered status does not change. A second undo moves nothing.
     """
+    db.lock_account(session)
     tx = get_transaction(session, tx_id)
-    reservation = session.get(ReservationRow, tx.reservation_id) if tx.reservation_id else None
+    reservation = (
+        session.get(ReservationRow, tx.reservation_id, populate_existing=True) if tx.reservation_id else None
+    )
     if reservation is None:
         raise ApiError(409, "no_reservation", "Nothing was set aside for this payment.")
     if reservation.status == "paid":
@@ -122,6 +125,7 @@ def undo(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
 
 def pay_all(session: Session, bus: EventBus) -> Tuple[TransactionRow, int]:
     """Pay everything reserved to the tax authority: the Tax Jar goes to 0. Returns (outgoing tx, amount)."""
+    db.lock_account(session)  # before reading what is reserved: a second payer then sees it already paid
     profile = db.get_profile(session)
     reserved = session.exec(select(ReservationRow).where(ReservationRow.status == "reserved")).all()
     total = sum(r.reserved_amount for r in reserved)

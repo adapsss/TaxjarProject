@@ -62,6 +62,19 @@ def get_session() -> Iterator[Session]:
         yield session
 
 
+ACCOUNT_LOCK = 7_251_001  # pg_advisory_xact_lock key for the one demo account
+
+
+def lock_account(session: Session) -> None:
+    """Hold the account's lock until this transaction ends.
+
+    Every operation that moves money, changes the tax profile or resets the demo takes it first,
+    so requests from several backend processes run one after the other instead of interleaving:
+    no double tax payment, no reset deadlocking with a payment. Row locks stay as a second line.
+    """
+    session.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": ACCOUNT_LOCK})
+
+
 def load_seed(session: Session) -> dict:
     """The demo seed "Fresh start" restores, as stored in the database (imported from demo/seed.json)."""
     row = session.execute(text("SELECT data FROM demo_seed WHERE id = 1")).first()
@@ -72,6 +85,7 @@ def load_seed(session: Session) -> dict:
 
 def reset_to_seed(session: Session) -> None:
     """Delete every row and reload the demo seed stored in the database. Commits."""
+    lock_account(session)
     seed = load_seed(session)
 
     for table in _TABLES_IN_DELETE_ORDER:

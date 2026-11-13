@@ -123,3 +123,28 @@ def test_table_definitions_match_the_database(session):
             )
         ]
         assert [c.name for c in table.columns] == in_db, table.name
+
+
+@pytest.mark.parametrize(
+    "brackets",
+    ['[{}]', '[1]', '[{"upToMinor": null, "rateBp": 20000}]', '[{"upToMinor": -1, "rateBp": 100}]',
+     '[{"upToMinor": "a lot", "rateBp": 100}]', '[{"rateBp": 100}]'],
+)
+def test_malformed_brackets_are_rejected(session, brackets):
+    _valid_rows(session)
+    savepoint = session.begin_nested()
+    with pytest.raises(IntegrityError):
+        session.execute(
+            text("UPDATE tax_regime SET income_tax_brackets = CAST(:b AS jsonb) WHERE country_code = 'ZZ'"), {"b": brackets}
+        )
+        session.flush()
+    savepoint.rollback()
+
+
+def test_well_formed_brackets_are_accepted(session):
+    _valid_rows(session)
+    session.execute(
+        text("UPDATE tax_regime SET income_tax_brackets = CAST(:b AS jsonb) WHERE country_code = 'ZZ'"),
+        {"b": '[{"upToMinor": 1000000, "rateBp": 0}, {"upToMinor": null, "rateBp": 2000}]'},
+    )
+    session.flush()

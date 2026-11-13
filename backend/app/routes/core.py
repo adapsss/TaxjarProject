@@ -40,6 +40,7 @@ async def get_tax_profile(session: Session = Depends(db.get_session)):
 
 @router.put("/tax-profile", response_model=s.TaxProfile)
 async def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.get_session)):
+    db.lock_account(session)  # the Tax Jar check below must not race a reservation
     if not 0 <= profile.rate <= MAX_RATE_BP:
         raise ApiError(422, "validation_error", "rate must be between 0 and 10000 basis points (0% to 100%).")
     if tax_rules.get_regime(profile.country, profile.regime) is None:
