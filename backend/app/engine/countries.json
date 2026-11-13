@@ -1,0 +1,35 @@
+[
+  {
+    "code": "EE",
+    "name": "Estonia",
+    "regimes": [
+      {
+        "id": "entrepreneur_account",
+        "name": "Entrepreneur account (ettevõtluskonto)",
+        "defaultRate": 2000,
+        "hint": "20% of every payment received is set aside.",
+        "deadline": {"type": "monthly", "day": 10}
+      },
+      {
+        "id": "fie",
+        "name": "FIE / self-employed",
+        "defaultRate": 2200,
+        "hint": "Income tax is 22%. Social tax comes on top, so set the rate you want to reserve.",
+        "deadline": {"type": "quarterly", "day": 15, "months": [3, 6, 9, 12]}
+      }
+    ]
+  },
+  {
+    "code": "*",
+    "name": "Other",
+    "regimes": [
+      {
+        "id": "custom",
+        "name": "Custom",
+        "defaultRate": 2000,
+        "hint": "Enter the percentage you want to set aside.",
+        "deadline": null
+      }
+    ]
+  }
+]

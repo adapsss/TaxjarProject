@@ -1,0 +1,10 @@
+[
+  {"id": "acme",       "label": "Client pays $1,500 (Acme Inc.)",        "senderName": "Acme Inc.",          "amount": 150000, "currency": "USD", "reference": "INV-042",           "expect": "income"},
+  {"id": "mari",       "label": "Friend sends €23 for pizza (Mari)",     "senderName": "Mari Tamm",          "senderKind": "person", "amount": 2300, "currency": "EUR", "reference": "pizza 🍕", "expect": "personal"},
+  {"id": "john",       "label": "Unclear €400 for a website (John)",     "senderName": "John Smith",         "amount": 40000,  "currency": "EUR", "reference": "website",           "expect": "unknown"},
+  {"id": "nordwind",   "label": "German client pays €2,200 (Nordwind)", "senderName": "Nordwind GmbH",      "amount": 220000, "currency": "EUR", "reference": "Rechnung 2026-118", "expect": "income"},
+  {"id": "pihlakas",   "label": "Estonian client pays €640 (Pihlakas)", "senderName": "Pihlakas Disain OÜ", "amount": 64000,  "currency": "EUR", "reference": "arve 77",           "expect": "income"},
+  {"id": "liis",       "label": "Friend sends €12 for beer (Liis)",      "senderName": "Liis Kask",          "senderKind": "person", "amount": 1200, "currency": "EUR", "reference": "beer 🍺", "expect": "personal"},
+  {"id": "self",       "label": "Own transfer £200 (Kadri Saar)",        "senderName": "Kadri Saar",         "amount": 20000,  "currency": "GBP", "reference": "between my accounts", "expect": "personal"},
+  {"id": "brightside", "label": "UK client pays £900 (Brightside)",      "senderName": "Brightside Ltd",     "amount": 90000,  "currency": "GBP", "reference": "consulting March",  "expect": "income"}
+]
