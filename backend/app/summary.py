@@ -5,13 +5,15 @@ import io
 from collections import OrderedDict
 from datetime import date
 from decimal import Decimal
-from typing import List
+from typing import List, Optional
 
 from sqlalchemy import literal_column
 from sqlmodel import Session, select
 
 from app import db, schemas
-from app.engine.tax_rules import next_deadline
+from app.engine.breakdown import describe_rule, split_tax
+from app.engine.money import format_minor
+from app.engine.tax_rules import get_regime, next_deadline
 from app.models import CounterpartyRow, ReservationRow, TransactionRow
 
 DISCLAIMER = "An estimate for setting money aside, not tax advice."
@@ -48,6 +50,7 @@ def build_summary(session: Session, today: date) -> schemas.TaxSummary:
             month = db.as_utc(row.created_at).strftime("%Y-%m")
             by_month[month] = by_month.get(month, 0) + row.reserved_amount
 
+    regime = get_regime(profile.country, profile.regime)
     return schemas.TaxSummary.model_validate(
         {
             "taxCurrency": profile.tax_currency,
@@ -57,8 +60,34 @@ def build_summary(session: Session, today: date) -> schemas.TaxSummary:
             "estimatedDue": total_reserved,
             "nextDeadline": next_deadline(profile.country, profile.regime, today),
             "disclaimer": DISCLAIMER,
+            "breakdown": _total_breakdown([r for r in rows if r.status == "reserved"], profile, regime),
+            "breakdownRule": describe_rule(regime) if regime else "",
         }
     )
+
+
+def _total_breakdown(reserved: List[ReservationRow], profile, regime) -> Optional[List[dict]]:
+    """Sum of the exact per-reservation splits; None as soon as one of them is not defined.
+
+    A reservation made under another regime than the current one has no place in this split.
+    """
+    if not regime or not regime.get("components"):
+        return None
+    if any((r.country, r.regime) != (profile.country, profile.regime) for r in reserved):
+        return None
+    totals = {c["id"]: {"id": c["id"], "name": c["name"], "amount": 0} for c in regime["components"]}
+    for row in reserved:
+        parts = split_tax(row.reserved_amount, regime, row.rate_bp)
+        if parts is None:
+            return None
+        for part in parts:
+            totals.setdefault(part["id"], dict(part, amount=0))["amount"] += part["amount"]
+    return list(totals.values())
+
+
+def spreadsheet_text(value: str) -> str:
+    """A leading =, +, - or @ would run as a formula when the CSV is opened in a spreadsheet."""
+    return "'" + value if value[:1] in ("=", "+", "-", "@") else value
 
 
 def major_units(amount: int) -> str:
@@ -87,13 +116,13 @@ def export_rows(session: Session) -> List[List[str]]:
         rows.append(
             [
                 db.as_utc(reservation.created_at).date().isoformat(),
-                payer.name if payer else "",
-                tx.reference if tx else "",
-                major_units(reservation.source_amount),
+                spreadsheet_text(payer.name if payer else ""),
+                spreadsheet_text(tx.reference if tx else ""),
+                format_minor(reservation.source_amount, reservation.source_currency),
                 reservation.source_currency,
                 rate_percent(reservation.rate_bp),
                 fx_text(reservation.fx_rate),
-                major_units(reservation.reserved_amount),
+                format_minor(reservation.reserved_amount, reservation.tax_currency),
                 reservation.tax_currency,
                 reservation.status,
             ]

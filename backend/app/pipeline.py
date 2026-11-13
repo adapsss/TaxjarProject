@@ -17,6 +17,7 @@ from app.reservations import get_transaction, reserve
 
 REASON_CONFIRMED = "you confirmed this was for work"
 REASON_DENIED = "you said this wasn't for work"
+MAX_AMOUNT = 10**12  # ten billion in major units, far beyond any real payment
 
 
 def process_incoming(
@@ -35,6 +36,9 @@ def process_incoming(
         raise ApiError(422, "validation_error", "senderName must not be blank.")
     if isinstance(amount, bool) or not isinstance(amount, int) or amount <= 0:
         raise ApiError(422, "validation_error", "amount must be a positive whole number of cents.")
+    if amount > MAX_AMOUNT:
+        # Larger values do not fit a SQLite integer once balances add up.
+        raise ApiError(422, "validation_error", "amount is too large.")
     currency = (currency or "").strip().upper()
     if not fx.is_supported(currency):
         raise ApiError(422, "unsupported_currency", f"{currency or 'That currency'} is not supported. Use EUR, USD or GBP.")

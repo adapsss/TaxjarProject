@@ -28,7 +28,7 @@ def test_countries(client):
     countries = {c["code"]: c for c in client.get("/api/tax/countries").json()}
     assert {r["id"] for r in countries["EE"]["regimes"]} == {"entrepreneur_account", "fie"}
     regime = countries["EE"]["regimes"][0]
-    assert set(regime) == {"id", "name", "defaultRate", "hint"}
+    assert set(regime) == {"id", "name", "defaultRate", "hint", "breakdownRule"}
 
 
 def test_put_profile_enables(client):

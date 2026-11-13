@@ -82,6 +82,13 @@ def test_wording_of_the_reference_does_not_matter():
     assert (a.label, a.score) == (b.label, b.score)
 
 
+@pytest.mark.parametrize("reference", ["INV-042", "COVID-19", "MH370", "ISO-9001", "#123"])
+def test_a_document_number_alone_never_auto_reserves(reference):
+    """An unknown individual with a code in the reference gets a question, not an automatic reservation."""
+    for amount in (40000, 500000, 5000000):
+        assert run("John Smith", None, amount, reference).label == "unknown"
+
+
 def test_own_account_transfer():
     result = run("  kadri   SAAR ", None, 20000, "INV-1")
     assert (result.label, result.score, result.confidence) == ("personal", 0, 0.99)

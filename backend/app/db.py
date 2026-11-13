@@ -14,7 +14,9 @@ from sqlalchemy import Engine, literal_column
 from sqlmodel import Session, SQLModel, create_engine, delete, select
 
 from app import schemas
+from app.engine.breakdown import split_tax
 from app.engine.classifier import infer_kind, normalize_name
+from app.engine.tax_rules import get_regime
 from app.models import (
     PROFILE_ID,
     BalanceRow,
@@ -49,9 +51,19 @@ def init_db(engine: Optional[Engine] = None) -> None:
     """Create the tables, and load the seed if there is no profile yet. Called on startup."""
     engine = engine or get_engine()
     SQLModel.metadata.create_all(engine)
+    _add_missing_columns(engine)
     with Session(engine) as session:
         if session.get(ProfileRow, PROFILE_ID) is None:
             reset_to_seed(session)
+
+
+def _add_missing_columns(engine: Engine) -> None:
+    """create_all never alters a table, so a database from before these columns existed gets them here."""
+    with engine.begin() as connection:
+        existing = {row[1] for row in connection.exec_driver_sql("PRAGMA table_info(reservationrow)")}
+        for column in ("country", "regime"):
+            if column not in existing:
+                connection.exec_driver_sql(f"ALTER TABLE reservationrow ADD COLUMN {column} VARCHAR")
 
 
 def get_session() -> Iterator[Session]:
@@ -136,6 +148,9 @@ def as_utc(value: datetime) -> datetime:
 
 
 def to_reservation(row: ReservationRow) -> schemas.TaxReservation:
+    # The split comes from the regime the reservation was made under, not from the current profile.
+    regime = get_regime(row.country, row.regime) if row.country and row.regime else None
+    breakdown = split_tax(row.reserved_amount, regime, row.rate_bp) if regime else None
     return schemas.TaxReservation.model_validate(
         {
             "id": row.id,
@@ -147,6 +162,7 @@ def to_reservation(row: ReservationRow) -> schemas.TaxReservation:
             "reservedAmount": row.reserved_amount,
             "taxCurrency": row.tax_currency,
             "status": row.status,
+            "breakdown": breakdown,
         }
     )
 

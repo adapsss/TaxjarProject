@@ -93,3 +93,6 @@ class ReservationRow(SQLModel, table=True):
     tax_currency: str
     status: str = "reserved"  # "reserved" | "undone" | "paid"
     created_at: datetime = Field(default_factory=utcnow, index=True)
+    # The regime the tax was reserved under: the tax breakdown must not follow later profile changes.
+    country: Optional[str] = None
+    regime: Optional[str] = None

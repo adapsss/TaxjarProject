@@ -6,7 +6,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "(Pty) Ltd",
@@ -14,7 +16,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "(RF)",
@@ -22,7 +26,9 @@
    "name": "Ring-fenced company",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "a. s.",
@@ -30,7 +36,9 @@
    "name": "akciov\u00e1 spolo\u010dnos\u0165",
    "countries": [
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "A.E.",
@@ -38,7 +46,9 @@
    "name": "Anonymi Etairia (Latin spelling)",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "A.m.b.a.",
@@ -46,7 +56,9 @@
    "name": "Andelsselskab med begraenset ansvar",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "a.s",
@@ -54,7 +66,9 @@
    "name": "akciov\u00e1 spole\u010dnost",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "a.s.",
@@ -63,7 +77,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "A/S",
@@ -71,7 +87,9 @@
    "name": "Aktieselskab",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "AB",
@@ -80,7 +98,9 @@
    "countries": [
     "LT",
     "SE"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "AB (publ)",
@@ -88,7 +108,9 @@
    "name": "Publikt aktiebolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ab Oy",
@@ -96,7 +118,9 @@
    "name": "Aktiebolag / Osakeyhtio",
    "countries": [
     "FI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "AD",
@@ -105,7 +129,9 @@
    "countries": [
     "BG",
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "AG",
@@ -117,7 +143,9 @@
     "LI",
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "AG & Co. KG",
@@ -125,7 +153,9 @@
    "name": "AG & Co. Kommanditgesellschaft",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Aktiebolag",
@@ -133,7 +163,9 @@
    "name": "Aktiebolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Aktsiaselts",
@@ -141,7 +173,9 @@
    "name": "Aktsiaselts",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "amba",
@@ -149,7 +183,9 @@
    "name": "Andelsselskab med begraenset ansvar",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ANS",
@@ -157,7 +193,9 @@
    "name": "Ansvarlig selskap",
    "countries": [
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Anstalt",
@@ -165,7 +203,9 @@
    "name": "Anstalt",
    "countries": [
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ApS",
@@ -173,7 +213,9 @@
    "name": "Anpartsselskab",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "AS",
@@ -183,7 +225,9 @@
     "EE",
     "LV",
     "NO"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": true
   },
   {
    "token": "ASA",
@@ -191,7 +235,9 @@
    "name": "Allmennaksjeselskap",
    "countries": [
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ASBL",
@@ -200,7 +246,9 @@
    "countries": [
     "BE",
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "B.A.",
@@ -208,7 +256,9 @@
    "name": "Beperkte Aansprakelijkheid",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "B.M.",
@@ -216,7 +266,9 @@
    "name": "Be'Eravon Mugbal (Ltd), Latin transliteration",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "B.S.C.",
@@ -224,7 +276,9 @@
    "name": "Bahraini Shareholding Company",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "B.S.C. (c)",
@@ -232,7 +286,9 @@
    "name": "Bahraini Shareholding Company (closed)",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "B.V.",
@@ -241,7 +297,9 @@
    "countries": [
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "BA",
@@ -249,7 +307,9 @@
    "name": "Selskap med begrenset ansvar",
    "countries": [
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Berhad",
@@ -257,7 +317,9 @@
    "name": "Public limited company",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Bhd",
@@ -265,7 +327,9 @@
    "name": "Berhad",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Bhd.",
@@ -273,7 +337,9 @@
    "name": "Berhad",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "BSC",
@@ -281,7 +347,9 @@
    "name": "Bahraini Shareholding Company",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "BSC (c)",
@@ -289,7 +357,9 @@
    "name": "Bahraini Shareholding Company (closed)",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "BV",
@@ -299,7 +369,9 @@
     "BE",
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "BVBA",
@@ -307,7 +379,9 @@
    "name": "Besloten Vennootschap met Beperkte Aansprakelijkheid",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "C.R.L.",
@@ -315,7 +389,9 @@
    "name": "Cooperativa de Responsabilidade Limitada",
    "countries": [
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "C.V.",
@@ -324,7 +400,9 @@
    "countries": [
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CC",
@@ -332,7 +410,9 @@
    "name": "Close Corporation",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CCC",
@@ -340,7 +420,9 @@
    "name": "Cwmni Cyfyngedig Cyhoeddus (Welsh public limited company)",
    "countries": [
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CGA",
@@ -348,7 +430,9 @@
    "name": "Cuideachta Ghniomhaiochta Ainmnithe",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CIC",
@@ -356,7 +440,9 @@
    "name": "Community interest company",
    "countries": [
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CIO",
@@ -364,7 +450,9 @@
    "name": "Charitable incorporated organisation",
    "countries": [
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CLG",
@@ -372,7 +460,9 @@
    "name": "Company Limited by Guarantee",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co-op",
@@ -380,7 +470,9 @@
    "name": "Co-operative",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co-operative",
@@ -389,7 +481,9 @@
    "countries": [
     "NZ",
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co-operative Limited",
@@ -397,7 +491,9 @@
    "name": "Co-operative",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co-operative Society",
@@ -405,7 +501,9 @@
    "name": "Co-operative society",
    "countries": [
     "IN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co-operative Society Limited",
@@ -413,7 +511,9 @@
    "name": "Co-operative society",
    "countries": [
     "MT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co. Ltd",
@@ -423,7 +523,9 @@
     "CN",
     "SA",
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co. Ltd.",
@@ -432,7 +534,9 @@
    "countries": [
     "PH",
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co., Ltd",
@@ -440,7 +544,9 @@
    "name": "Company Limited",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co., Ltd.",
@@ -454,7 +560,9 @@
     "KR",
     "TW",
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co.,Ltd.",
@@ -464,7 +572,9 @@
     "CN",
     "KR",
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Commanditaire Vennootschap",
@@ -472,7 +582,9 @@
    "name": "Commanditaire Vennootschap",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CommV",
@@ -480,7 +592,9 @@
    "name": "Commanditaire Vennootschap",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Companhia",
@@ -488,7 +602,9 @@
    "name": "Companhia",
    "countries": [
     "BR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Company Limited",
@@ -497,7 +613,9 @@
    "countries": [
     "HK",
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Coop.",
@@ -505,7 +623,9 @@
    "name": "Cooperative",
    "countries": [
     "PH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Coop. Ltda.",
@@ -513,7 +633,9 @@
    "name": "Cooperativa Limitada",
    "countries": [
     "AR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Cooperatie",
@@ -521,7 +643,9 @@
    "name": "Cooperatie",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Cooperativa",
@@ -532,7 +656,9 @@
     "CO",
     "CR",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Cooperative",
@@ -540,7 +666,9 @@
    "name": "Cooperative",
    "countries": [
     "PH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Corp",
@@ -552,7 +680,9 @@
     "GU",
     "PH",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Corp.",
@@ -561,7 +691,9 @@
    "countries": [
     "PH",
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Corporation",
@@ -571,7 +703,9 @@
     "CA",
     "PH",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Corporation Limited",
@@ -579,7 +713,9 @@
    "name": "Corporation Limited",
    "countries": [
     "HK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Co\u00f6peratie",
@@ -587,7 +723,9 @@
    "name": "Cooperatie",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CPT",
@@ -595,7 +733,9 @@
    "name": "Cuideachta Phoblach Teoranta",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CRL",
@@ -603,7 +743,9 @@
    "name": "Cooperativa de Responsabilidade Limitada",
    "countries": [
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CTR",
@@ -611,7 +753,9 @@
    "name": "Cuideachta faoi Theorainn Rathaiochta",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CV",
@@ -621,7 +765,9 @@
     "BE",
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "CVBA",
@@ -629,7 +775,9 @@
    "name": "Cooperatieve Vennootschap met Beperkte Aansprakelijkheid",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Cyfyngedig",
@@ -637,7 +785,9 @@
    "name": "Cyfyngedig (Welsh limited)",
    "countries": [
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "d.d.",
@@ -646,7 +796,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "d.n.o.",
@@ -655,7 +807,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "d.o.o",
@@ -664,7 +818,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "d.o.o.",
@@ -673,7 +829,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "DA",
@@ -681,7 +839,9 @@
    "name": "Selskap med delt ansvar",
    "countries": [
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "DAC",
@@ -689,7 +849,9 @@
    "name": "Designated Activity Company",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "DOO",
@@ -697,7 +859,9 @@
    "name": "Dru\u0161tvo so ograni\u010dena odgovornost",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "DOOEL",
@@ -705,7 +869,9 @@
    "name": "Dru\u0161tvo so ograni\u010dena odgovornost, edno\u010dlen",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "druzstvo",
@@ -714,7 +880,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "dru\u017estvo",
@@ -723,7 +891,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "E.I.R.L.",
@@ -732,7 +902,9 @@
    "countries": [
     "CL",
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "E.P.E.",
@@ -740,7 +912,9 @@
    "name": "Etairia Periorismenis Efthynis (Latin spelling)",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "E.U.",
@@ -748,7 +922,9 @@
    "name": "Empresa Unipersonal",
    "countries": [
     "CO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "e.V.",
@@ -756,7 +932,9 @@
    "name": "eingetragener Verein",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EAD",
@@ -764,7 +942,9 @@
    "name": "Ednolichno aktsionerno druzhestvo",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "eG",
@@ -773,7 +953,9 @@
    "countries": [
     "AT",
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "eGen",
@@ -781,7 +963,9 @@
    "name": "eingetragene Genossenschaft",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Egyesulet",
@@ -789,7 +973,9 @@
    "name": "egyes\u00fclet (association)",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Egyes\u00fclet",
@@ -797,7 +983,9 @@
    "name": "egyes\u00fclet (association)",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ehf",
@@ -805,7 +993,9 @@
    "name": "Einkahlutafelag",
    "countries": [
     "IS"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ehf.",
@@ -813,7 +1003,9 @@
    "name": "Einkahlutafelag",
    "countries": [
     "IS"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EIRELI",
@@ -821,7 +1013,9 @@
    "name": "Empresa Individual de Responsabilidade Limitada",
    "countries": [
     "BR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EIRL",
@@ -831,7 +1025,9 @@
     "CL",
     "CR",
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ek for",
@@ -839,7 +1035,9 @@
    "name": "Ekonomisk forening",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ek f\u00f6r",
@@ -847,7 +1045,9 @@
    "name": "Ekonomisk forening",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ek. for.",
@@ -855,7 +1055,9 @@
    "name": "Ekonomisk forening",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ek. f\u00f6r.",
@@ -863,7 +1065,9 @@
    "name": "Ekonomisk forening",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ELP",
@@ -871,7 +1075,9 @@
    "name": "Exempted Limited Partnership",
    "countries": [
     "KY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "en commandite",
@@ -879,7 +1085,9 @@
    "name": "Partnership en commandite",
    "countries": [
     "MT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EOOD",
@@ -887,7 +1095,9 @@
    "name": "Ednolichno druzhestvo s ogranichena otgovornost",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EPP",
@@ -895,7 +1105,9 @@
    "name": "Empresa de Pequeno Porte",
    "countries": [
     "BR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ESAL",
@@ -903,7 +1115,9 @@
    "name": "Entidad sin Animo de Lucro",
    "countries": [
     "CO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "EURL",
@@ -911,7 +1125,9 @@
    "name": "Entreprise unipersonnelle a responsabilite limitee",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "F.m.b.A.",
@@ -919,7 +1135,9 @@
    "name": "Forening med begraenset ansvar",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "FlexKapG",
@@ -927,7 +1145,9 @@
    "name": "Flexible Kapitalgesellschaft",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "fmba",
@@ -935,7 +1155,9 @@
    "name": "Forening med begraenset ansvar",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Foundation",
@@ -943,7 +1165,9 @@
    "name": "Non-stock foundation",
    "countries": [
     "PH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Foundation Company",
@@ -951,7 +1175,9 @@
    "name": "Foundation Company",
    "countries": [
     "KY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GbR",
@@ -959,7 +1185,9 @@
    "name": "Gesellschaft buergerlichen Rechts",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Genossenschaft",
@@ -968,7 +1196,9 @@
    "countries": [
     "LI",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ges.m.b.H.",
@@ -976,7 +1206,9 @@
    "name": "Gesellschaft mit beschraenkter Haftung",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GesbR",
@@ -984,7 +1216,9 @@
    "name": "Gesellschaft buergerlichen Rechts",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "gGmbH",
@@ -992,7 +1226,9 @@
    "name": "gemeinnuetzige GmbH",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GIE",
@@ -1002,7 +1238,9 @@
     "FR",
     "LU",
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GmbH",
@@ -1014,7 +1252,9 @@
     "LI",
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GmbH & Co KG",
@@ -1022,7 +1262,9 @@
    "name": "GmbH & Co Kommanditgesellschaft",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "GmbH & Co. KG",
@@ -1031,7 +1273,9 @@
    "countries": [
     "DE",
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Handelsbolag",
@@ -1039,7 +1283,9 @@
    "name": "Handelsbolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "HB",
@@ -1047,7 +1293,9 @@
    "name": "Handelsbolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "I.K.E.",
@@ -1055,7 +1303,9 @@
    "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "I/S",
@@ -1063,7 +1313,9 @@
    "name": "Interessentskab",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ICAV",
@@ -1071,7 +1323,9 @@
    "name": "Irish Collective Asset-management Vehicle",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ICC",
@@ -1081,7 +1335,9 @@
     "GG",
     "IM",
     "JE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "IKE",
@@ -1089,7 +1345,9 @@
    "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ILP",
@@ -1097,7 +1355,9 @@
    "name": "Incorporated limited partnership",
    "countries": [
     "JE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Inc",
@@ -1110,7 +1370,9 @@
     "PH",
     "ZA",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Inc.",
@@ -1124,7 +1386,9 @@
     "KR",
     "TW",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Incorporated",
@@ -1136,7 +1400,9 @@
     "PH",
     "ZA",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Incorporee",
@@ -1144,7 +1410,9 @@
    "name": "Incorpor\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Incorpor\u00e9e",
@@ -1152,7 +1420,9 @@
    "name": "Incorpor\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "IVS",
@@ -1160,7 +1430,9 @@
    "name": "Iv\u00e6rks\u00e6tterselskab (abolished, still in use)",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "IVZW",
@@ -1168,7 +1440,9 @@
    "name": "Internationale vereniging zonder winstoogmerk",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "j.d.o.o",
@@ -1176,7 +1450,9 @@
    "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
    "countries": [
     "HR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "j.d.o.o.",
@@ -1184,7 +1460,9 @@
    "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
    "countries": [
     "HR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "JSC",
@@ -1193,7 +1471,9 @@
    "countries": [
     "GE",
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "JTD",
@@ -1201,7 +1481,9 @@
    "name": "Javno trgovsko dru\u0161tvo",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "k.d.",
@@ -1210,7 +1492,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "k.d.d.",
@@ -1218,7 +1502,9 @@
    "name": "komanditna delni\u0161ka dru\u017eba",
    "countries": [
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K.K.",
@@ -1226,7 +1512,9 @@
    "name": "Kabushiki Kaisha",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "k.s.",
@@ -1235,7 +1523,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K.S.C.",
@@ -1243,7 +1533,9 @@
    "name": "Kuwaiti Shareholding Company",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K.S.C.C.",
@@ -1251,7 +1543,9 @@
    "name": "Kuwaiti Shareholding Company Closed",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K.S.C.P.",
@@ -1259,7 +1553,9 @@
    "name": "Kuwaiti Shareholding Company Public",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K/S",
@@ -1267,7 +1563,19 @@
    "name": "Kommanditselskab",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
+  },
+  {
+   "token": "Kabushiki Kaisha",
+   "caseSensitive": false,
+   "name": "Kabushiki kaisha",
+   "countries": [
+    "JP"
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KB",
@@ -1275,7 +1583,9 @@
    "name": "Kommanditbolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KD",
@@ -1284,7 +1594,9 @@
    "countries": [
     "BG",
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kft",
@@ -1292,7 +1604,9 @@
    "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kft.",
@@ -1300,7 +1614,9 @@
    "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KG",
@@ -1311,7 +1627,9 @@
     "DE",
     "LI",
     "CH"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "KGaA",
@@ -1320,7 +1638,9 @@
    "countries": [
     "DE",
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kollektivgesellschaft",
@@ -1329,7 +1649,9 @@
    "countries": [
     "LI",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kommanditbolag",
@@ -1337,7 +1659,9 @@
    "name": "Kommanditbolag",
    "countries": [
     "SE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kooperatine bendrove",
@@ -1345,7 +1669,9 @@
    "name": "Kooperatine bendrove",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kooperatin\u0117 bendrov\u0117",
@@ -1353,7 +1679,9 @@
    "name": "Kooperatine bendrove",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Kooperativa sabiedriba",
@@ -1361,7 +1689,9 @@
    "name": "Kooperativa sabiedriba",
    "countries": [
     "LV"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Koperasi",
@@ -1369,7 +1699,9 @@
    "name": "Co-operative",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KS",
@@ -1378,7 +1710,9 @@
    "countries": [
     "LV",
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KSC",
@@ -1386,7 +1720,9 @@
    "name": "Kuwaiti Shareholding Company",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KSCC",
@@ -1394,7 +1730,9 @@
    "name": "Kuwaiti Shareholding Company Closed",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KSCP",
@@ -1402,7 +1740,9 @@
    "name": "Kuwaiti Shareholding Company Public",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "KUB",
@@ -1410,7 +1750,9 @@
    "name": "Komanditine ukine bendrija",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "K\u016aB",
@@ -1418,7 +1760,9 @@
    "name": "Komanditine ukine bendrija",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "L.L.C.",
@@ -1427,7 +1771,9 @@
    "countries": [
     "GU",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Lda",
@@ -1436,7 +1782,9 @@
    "countries": [
     "MO",
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Lda.",
@@ -1445,7 +1793,9 @@
    "countries": [
     "MO",
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Limitada",
@@ -1456,7 +1806,9 @@
     "CR",
     "MO",
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Limited",
@@ -1480,7 +1832,19 @@
     "SG",
     "ZA",
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
+  },
+  {
+   "token": "Limited Liability Company",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "US"
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Limited Partnership",
@@ -1489,7 +1853,9 @@
    "countries": [
     "HK",
     "NZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Limitee",
@@ -1497,7 +1863,9 @@
    "name": "Limit\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Limit\u00e9e",
@@ -1505,7 +1873,9 @@
    "name": "Limit\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "LLC",
@@ -1518,7 +1888,9 @@
     "QA",
     "SA",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "LLP",
@@ -1540,7 +1912,9 @@
     "SG",
     "GB",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "LP",
@@ -1558,7 +1932,9 @@
     "SG",
     "GB",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltd",
@@ -1587,7 +1963,9 @@
     "ZA",
     "GB",
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltd.",
@@ -1607,7 +1985,9 @@
     "SG",
     "TW",
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltd. Co.",
@@ -1615,7 +1995,9 @@
    "name": "Limited Company",
    "countries": [
     "PH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltda",
@@ -1627,7 +2009,9 @@
     "CO",
     "CR",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltda.",
@@ -1637,7 +2021,9 @@
     "BR",
     "CL",
     "CO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Ltee",
@@ -1645,7 +2031,9 @@
    "name": "Limit\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Lt\u00e9e",
@@ -1653,7 +2041,9 @@
    "name": "Limit\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Maatschap",
@@ -1661,7 +2051,9 @@
    "name": "Maatschap",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "MB",
@@ -1669,7 +2061,9 @@
    "name": "Mazoji bendrija",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "mbH",
@@ -1677,7 +2071,9 @@
    "name": "mit beschraenkter Haftung (suffix)",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ME",
@@ -1685,7 +2081,9 @@
    "name": "Microempresa",
    "countries": [
     "BR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "MTU",
@@ -1693,7 +2091,9 @@
    "name": "Mittetulundusuhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "MT\u00dc",
@@ -1701,7 +2101,9 @@
    "name": "Mittetulundusuhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "n.o.",
@@ -1709,7 +2111,9 @@
    "name": "neziskov\u00e1 organiz\u00e1cia",
    "countries": [
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "N.V.",
@@ -1718,7 +2122,9 @@
    "countries": [
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "NL",
@@ -1726,7 +2132,9 @@
    "name": "No Liability company",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "NPC",
@@ -1734,7 +2142,9 @@
    "name": "Non-Profit Company",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "NUF",
@@ -1742,7 +2152,9 @@
    "name": "Norskregistrert utenlandsk foretak",
    "countries": [
     "NO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "NV",
@@ -1752,7 +2164,9 @@
     "BE",
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "Nyrt",
@@ -1760,7 +2174,9 @@
    "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Nyrt.",
@@ -1768,7 +2184,9 @@
    "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "O.E.",
@@ -1776,7 +2194,9 @@
    "name": "Omorrythmi Etairia (Latin spelling)",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "o.p.s.",
@@ -1784,7 +2204,9 @@
    "name": "obecn\u011b prosp\u011b\u0161n\u00e1 spole\u010dnost",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "o.z.",
@@ -1792,7 +2214,9 @@
    "name": "ob\u010dianske zdru\u017eenie",
    "countries": [
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "OG",
@@ -1800,7 +2224,9 @@
    "name": "Offene Gesellschaft",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "OHG",
@@ -1808,7 +2234,9 @@
    "name": "Offene Handelsgesellschaft",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "OOD",
@@ -1816,7 +2244,9 @@
    "name": "Druzhestvo s ogranichena otgovornost",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "OPC",
@@ -1825,7 +2255,9 @@
    "countries": [
     "IN",
     "PH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Osauhing",
@@ -1833,7 +2265,9 @@
    "name": "Osauhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Osa\u00fching",
@@ -1841,7 +2275,9 @@
    "name": "Osauhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Osuuskunta",
@@ -1849,7 +2285,9 @@
    "name": "Osuuskunta",
    "countries": [
     "FI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "OU",
@@ -1857,7 +2295,19 @@
    "name": "Osauhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
+  },
+  {
+   "token": "OY",
+   "caseSensitive": true,
+   "name": "Osakeyhtio",
+   "countries": [
+    "FI"
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "Oy",
@@ -1865,7 +2315,9 @@
    "name": "Osakeyhtio",
    "countries": [
     "FI"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "Oy Ab",
@@ -1873,7 +2325,9 @@
    "name": "Osakeyhtio / Aktiebolag",
    "countries": [
     "FI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Oyj",
@@ -1881,7 +2335,9 @@
    "name": "Julkinen osakeyhtio",
    "countries": [
     "FI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "O\u00dc",
@@ -1889,7 +2345,9 @@
    "name": "Osauhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": false
   },
   {
    "token": "p.l.c.",
@@ -1897,7 +2355,9 @@
    "name": "Public limited company",
    "countries": [
     "MT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "P.S.A.",
@@ -1905,7 +2365,9 @@
    "name": "prosta sp\u00f3\u0142ka akcyjna",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "P/S",
@@ -1913,7 +2375,9 @@
    "name": "Partnerselskab",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PartG",
@@ -1921,7 +2385,9 @@
    "name": "Partnerschaftsgesellschaft",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PartG mbB",
@@ -1929,7 +2395,9 @@
    "name": "Partnerschaftsgesellschaft mit beschraenkter Berufshaftung",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PC",
@@ -1937,7 +2405,9 @@
    "name": "Professional Corporation",
    "countries": [
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PCC",
@@ -1947,7 +2417,9 @@
     "GG",
     "IM",
     "JE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PCL",
@@ -1955,7 +2427,9 @@
    "name": "Public Company Limited",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Perkongsian Liabiliti Terhad",
@@ -1963,7 +2437,9 @@
    "name": "Limited liability partnership",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PLC",
@@ -1979,7 +2455,9 @@
     "MT",
     "TH",
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PLLC",
@@ -1987,7 +2465,9 @@
    "name": "Professional Limited Liability Company",
    "countries": [
     "US"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PLT",
@@ -1995,7 +2475,9 @@
    "name": "Perkongsian Liabiliti Terhad (LLP)",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Private Limited",
@@ -2004,7 +2486,9 @@
    "countries": [
     "IN",
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Privatstiftung",
@@ -2012,7 +2496,9 @@
    "name": "Privatstiftung",
    "countries": [
     "AT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Proprietary Limited",
@@ -2020,7 +2506,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "PS",
@@ -2028,7 +2516,9 @@
    "name": "Pilnsabiedriba",
    "countries": [
     "LV"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pte Limited",
@@ -2036,7 +2526,9 @@
    "name": "Private Limited",
    "countries": [
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pte Ltd",
@@ -2044,7 +2536,9 @@
    "name": "Private Limited",
    "countries": [
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pte. Limited",
@@ -2052,7 +2546,9 @@
    "name": "Private Limited",
    "countries": [
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pte. Ltd",
@@ -2060,7 +2556,9 @@
    "name": "Private Limited",
    "countries": [
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pte. Ltd.",
@@ -2068,7 +2566,9 @@
    "name": "Private Limited",
    "countries": [
     "SG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pty Limited",
@@ -2076,7 +2576,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pty Ltd",
@@ -2085,7 +2587,9 @@
    "countries": [
     "AU",
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pty. Limited",
@@ -2093,7 +2597,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pty. Ltd",
@@ -2101,7 +2607,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pty. Ltd.",
@@ -2109,7 +2617,9 @@
    "name": "Proprietary Limited",
    "countries": [
     "AU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Public Company Limited",
@@ -2118,7 +2628,9 @@
    "countries": [
     "CY",
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pvt Ltd",
@@ -2126,7 +2638,9 @@
    "name": "Private Limited",
    "countries": [
     "IN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pvt. Limited",
@@ -2134,7 +2648,9 @@
    "name": "Private Limited",
    "countries": [
     "IN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pvt. Ltd",
@@ -2142,7 +2658,9 @@
    "name": "Private Limited",
    "countries": [
     "IN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Pvt. Ltd.",
@@ -2150,7 +2668,9 @@
    "name": "Private Limited",
    "countries": [
     "IN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Q.P.C.",
@@ -2158,7 +2678,9 @@
    "name": "Qatari Private Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Q.P.S.C.",
@@ -2166,7 +2688,9 @@
    "name": "Qatari Public Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Q.S.C.",
@@ -2174,7 +2698,9 @@
    "name": "Qatari Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "QPC",
@@ -2182,7 +2708,9 @@
    "name": "Qatari Private Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "QPSC",
@@ -2190,7 +2718,9 @@
    "name": "Qatari Public Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "QSC",
@@ -2198,7 +2728,9 @@
    "name": "Qatari Shareholding Company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "R.A.",
@@ -2206,7 +2738,9 @@
    "name": "regie autonom\u0103",
    "countries": [
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S. en C.",
@@ -2214,7 +2748,9 @@
    "name": "Sociedad en Comandita",
    "countries": [
     "CO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "s. r. o.",
@@ -2222,7 +2758,9 @@
    "name": "spolo\u010dnos\u0165 s ru\u010den\u00edm obmedzen\u00fdm",
    "countries": [
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.a r.l.",
@@ -2231,7 +2769,9 @@
    "countries": [
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.a r.l.-S",
@@ -2239,7 +2779,9 @@
    "name": "Societe a responsabilite limitee simplifiee",
    "countries": [
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.",
@@ -2262,7 +2804,9 @@
     "ES",
     "CH",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.A.",
@@ -2270,7 +2814,9 @@
    "name": "Sociedad Anonima Abierta",
    "countries": [
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.C.",
@@ -2278,7 +2824,9 @@
    "name": "Sociedad Anonima Cerrada",
    "countries": [
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.M.",
@@ -2286,7 +2834,9 @@
    "name": "Societe anonyme monegasque",
    "countries": [
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.a.p.A.",
@@ -2294,7 +2844,9 @@
    "name": "Societa in accomandita per azioni",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.R.L.",
@@ -2303,7 +2855,9 @@
    "countries": [
     "FR",
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.S.",
@@ -2315,7 +2869,9 @@
     "FR",
     "IT",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.U.",
@@ -2324,7 +2880,9 @@
    "countries": [
     "AD",
     "AR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.A.U.",
@@ -2332,7 +2890,9 @@
    "name": "Sociedad Anonima Unipersonal",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.",
@@ -2347,7 +2907,9 @@
     "RO",
     "ES",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.c.a r.l.",
@@ -2355,7 +2917,9 @@
    "name": "Societa cooperativa a responsabilita limitata",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.A.",
@@ -2366,7 +2930,9 @@
     "CO",
     "LU",
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.I.",
@@ -2374,7 +2940,9 @@
    "name": "Societe civile immobiliere",
    "countries": [
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.R.L.",
@@ -2382,7 +2950,9 @@
    "name": "Sociedad Civil de Responsabilidad Limitada",
    "countries": [
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.S.",
@@ -2391,7 +2961,9 @@
    "countries": [
     "MC",
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.C.Sp.",
@@ -2399,7 +2971,9 @@
    "name": "Societe en commandite speciale",
    "countries": [
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.Com.",
@@ -2407,7 +2981,9 @@
    "name": "Sociedad Comanditaria",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.Coop.",
@@ -2415,7 +2991,9 @@
    "name": "Sociedad Cooperativa",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.e.c.s.",
@@ -2423,7 +3001,9 @@
    "name": "Societe en commandite simple",
    "countries": [
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.E.N.C.",
@@ -2432,7 +3012,9 @@
    "countries": [
     "CA",
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.K.A.",
@@ -2440,7 +3022,9 @@
    "name": "sp\u00f3\u0142ka komandytowo-akcyjna",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.L.",
@@ -2449,7 +3033,9 @@
    "countries": [
     "AD",
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.L.L.",
@@ -2457,7 +3043,9 @@
    "name": "Sociedad Limitada Laboral",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.L.N.E.",
@@ -2465,7 +3053,9 @@
    "name": "Sociedad Limitada Nueva Empresa",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.L.U.",
@@ -2473,7 +3063,9 @@
    "name": "Societat Limitada Unipersonal",
    "countries": [
     "AD"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.L.U.",
@@ -2481,7 +3073,9 @@
    "name": "Sociedad Limitada Unipersonal",
    "countries": [
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.m.b.a.",
@@ -2489,7 +3083,9 @@
    "name": "Selskab med begraenset ansvar",
    "countries": [
     "DK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.n.c.",
@@ -2499,7 +3095,9 @@
     "IT",
     "MC",
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "s.p.",
@@ -2507,7 +3105,9 @@
    "name": "st\u00e1tn\u00ed podnik",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.p.A.",
@@ -2515,7 +3115,9 @@
    "name": "Societa per azioni",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.P.C.",
@@ -2525,7 +3127,9 @@
     "BH",
     "KW",
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.R.L",
@@ -2533,7 +3137,9 @@
    "name": "societate cu r\u0103spundere limitat\u0103",
    "countries": [
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.R.L.",
@@ -2547,7 +3153,9 @@
     "PE",
     "RO",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.R.L.-D",
@@ -2555,7 +3163,9 @@
    "name": "SRL debutant",
    "countries": [
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.r.l.s.",
@@ -2563,7 +3173,9 @@
    "name": "Societa a responsabilita limitata semplificata",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "s.r.o",
@@ -2571,7 +3183,9 @@
    "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "s.r.o.",
@@ -2580,7 +3194,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.S.",
@@ -2588,7 +3204,9 @@
    "name": "Societa semplice",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S.\u00e0 r.l.",
@@ -2597,7 +3215,9 @@
    "countries": [
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S/A",
@@ -2605,7 +3225,9 @@
    "name": "Sociedade Anonima",
    "countries": [
     "BR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SA",
@@ -2631,7 +3253,9 @@
     "ES",
     "CH",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SAA",
@@ -2639,7 +3263,9 @@
    "name": "Sociedad Anonima Abierta",
    "countries": [
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SAC",
@@ -2647,7 +3273,9 @@
    "name": "Sociedad Anonima Cerrada",
    "countries": [
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sagl",
@@ -2655,7 +3283,9 @@
    "name": "Societa a garanzia limitata",
    "countries": [
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SAM",
@@ -2663,7 +3293,9 @@
    "name": "Societe anonyme monegasque",
    "countries": [
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SARL",
@@ -2672,7 +3304,9 @@
    "countries": [
     "FR",
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sarl",
@@ -2681,7 +3315,9 @@
    "countries": [
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SAS",
@@ -2692,7 +3328,9 @@
     "CO",
     "FR",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SASU",
@@ -2700,7 +3338,9 @@
    "name": "Societe par actions simplifiee unipersonnelle",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SAU",
@@ -2709,7 +3349,9 @@
    "countries": [
     "AD",
     "AR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SC",
@@ -2717,7 +3359,9 @@
    "name": "Societe Cooperative",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCA",
@@ -2727,7 +3371,9 @@
     "FR",
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCI",
@@ -2736,7 +3382,9 @@
    "countries": [
     "FR",
     "MC"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCIO",
@@ -2744,7 +3392,9 @@
    "name": "Scottish charitable incorporated organisation",
    "countries": [
     "GB"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCM",
@@ -2752,7 +3402,9 @@
    "name": "Societe civile de moyens",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCmA",
@@ -2760,7 +3412,9 @@
    "name": "Societe en commandite par actions",
    "countries": [
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SComm",
@@ -2768,7 +3422,9 @@
    "name": "Societe en commandite",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCOP",
@@ -2776,7 +3432,9 @@
    "name": "Societe cooperative et participative",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCP",
@@ -2784,7 +3442,9 @@
    "name": "Societe civile professionnelle",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCRL",
@@ -2793,7 +3453,9 @@
    "countries": [
     "BE",
     "PE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCS",
@@ -2803,7 +3465,9 @@
     "FR",
     "MC",
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SCSp",
@@ -2811,7 +3475,9 @@
    "name": "Societe en commandite speciale",
    "countries": [
     "LU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SD",
@@ -2819,7 +3485,9 @@
    "name": "Sabiratelno druzhestvo",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sdn Bhd",
@@ -2827,7 +3495,9 @@
    "name": "Sendirian Berhad (private limited)",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sdn. Bhd.",
@@ -2835,7 +3505,9 @@
    "name": "Sendirian Berhad",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sdn.Bhd.",
@@ -2843,7 +3515,9 @@
    "name": "Sendirian Berhad",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SE",
@@ -2866,7 +3540,9 @@
     "SK",
     "SI",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SEL",
@@ -2874,7 +3550,9 @@
    "name": "Societe d'exercice liberal",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SELARL",
@@ -2882,7 +3560,9 @@
    "name": "Societe d'exercice liberal a responsabilite limitee",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SELAS",
@@ -2890,7 +3570,9 @@
    "name": "Societe d'exercice liberal par actions simplifiee",
    "countries": [
     "FR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SENCRL",
@@ -2898,7 +3580,9 @@
    "name": "Soci\u00e9t\u00e9 en nom collectif \u00e0 responsabilit\u00e9 limit\u00e9e",
    "countries": [
     "CA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sendirian Berhad",
@@ -2906,7 +3590,9 @@
    "name": "Private limited company",
    "countries": [
     "MY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SGPS",
@@ -2914,7 +3600,9 @@
    "name": "Sociedade Gestora de Participacoes Sociais",
    "countries": [
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SIA",
@@ -2922,7 +3610,9 @@
    "name": "Sabiedriba ar ierobezotu atbildibu",
    "countries": [
     "LV"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SJSC",
@@ -2930,7 +3620,9 @@
    "name": "Simplified Joint Stock Company",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SL",
@@ -2939,7 +3631,9 @@
    "countries": [
     "AD",
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SLP",
@@ -2947,7 +3641,9 @@
    "name": "Separate limited partnership",
    "countries": [
     "JE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SLU",
@@ -2956,7 +3652,9 @@
    "countries": [
     "AD",
     "ES"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SNC",
@@ -2968,7 +3666,9 @@
     "MC",
     "RO",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SOC Ltd",
@@ -2976,7 +3676,9 @@
    "name": "State-owned company",
    "countries": [
     "ZA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Soc. Coop.",
@@ -2984,7 +3686,9 @@
    "name": "Societa cooperativa",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sociedad Anonima",
@@ -2992,7 +3696,9 @@
    "name": "Sociedad Anonima",
    "countries": [
     "CR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sociedade Anonima",
@@ -3000,7 +3706,9 @@
    "name": "Joint stock company",
    "countries": [
     "MO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sociedade An\u00f3nima",
@@ -3008,7 +3716,9 @@
    "name": "Joint stock company",
    "countries": [
     "MO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Societat Col\u00b7lectiva",
@@ -3016,7 +3726,19 @@
    "name": "Societat Col\u00b7lectiva",
    "countries": [
     "AD"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
+  },
+  {
+   "token": "Sp z o o",
+   "caseSensitive": false,
+   "name": "Spolka z ograniczona odpowiedzialnoscia",
+   "countries": [
+    "PL"
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. j.",
@@ -3024,7 +3746,9 @@
    "name": "sp\u00f3\u0142ka jawna",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. k.",
@@ -3032,7 +3756,9 @@
    "name": "sp\u00f3\u0142ka komandytowa",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. p.",
@@ -3040,7 +3766,9 @@
    "name": "sp\u00f3\u0142ka partnerska",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. z o. o.",
@@ -3048,7 +3776,9 @@
    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. z o.o.",
@@ -3056,7 +3786,9 @@
    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp. z o.o. sp. k.",
@@ -3064,7 +3796,9 @@
    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105 sp\u00f3\u0142ka komandytowa",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp.j.",
@@ -3072,7 +3806,9 @@
    "name": "sp\u00f3\u0142ka jawna",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp.k.",
@@ -3080,7 +3816,9 @@
    "name": "sp\u00f3\u0142ka komandytowa",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp.z o.o.",
@@ -3088,7 +3826,9 @@
    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SpA",
@@ -3097,7 +3837,9 @@
    "countries": [
     "CL",
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SPC",
@@ -3106,7 +3848,9 @@
    "countries": [
     "BH",
     "KY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "spol. s r.o.",
@@ -3115,7 +3859,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SPRL",
@@ -3123,7 +3869,9 @@
    "name": "Societe privee a responsabilite limitee",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "sp\u00f3\u0142dzielnia",
@@ -3131,7 +3879,9 @@
    "name": "sp\u00f3\u0142dzielnia (cooperative)",
    "countries": [
     "PL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SRL",
@@ -3146,7 +3896,9 @@
     "PE",
     "RO",
     "UY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "SRL-D",
@@ -3154,7 +3906,9 @@
    "name": "SRL debutant",
    "countries": [
     "RO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Srls",
@@ -3162,7 +3916,9 @@
    "name": "Societa a responsabilita limitata semplificata",
    "countries": [
     "IT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Stichting",
@@ -3171,7 +3927,9 @@
    "countries": [
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Stiftung",
@@ -3179,7 +3937,9 @@
    "name": "Stiftung",
    "countries": [
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Szovetkezet",
@@ -3187,7 +3947,9 @@
    "name": "sz\u00f6vetkezet (cooperative)",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Sz\u00f6vetkezet",
@@ -3195,7 +3957,9 @@
    "name": "sz\u00f6vetkezet (cooperative)",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "S\u00e0rl",
@@ -3204,7 +3968,9 @@
    "countries": [
     "LU",
     "CH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Teoranta",
@@ -3212,7 +3978,9 @@
    "name": "Teoranta",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Treuunternehmen",
@@ -3220,7 +3988,9 @@
    "name": "Treuunternehmen",
    "countries": [
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Trust reg.",
@@ -3228,7 +3998,9 @@
    "name": "Trust registered",
    "countries": [
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "TU",
@@ -3236,7 +4008,9 @@
    "name": "Taisuhing / Tulundusuhistu",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "TUB",
@@ -3244,7 +4018,9 @@
    "name": "Tikroji ukine bendrija",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "TUH",
@@ -3252,7 +4028,9 @@
    "name": "Tulundusuhistu",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "T\u00dc",
@@ -3260,7 +4038,9 @@
    "name": "Taisuhing / Tulundusuhistu",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "T\u00dcH",
@@ -3268,7 +4048,9 @@
    "name": "Tulundusuhistu",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "T\u016aB",
@@ -3276,7 +4058,9 @@
    "name": "Tikroji ukine bendrija",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "U.A.",
@@ -3284,7 +4068,9 @@
    "name": "Uitgesloten Aansprakelijkheid",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "UAB",
@@ -3292,7 +4078,9 @@
    "name": "Uzdaroji akcine bendrove",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": true,
+   "capsLeading": true
   },
   {
    "token": "UC",
@@ -3300,7 +4088,9 @@
    "name": "Unlimited Company",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "UG (haftungsbeschraenkt)",
@@ -3308,7 +4098,9 @@
    "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "UG (haftungsbeschrankt)",
@@ -3316,7 +4108,9 @@
    "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "UG (haftungsbeschr\u00e4nkt)",
@@ -3324,7 +4118,9 @@
    "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
    "countries": [
     "DE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Unipessoal",
@@ -3333,7 +4129,9 @@
    "countries": [
     "MO",
     "PT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Unlimited",
@@ -3342,7 +4140,9 @@
    "countries": [
     "AU",
     "HK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Unlimited Company",
@@ -3350,7 +4150,9 @@
    "name": "Unlimited Company",
    "countries": [
     "IE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "UU",
@@ -3358,7 +4160,9 @@
    "name": "Usaldusuhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "U\u00dc",
@@ -3366,7 +4170,9 @@
    "name": "Usaldusuhing",
    "countries": [
     "EE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "V.O.F.",
@@ -3375,7 +4181,9 @@
    "countries": [
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "v.o.s.",
@@ -3384,7 +4192,9 @@
    "countries": [
     "CZ",
     "SK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Verein",
@@ -3392,7 +4202,9 @@
    "name": "Verein",
    "countries": [
     "LI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Vereniging",
@@ -3400,7 +4212,9 @@
    "name": "Vereniging",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "VOF",
@@ -3410,7 +4224,9 @@
     "BE",
     "NL",
     "SX"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "VsI",
@@ -3418,7 +4234,9 @@
    "name": "Viesoji istaiga",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "VZW",
@@ -3426,7 +4244,9 @@
    "name": "Vereniging zonder winstoogmerk",
    "countries": [
     "BE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "V\u0161\u012e",
@@ -3434,7 +4254,9 @@
    "name": "Viesoji istaiga",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "W.A.",
@@ -3442,7 +4264,9 @@
    "name": "Wederzijdse Aansprakelijkheid",
    "countries": [
     "NL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "W.L.L.",
@@ -3452,7 +4276,9 @@
     "BH",
     "KW",
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "WLL",
@@ -3462,7 +4288,9 @@
     "BH",
     "KW",
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "z.o.o.",
@@ -3470,7 +4298,9 @@
    "name": "zadruga z omejeno odgovornostjo",
    "countries": [
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "z.s.",
@@ -3478,7 +4308,9 @@
    "name": "zapsan\u00fd spolek",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "z.u.",
@@ -3486,7 +4318,9 @@
    "name": "zapsan\u00fd \u00fastav",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "z.\u00fa.",
@@ -3494,7 +4328,9 @@
    "name": "zapsan\u00fd \u00fastav",
    "countries": [
     "CZ"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "zadruga",
@@ -3503,7 +4339,9 @@
    "countries": [
     "HR",
     "SI"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Zrt",
@@ -3511,7 +4349,9 @@
    "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "Zrt.",
@@ -3519,7 +4359,9 @@
    "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
    "countries": [
     "HU"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "ZUB",
@@ -3527,7 +4369,9 @@
    "name": "Zemes ukio bendrove",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u017d\u016aB",
@@ -3535,7 +4379,9 @@
    "name": "Zemes ukio bendrove",
    "countries": [
     "LT"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0391.\u0395.",
@@ -3543,7 +4389,9 @@
    "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0391\u0395",
@@ -3551,7 +4399,9 @@
    "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0394\u03b7\u03bc\u03cc\u03c3\u03b9\u03b1 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u039b\u03c4\u03b4",
@@ -3559,7 +4409,9 @@
    "name": "Public company limited",
    "countries": [
     "CY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0395.\u0395.",
@@ -3567,7 +4419,9 @@
    "name": "\u0395\u03c4\u03b5\u03c1\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0395.\u03a0.\u0395.",
@@ -3575,7 +4429,9 @@
    "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0395\u03a0\u0395",
@@ -3583,7 +4439,9 @@
    "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0399.\u039a.\u0395.",
@@ -3591,7 +4449,9 @@
    "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0399\u039a\u0395",
@@ -3599,7 +4459,9 @@
    "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u039b\u03b9\u03bc\u03b9\u03c4\u03b5\u03b4",
@@ -3607,7 +4469,9 @@
    "name": "Limited in Greek script",
    "countries": [
     "CY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u039b\u03c4\u03b4",
@@ -3615,7 +4479,9 @@
    "name": "Ltd in Greek script",
    "countries": [
     "CY"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u039c.\u039f.\u0395.",
@@ -3623,7 +4489,9 @@
    "name": "\u039c\u03bf\u03bd\u03bf\u03c0\u03c1\u03cc\u03c3\u03c9\u03c0\u03b7 \u039f.\u0395.",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u039f.\u0395.",
@@ -3631,7 +4499,9 @@
    "name": "\u039f\u03bc\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
    "countries": [
     "GR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0410\u0414",
@@ -3640,7 +4510,9 @@
    "countries": [
     "BG",
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0414\u041e\u041e",
@@ -3648,7 +4520,9 @@
    "name": "Dru\u0161tvo so ograni\u010dena odgovornost (LLC)",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0414\u041e\u041e\u0415\u041b",
@@ -3656,7 +4530,9 @@
    "name": "Drustvo so ogranicena odgovornost, ednocleno (single-member LLC)",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0415\u0410\u0414",
@@ -3664,7 +4540,9 @@
    "name": "Ednolichno aktsionerno druzhestvo (single-member JSC)",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0415\u041e\u041e\u0414",
@@ -3672,7 +4550,9 @@
    "name": "Ednolichno druzhestvo s ogranichena otgovornost (single-member LLC)",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u041a\u0414",
@@ -3681,7 +4561,9 @@
    "countries": [
     "BG",
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u041a\u0414\u0410",
@@ -3689,7 +4571,9 @@
    "name": "Komanditno druzhestvo s aktsii",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u041a\u041a\u0414",
@@ -3697,7 +4581,9 @@
    "name": "Komanditno dru\u0161tvo so akcii",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u041e\u041e\u0414",
@@ -3705,7 +4591,9 @@
    "name": "Druzhestvo s ogranichena otgovornost (LLC)",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0421\u0414",
@@ -3713,7 +4601,9 @@
    "name": "Sabiratelno druzhestvo (general partnership)",
    "countries": [
     "BG"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0408\u0422\u0414",
@@ -3721,7 +4611,9 @@
    "name": "Javno trgovsko dru\u0161tvo (general partnership)",
    "countries": [
     "MK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05d0\u05d2\u05d5\u05d3\u05d4 \u05e9\u05d9\u05ea\u05d5\u05e4\u05d9\u05ea",
@@ -3729,7 +4621,9 @@
    "name": "Cooperative society",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05d1\u05e2\"\u05de",
@@ -3737,7 +4631,9 @@
    "name": "Limited liability company (ASCII quote)",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05d1\u05e2\u05de",
@@ -3745,7 +4641,9 @@
    "name": "Limited liability company (no quote)",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05d1\u05e2\u05f4\u05de",
@@ -3753,7 +4651,9 @@
    "name": "Limited liability company (gershayim)",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05d7\u05dc\"\u05e6",
@@ -3761,7 +4661,9 @@
    "name": "Public benefit company",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05e2\u05de\u05d5\u05ea\u05d4",
@@ -3769,7 +4671,9 @@
    "name": "Non-profit association (Amuta)",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea",
@@ -3777,7 +4681,9 @@
    "name": "Partnership",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea \u05de\u05d5\u05d2\u05d1\u05dc\u05ea",
@@ -3785,7 +4691,9 @@
    "name": "Limited partnership",
    "countries": [
     "IL"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0630.\u0645.\u0645",
@@ -3795,7 +4703,9 @@
     "KW",
     "QA",
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0630.\u0645.\u0645",
@@ -3804,7 +4714,9 @@
    "countries": [
     "BH",
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0628",
@@ -3812,7 +4724,9 @@
    "name": "Bahraini shareholding company",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0628 (\u0645)",
@@ -3820,7 +4734,9 @@
    "name": "Bahraini shareholding company (closed)",
    "countries": [
     "BH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0642",
@@ -3828,7 +4744,9 @@
    "name": "Qatari shareholding company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0642.\u062e",
@@ -3836,7 +4754,9 @@
    "name": "Qatari private shareholding company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0642.\u0639",
@@ -3844,7 +4764,9 @@
    "name": "Qatari public shareholding company",
    "countries": [
     "QA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0643",
@@ -3852,7 +4774,9 @@
    "name": "Kuwaiti shareholding company",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0643.\u0639",
@@ -3860,7 +4784,9 @@
    "name": "Public Kuwaiti shareholding company",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0643.\u0643",
@@ -3868,7 +4794,9 @@
    "name": "Closed Kuwaiti shareholding company (alt)",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634.\u0645.\u0643.\u0645",
@@ -3876,7 +4804,9 @@
    "name": "Closed Kuwaiti shareholding company",
    "countries": [
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629",
@@ -3884,7 +4814,9 @@
    "name": "Company",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u062a\u0648\u0635\u064a\u0629 \u0627\u0644\u0628\u0633\u064a\u0637\u0629",
@@ -3892,7 +4824,9 @@
    "name": "Limited partnership",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u0634\u062e\u0635 \u0627\u0644\u0648\u0627\u062d\u062f",
@@ -3901,7 +4835,9 @@
    "countries": [
     "BH",
     "KW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u062a\u0636\u0627\u0645\u0646",
@@ -3911,7 +4847,9 @@
     "BH",
     "KW",
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0624\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
@@ -3919,7 +4857,9 @@
    "name": "Limited liability company",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0626\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
@@ -3927,7 +4867,9 @@
    "name": "Limited liability company (alt spelling)",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629",
@@ -3935,7 +4877,9 @@
    "name": "Joint stock company",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629 \u0645\u0642\u0641\u0644\u0629",
@@ -3943,7 +4887,9 @@
    "name": "Closed joint stock company",
    "countries": [
     "SA"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e08\u0e33\u0e01\u0e31\u0e14",
@@ -3951,7 +4897,9 @@
    "name": "Limited",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e08\u0e33\u0e01\u0e31\u0e14 (\u0e21\u0e2b\u0e32\u0e0a\u0e19)",
@@ -3959,7 +4907,9 @@
    "name": "Public company limited",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e1a\u0e08\u0e01.",
@@ -3967,7 +4917,9 @@
    "name": "Company limited (abbrev.)",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e1a\u0e21\u0e08.",
@@ -3975,7 +4927,9 @@
    "name": "Public company limited (abbrev.)",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17",
@@ -3983,7 +4937,9 @@
    "name": "Company",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e2b\u0e08\u0e01.",
@@ -3991,7 +4947,9 @@
    "name": "Limited partnership (abbrev.)",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14",
@@ -3999,7 +4957,9 @@
    "name": "Limited partnership",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e2a\u0e32\u0e21\u0e31\u0e0d\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25",
@@ -4007,7 +4967,9 @@
    "name": "Registered ordinary partnership",
    "countries": [
     "TH"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10d0\u10d0\u10d8\u10de",
@@ -4015,7 +4977,9 @@
    "name": "arasamtavrobo aramomgebiani iuridiuli piri (non-profit)",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10d9\u10dd\u10dd\u10de\u10d4\u10e0\u10d0\u10e2\u10d8\u10d5\u10d8",
@@ -4023,7 +4987,9 @@
    "name": "kooperativi (cooperative)",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10e1.\u10e1.",
@@ -4031,7 +4997,9 @@
    "name": "sakaktsio sazogadoeba",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10e1\u10e1",
@@ -4039,7 +5007,9 @@
    "name": "sakaktsio sazogadoeba (joint-stock company)",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10e1\u10e1\u10d8\u10de",
@@ -4047,7 +5017,9 @@
    "name": "sakhelmtsifo sajaro samartlis iuridiuli piri",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10e8.\u10de.\u10e1.",
@@ -4055,7 +5027,9 @@
    "name": "shezghudulia pasukhismgeblobis sazogadoeba",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u10e8\u10de\u10e1",
@@ -4063,7 +5037,9 @@
    "name": "shezghudulia pasukhismgeblobis sazogadoeba (LLC)",
    "countries": [
     "GE"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u4e00\u4eba\u6709\u9650\u516c\u53f8",
@@ -4071,7 +5047,9 @@
    "name": "Single-member limited company",
    "countries": [
     "MO"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u4e00\u822c\u793e\u56e3\u6cd5\u4eba",
@@ -4079,7 +5057,9 @@
    "name": "General incorporated association",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5169\u5408\u516c\u53f8",
@@ -4087,7 +5067,9 @@
    "name": "Limited partnership company",
    "countries": [
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5408\u4f19\u4f01\u4e1a",
@@ -4095,7 +5077,9 @@
    "name": "Partnership enterprise",
    "countries": [
     "CN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5408\u4f5c\u793e",
@@ -4103,7 +5087,9 @@
    "name": "Cooperative",
    "countries": [
     "CN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5408\u540c\u4f1a\u793e",
@@ -4111,7 +5097,9 @@
    "name": "Godo Kaisha (LLC)",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5408\u540d\u4f1a\u793e",
@@ -4119,7 +5107,9 @@
    "name": "Gomei Kaisha",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u5408\u8cc7\u4f1a\u793e",
@@ -4127,7 +5117,9 @@
    "name": "Goshi Kaisha",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u4f1a\u793e",
@@ -4135,7 +5127,9 @@
    "name": "Yugen Kaisha",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u516c\u53f8",
@@ -4146,7 +5140,9 @@
     "HK",
     "MO",
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u5408\u4f19",
@@ -4154,7 +5150,9 @@
    "name": "Limited partnership",
    "countries": [
     "CN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u5408\u5925",
@@ -4162,7 +5160,9 @@
    "name": "Limited partnership",
    "countries": [
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u8cac\u4efb\u516c\u53f8",
@@ -4170,7 +5170,9 @@
    "name": "Limited liability company (traditional)",
    "countries": [
     "CN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u8cac\u4efb\u5408\u5925",
@@ -4178,7 +5180,9 @@
    "name": "Limited liability partnership",
    "countries": [
     "HK"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u6709\u9650\u8d23\u4efb\u516c\u53f8",
@@ -4186,7 +5190,9 @@
    "name": "Limited liability company",
    "countries": [
     "CN"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u682a\u5f0f\u4f1a\u793e",
@@ -4194,7 +5200,9 @@
    "name": "Kabushiki Kaisha",
    "countries": [
     "JP"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u7121\u9650\u516c\u53f8",
@@ -4202,7 +5210,9 @@
    "name": "Unlimited company",
    "countries": [
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u80a1\u4efd\u5169\u5408\u516c\u53f8",
@@ -4210,7 +5220,9 @@
    "name": "Partnership limited by shares",
    "countries": [
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
@@ -4220,7 +5232,9 @@
     "CN",
     "MO",
     "TW"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\uc720\ud55c\ucc45\uc784\ud68c\uc0ac",
@@ -4228,7 +5242,9 @@
    "name": "Limited liability company",
    "countries": [
     "KR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\uc720\ud55c\ud68c\uc0ac",
@@ -4236,7 +5252,9 @@
    "name": "Yuhan Hoesa (limited company)",
    "countries": [
     "KR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\uc8fc\uc2dd\ud68c\uc0ac",
@@ -4244,7 +5262,9 @@
    "name": "Jusik Hoesa (stock company)",
    "countries": [
     "KR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\ud569\uba85\ud68c\uc0ac",
@@ -4252,7 +5272,9 @@
    "name": "General partnership",
    "countries": [
     "KR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   },
   {
    "token": "\ud569\uc790\ud68c\uc0ac",
@@ -4260,7 +5282,9 @@
    "name": "Limited partnership",
    "countries": [
     "KR"
-   ]
+   ],
+   "capsSafe": false,
+   "capsLeading": false
   }
  ]
 }

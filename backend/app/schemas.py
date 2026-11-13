@@ -50,6 +50,14 @@ class Classification(ApiModel):
     reasons: list[str]
 
 
+class TaxPart(ApiModel):
+    """One tax inside a reserved amount, e.g. income tax or social tax."""
+
+    id: str
+    name: str
+    amount: int
+
+
 class TaxReservation(ApiModel):
     id: str
     transaction_id: str
@@ -60,6 +68,8 @@ class TaxReservation(ApiModel):
     reserved_amount: int
     tax_currency: str
     status: Literal["reserved", "undone", "paid"]
+    # Exact split of reserved_amount; null when the regime defines no per-payment split.
+    breakdown: Optional[list[TaxPart]] = None
 
 
 class Transaction(ApiModel):
@@ -86,6 +96,8 @@ class Regime(ApiModel):
     name: str
     default_rate: int  # basis points
     hint: str
+    # The regime's taxes in words, shown where no money split exists.
+    breakdown_rule: str = ""
 
 
 class Country(ApiModel):
@@ -119,6 +131,9 @@ class TaxSummary(ApiModel):
     estimated_due: int
     next_deadline: Optional[date]
     disclaimer: str
+    # Exact split of total_reserved; null when the regime defines no per-payment split.
+    breakdown: Optional[list[TaxPart]] = None
+    breakdown_rule: str = ""
 
 
 class PayResult(ApiModel):
