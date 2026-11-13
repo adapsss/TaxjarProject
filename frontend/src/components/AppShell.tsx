@@ -1,12 +1,10 @@
-import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useStore } from '../state/store'
 import { DemoSheet } from './DemoSheet'
+import { DemoSheetContext } from './demoSheetContext'
 import { NoticeToast, TaxToast, WorkQuestionDialog } from './Overlays'
 import { ActivityIcon, HomeIcon, JarIcon, SettingsIcon } from './ui'
-
-const DemoCtx = createContext<() => void>(() => {})
-export const useDemoSheet = () => useContext(DemoCtx)
 
 const TABS = [
   { to: '/', label: 'Home', icon: HomeIcon, end: true },
@@ -17,26 +15,36 @@ const TABS = [
 
 /** The iOS-looking device frame, status bar, tab bar and the app's global overlays. */
 export function AppShell({ children }: { children: ReactNode }) {
-  const { profile } = useStore()
+  const { profile, connected, screen } = useStore()
   const location = useLocation()
   const viewport = useRef<HTMLElement>(null)
   const [demoOpen, setDemoOpen] = useState(false)
   const onboarding = location.pathname === '/onboarding' && !profile.enabled
   const tabs = !onboarding && location.pathname !== '/tax-jar/pay'
 
+  // The screen itself, ignoring a payment sheet opened over it.
+  const screenPath = location.pathname.startsWith('/transactions/')
+    ? ((location.state as { from?: string } | null)?.from ?? '/activity')
+    : location.pathname
   useEffect(() => {
-    viewport.current?.scrollTo({ top: 0 })
-  }, [location.pathname])
+    viewport.current?.scrollTo?.({ top: 0 })
+  }, [screenPath])
 
   const screenStyle = { '--tab-offset': tabs ? '90px' : '12px' } as CSSProperties
 
   return (
-    <DemoCtx.Provider value={() => setDemoOpen(true)}>
+    <DemoSheetContext.Provider value={() => setDemoOpen(true)}>
       <div className="device-stage">
         <div className="device">
           <div className="device-screen" style={screenStyle}>
             <span className="dynamic-island" aria-hidden="true" />
             <StatusBar />
+            {!connected && screen === 'ready' && (
+              <p role="alert" className="relative z-20 flex items-center justify-center gap-2 bg-amber-soft px-4 py-2 text-[14px] font-semibold text-amber-ink">
+                <span className="size-2 animate-pulse rounded-full bg-amber" />
+                Connection lost. Reconnecting…
+              </p>
+            )}
             <main ref={viewport} className="app-viewport">
               {children}
             </main>
@@ -49,7 +57,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <p className="device-caption">Hackathon prototype · Wise-inspired UI · not affiliated with Wise · synthetic data only</p>
       </div>
-    </DemoCtx.Provider>
+    </DemoSheetContext.Provider>
   )
 }
 

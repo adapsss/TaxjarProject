@@ -30,7 +30,7 @@ export default function PayTax() {
           </span>
           <p className="money mt-6 text-[42px] leading-none font-extrabold tracking-[-0.05em]">{formatMoney(paid, cur, { cents: true })}</p>
           <h1 className="mt-2 text-[18px] font-bold">paid to {TAX_AUTHORITY}</h1>
-          <p className="mx-auto mt-2 max-w-[300px] text-[13px] leading-relaxed text-muted">
+          <p className="mx-auto mt-2 max-w-[300px] text-[14px] leading-relaxed text-muted">
             Your Tax Jar is empty now. It starts filling again with your next client payment.
           </p>
           <div className="mt-7 space-y-2">
@@ -54,7 +54,7 @@ export default function PayTax() {
             <JarIcon className="size-7" />
           </span>
           <h1 className="mt-4 text-[20px] font-extrabold tracking-[-0.03em]">Nothing to pay yet</h1>
-          <p className="mx-auto mt-1.5 max-w-[270px] text-[13px] leading-relaxed text-muted">
+          <p className="mx-auto mt-1.5 max-w-[270px] text-[14px] leading-relaxed text-muted">
             Your Tax Jar is empty. When a client pays you, the tax share lands there.
           </p>
           <Button variant="secondary" className="mt-6" onClick={() => nav('/tax-jar')}>
@@ -79,24 +79,24 @@ export default function PayTax() {
         <CircleButton label="Back to Tax Jar" size={40} onClick={() => nav('/tax-jar')}>
           <ArrowLeftIcon className="size-[18px]" />
         </CircleButton>
-        <span className="flex items-center gap-1.5 rounded-full bg-soft px-2.5 py-1 text-[11px] font-semibold text-muted">
+        <span className="flex items-center gap-1.5 rounded-full bg-soft px-2.5 py-1 text-[13px] font-semibold text-muted">
           <span className="size-1.5 rounded-full bg-lime" /> Demo payment
         </span>
       </header>
 
       <div className="mt-4 animate-rise">
         <ScreenTitle>Pay tax</ScreenTitle>
-        <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">Check the details, then confirm. We’ve filled everything in for you.</p>
+        <p className="mt-1.5 text-[15px] leading-relaxed text-muted">Check the details, then confirm. We’ve filled everything in for you.</p>
 
         <Card className="mt-5 overflow-hidden">
           <div className="px-5 pt-6 pb-5 text-center">
             <span className="mx-auto grid size-11 place-items-center rounded-full bg-lime text-forest">
               <JarIcon className="size-5" />
             </span>
-            <p className="mt-2.5 text-[12px] font-medium text-muted">You’re paying</p>
+            <p className="mt-2.5 text-[13px] font-medium text-muted">You’re paying</p>
             <p className="money mt-1 text-[46px] leading-none font-extrabold tracking-[-0.05em]">{formatMoney(summary.held, cur, { cents: true })}</p>
             {summary.nextDeadline && (
-              <p className="mt-2 text-[12px] text-muted">Due by {formatDate(summary.nextDeadline.toISOString(), true)}</p>
+              <p className="mt-2 text-[13px] text-muted">Due by {formatDate(summary.nextDeadline.toISOString(), true)}</p>
             )}
           </div>
           <dl className="border-t border-line/70 px-5">
@@ -117,7 +117,7 @@ export default function PayTax() {
         </Card>
 
         {error && (
-          <p role="alert" className="mt-3 rounded-2xl bg-danger-soft px-4 py-3 text-[12.5px] leading-relaxed text-danger">
+          <p role="alert" className="mt-3 rounded-2xl bg-danger-soft px-4 py-3 text-[14px] leading-relaxed text-danger">
             <b>Payment didn’t go through.</b> {error}
           </p>
         )}
@@ -139,7 +139,7 @@ function Shell({ children }: { children: ReactNode }) {
 
 function Row({ k, children, last }: { k: string; children: ReactNode; last?: boolean }) {
   return (
-    <div className={`flex items-center justify-between gap-4 py-3.5 text-[13px] ${last ? '' : 'border-b border-line/60'}`}>
+    <div className={`flex items-center justify-between gap-4 py-3.5 text-[14px] ${last ? '' : 'border-b border-line/60'}`}>
       <dt className="text-muted">{k}</dt>
       <dd className="text-right font-semibold">{children}</dd>
     </div>

@@ -65,33 +65,37 @@ npm run dev
 
 App: http://localhost:5173. It calls `/api`, which Vite proxies to the backend on port 8000, so start the backend first. Tests: `npm test`. Type-check and build: `npm run build`.
 
-It is a web app (Tailwind, Wise-inspired but not Wise's own look): a sidebar on screens 768px and wider (it fits a 1024px projector), a top bar and bottom tabs on phones. Screens, on the frozen routes:
+It is an iPhone-style web app (Tailwind, Wise-inspired but not Wise's own look). On a phone it fills the screen with a bottom tab bar; on a desktop it sits inside a phone frame, so it demos well on a projector. Screens, on the frozen routes plus `/activity`:
 
 | Route | Screen |
 |---|---|
-| `/` | Home: balances, live activity feed, the always-visible Tax Jar panel |
-| `/transactions/:id` | One payment in a side drawer: why, tax breakdown, Undo |
+| `/` | Home: the Tax Jar card (total set aside, deadline, Pay tax), your accounts, latest payments |
+| `/activity` | Payments: "How Tax Jar treats payments" (the three cases, each with a **Try** button that sends a real test payment), then every payment with All / To answer / Tax filters |
+| `/transactions/:id` | One payment as a sheet: **how Tax Jar handled it, step by step** (arrived, recognised and why, tax set aside, where the money is now), and the **"How is €276 worked out?"** button |
 | `/onboarding` | Set up or edit the tax profile: country (searchable, 80 countries) → regime → rate and currency |
-| `/tax-jar` | Tax Jar: total set aside, by month, open questions, every reservation, CSV export |
+| `/tax-jar` | Tax Jar: total set aside split into its taxes, by month, open questions, every reservation, CSV export |
 | `/tax-jar/pay` | Pay tax: pre-filled confirmation → success |
 | `/simulator` | Stage tool, for its own tab: the demo payments (from the database, `GET /api/demo/scenarios`), a custom payment, demo reset |
+
+**The tax-breakdown button.** On a payment that had tax set aside, "How is €276.00 worked out?" opens each tax as a share of what arrived, in both currencies, and what stays yours: 12% social tax ($180.00 → €165.60), 8% income tax ($120.00 → €110.40), 20% set aside, 80% yours to keep. The rows always add up to exactly what was taken (`frontend/src/lib/breakdown.ts`). For regimes taxed on yearly profit the backend sends no exact split, so it shows one "Tax" row and says the rest is worked out on the return.
 
 What a freelancer gets beyond the golden path:
 
 - **Catch-up after setup.** Client income that arrived before the Tax Jar existed is offered in one card ("Clients paid you €5,554 before your Tax Jar existed. Set aside €1,110.80?"), backed by `GET/POST /api/tax/catch-up`.
 - **Any country's currency.** The jar can be kept in the currency of any of the 80 countries (fixed, offline rates in `backend/app/fx.py`, with each currency's own minor units: none for JPY, three for KWD).
-- **Nothing blocks the screen.** "Is this payment for work?" is a card docked at the corner; "Decide later" leaves the payment tagged in the feed.
+- **Nothing blocks the screen.** "Is this payment for work?" is a card above the tab bar; "Decide later" leaves the payment tagged in the list.
 - **Honest when offline.** If the live connection drops, a banner says so and goes away when it recovers.
-- **Keyboard and motion.** Escape closes the payment detail and the question, the detail keeps focus inside it, Tax Jar rows open with Enter, and "reduce motion" turns the animations off.
+- **Easy to use.** Text is at least 13px (body 15-17px), every button and link is at least 44pt (checked by the browser test), sheets keep focus inside them and close with Escape, Tax Jar rows open with Enter, "Reduce Motion" turns animations off, and on a real phone there is no fake status bar.
 
-The toast and the "Is this payment for work?" question are driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The dark "Demo controls" box in the sidebar is a shortcut for the same thing and can be hidden.
+The toast and the "Is this payment for work?" question are driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The lime **Demo** button on Home opens the same controls as a sheet (test payments, a custom payment, screen states) and can be ignored in the product.
 
-End-to-end checks in a real browser (once: `npx playwright install chromium`; both servers must be running; they reset the backend's demo data):
+End-to-end check in a real browser (once: `npx playwright install chromium`; both servers must be running; it resets the backend's demo data):
 
 ```bash
-npm run golden   # the golden path with assertions, payments sent from a second tab, plus catch-up, keyboard, phone width and a dropped connection
-npm run shots    # every screen and state → frontend/screenshots/
+npm run golden   # the golden path with assertions, payments sent from a second tab, plus the payment sheet and breakdown, catch-up, phone width and tap sizes, reduced motion and a dropped connection
 ```
+
+It leaves screenshots of every step in `frontend/screenshots/`.
 
 `frontend/` is the only frontend. The earlier clickable prototype was folded into it and removed; its design notes are in `docs/superpowers/specs/2026-11-13-tax-jar-prototype-design.md`.
 

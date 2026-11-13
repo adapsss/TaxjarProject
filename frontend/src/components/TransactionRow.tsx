@@ -27,13 +27,13 @@ export function TransactionRow({ tx, enabled, last }: { tx: Transaction; enabled
     >
       <Avatar who={tx.counterparty} />
       <div className="min-w-0 flex-1">
-        <div className="truncate text-[14.5px] font-semibold tracking-[-0.01em]">{tx.counterparty.name}</div>
-        <div className="mt-0.5 truncate text-[12px] text-muted">
+        <div className="truncate text-[16px] font-semibold tracking-[-0.01em]">{tx.counterparty.name}</div>
+        <div className="mt-0.5 truncate text-[13px] text-muted">
           {relativeDay(tx.createdAt)} · {tx.reference || 'No reference'}
         </div>
       </div>
       <div className="flex shrink-0 flex-col items-end gap-1.5">
-        <span className={`money text-[14.5px] font-semibold ${tx.direction === 'in' ? 'text-ink' : 'text-ink/65'}`}>
+        <span className={`money text-[16px] font-semibold ${tx.direction === 'in' ? 'text-ink' : 'text-ink/65'}`}>
           {formatMoney(signed, tx.currency, { sign: true, cents: true })}
         </span>
         {tag && (

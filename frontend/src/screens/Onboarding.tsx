@@ -13,9 +13,9 @@ import {
   ScreenTitle,
 } from '../components/ui'
 import { useStore } from '../state/store'
-import { formatMoney, formatRate } from '../lib/money'
+import { exponent, formatMoney, formatRate } from '../lib/money'
+import { currencyChoices } from '../lib/taxjar'
 
-const CURRENCIES = ['EUR', 'USD', 'GBP']
 /** Listed first while the search box is empty: the demo account holder lives in Estonia. */
 const SUGGESTED = ['EE']
 const OTHER = '*'
@@ -46,11 +46,19 @@ function SetupFlow() {
     .sort((a, b) => (searching ? 0 : rank(a.code) - rank(b.code)) || a.name.localeCompare(b.name))
   const suggested = searching ? [] : listed.filter((x) => SUGGESTED.includes(x.code))
   const rest = listed.filter((x) => !suggested.includes(x))
-  const pickCountry = (code: string) => (setCountry(code), setRegime(''))
+  const pickCountry = (code: string) => {
+    setCountry(code)
+    setRegime('')
+    // Suggest keeping the jar in the country's own currency, unless the jar already holds money.
+    const own = countries.find((x) => x.code === code)?.currency
+    if (own && !lockedCurrency) setCurrency(own)
+  }
 
   const c = countries.find((x) => x.code === country)
   const r = c?.regimes.find((x) => x.id === regime)
   const lockedCurrency = editing && summary.held > 0 ? profile.taxCurrency : null
+  // "1,000" in the jar's currency, whatever its minor units: €1,000, ¥1,000, KWD 1,000.
+  const example = 1000 * 10 ** exponent(currency)
 
   const pickRegime = (id: string) => {
     setRegime(id)
@@ -76,11 +84,11 @@ function SetupFlow() {
           {step > 1 || editing ? <ArrowLeftIcon className="size-[18px]" /> : <CloseIcon className="size-[18px]" />}
         </CircleButton>
         {editing ? (
-          <span className="flex items-center gap-1.5 rounded-full bg-lime-soft px-2.5 py-1 text-[11px] font-semibold text-lime-ink">
+          <span className="flex items-center gap-1.5 rounded-full bg-lime-soft px-2.5 py-1 text-[13px] font-semibold text-lime-ink">
             <span className="size-1.5 rounded-full bg-lime-ink/60" /> Tax Jar on
           </span>
         ) : (
-          <span className="text-[12px] font-semibold text-muted">Step {step} of 3</span>
+          <span className="text-[13px] font-semibold text-muted">Step {step} of 3</span>
         )}
       </header>
 
@@ -113,7 +121,7 @@ function SetupFlow() {
               spellCheck={false}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={countries.length ? `Search ${countries.length - (other ? 1 : 0)} countries` : 'Search countries'}
-              className="h-[46px] w-full rounded-full bg-soft pr-4 pl-11 text-[14px] font-medium text-ink outline-none placeholder:text-muted focus:bg-white focus:ring-2 focus:ring-forest/25"
+              className="h-[46px] w-full rounded-full bg-soft pr-4 pl-11 text-[15px] font-medium text-ink outline-none placeholder:text-muted focus:bg-white focus:ring-2 focus:ring-forest/25"
             />
           </label>
 
@@ -139,7 +147,7 @@ function SetupFlow() {
               </>
             )}
             {listed.length === 0 && (
-              <p role="status" className="mt-3 rounded-2xl bg-white px-5 py-8 text-center text-[13px] text-muted">
+              <p role="status" className="mt-3 rounded-2xl bg-white px-5 py-8 text-center text-[14px] text-muted">
                 {countries.length === 0
                   ? 'Loading countries…'
                   : `No country matches “${query}”.${other ? ' You can still set your own rate below.' : ''}`}
@@ -172,8 +180,8 @@ function SetupFlow() {
           <div className="mb-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
             <Flag code={c.code} size={34} />
             <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold">{c.name}</p>
-              <p className="truncate text-[12px] text-muted">{c.regimes.length} ways to work</p>
+              <p className="truncate text-[15px] font-semibold">{c.name}</p>
+              <p className="truncate text-[13px] text-muted">{c.regimes.length} ways to work</p>
             </div>
           </div>
           <div role="radiogroup" aria-label="Registration" className="overflow-hidden rounded-[22px] bg-white">
@@ -198,13 +206,13 @@ function SetupFlow() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-start justify-between gap-3">
-                    <span className="text-[14px] leading-snug font-semibold">{g.name}</span>
-                    <span className="money shrink-0 rounded-full bg-lime-soft px-2 py-0.5 text-[11.5px] font-bold text-forest">
+                    <span className="text-[15px] leading-snug font-semibold">{g.name}</span>
+                    <span className="money shrink-0 rounded-full bg-lime-soft px-2 py-0.5 text-[13px] font-bold text-forest">
                       {formatRate(g.defaultRate)}
                     </span>
                   </span>
-                  <span className="mt-1 block text-[12px] leading-relaxed text-muted">{g.hint}</span>
-                  {g.breakdownRule && <span className="mt-1 block text-[11.5px] font-semibold text-forest/70">{g.breakdownRule}</span>}
+                  <span className="mt-1 block text-[13px] leading-relaxed text-muted">{g.hint}</span>
+                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-forest/70">{g.breakdownRule}</span>}
                 </span>
               </button>
             ))}
@@ -230,15 +238,15 @@ function SetupFlow() {
             >
               <Flag code={c.code} size={34} />
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-[14px] font-semibold">{c.name}</span>
-                <span className="block truncate text-[12px] text-muted">{r?.name ?? 'Choose registration'}</span>
+                <span className="block truncate text-[15px] font-semibold">{c.name}</span>
+                <span className="block truncate text-[13px] text-muted">{r?.name ?? 'Choose registration'}</span>
               </span>
-              <span className="text-[12px] font-semibold text-forest">Change</span>
+              <span className="text-[13px] font-semibold text-forest">Change</span>
             </button>
           )}
 
           <Card className="p-5">
-            <label htmlFor="rate" className="text-[12px] font-semibold tracking-[0.06em] text-muted uppercase">
+            <label htmlFor="rate" className="text-[13px] font-semibold tracking-[0.06em] text-muted uppercase">
               Share of each work payment
             </label>
             <div className="mt-3 flex items-center gap-3">
@@ -269,7 +277,7 @@ function SetupFlow() {
                   key={v}
                   type="button"
                   onClick={() => setRate(v)}
-                  className={`press cursor-pointer rounded-full px-3 py-1.5 text-[12px] font-semibold ${
+                  className={`press min-h-11 min-w-[56px] cursor-pointer rounded-full px-3 py-1.5 text-[15px] font-semibold ${
                     rate === v ? 'bg-forest text-white' : 'bg-soft text-ink hover:bg-lime-soft'
                   }`}
                 >
@@ -277,15 +285,15 @@ function SetupFlow() {
                 </button>
               ))}
             </div>
-            <p className="mt-4 rounded-2xl bg-lime-soft px-4 py-3 text-center text-[13px] leading-relaxed text-forest">
-              From a {formatMoney(100_000, currency)} client payment, we’ll keep{' '}
-              <b className="money">{formatMoney(Math.round((100_000 * rate) / 10_000), currency)}</b> for taxes.
+            <p className="mt-4 rounded-2xl bg-lime-soft px-4 py-3 text-center text-[14px] leading-relaxed text-forest">
+              From a {formatMoney(example, currency)} client payment, we’ll keep{' '}
+              <b className="money">{formatMoney(Math.round((example * rate) / 10_000), currency)}</b> for taxes.
             </p>
           </Card>
 
-          <p className="mt-5 mb-2 text-[12px] font-semibold tracking-[0.06em] text-muted uppercase">Keep the jar in</p>
-          <div role="radiogroup" aria-label="Tax currency" className="grid grid-cols-3 gap-2">
-            {CURRENCIES.map((x) => {
+          <p className="mt-5 mb-2 text-[13px] font-semibold tracking-[0.06em] text-muted uppercase">Keep the jar in</p>
+          <div role="radiogroup" aria-label="Tax currency" className="grid grid-cols-[repeat(auto-fit,minmax(96px,1fr))] gap-2">
+            {currencyChoices(c?.currency, profile.taxCurrency).map((x) => {
               const disabled = !!lockedCurrency && x !== lockedCurrency
               return (
                 <button
@@ -295,7 +303,7 @@ function SetupFlow() {
                   aria-checked={currency === x}
                   disabled={disabled}
                   onClick={() => setCurrency(x)}
-                  className={`press flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 bg-white py-3 text-[13px] font-semibold disabled:cursor-not-allowed disabled:opacity-35 ${
+                  className={`press flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 bg-white py-3 text-[14px] font-semibold disabled:cursor-not-allowed disabled:opacity-35 ${
                     currency === x ? 'border-forest' : 'border-transparent hover:border-forest/20'
                   }`}
                 >
@@ -304,14 +312,14 @@ function SetupFlow() {
               )
             })}
           </div>
-          {lockedCurrency && <p className="mt-2 text-[12px] text-muted">Pay or empty the Tax Jar before changing its currency.</p>}
+          {lockedCurrency && <p className="mt-2 text-[13px] text-muted">Pay or empty the Tax Jar before changing its currency.</p>}
           {!lockedCurrency && (
-            <p className="mt-2 text-[12px] leading-relaxed text-muted">
+            <p className="mt-2 text-[13px] leading-relaxed text-muted">
               Usually the currency you pay tax in. Payments in other currencies are converted when they arrive.
             </p>
           )}
 
-          {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-4 py-3 text-[13px] text-danger">{error}</p>}
+          {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-4 py-3 text-[14px] text-danger">{error}</p>}
           <Disclaimer className="mt-5 px-1" />
         </Step>
       )}
@@ -332,7 +340,7 @@ function matches(country: { code: string; name: string }, query: string): boolea
 }
 
 function SectionLabel({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <p className={`px-1 text-[12px] font-medium text-muted ${className}`}>{children}</p>
+  return <p className={`px-1 text-[13px] font-medium text-muted ${className}`}>{children}</p>
 }
 
 function CountryChoice({
@@ -357,8 +365,8 @@ function CountryChoice({
     >
       <Flag code={item.code} size={40} />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[15px] font-semibold">{item.name}</span>
-        <span className="block truncate text-[12px] text-muted">
+        <span className="block truncate text-[16px] font-semibold">{item.name}</span>
+        <span className="block truncate text-[13px] text-muted">
           {subtitle ?? (item.regimes.length ? item.regimes.map((g) => g.name).join(' · ') : 'Country')}
         </span>
       </span>
@@ -379,7 +387,7 @@ function Step({ title, sub, children, footer }: { title: string; sub?: string; c
     <section className="flex min-h-0 flex-1 flex-col animate-rise">
       <div className="pt-5">
         <ScreenTitle>{title}</ScreenTitle>
-        {sub && <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{sub}</p>}
+        {sub && <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{sub}</p>}
       </div>
       <div className="mt-4 flex-1">{children}</div>
       <div className="sticky-footer mt-auto">{footer}</div>

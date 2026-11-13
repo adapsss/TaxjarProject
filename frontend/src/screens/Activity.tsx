@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { HowItWorks } from '../components/HowItWorks'
 import { LoadError } from '../components/StateViews'
 import { TransactionRow } from '../components/TransactionRow'
 import { Card, Segmented, Skeleton } from '../components/ui'
@@ -8,7 +10,9 @@ type Filter = 'all' | 'pending' | 'tax'
 
 export default function Activity() {
   const { profile, transactions, screen } = useStore()
-  const [filter, setFilter] = useState<Filter>('all')
+  // Home's "N payments need your answer" link opens this screen already filtered.
+  const wanted = (useLocation().state as { filter?: Filter } | null)?.filter
+  const [filter, setFilter] = useState<Filter>(wanted ?? 'all')
 
   const pending = transactions.filter((t) => t.direction === 'in' && t.classification.label === 'unknown')
   const tax = transactions.filter((t) => t.reservation)
@@ -17,9 +21,13 @@ export default function Activity() {
   return (
     <div className="animate-rise px-5 pt-3 pb-8">
       <h1 className="text-[32px] leading-[1.06] font-extrabold tracking-[-0.04em]">Payments</h1>
-      <p className="mt-1 text-[13.5px] text-muted">Everything that came in and went out.</p>
+      <p className="mt-1 text-[15px] text-muted">Everything that came in and went out.</p>
 
       <div className="mt-5">
+        <HowItWorks />
+      </div>
+
+      <div className="mt-4">
         <Segmented<Filter>
           label="Filter payments"
           value={filter}
@@ -44,10 +52,10 @@ export default function Activity() {
             </div>
           ) : list.length === 0 ? (
             <div className="px-6 py-14 text-center">
-              <p className="text-[15px] font-semibold">
+              <p className="text-[16px] font-semibold">
                 {filter === 'pending' ? 'Nothing needs an answer' : filter === 'tax' ? 'No tax set aside yet' : 'No payments yet'}
               </p>
-              <p className="mt-1 text-[13px] text-muted">
+              <p className="mt-1 text-[14px] text-muted">
                 {filter === 'pending'
                   ? 'We’ll ask here when we’re not sure a payment is for work.'
                   : filter === 'tax'
@@ -63,8 +71,8 @@ export default function Activity() {
         </Card>
       )}
 
-      <p className="mt-5 px-1 text-[12px] leading-relaxed text-muted">
-        Tap a payment to see why it was classified the way it was, and the exact tax breakdown.
+      <p className="mt-5 px-1 text-[14px] leading-relaxed text-muted">
+        Tap a payment to see how it was handled, step by step, and the exact tax taken from it.
       </p>
     </div>
   )

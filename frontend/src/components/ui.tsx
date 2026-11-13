@@ -1,4 +1,5 @@
-import { useEffect, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react'
+import { useFocusTrap } from '../lib/useFocusTrap'
 import { DISCLAIMER } from '../lib/taxjar'
 import type { Tag as TagName } from '../lib/why'
 import type { Counterparty } from '../api/client'
@@ -24,7 +25,8 @@ export function Button({
   type = 'button',
   ...rest
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; size?: 'sm' | 'md' | 'lg'; loading?: boolean }) {
-  const sizes = { sm: 'h-9 px-4 text-[13px]', md: 'h-11 px-5 text-[14px]', lg: 'h-[52px] px-6 text-[15px]' }
+  // Even the small button is 44pt tall: Apple's minimum for anything you tap.
+  const sizes = { sm: 'h-11 px-4 text-[14px]', md: 'h-12 px-5 text-[16px]', lg: 'h-[54px] px-6 text-[17px]' }
   return (
     <button
       {...rest}
@@ -66,7 +68,8 @@ export function CircleButton({
       type="button"
       aria-label={label}
       title={label}
-      style={{ width: size, height: size }}
+      // Never smaller than 44pt, whatever size was asked for.
+      style={{ width: Math.max(size, 44), height: Math.max(size, 44) }}
       className={`press grid shrink-0 cursor-pointer place-items-center rounded-full ${styles[variant]} ${className}`}
     >
       {children}
@@ -84,7 +87,7 @@ const TAG_STYLE: Record<Exclude<TagName, null>, string> = {
 
 export function Tag({ name, children }: { name: Exclude<TagName, null>; children?: ReactNode }) {
   return (
-    <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[11.5px] font-semibold ${TAG_STYLE[name]}`}>
+    <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[13px] font-semibold ${TAG_STYLE[name]}`}>
       {name === 'Needs your answer' && <span className="size-1.5 rounded-full bg-amber" />}
       {children ?? name}
     </span>
@@ -125,18 +128,20 @@ export function Skeleton({ className = '' }: { className?: string }) {
 
 export function Disclaimer({ dark, className = '' }: { dark?: boolean; className?: string }) {
   return (
-    <p className={`flex items-start gap-1.5 text-[12px] leading-snug ${dark ? 'text-white/55' : 'text-muted'} ${className}`}>
+    <p className={`flex items-start gap-1.5 text-[13px] leading-snug ${dark ? 'text-white/55' : 'text-muted'} ${className}`}>
       <InfoIcon className="mt-px size-3.5 shrink-0" />
       {DISCLAIMER}
     </p>
   )
 }
 
-const CURRENCY_FLAG: Record<string, string> = { EUR: 'eu', USD: 'us', GBP: 'gb' }
+// A currency's flag is its country's: the first two letters of the ISO code, with a few exceptions.
+const CURRENCY_FLAG: Record<string, string> = { EUR: 'eu', XCG: 'cw' }
 
 /** A real, bundled SVG flag inside a perfect circle — Wise style. */
 export function Flag({ code, size = 40, className = '' }: { code: string; size?: number; className?: string }) {
-  const value = (CURRENCY_FLAG[code.toUpperCase()] ?? code).toLowerCase()
+  const upper = code.toUpperCase()
+  const value = (CURRENCY_FLAG[upper] ?? (upper.length === 3 ? upper.slice(0, 2) : upper)).toLowerCase()
   const iso = /^[a-z]{2}$/.test(value) ? value : null
   if (!iso) {
     return (
@@ -175,13 +180,19 @@ export function Sheet({
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
+  // Modal: focus moves in, Tab stays in, and focus returns to what opened it.
+  const panel = useRef<HTMLDivElement>(null)
+  useFocusTrap(panel)
+
   return (
     <div className="sheet" onMouseDown={onClose}>
       <div
+        ref={panel}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label={label}
-        className={`sheet-panel ${className}`}
+        className={`sheet-panel outline-none ${className}`}
         onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="sheet-grabber" aria-hidden="true" />
@@ -225,7 +236,7 @@ export function Segmented<T extends string>({
           role="tab"
           aria-selected={value === o.id}
           onClick={() => onChange(o.id)}
-          className={`press flex-1 cursor-pointer rounded-full px-2.5 py-2 text-[13px] font-semibold whitespace-nowrap ${
+          className={`press min-h-11 flex-1 cursor-pointer rounded-full px-2.5 py-2 text-[15px] font-semibold whitespace-nowrap ${
             value === o.id ? 'bg-white text-ink shadow-[0_1px_4px_rgba(14,15,12,0.12)]' : 'text-muted'
           }`}
         >

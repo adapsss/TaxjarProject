@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { Transaction } from '../api/client'
+import { useEscape } from '../lib/useEscape'
 import { useStore } from '../state/store'
 import { formatMoney, formatRate, partsLine } from '../lib/money'
 import { whyLine } from '../lib/why'
@@ -15,26 +17,30 @@ const TOAST_MS = 6000
 
 /** "€276 set aside for taxes" + why + Undo, floating above the tab bar. */
 export function TaxToast() {
-  const { toast, transactions, undo, busy, dismissToast } = useStore()
-  const [error, setError] = useState<string | null>(null)
+  const { toast, transactions } = useStore()
   const tx = toast ? transactions.find((t) => t.id === toast.txId) : null
+  if (!toast || !tx?.reservation) return null
+  // Keyed per toast, so a new reservation restarts the timer and clears any old error.
+  return <ToastCard key={toast.key} tx={tx} />
+}
+
+function ToastCard({ tx }: { tx: Transaction }) {
+  const { undo, busy, dismissToast } = useStore()
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    setError(null)
-    if (!toast) return
     const id = setTimeout(dismissToast, TOAST_MS)
     return () => clearTimeout(id)
-  }, [toast, dismissToast])
+  }, [dismissToast])
 
-  if (!toast || !tx?.reservation) return null
   const r = tx.reservation
+  if (!r) return null
   return (
     <div
       className="pointer-events-none absolute inset-x-4 z-40 flex justify-center"
       style={{ bottom: 'calc(var(--tab-offset, 90px) + 10px)' }}
     >
       <div
-        key={toast.key}
         role="status"
         aria-live="polite"
         className="pointer-events-auto w-full animate-rise overflow-hidden rounded-[24px] bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]"
@@ -45,11 +51,11 @@ export function TaxToast() {
               <JarIcon className="size-5" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-[14px] leading-snug font-bold">
+              <p className="text-[15px] leading-snug font-bold">
                 <span className="money text-lime">{formatMoney(r.reservedAmount, r.taxCurrency)}</span> set aside for taxes
               </p>
               {r.breakdown && r.breakdown.length > 0 && (
-                <p className="money mt-0.5 text-[11.5px] font-semibold text-white/80">{partsLine(r.breakdown, r.taxCurrency)}</p>
+                <p className="money mt-0.5 text-[13px] font-semibold text-white/80">{partsLine(r.breakdown, r.taxCurrency)}</p>
               )}
             </div>
             <CircleButton
@@ -63,14 +69,14 @@ export function TaxToast() {
           </div>
           <div className="mt-2 flex items-end justify-between gap-3 pl-[52px]">
             <div className="min-w-0">
-              <p className="text-[11.5px] leading-snug text-white/60">{whyLine(tx.classification.reasons)}</p>
-              {error && <p className="mt-1 text-[11.5px] text-[#ffb4ab]">{error}</p>}
+              <p className="text-[13px] leading-snug text-white/60">{whyLine(tx.classification.reasons)}</p>
+              {error && <p className="mt-1 text-[13px] text-[#ffb4ab]">{error}</p>}
             </div>
-            {tx.reservation.status === 'reserved' ? (
+            {r.status === 'reserved' ? (
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 shrink-0 px-2 text-[12px] text-lime hover:bg-white/10"
+                className="shrink-0 px-3 text-lime hover:bg-white/10"
                 loading={busy === `undo:${tx.id}`}
                 onClick={() => undo(tx.id).catch((e: Error) => setError(e.message))}
               >
@@ -108,8 +114,8 @@ function NoticeCard({ title, detail, onDone }: { title: string; detail: string; 
           <JarIcon className="size-5" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[15px] leading-snug font-bold">{title}</p>
-          <p className="mt-0.5 text-[13px] text-white/75">{detail}</p>
+          <p className="text-[16px] leading-snug font-bold">{title}</p>
+          <p className="mt-0.5 text-[14px] text-white/75">{detail}</p>
         </div>
         <CircleButton label="Dismiss" className="-mt-1 -mr-1 bg-transparent text-white/60 hover:bg-white/10 hover:text-white" onClick={onDone}>
           <CloseIcon className="size-4" />
@@ -121,34 +127,50 @@ function NoticeCard({ title, detail, onDone }: { title: string; detail: string; 
 
 /** "Is this payment for work?" for the classifier's middle band. */
 export function WorkQuestionDialog() {
-  const { question, profile, transactions, answer, busy, closeQuestion } = useStore()
-  const [error, setError] = useState<string | null>(null)
-  useEffect(() => setError(null), [question])
+  const { question, transactions } = useStore()
   const tx = question ? transactions.find((t) => t.id === question) : null
   if (!tx) return null
+  // Keyed per payment, so a new question starts clean.
+  return <QuestionCard key={tx.id} tx={tx} />
+}
+
+function QuestionCard({ tx }: { tx: Transaction }) {
+  const { profile, answer, busy, closeQuestion } = useStore()
+  const [error, setError] = useState<string | null>(null)
+  const dialog = useRef<HTMLDivElement>(null)
+  useEscape(closeQuestion)
+  // Move keyboard focus to the card, so Tab reaches Yes / No first and a screen reader announces it.
+  useEffect(() => dialog.current?.focus(), [])
 
   const go = (yes: boolean) => answer(tx.id, yes).catch((e: Error) => setError(e.message))
   const inFlight = busy?.startsWith(`answer:${tx.id}`)
 
   return (
-    <div className="absolute inset-0 z-[70] grid animate-fade place-items-center bg-forest/45 px-4 backdrop-blur-[2px]">
-      <div role="dialog" aria-modal="true" aria-labelledby="q-title" className="alert-panel">
+    <div className="pointer-events-none absolute inset-x-3 z-[55]" style={{ bottom: 'calc(var(--tab-offset, 90px) + 8px)' }}>
+      <div
+        ref={dialog}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="false"
+        aria-labelledby="q-title"
+        className="pointer-events-auto animate-rise rounded-[28px] bg-white p-5 shadow-[0_24px_60px_-12px_rgba(14,15,12,0.5)] ring-2 ring-amber outline-none"
+      >
         <div className="flex items-center gap-3">
           <Avatar who={tx.counterparty} size={46} />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-[14px] font-semibold">{tx.counterparty.name}</p>
-            <p className="truncate text-[12px] text-muted">{tx.reference || 'No reference'}</p>
+            <p className="truncate text-[15px] font-semibold">{tx.counterparty.name}</p>
+            <p className="truncate text-[13px] text-muted">{tx.reference || 'No reference'}</p>
           </div>
           <span className="money text-[20px] font-extrabold tracking-[-0.04em]">{formatMoney(tx.amount, tx.currency, { sign: true })}</span>
         </div>
-        <h2 id="q-title" className="mt-5 text-[26px] leading-[1.06] font-extrabold tracking-[-0.04em]">
+        <h2 id="q-title" className="mt-4 text-[24px] leading-[1.06] font-extrabold tracking-[-0.04em]">
           Is this payment for work?
         </h2>
-        <p className="mt-2 text-[13px] leading-relaxed text-muted">
+        <p className="mt-2 text-[14px] leading-relaxed text-muted">
           If it is, we’ll set aside {formatRate(profile.rate)} ({formatMoney(Math.round((tx.amount * profile.rate) / 10_000), tx.currency)}) for
           taxes. We’ll remember your answer for {tx.counterparty.name.split(' ')[0]} next time.
         </p>
-        {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-3.5 py-2.5 text-[12.5px] text-danger">{error}</p>}
+        {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-3.5 py-2.5 text-[14px] text-danger">{error}</p>}
         <div className="mt-5 space-y-2">
           <Button size="lg" className="w-full" loading={busy === `answer:${tx.id}:true`} disabled={inFlight} onClick={() => go(true)}>
             Yes, it’s for work
@@ -167,7 +189,7 @@ export function WorkQuestionDialog() {
         <button
           type="button"
           onClick={closeQuestion}
-          className="press mx-auto mt-3 block cursor-pointer rounded-full px-3 py-1.5 text-[13px] font-semibold text-muted hover:text-ink"
+          className="press mx-auto mt-3 block cursor-pointer rounded-full px-3 py-1.5 text-[14px] font-semibold text-muted hover:text-ink"
         >
           Decide later
         </button>
@@ -184,5 +206,5 @@ export function StatusPill({ status }: { status: 'reserved' | 'undone' | 'paid' 
     paid: ['Paid', 'bg-forest text-white'],
     undone: ['Undone', 'bg-white/60 text-muted'],
   }[status]
-  return <span className={`rounded-full px-2.5 py-0.5 text-[10.5px] font-bold ${s[1]}`}>{s[0]}</span>
+  return <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-bold ${s[1]}`}>{s[0]}</span>
 }

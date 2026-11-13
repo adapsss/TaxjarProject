@@ -25,7 +25,7 @@ export function MonthlyBars({
           return (
             <div key={d.month} className="group flex h-full flex-1 flex-col items-center justify-end gap-1.5">
               {showValues && (
-                <span className={`money text-[10px] font-semibold ${total ? (dark ? 'text-forest/70' : 'text-ink/55') : 'opacity-0'}`}>
+                <span className={`money text-[12px] font-semibold ${total ? (dark ? 'text-forest/70' : 'text-ink/55') : 'opacity-0'}`}>
                   {formatMoney(total, currency)}
                 </span>
               )}
@@ -49,7 +49,7 @@ export function MonthlyBars({
         {data.map((d, i) => (
           <span
             key={d.month}
-            className={`flex-1 text-center text-[10.5px] ${i === last ? 'font-bold' : 'font-medium'} ${
+            className={`flex-1 text-center text-[12px] ${i === last ? 'font-bold' : 'font-medium'} ${
               dark ? (i === last ? 'text-forest' : 'text-forest/55') : i === last ? 'text-ink' : 'text-muted'
             }`}
           >

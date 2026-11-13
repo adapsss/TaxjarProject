@@ -19,7 +19,7 @@ export function TaxJarPanel() {
         <h2 className="mt-4 text-[24px] leading-[1.08] font-extrabold tracking-[-0.035em]">
           Never be surprised by a tax bill
         </h2>
-        <p className="mt-2 text-[13.5px] leading-relaxed text-forest/70">
+        <p className="mt-2 text-[15px] leading-relaxed text-forest/70">
           When a client pays you, we move your tax share into a Tax Jar. Payments from friends stay untouched.
         </p>
         <Button variant="dark" size="lg" className="mt-5 w-full" onClick={() => nav('/onboarding')}>
@@ -33,10 +33,10 @@ export function TaxJarPanel() {
   return (
     <section data-testid="tax-jar-panel" className="overflow-hidden rounded-[28px] bg-lime p-5 text-forest">
       <div className="flex items-center justify-between gap-3">
-        <Link to="/tax-jar" className="flex items-center gap-2 text-[11.5px] font-bold tracking-[0.1em] uppercase">
+        <Link to="/tax-jar" className="press -my-3 -ml-1 flex min-h-11 items-center gap-2 rounded-full pl-1 pr-3 text-[13px] font-bold tracking-[0.1em] uppercase">
           <JarIcon className="size-4" /> Tax Jar
         </Link>
-        <span className="flex items-center gap-1.5 rounded-full bg-white/45 px-2.5 py-1 text-[11px] font-semibold">
+        <span className="flex items-center gap-1.5 rounded-full bg-white/45 px-2.5 py-1 text-[13px] font-semibold">
           <Flag code={p.country} size={16} /> {p.country} · {formatRate(p.rate)}
         </span>
       </div>
@@ -44,22 +44,22 @@ export function TaxJarPanel() {
       <div className="relative mt-4 flex items-start justify-between gap-3">
         <div>
           <CountUp value={summary.held} currency={summary.currency} className="block text-[43px] leading-none font-extrabold" />
-          <p className="mt-1.5 text-[13px] font-medium text-forest/60">set aside for taxes</p>
+          <p className="mt-1.5 text-[14px] font-medium text-forest/60">set aside for taxes</p>
         </div>
         {flash && (
-          <span key={flash.key} className="money animate-pop mt-1 rounded-full bg-forest px-2.5 py-1 text-[12px] font-bold text-lime">
+          <span key={flash.key} className="money animate-pop mt-1 rounded-full bg-forest px-2.5 py-1 text-[13px] font-bold text-lime">
             +{formatMoney(flash.amount, summary.currency)}
           </span>
         )}
       </div>
 
-      <dl className="mt-4 grid grid-cols-2 gap-2 text-[12px]">
+      <dl className="mt-4 grid grid-cols-2 gap-2 text-[13px]">
         <div className="rounded-2xl bg-white/40 px-3.5 py-2.5">
           <dt className="text-forest/55">Next deadline</dt>
           <dd className="mt-0.5 font-bold">{summary.nextDeadline ? formatDate(summary.nextDeadline.toISOString()) : '—'}</dd>
         </div>
         <div className="rounded-2xl bg-white/40 px-3.5 py-2.5">
-          <dt className="text-forest/55">Paid this year</dt>
+          <dt className="text-forest/55">Tax paid so far</dt>
           <dd className="money mt-0.5 font-bold">{formatMoney(summary.paid, summary.currency)}</dd>
         </div>
       </dl>
