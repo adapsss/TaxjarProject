@@ -76,8 +76,10 @@ export const regimeName = (countries: Country[], code: string, regime: string) =
   return found ? shortRegimeName(found.name) : regime
 }
 
-/** Emoji flag from an ISO code; a globe for "*" (Other). Font-based, so it works offline. */
-export function flagEmoji(code: string): string {
-  if (!/^[A-Z]{2}$/.test(code)) return '🌍'
-  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65))
+/**
+ * A country as text ("EE"; "ALL" for "*" Other). Not an emoji flag: regional-indicator
+ * flags need an emoji font, and without one (Windows, headless browsers) they show as boxes.
+ */
+export function countryBadge(code: string): string {
+  return code === '*' ? 'ALL' : code
 }

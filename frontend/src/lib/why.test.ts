@@ -45,3 +45,11 @@ it('an undone reservation falls back to the classification', () => {
   const personal = { label: 'personal' as const, confidence: 0.99, reasons: [] }
   expect(tagFor(tx({ reservation: reservation('undone'), classification: personal }), true)).toBe('Personal')
 })
+
+it('tags income that arrived before the Tax Jar existed', () => {
+  const income = { label: 'income' as const, confidence: 0.97, reasons: [] }
+  expect(tagFor(tx({ classification: income }), true)).toBe('Income')
+  expect(tagFor(tx({ classification: income }), false)).toBe('Income')
+  // An undone reservation is relabelled personal by the backend and must not read Income.
+  expect(tagFor(tx({ classification: { label: 'personal', confidence: 0.99, reasons: [] }, reservation: reservation('undone') }), true)).toBe('Personal')
+})

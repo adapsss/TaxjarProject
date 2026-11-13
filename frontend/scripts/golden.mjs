@@ -65,6 +65,7 @@ await expectText(app.getByRole('status'), /€276 set aside for taxes/, 'Acme to
 await expectText(app.getByRole('status'), /company sender · invoice in reference/, 'Acme why line')
 await app.waitForTimeout(1200)
 await expectText(panel(), /€276/, 'panel shows €276')
+await expectText(panel(), /€110\.40 income tax · €165\.60 social tax/, 'panel shows the tax split')
 await shot('2-acme-toast')
 await expectText(sim.locator('li'), /Acme Inc\.[\s\S]*€276 set aside/, 'simulator log shows the outcome')
 
@@ -85,6 +86,7 @@ await app.getByRole('button', { name: /Yes, it’s for work/ }).click()
 await expectText(app.getByRole('status'), /€80 set aside for taxes/, 'John toast €80')
 await app.waitForTimeout(1200)
 await expectText(panel(), /€356/, 'panel shows €356')
+await expectText(panel(), /€142\.40 income tax · €213\.60 social tax/, 'panel split after John')
 await shot('4b-john-yes')
 // The answer is remembered: John's next payment is reserved with no question.
 await app.getByRole('button', { name: 'Dismiss' }).click()
@@ -167,6 +169,21 @@ await expectText(app.getByRole('dialog'), /Is this payment for work\?/, 'questio
 await app.keyboard.press('Escape')
 await app.getByRole('dialog').waitFor({ state: 'detached' })
 await expectText(app.locator('main'), /1 payment needs your answer/, 'Escape postpones the question and Home still flags it')
+
+// Sidebar demo controls: after "Not set up" and a new setup, the picker reads Live again.
+await app.locator('#demo-state').selectOption({ label: 'Not set up' })
+await app.getByRole('button', { name: /Set up in 3 steps/ }).click()
+await app.getByRole('searchbox', { name: 'Search countries' }).fill('eston')
+await app.getByRole('radio', { name: 'Estonia' }).click()
+await app.getByRole('button', { name: 'Continue' }).click()
+await app.getByRole('radio', { name: 'Entrepreneur account' }).click()
+await app.getByRole('button', { name: 'Continue' }).click()
+await app.getByRole('button', { name: /Start setting money aside/ }).click()
+await app.waitForURL(BASE + '/')
+const picker = await app.locator('#demo-state').inputValue()
+if (picker !== 'live') throw new Error(`Expected the demo-state picker to read live after setup, got ${picker}`)
+console.log('ok  picker reads Live after setup')
+await expectText(app.locator('main button'), /Harbourline Ltd[\s\S]*Income/, 'past income tagged Income')
 
 await browser.close()
 if (errors.length) {

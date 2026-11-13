@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 import type { TaxProfile, Transaction } from '../api/client'
-import { buildSummary, flagEmoji, regimeName, shortRegimeName } from './taxjar'
+import { buildSummary, countryBadge, regimeName, shortRegimeName } from './taxjar'
 
 const profile: TaxProfile = { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled: true }
 
@@ -67,7 +67,7 @@ it('shortens the engine’s long regime names', () => {
   expect(regimeName(countries, 'EE', 'nope')).toBe('nope')
 })
 
-it('makes flag emoji from ISO codes and a globe for Other', () => {
-  expect(flagEmoji('EE')).toBe('🇪🇪')
-  expect(flagEmoji('*')).toBe('🌍')
+it('shows countries as text badges, not emoji flags that need an emoji font', () => {
+  expect(countryBadge('EE')).toBe('EE')
+  expect(countryBadge('*')).toBe('ALL')
 })

@@ -4,7 +4,7 @@ import { AppShell } from '../components/AppShell'
 import { LoadError } from '../components/StateViews'
 import { Button, Card, CheckIcon, Disclaimer, Flag, Skeleton } from '../components/ui'
 import { formatMoney, formatRate } from '../lib/money'
-import { flagEmoji, shortRegimeName, TAX_CURRENCIES } from '../lib/taxjar'
+import { countryBadge, shortRegimeName, TAX_CURRENCIES } from '../lib/taxjar'
 import { useStore } from '../state/store'
 
 const OTHER = '*'
@@ -109,7 +109,7 @@ function Flow() {
           <div role="radiogroup" aria-label="Country" className="mt-3 max-h-[352px] space-y-2 overflow-y-auto rounded-2xl pr-1">
             {shown.map((x) => (
               <Choice key={x.code} checked={country === x.code} onClick={() => pickCountry(x.code)} label={x.name} compact>
-                <span className="text-[24px] leading-none">{flagEmoji(x.code)}</span>
+                <span className="grid h-7 w-10 shrink-0 place-items-center rounded-md bg-canvas text-[12px] font-bold tracking-wide text-forest">{countryBadge(x.code)}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block font-semibold">{x.name}</span>
                   <span className="block truncate text-[13px] text-muted">{x.regimes.map((g) => shortRegimeName(g.name)).join(' · ')}</span>
@@ -125,7 +125,7 @@ function Flow() {
           {other && (
             <div className="mt-3 border-t border-line pt-3">
               <Choice checked={country === OTHER} onClick={() => pickCountry(OTHER)} label="Somewhere else" compact>
-                <span className="text-[24px] leading-none">{flagEmoji(OTHER)}</span>
+                <span className="grid h-7 w-10 shrink-0 place-items-center rounded-md bg-canvas text-[12px] font-bold tracking-wide text-forest">{countryBadge(OTHER)}</span>
                 <span className="flex-1">
                   <span className="block font-semibold">Somewhere else</span>
                   <span className="block text-[13px] text-muted">Set your own rate. No country rules or deadlines.</span>

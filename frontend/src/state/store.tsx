@@ -245,6 +245,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const saveProfile = useCallback(
     async (p: TaxProfile) => {
       await call('profile', () => api.putTaxProfile({ ...p, enabled: true }))
+      // The demo was reset to "Not set up" or "Empty"; once set up, it is live again.
+      setPresetState('live')
     },
     [call],
   )

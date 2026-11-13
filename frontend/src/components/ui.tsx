@@ -42,6 +42,7 @@ export function Spinner({ className = '' }: { className?: string }) {
 const TAG_STYLE: Record<Exclude<TagName, null>, string> = {
   'Tax set aside': 'bg-lime-soft text-lime-ink',
   'Tax paid': 'bg-forest/8 text-forest',
+  Income: 'bg-forest/8 text-forest',
   Personal: 'bg-black/[0.05] text-muted',
   'Needs your answer': 'bg-amber-soft text-amber-ink',
 }

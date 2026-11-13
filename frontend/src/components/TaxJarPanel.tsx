@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { formatDate, formatMoney, formatRate } from '../lib/money'
+import { formatDate, formatMoney, formatRate, partsLine } from '../lib/money'
 import { countryName } from '../lib/taxjar'
 import { useStore } from '../state/store'
 import { CountUp } from './CountUp'
@@ -48,6 +48,12 @@ export function TaxJarPanel() {
           </span>
         )}
         <p className="mt-2 text-sm text-white/65">set aside for taxes</p>
+        {summary.held > 0 && summary.breakdown && summary.breakdown.length > 0 ? (
+          <p className="num mt-1.5 text-[13px] font-semibold text-white/85">{partsLine(summary.breakdown, summary.currency)}</p>
+        ) : (
+          summary.held > 0 &&
+          summary.breakdownRule && <p className="mt-1.5 text-[13px] text-white/65">{summary.breakdownRule}</p>
+        )}
       </div>
 
       <div className="mt-6">
