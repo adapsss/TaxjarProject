@@ -1,0 +1,40 @@
+{
+  "name": "wise-tax-jar-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "gen:api": "openapi-typescript http://localhost:8000/openapi.json -o src/api/schema.d.ts"
+  },
+  "dependencies": {
+    "@transferwise/components": "^46.169.1",
+    "@transferwise/icons": "^4.8.0",
+    "@transferwise/neptune-css": "^14.30.1",
+    "@transferwise/neptune-tokens": "^8.27.0",
+    "@wise/art": "^2.33.0",
+    "@wise/components-theming": "^1.10.3",
+    "motion": "^12.43.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-intl": "^10.2.2",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "jsdom": "^31.0.1",
+    "openapi-typescript": "^7.13.0",
+    "oxlint": "^1.90.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  }
+}
