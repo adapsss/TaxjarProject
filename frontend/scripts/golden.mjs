@@ -143,6 +143,9 @@ console.log('ok  no Undo after the tax is paid')
 // Resetting from the simulator tab: its setup payments stay silent in the app tab,
 // but a real payment sent straight after the reset still gets its toast.
 await app.goto(BASE + '/')
+// Let the app tab finish loading first: a tab that connects in the middle of a reset never heard it start.
+await expectText(panel(), /set aside for taxes/, 'app tab loaded before the reset')
+await app.waitForTimeout(500)
 await sim.getByRole('button', { name: /^Filled/ }).click()
 await expectText(panel(), /€775/, 'Filled state arrives in the app tab')
 if (await app.getByRole('status').count()) throw new Error('Setup payments must not show a toast')

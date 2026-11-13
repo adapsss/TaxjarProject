@@ -1,5 +1,7 @@
 # Tax Jar prototype: design (short)
 
+> **Status (later):** the prototype in `prototype/` and its mock data in `fixtures/` were merged into `frontend/` and deleted. `frontend/` runs on the real backend; the screens, states and design calls below still describe it, except where noted: the routes are the frozen ones (`/onboarding`, `/transactions/:id`), and the layout fits a 1024px screen.
+
 **Intent.** A clickable desktop web prototype of the Tax Jar, so the team can see and demo the screens and states before the real backend exists. It is a web app (better for a hackathon demo on a laptop and projector), Wise-inspired but not a copy.
 
 **Source.** `docs/pipeline.md` and `fixtures/` did not exist, so the pipeline comes from `roadmap-tax-jar-en.md` sections 1, 4, 5 and `docs/superpowers/plans/2026-11-13-wise-tax-jar.md`, and the fixtures are written here, shaped exactly like the API contract (camelCase, amounts in cents, rates in basis points).

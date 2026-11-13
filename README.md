@@ -54,7 +54,7 @@ npm run golden   # the golden path with assertions, payments sent from a second 
 npm run shots    # every screen and state → frontend/screenshots/
 ```
 
-`prototype/` is the earlier clickable prototype these screens were ported from. `frontend/` is the app.
+`frontend/` is the only frontend. The earlier clickable prototype was folded into it and removed; its design notes are in `docs/superpowers/specs/2026-11-13-tax-jar-prototype-design.md`.
 
 `npm install` prints peer-dependency warnings from Neptune's 3D illustration packages. They are expected and do not affect the app.
 
