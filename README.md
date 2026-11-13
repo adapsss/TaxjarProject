@@ -75,8 +75,6 @@ Do not use `Flag`, `Illustration` or other `@wise/art` components: they load ima
 
 The contract is frozen: `backend/app/schemas.py`, the route paths, `frontend/src/api/schema.d.ts`, `frontend/src/api/client.ts` and the route table in `frontend/src/App.tsx`. Changes go through the tech lead.
 
-Until a real handler lands, each route returns a fixed example payload from `backend/app/stubs.py`, so the frontend can be built against the running backend from day one.
-
 After a contract change, with the backend running:
 
 ```bash
