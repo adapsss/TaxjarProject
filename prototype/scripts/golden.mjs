@@ -1,5 +1,6 @@
 // Golden path (roadmap section 1) end to end, with assertions and a screenshot at each step.
-// Usage: node scripts/golden.mjs   (dev server on :5199)
+// Usage: node scripts/golden.mjs   (backend on :8000, dev server on :5199)
+// Runs against the real backend: "Not set up" in the demo controls resets it first.
 import { chromium } from 'playwright'
 
 const BASE = process.env.BASE ?? 'http://localhost:5199'
@@ -60,19 +61,19 @@ await page.waitForTimeout(1200)
 await expectText(panel(), /€356/, 'panel shows €356')
 await shot('4b-john-yes')
 
-// 5. Tax Jar screen (a reload resets the in-memory store to the filled fixtures)
+// 5. Tax Jar screen (the backend keeps state across a reload: €356 so far, + €276)
 await page.goto(BASE + '/')
 await sim('Acme')
 await page.waitForTimeout(700)
 await page.getByRole('link', { name: 'Tax Jar' }).first().click()
-await expectText(page.locator('main'), /€1,560/, 'Tax Jar page total €1,284 + €276')
+await expectText(page.locator('main'), /€632/, 'Tax Jar page total €356 + €276')
 
-// 6. Undo from the drawer
-await page.getByRole('row', { name: /Acme Inc\./ }).click()
+// 6. Undo from the drawer (the newest Acme row is first)
+await page.getByRole('row', { name: /Acme Inc\./ }).first().click()
 await page.getByRole('button', { name: /This wasn’t income/ }).click()
 await expectText(page.locator('aside'), /Undone/, 'drawer shows undone')
 await page.getByRole('button', { name: 'Close' }).click()
-await expectText(page.locator('main'), /€1,284/, 'total back to €1,284 after undo')
+await expectText(page.locator('main'), /€356/, 'total back to €356 after undo')
 await shot('6-undo')
 
 // Pay

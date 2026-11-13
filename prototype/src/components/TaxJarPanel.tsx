@@ -1,16 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
-import countriesFx from '../../../fixtures/countries.json'
-import { useStore } from '../data/store'
-import type { Country } from '../data/types'
+import { liveCountries, useStore } from '../data/store'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
 import { CountUp } from './CountUp'
 import { MonthlyBars } from './MonthlyBars'
 import { ArrowIcon, Button, Disclaimer, JarIcon } from './ui'
 
-const countries = countriesFx as Country[]
-export const countryName = (code: string) => countries.find((c) => c.code === code)?.name ?? code
+export const countryName = (code: string) => liveCountries().find((c) => c.code === code)?.name ?? code
 export const regimeName = (code: string, regime: string) =>
-  countries.find((c) => c.code === code)?.regimes.find((r) => r.id === regime)?.name ?? regime
+  liveCountries().find((c) => c.code === code)?.regimes.find((r) => r.id === regime)?.name ?? regime
 
 /** The compact, always-visible Tax Jar on Home. */
 export function TaxJarPanel() {

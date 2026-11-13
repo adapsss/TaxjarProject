@@ -5,7 +5,7 @@ import { StatusPill } from '../components/Overlays'
 import { LoadError } from '../components/StateViews'
 import { countryName, regimeName } from '../components/TaxJarPanel'
 import { Avatar, Button, Card, CheckIcon, Disclaimer, JarIcon, Skeleton } from '../components/ui'
-import { exportCsv } from '../data/engine'
+import { EXPORT_CSV_URL } from '../data/api'
 import { useStore } from '../data/store'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
 
@@ -20,12 +20,8 @@ export function TaxJar() {
   if (screen === 'loading') return <Loading />
   if (!p.enabled) return <NotSetUp />
 
-  const download = () => {
-    const url = URL.createObjectURL(new Blob([exportCsv(db)], { type: 'text/csv' }))
-    const a = Object.assign(document.createElement('a'), { href: url, download: 'tax-jar-export.csv' })
-    a.click()
-    URL.revokeObjectURL(url)
-  }
+  // The backend's export: every reservation, for an accountant.
+  const download = () => Object.assign(document.createElement('a'), { href: EXPORT_CSV_URL, download: 'tax-jar.csv' }).click()
   const empty = summary.reservations.length === 0
   const deadline = summary.nextDeadline
 

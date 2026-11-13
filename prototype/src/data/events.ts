@@ -1,0 +1,35 @@
+// Live updates from GET /api/events (server-sent events), per Task A3 of the frontend plan.
+import { EVENTS_URL } from './api'
+import type { Transaction } from './types'
+
+export type TxEventType = 'transaction.created' | 'reservation.created' | 'question.asked' | 'reservation.undone'
+export type AppEvent = { type: TxEventType; transaction: Transaction } | { type: 'demo.reset' }
+
+const TX_TYPES: readonly string[] = ['transaction.created', 'reservation.created', 'question.asked', 'reservation.undone']
+
+/** One SSE frame → a typed event; null for unknown types or bad JSON. */
+export function parseEvent(type: string, data: string): AppEvent | null {
+  let body: unknown
+  try {
+    body = JSON.parse(data)
+  } catch {
+    return null
+  }
+  if (type === 'demo.reset') return { type: 'demo.reset' }
+  if (!TX_TYPES.includes(type)) return null
+  const transaction = (body as { transaction?: Transaction } | null)?.transaction
+  return transaction && typeof transaction.id === 'string' ? { type: type as TxEventType, transaction } : null
+}
+
+/** Opens the app's one EventSource. `onOpen` runs on every (re)connect. Returns unsubscribe. */
+export function subscribe(onEvent: (e: AppEvent) => void, onOpen?: () => void): () => void {
+  const source = new EventSource(EVENTS_URL)
+  for (const type of [...TX_TYPES, 'demo.reset']) {
+    source.addEventListener(type, (m) => {
+      const event = parseEvent(type, (m as MessageEvent<string>).data)
+      if (event) onEvent(event)
+    })
+  }
+  if (onOpen) source.addEventListener('open', onOpen)
+  return () => source.close()
+}

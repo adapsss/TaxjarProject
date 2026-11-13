@@ -10,7 +10,9 @@ const NAV = [
   { to: '/setup', label: 'Tax settings', icon: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7.4-3a7.4 7.4 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2-1.2L14.5 3h-5l-.4 2.6a7.5 7.5 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6a7.4 7.4 0 0 0 0 2.4l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2 1.2l.4 2.6h5l.4-2.6a7.5 7.5 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2Z' },
 ]
 
+// Filled / Empty / Not set up reset the backend to that state; Live leaves it as it is.
 const PRESETS: { id: PresetChoice; label: string }[] = [
+  { id: 'live', label: 'Live' },
   { id: 'filled', label: 'Filled' },
   { id: 'empty', label: 'Empty' },
   { id: 'not-set-up', label: 'Not set up' },

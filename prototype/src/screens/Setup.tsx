@@ -1,14 +1,11 @@
 import { useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import countriesFx from '../../../fixtures/countries.json'
 import { Button, Card, CheckIcon, Disclaimer, Flag } from '../components/ui'
 import { useStore } from '../data/store'
-import type { Country } from '../data/types'
 import { formatMoney, formatRate } from '../lib/money'
 
-const countries = countriesFx as Country[]
 const CURRENCIES = ['EUR', 'USD', 'GBP']
-const FLAG_EMOJI: Record<string, string> = { EE: '🇪🇪', XX: '🌍' }
+const FLAG_EMOJI: Record<string, string> = { EE: '🇪🇪', XX: '🌍', '*': '🌍' }
 
 /** Remount when the demo state switches, so the wizard starts from the right step. */
 export function Setup() {
@@ -17,7 +14,7 @@ export function Setup() {
 }
 
 function SetupFlow() {
-  const { db, summary, saveProfile, busy } = useStore()
+  const { db, summary, countries, saveProfile, busy } = useStore()
   const nav = useNavigate()
   const editing = db.profile.enabled
   const [step, setStep] = useState(editing ? 3 : 1)

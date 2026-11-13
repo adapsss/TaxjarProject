@@ -71,6 +71,31 @@ export interface Country {
   name: string
   regimes: Regime[]
 }
+export interface MonthTotal {
+  month: string // YYYY-MM
+  reserved: number
+}
+export interface TaxSummary {
+  taxCurrency: string
+  totalReserved: number
+  totalPaid: number
+  byMonth: MonthTotal[]
+  estimatedDue: number
+  nextDeadline: string | null // YYYY-MM-DD
+  disclaimer: string
+}
+export interface PayResult {
+  transaction: Transaction
+  paidAmount: number
+  currency: string
+}
+export interface SimulateIncoming {
+  senderName: string
+  senderKind?: Kind | null
+  amount: number
+  currency: string
+  reference?: string
+}
 export interface Scenario {
   id: string
   label: string
