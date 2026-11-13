@@ -11,7 +11,7 @@
   },
   {
     "id": "john", "label": "Unclear payment",
-    "senderName": "John Smith", "senderKind": "person", "amount": 40000, "currency": "EUR", "reference": "website",
+    "senderName": "John Smith", "amount": 40000, "currency": "EUR", "reference": "website",
     "classification": { "label": "unknown", "confidence": 0.45, "reasons": ["work word in reference"] }
   }
 ]
