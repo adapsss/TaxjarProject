@@ -1,0 +1,664 @@
+[
+ {
+  "code": "IT",
+  "name": "Italy",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ordinary_self_employed",
+    "name": "Lavoratore autonomo in regime ordinario (partita IVA, IRPEF + Gestione Separata INPS)",
+    "appliesTo": "Self-employed professionals with a VAT number not using the forfettario regime; INPS Gestione Separata for professionals without their own pension fund (artigiani/commercianti pay different INPS rates)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2800000,
+       "rateBp": 2300
+      },
+      {
+       "upToMinor": 5000000,
+       "rateBp": 3300
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4300
+      }
+     ],
+     "base": "net profit (receipts minus deductible expenses and deductible social contributions); regional surcharge about 1.23%-3.33% and municipal surcharge 0%-0.9% are added on top and are not in brackets"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "INPS Gestione Separata (VAT-number holders exclusively enrolled)",
+      "rateBp": 2607,
+      "base": "net self-employment income up to the annual cap of EUR 122,295",
+      "floorMinor": null,
+      "capMinor": 12229500,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2200
+    },
+    "suggestedReserveRateBp": 4455,
+    "reserveBasis": "Assume EUR 30,000 gross profit: INPS 26.07% = 7,821; taxable 22,179 x 23% = 5,101 plus about 2% regional/municipal = 443; total 13,365 / 30,000 = 44.55%. Ignores tax credits (detrazioni) so slightly conservative.",
+    "deadlines": [
+     {
+      "name": "First advance (acconto) on income tax and INPS, plus balance for prior year",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     },
+     {
+      "name": "Second advance (acconto)",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Modello Redditi PF electronic filing",
+      "type": "annual",
+      "day": 31,
+      "month": 10
+     }
+    ],
+    "notes": "2026 figures per PwC Worldwide Tax Summaries. Advances are 40% (June) and 60% (November) of prior-year liability. VAT registration threshold for ordinary regime not stated in the source (VAT applies from first invoice for ordinary regime), so null. IRAP no longer applies to individual self-employed. Municipal and regional surcharge ranges vary by location. Artigiani and commercianti INPS rates not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/italy/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/italy/individual/other-taxes",
+     "https://taxsummaries.pwc.com/italy/individual/tax-administration",
+     "https://taxsummaries.pwc.com/italy/individual/deductions"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "forfettario",
+    "name": "Regime forfettario (flat-rate scheme)",
+    "appliesTo": "Individuals with a VAT number and revenue up to EUR 85,000 per year (leaving immediately above EUR 100,000); other eligibility conditions apply",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1500,
+     "base": "presumptive taxable income = turnover x profitability coefficient (78% for professional services), minus mandatory social contributions; 5% rate for first 5 years of a new activity if conditions are met"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "INPS Gestione Separata (VAT-number holders exclusively enrolled)",
+      "rateBp": 2607,
+      "base": "presumptive income (turnover x coefficient) up to the annual cap of EUR 122,295",
+      "floorMinor": null,
+      "capMinor": 12229500,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2200
+    },
+    "suggestedReserveRateBp": 2898,
+    "reserveBasis": "Assume EUR 30,000 turnover: presumptive income 30,000 x 78% = 23,400; INPS 26.07% = 6,100; taxable 17,300 x 15% = 2,595; total 8,695 / 30,000 = 28.98%.",
+    "deadlines": [
+     {
+      "name": "Substitute tax and INPS balance plus first advance",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     },
+     {
+      "name": "Second advance",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Modello Redditi PF electronic filing",
+      "type": "annual",
+      "day": 31,
+      "month": 10
+     }
+    ],
+    "notes": "Forfettario details (EUR 85,000/100,000 thresholds, 15%/5% rates, 78% coefficient) come from Italian tax-advice websites, not an official source or Big-4; coefficients vary by ATECO code. Forfettario taxpayers are exempt from charging VAT, so VAT threshold is null/not applicable. PwC pages did not cover this regime.",
+    "sources": [
+     "https://www.money.it/regime-forfettario-2026-come-funziona-requisiti-limiti",
+     "https://centrofiscale.com/regime-forfettario-2026-requisiti-aliquote/",
+     "https://taxsummaries.pwc.com/italy/individual/other-taxes",
+     "https://taxsummaries.pwc.com/italy/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.p.A.",
+    "caseSensitive": false,
+    "name": "Societa per azioni"
+   },
+   {
+    "token": "SpA",
+    "caseSensitive": true,
+    "name": "Societa per azioni"
+   },
+   {
+    "token": "S.r.l.",
+    "caseSensitive": false,
+    "name": "Societa a responsabilita limitata"
+   },
+   {
+    "token": "Srl",
+    "caseSensitive": false,
+    "name": "Societa a responsabilita limitata"
+   },
+   {
+    "token": "S.r.l.s.",
+    "caseSensitive": false,
+    "name": "Societa a responsabilita limitata semplificata"
+   },
+   {
+    "token": "Srls",
+    "caseSensitive": false,
+    "name": "Societa a responsabilita limitata semplificata"
+   },
+   {
+    "token": "S.n.c.",
+    "caseSensitive": false,
+    "name": "Societa in nome collettivo"
+   },
+   {
+    "token": "Snc",
+    "caseSensitive": false,
+    "name": "Societa in nome collettivo"
+   },
+   {
+    "token": "S.a.s.",
+    "caseSensitive": false,
+    "name": "Societa in accomandita semplice"
+   },
+   {
+    "token": "Sas",
+    "caseSensitive": true,
+    "name": "Societa in accomandita semplice"
+   },
+   {
+    "token": "S.a.p.A.",
+    "caseSensitive": false,
+    "name": "Societa in accomandita per azioni"
+   },
+   {
+    "token": "S.c.a r.l.",
+    "caseSensitive": false,
+    "name": "Societa cooperativa a responsabilita limitata"
+   },
+   {
+    "token": "Soc. Coop.",
+    "caseSensitive": false,
+    "name": "Societa cooperativa"
+   },
+   {
+    "token": "S.S.",
+    "caseSensitive": true,
+    "name": "Societa semplice"
+   }
+  ]
+ },
+ {
+  "code": "GR",
+  "name": "Greece",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "freelancer_standard",
+    "name": "\u0395\u03bb\u03b5\u03cd\u03b8\u03b5\u03c1\u03bf\u03c2 \u03b5\u03c0\u03b1\u03b3\u03b3\u03b5\u03bb\u03bc\u03b1\u03c4\u03af\u03b1\u03c2 (freelancer / sole proprietor, EFKA contributions)",
+    "appliesTo": "Self-employed professionals and sole traders with a Greek tax residence; business profit taxed on the general scale",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1000000,
+       "rateBp": 900
+      },
+      {
+       "upToMinor": 2000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 3000000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 4000000,
+       "rateBp": 3400
+      },
+      {
+       "upToMinor": 6000000,
+       "rateBp": 3900
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4400
+      }
+     ],
+     "base": "net business profit after deductible expenses and mandatory EFKA contributions; reduced scales for taxpayers with children or under 30 apply under Law 5246/2025 and are not modelled"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "EFKA self-employed contribution, category 1 (lowest of six monthly categories; main pension + health)",
+      "rateBp": 0,
+      "base": "fixed monthly amount of EUR 250.77 chosen by category; higher categories cost more",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 300924
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 1000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 2654,
+    "reserveBasis": "Assume EUR 20,000 net profit: EFKA category 1 = 250.77 x 12 = 3,009; taxable 16,991 -> 900 + 6,991 x 20% = 2,298; total 5,307 / 20,000 = 26.54%. No tax credit assumed for business income; excludes prepayment effect and any other levies.",
+    "deadlines": [
+     {
+      "name": "Income tax return filing window closes (opens 15 March)",
+      "type": "annual",
+      "day": 15,
+      "month": 7
+     }
+    ],
+    "notes": "Tax scale from PwC (tax year not stated on page; treated as 2026). EFKA category 1 amount EUR 250.77/month for 2026 per PwC Greece legal flash; other categories (2-6) not verified. VAT: EUR 10,000 domestic small-business exemption (optional) is not a mandatory registration threshold; standard rate 24%. Advance payment of 55% of current-year tax (50% in first year) is paid with the balance of previous year; exact payment dates/instalments not verified. Trade fee (telos epitideumatos) status for 2026 not verified. Solidarity levy not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/greece/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/greece/individual/other-taxes",
+     "https://taxsummaries.pwc.com/greece/individual/tax-administration",
+     "https://taxsummaries.pwc.com/greece/individual/deductions",
+     "https://www.pwc.com/gr/en/newsletters/legal-news/legal-flash-new-cap-on-remuneration-subject-to-social-security-contributions.html",
+     "https://www.ey.com/en_gr/technical/tax/tax-alerts/new-special-vat-exemption-scheme-for-small-enterprises"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0391.\u0395.",
+    "caseSensitive": false,
+    "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u0391\u0395",
+    "caseSensitive": true,
+    "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u0395.\u03a0.\u0395.",
+    "caseSensitive": false,
+    "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2"
+   },
+   {
+    "token": "\u0395\u03a0\u0395",
+    "caseSensitive": true,
+    "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2"
+   },
+   {
+    "token": "\u0399.\u039a.\u0395.",
+    "caseSensitive": false,
+    "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u0399\u039a\u0395",
+    "caseSensitive": true,
+    "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u039f.\u0395.",
+    "caseSensitive": false,
+    "name": "\u039f\u03bc\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u0395.\u0395.",
+    "caseSensitive": false,
+    "name": "\u0395\u03c4\u03b5\u03c1\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1"
+   },
+   {
+    "token": "\u039c.\u039f.\u0395.",
+    "caseSensitive": false,
+    "name": "\u039c\u03bf\u03bd\u03bf\u03c0\u03c1\u03cc\u03c3\u03c9\u03c0\u03b7 \u039f.\u0395."
+   },
+   {
+    "token": "A.E.",
+    "caseSensitive": false,
+    "name": "Anonymi Etairia (Latin spelling)"
+   },
+   {
+    "token": "E.P.E.",
+    "caseSensitive": false,
+    "name": "Etairia Periorismenis Efthynis (Latin spelling)"
+   },
+   {
+    "token": "I.K.E.",
+    "caseSensitive": false,
+    "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)"
+   },
+   {
+    "token": "IKE",
+    "caseSensitive": true,
+    "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)"
+   },
+   {
+    "token": "O.E.",
+    "caseSensitive": false,
+    "name": "Omorrythmi Etairia (Latin spelling)"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": true,
+    "name": "Societe Anonyme (Greek AE used in English)"
+   }
+  ]
+ },
+ {
+  "code": "MT",
+  "name": "Malta",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed_standard",
+    "name": "Self-employed (Class 2 social security, single rates)",
+    "appliesTo": "Resident individuals carrying on a trade, business or profession (self-occupied persons) who are not on the part-time 10% rate",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1200000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 1600000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 6000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "net chargeable income (profit after allowable business expenses); single-rate table for basis year 2026"
+    },
+    "allowanceMinor": 1200000,
+    "socialContributions": [
+     {
+      "name": "Class 2 social security (self-occupied)",
+      "rateBp": 1500,
+      "base": "annual net income of the previous year, subject to weekly maximum of EUR 83.89 (born 1962 or later)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 3500000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 2455,
+    "reserveBasis": "Assume EUR 22,000 net profit: income tax 25% x 22,000 - 3,400 = 2,100; social security 15% = 3,300 (below the cap of about 83.89 x 52 = 4,362); total 5,400 / 22,000 = 24.55%.",
+    "deadlines": [
+     {
+      "name": "Income tax return and self-assessment (end of June after basis year)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "The 0% band up to EUR 12,000 is modelled as brackets; allowanceMinor shown equals that 0% band and must not be applied twice. Malta grants no personal allowances. Minimum Class 2 contribution not stated in source. Provisional tax is paid in three instalments (20%/30%/50%) based on last filed self-assessment; calendar dates not verified. VAT: service providers with turnover up to EUR 35,000 may be small enterprises (Article 11 exempt, thresholds vary by activity). Weekly maximum treated as 52 weeks per year.",
+    "sources": [
+     "https://taxsummaries.pwc.com/malta/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/malta/individual/other-taxes",
+     "https://taxsummaries.pwc.com/malta/individual/tax-administration",
+     "https://taxsummaries.pwc.com/malta/individual/deductions"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "part_time_self_employed",
+    "name": "Part-time self-employment 10% rate",
+    "appliesTo": "Individuals with qualifying part-time self-employment income, taxed at 10% on income up to EUR 12,000 per year (optional)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "qualifying part-time self-employment income up to EUR 12,000 per year"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Class 2 social security (self-occupied)",
+      "rateBp": 1500,
+      "base": "annual net income of the previous year, subject to weekly maximum of EUR 83.89 (born 1962 or later)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 3500000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 2500,
+    "reserveBasis": "Assume EUR 12,000 qualifying income: tax 10% = 1,200; social security 15% = 1,800; total 3,000 / 12,000 = 25.00%.",
+    "deadlines": [
+     {
+      "name": "Income tax return and self-assessment (end of June after basis year)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "Detailed eligibility conditions for the 10% rate not verified; treat as optional. Whether social security is payable at the standard 15% on such income is assumed from the general rule.",
+    "sources": [
+     "https://taxsummaries.pwc.com/malta/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/malta/individual/other-taxes",
+     "https://taxsummaries.pwc.com/malta/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited liability company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Private limited liability company"
+   },
+   {
+    "token": "p.l.c.",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "plc",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "Co-operative Society Limited",
+    "caseSensitive": false,
+    "name": "Co-operative society"
+   },
+   {
+    "token": "en commandite",
+    "caseSensitive": false,
+    "name": "Partnership en commandite"
+   }
+  ]
+ },
+ {
+  "code": "CY",
+  "name": "Cyprus",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed_standard",
+    "name": "Self-employed (\u03b1\u03c5\u03c4\u03bf\u03b1\u03c0\u03b1\u03c3\u03c7\u03bf\u03bb\u03bf\u03cd\u03bc\u03b5\u03bd\u03bf\u03c2), PIT with social insurance and GESY",
+    "appliesTo": "Tax-resident individuals carrying on a trade or profession as sole proprietors",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2200000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 3200000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 4200000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 7200000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "chargeable income = net business profit minus deductible items (social insurance, GESY, pension, insurance, donations; shared cap of one fifth of chargeable income)"
+    },
+    "allowanceMinor": 2200000,
+    "socialContributions": [
+     {
+      "name": "Social insurance (self-employed)",
+      "rateBp": 1660,
+      "base": "declared insurable income, up to the 2026 insurable earnings limit of EUR 68,904",
+      "floorMinor": null,
+      "capMinor": 6890400,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "GESY (general healthcare system)",
+      "rateBp": 400,
+      "base": "total own income, capped at EUR 180,000",
+      "floorMinor": null,
+      "capMinor": 18000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1900
+    },
+    "suggestedReserveRateBp": 2193,
+    "reserveBasis": "Assume EUR 30,000 profit: social insurance 16.6% = 4,980; GESY 4% = 1,200; deductions 6,180 limited to 1/5 of income = 6,000; taxable 24,000 -> 2,000 x 20% = 400; total 6,580 / 30,000 = 21.93%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (self-employed, turnover up to EUR 120,000); balancing payment 31 January for audited accounts filers",
+      "type": "annual",
+      "day": 31,
+      "month": 1
+     },
+     {
+      "name": "Provisional tax instalments",
+      "type": "semiannual",
+      "day": 31,
+      "months": [
+       7,
+       12
+      ]
+     }
+    ],
+    "notes": "Brackets and EUR 22,000 tax-free amount apply from 1 January 2026 per PwC. The allowanceMinor equals the 0% band and must not be applied twice. Social insurance minimum/maximum insurable income by profession not verified (floor null). Filing deadline 31 January is for the second year after the tax year (e.g. 2026 return due 31 Jan 2028) per PwC; threshold EUR 120,000 from 2026 (EUR 70,000 earlier). VAT registration threshold not covered in sources used, so null; standard rate 19%. Special defence contribution not applicable to this earned income and not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/cyprus/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/cyprus/individual/other-taxes",
+     "https://taxsummaries.pwc.com/cyprus/individual/tax-administration",
+     "https://taxsummaries.pwc.com/cyprus/individual/deductions"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Private company limited by shares"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private company limited by shares"
+   },
+   {
+    "token": "Public Company Limited",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "\u039b\u03c4\u03b4",
+    "caseSensitive": false,
+    "name": "Ltd in Greek script"
+   },
+   {
+    "token": "\u039b\u03b9\u03bc\u03b9\u03c4\u03b5\u03b4",
+    "caseSensitive": false,
+    "name": "Limited in Greek script"
+   },
+   {
+    "token": "\u0394\u03b7\u03bc\u03cc\u03c3\u03b9\u03b1 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u039b\u03c4\u03b4",
+    "caseSensitive": false,
+    "name": "Public company limited"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ }
+]

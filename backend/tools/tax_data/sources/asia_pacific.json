@@ -1,0 +1,1614 @@
+[
+ {
+  "code": "AU",
+  "name": "Australia",
+  "currency": "AUD",
+  "taxYear": {
+   "startMonth": 7,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_trader",
+    "name": "Sole trader (ABN holder)",
+    "appliesTo": "Individuals carrying on business under an ABN; taxed as resident individuals on net business income",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1820000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 4500000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 13500000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 19000000,
+       "rateBp": 3700
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "Net business profit (taxable income)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Medicare levy",
+      "rateBp": 200,
+      "base": "Taxable income (reduced or nil below low-income thresholds, which vary by year and were not verified)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 7500000,
+     "standardRateBp": 1000
+    },
+    "suggestedReserveRateBp": 2325,
+    "reserveBasis": "At AUD 108,352 (ABS average weekly ordinary time earnings AUD 2,083.70 x 52, May 2026): income tax 23,026 + Medicare levy 2,167 = 25,193, i.e. 23.3% of gross; assumes no deductible expenses, no LITO.",
+    "deadlines": [
+     {
+      "name": "Individual income tax return (income year ends 30 June)",
+      "type": "annual",
+      "day": 31,
+      "month": 10
+     },
+     {
+      "name": "PAYG instalments (quarterly, for those on the instalment system; 28 Oct, 28 Feb, 28 Apr, 28 Jul)",
+      "type": "quarterly",
+      "day": 28,
+      "months": [
+       10,
+       2,
+       4,
+       7
+      ]
+     }
+    ],
+    "notes": "Income year 1 Jul 2026 - 30 Jun 2027 (2026/27): 15% rate on 18,201-45,000 confirmed by secondary sources (cut from 16% on 1 Jul 2026, legislated further cut to 14% from 1 Jul 2027); 0% tax-free threshold of AUD 18,200 is modelled as the first bracket, so allowanceMinor is 0 to avoid double counting. Medicare levy 2% (PwC); low-income reduction thresholds and Medicare levy surcharge ignored; LITO ignored. GST 10% (PwC), registration at GST turnover of AUD 75,000 (ATO guidance as summarised by search; ATO site blocked). No compulsory social security; superannuation is voluntary for sole traders (PwC: concessional cap AUD 32,500 for 2026/27). Return due 31 Oct, later when lodged via a registered tax agent. PAYG instalment dates per PwC; the ATO site was unreachable (HTTP 403) so ATO pages were not read directly.",
+    "sources": [
+     "https://taxsummaries.pwc.com/australia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/australia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/australia/individual/tax-administration",
+     "https://taxsummaries.pwc.com/australia/individual/deductions",
+     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst",
+     "https://www.abs.gov.au/media-centre/media-releases/average-weekly-earnings-growth-lowest-2022"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Pty Ltd",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty. Ltd.",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty. Ltd",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty Limited",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty. Limited",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Public company limited by shares"
+   },
+   {
+    "token": "NL",
+    "caseSensitive": true,
+    "name": "No Liability company"
+   },
+   {
+    "token": "Co-operative Limited",
+    "caseSensitive": false,
+    "name": "Co-operative"
+   },
+   {
+    "token": "Co-op",
+    "caseSensitive": false,
+    "name": "Co-operative"
+   },
+   {
+    "token": "Unlimited",
+    "caseSensitive": false,
+    "name": "Unlimited company"
+   }
+  ]
+ },
+ {
+  "code": "NZ",
+  "name": "New Zealand",
+  "currency": "NZD",
+  "taxYear": {
+   "startMonth": 4,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_trader",
+    "name": "Sole trader / self-employed",
+    "appliesTo": "Individuals earning self-employment income, taxed as residents on net profit",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1560000,
+       "rateBp": 1050
+      },
+      {
+       "upToMinor": 5350000,
+       "rateBp": 1750
+      },
+      {
+       "upToMinor": 7810000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 18000000,
+       "rateBp": 3300
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3900
+      }
+     ],
+     "base": "Net business profit"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "ACC Earners' Levy (non-work injury cover), self-employed",
+      "rateBp": 175,
+      "base": "Liable earnings (NZD 1.75 per NZD 100, GST-inclusive)",
+      "floorMinor": 5050100,
+      "capMinor": 15664100,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "ACC Work Levy (average across classification units; actual rate depends on industry)",
+      "rateBp": 69,
+      "base": "Liable earnings, capped at the maximum liable earnings",
+      "floorMinor": 5050100,
+      "capMinor": 15664100,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "ACC Working Safer Levy",
+      "rateBp": 8,
+      "base": "Liable earnings, capped at the maximum liable earnings",
+      "floorMinor": 5050100,
+      "capMinor": 15664100,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 6000000,
+     "standardRateBp": 1500
+    },
+    "suggestedReserveRateBp": 2427,
+    "reserveBasis": "At NZD 90,000 (about NZD 1,730 average weekly earnings x 52): income tax 19,578 + ACC levies (1.75%+0.69%+0.08%) 2,268 = 21,846, i.e. 24.3% of gross; assumes no deductible expenses.",
+    "deadlines": [
+     {
+      "name": "Income tax return IR3 (tax year ends 31 March)",
+      "type": "annual",
+      "day": 7,
+      "month": 7
+     },
+     {
+      "name": "Provisional tax instalments, standard option (28 Aug, 15 Jan, 7 May); GST-registered 6-monthly filers pay 2 instalments (28 Oct, 7 May)",
+      "type": "quarterly",
+      "day": 28,
+      "months": [
+       8,
+       1,
+       5
+      ]
+     }
+    ],
+    "notes": "NZ tax year 1 Apr - 31 Mar; the 2026/27 year starts 1 Apr 2026. Brackets in force since 31 Jul 2024 per PwC, which states thresholds were last modified in 2024; no 2026/27 change found but not confirmed on the IRD site (IRD pages returned 404 or were unreachable). Instalment days vary (28 Aug, 15 Jan, 7 May); the quarterly entry uses day 28 with months [8,1,5] as a compact encoding, actual days are 28 Aug, 15 Jan, 7 May. ACC 2026/27 figures (earners levy 1.75/100, maximum liable earnings NZD 156,641, minimum NZD 50,501, work levy average 0.69/100, working safer 0.08/100) come from third-party summaries of the ACC/Gazette levy notice, not read from acc.co.nz; levy applies on liable earnings, minimum earnings rule modelled as floor. GST 15% (PwC); registration threshold NZD 60,000 over 12 months per third-party guides (IRD page not read). Tax agent extension to 31 March for the return (PwC). KiwiSaver is voluntary for the self-employed. Terminal tax date not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/new-zealand/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/new-zealand/individual/other-taxes",
+     "https://taxsummaries.pwc.com/new-zealand/individual/tax-administration",
+     "https://www.ird.govt.nz/income-tax/provisional-tax/provisional-tax-options/standard-option",
+     "https://www.acc.co.nz/for-business/received-an-invoice/calculate-your-levies/",
+     "https://gazette.govt.nz/notice/id/2025-au1361",
+     "https://nztax.tools/tax-insights/acc-earner-levy-2026-27/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "Limited Partnership",
+    "caseSensitive": false,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "Incorporated",
+    "caseSensitive": false,
+    "name": "Incorporated society"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated society"
+   },
+   {
+    "token": "Co-operative",
+    "caseSensitive": false,
+    "name": "Co-operative company"
+   }
+  ]
+ },
+ {
+  "code": "CN",
+  "name": "China",
+  "currency": "CNY",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "individual_business",
+    "name": "Individual business operator (Ge Ti Gong Shang Hu)",
+    "appliesTo": "Registered individually-owned business households taxed on business operating income",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 3000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 9000000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 30000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 50000000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "Annual taxable business income"
+    },
+    "allowanceMinor": 6000000,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 30000000,
+     "standardRateBp": 100
+    },
+    "suggestedReserveRateBp": 198,
+    "reserveBasis": "At CNY 124,110 net business income: taxable 64,110 after the CNY 60,000 deduction, tax per 5-35% brackets halved by the 50% reduction for annual taxable income up to CNY 2m (to end-2027) = 2,456, i.e. 2.0%; social insurance not included (unverified).",
+    "deadlines": [
+     {
+      "name": "IIT business income: quarterly prepayment (15 days after quarter end: 15 Apr, 15 Jul, 15 Oct, 15 Jan)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       4,
+       7,
+       10,
+       1
+      ]
+     },
+     {
+      "name": "IIT business income: annual return (secondary source)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     }
+    ],
+    "notes": "Brackets (5-35%) per PwC; CNY 60,000 annual deduction per PwC (claimable against either comprehensive or business income, not both). 50% reduction of IIT on annual taxable income up to CNY 2 million for individually-owned businesses runs 1 Jan 2023 to 31 Dec 2027 (secondary sources, not read from STA). VAT: small-scale taxpayers pay 1% in 2026-2027 (normally 3%) with exemption if quarterly sales are below CNY 300,000 (monthly below CNY 100,000) per PwC; general taxpayers 13/9/6%; the registration threshold field holds the quarterly exemption limit, the formal general-taxpayer threshold (CNY 5m annual) was not verified. Self-employed social insurance (flexible-employment pension/medical) is set by city and was not verified, so socialContributions is empty. 2026 rates confirmed unchanged by PwC (page reviewed 2026). Average wage used is not source-verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/deductions",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/other-taxes",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/tax-administration",
+     "https://www.china-briefing.com/news/china-monthly-tax-brief-february-2026/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "freelancer_comprehensive",
+    "name": "Freelancer comprehensive income (labour remuneration)",
+    "appliesTo": "Resident individuals receiving labour remuneration without an employer; comprehensive income rules",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 3600000,
+       "rateBp": 300
+      },
+      {
+       "upToMinor": 14400000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 30000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 42000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 66000000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 96000000,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "Annual taxable comprehensive income after standard deduction"
+    },
+    "allowanceMinor": 6000000,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 30000000,
+     "standardRateBp": 100
+    },
+    "suggestedReserveRateBp": 114,
+    "reserveBasis": "At CNY 124,110 receipts: 80% taxable = 99,288, less CNY 60,000 deduction = 39,288; tax per 3-45% brackets = 1,409, i.e. 1.1%; social insurance and special additional deductions not included.",
+    "deadlines": [
+     {
+      "name": "Annual IIT reconciliation (1 Mar - 30 Jun of following year)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "Labour remuneration (services without employer): 20% deduction so 80% taxable, per PwC; withholding by payer by the 15th of the following month. Annual reconciliation window 1 Mar - 30 Jun per PwC. Brackets per PwC (marginal rates; quick-deduction amounts omitted, which are only a calculation shortcut). Special additional deductions (child education etc.) not applied. Small-scale VAT 1% (2026-2027) with CNY 300,000 quarterly exemption applies to freelancers who issue invoices.",
+    "sources": [
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/deductions",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/other-taxes",
+     "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/tax-administration",
+     "https://www.china-briefing.com/news/china-monthly-tax-brief-february-2026/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "\u6709\u9650\u8d23\u4efb\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "\u6709\u9650\u8cac\u4efb\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited liability company (traditional)"
+   },
+   {
+    "token": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Joint stock company"
+   },
+   {
+    "token": "\u5408\u4f19\u4f01\u4e1a",
+    "caseSensitive": false,
+    "name": "Partnership enterprise"
+   },
+   {
+    "token": "\u6709\u9650\u5408\u4f19",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "\u5408\u4f5c\u793e",
+    "caseSensitive": false,
+    "name": "Cooperative"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co.,Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co. Ltd",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ },
+ {
+  "code": "HK",
+  "name": "Hong Kong",
+  "currency": "HKD",
+  "taxYear": {
+   "startMonth": 4,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "profits_tax_sole_proprietor",
+    "name": "Sole proprietorship profits tax (unincorporated business)",
+    "appliesTo": "Individuals carrying on a trade, profession or business in Hong Kong with Hong Kong-sourced profits; assessed on profits (basis period, usually 12 months to 31 Dec or 31 Mar)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 200000000,
+       "rateBp": 750
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 1500
+      }
+     ],
+     "base": "Assessable profits (two-tiered rates: 7.5% on first HKD 2m, 15% above; only one entity per person may use the lower tier)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "MPF mandatory contribution, self-employed person",
+      "rateBp": 500,
+      "base": "Relevant income; none below HKD 85,200 per year, base capped at HKD 360,000 per year (maximum contribution HKD 18,000)",
+      "floorMinor": 8520000,
+      "capMinor": 36000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 0
+    },
+    "suggestedReserveRateBp": 1250,
+    "reserveBasis": "At HKD 267,600 profits (median monthly earnings HKD 22,300 x 12): profits tax 7.5% = 20,070 + MPF 5% = 13,380 = 33,450, i.e. 12.5%; no allowances applied under profits tax (personal assessment may lower this).",
+    "deadlines": [
+     {
+      "name": "Tax return - Individuals (BIR60) with business income: issued first working day of May, due 3 months after issue (approximate date; exact date printed on the return)",
+      "type": "annual",
+      "day": 1,
+      "month": 8
+     },
+     {
+      "name": "Provisional + final tax payable in two instalments (dates on the assessment notice)",
+      "type": "semiannual",
+      "day": null,
+      "months": [
+       1,
+       4
+      ]
+     }
+    ],
+    "notes": "Profits tax rates 7.5%/15% for unincorporated businesses per IRD guidance as summarised by search (IRD pam56e, gov.hk), PwC page did not give them; 2026/27 rates not separately confirmed. No VAT/GST in Hong Kong (PwC). MPF self-employed: 5% of relevant income, minimum HKD 7,100/month (85,200/yr), maximum HKD 30,000/month (360,000/yr) per MPFA; contributions deductible up to HKD 18,000. Instalment months (January and April) per PwC; day not stated. Median earnings is a proxy for the national average and is from Q2 2025.",
+    "sources": [
+     "https://www.ird.gov.hk/eng/pdf/pam56e.pdf",
+     "https://www.gov.hk/en/residents/taxes/taxfiling/filing/types/profitstax.htm",
+     "https://mpfa.org.hk/en/mpf-system/mandatory-contributions/self-employed-persons",
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/other-taxes",
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/tax-administration",
+     "https://www.info.gov.hk/gia/general/202510/22/P2025102100678.htm"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "personal_assessment",
+    "name": "Sole proprietor under personal assessment / salaries-tax-style bands",
+    "appliesTo": "Individuals with Hong Kong-sourced business profit electing personal assessment; progressive bands capped by the standard rate",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 5000000,
+       "rateBp": 200
+      },
+      {
+       "upToMinor": 10000000,
+       "rateBp": 600
+      },
+      {
+       "upToMinor": 15000000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 20000000,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 1700
+      }
+     ],
+     "base": "Net assessable income after deductions and allowances"
+    },
+    "allowanceMinor": 14500000,
+    "socialContributions": [
+     {
+      "name": "MPF mandatory contribution, self-employed person",
+      "rateBp": 500,
+      "base": "Relevant income; none below HKD 85,200 per year, base capped at HKD 360,000 per year (maximum contribution HKD 18,000)",
+      "floorMinor": 8520000,
+      "capMinor": 36000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 0
+    },
+    "suggestedReserveRateBp": 684,
+    "reserveBasis": "At HKD 267,600: net after MPF deduction 254,220, less HKD 145,000 basic allowance = 109,220; tax per 2-17% bands = 4,922 + MPF 13,380 = 18,302, i.e. 6.8%.",
+    "deadlines": [
+     {
+      "name": "Tax return - Individuals (BIR60) with business income: issued first working day of May, due 3 months after issue (approximate date; exact date printed on the return)",
+      "type": "annual",
+      "day": 1,
+      "month": 8
+     },
+     {
+      "name": "Provisional + final tax payable in two instalments (dates on the assessment notice)",
+      "type": "semiannual",
+      "day": null,
+      "months": [
+       1,
+       4
+      ]
+     }
+    ],
+    "notes": "Personal assessment (elective; lets personal allowances offset business profits, tax is the lower of assessed on profits tax or personal assessment). Bands 2/6/10/14/17% of HKD 50,000 each and the 15%/16% standard rate cap (first HKD 5m / remainder) per PwC for 2025/26; 2026/27 bands not separately confirmed. 2026/27 allowances per PwC: basic HKD 145,000, married HKD 290,000, child HKD 140,000/280,000, dependent parent HKD 55,000-110,000; allowanceMinor holds the single basic allowance. MPF contribution deductible up to HKD 18,000. The standard rate cap is not modelled in the brackets.",
+    "sources": [
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/deductions",
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/other-taxes",
+     "https://taxsummaries.pwc.com/hong-kong-sar/individual/tax-administration",
+     "https://mpfa.org.hk/en/mpf-system/mandatory-contributions/self-employed-persons"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Company Limited",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Corporation Limited",
+    "caseSensitive": false,
+    "name": "Corporation Limited"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "Limited Partnership",
+    "caseSensitive": false,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "\u6709\u9650\u8cac\u4efb\u5408\u5925",
+    "caseSensitive": false,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "Unlimited",
+    "caseSensitive": false,
+    "name": "Unlimited company"
+   }
+  ]
+ },
+ {
+  "code": "IN",
+  "name": "India",
+  "currency": "INR",
+  "taxYear": {
+   "startMonth": 4,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "new_regime",
+    "name": "Individual under new tax regime (default)",
+    "appliesTo": "Resident individuals/proprietors on net business income, default regime without most deductions",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 40000000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 80000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 120000000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 160000000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 200000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 240000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3000
+      }
+     ],
+     "base": "Net business profit"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 200000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 728,
+    "reserveBasis": "Illustrative INR 1,500,000 net profit (no official national average wage verified; below INR 12 lakh the 87A rebate makes tax nil): tax per slabs x 1.04 cess = 109,200, i.e. 7.3%; GST collected is pass-through and excluded.",
+    "deadlines": [
+     {
+      "name": "Advance tax instalments (15% / 45% / 75% / 100% cumulative)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       6,
+       9,
+       12,
+       3
+      ]
+     },
+     {
+      "name": "Income tax return, business/profession not requiring audit (PwC; statute date was 31 July - see notes)",
+      "type": "annual",
+      "day": 31,
+      "month": 8
+     }
+    ],
+    "notes": "Slabs and 87A rebate (INR 60,000 where income up to INR 12 lakh) per PwC for FY 2025/26 and subsequent years; no FY 2026/27 change found, Income-tax Act 2025 takes effect 1 Apr 2026 with unchanged rates (not verified on incometax.gov.in). 4% cess on tax; surcharge above INR 50 lakh ignored. Basic exemption is the 0% slab so allowanceMinor is 0. No mandatory social security for the self-employed (EPF covers employees only per PwC). GST 18% general rate (PwC); registration threshold INR 20 lakh for services (INR 10 lakh in special-category states) and INR 40 lakh for goods is from general knowledge and not source-verified in this pass. Advance tax needed if liability exceeds INR 10,000; presumptive 44ADA/44AD taxpayers pay a single instalment by 15 March (not verified). PwC lists 31 Aug for non-audit business cases and 31 Oct for audit cases (audit if turnover above INR 10m or professional receipts above INR 5m).",
+    "sources": [
+     "https://taxsummaries.pwc.com/india/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/india/individual/deductions",
+     "https://taxsummaries.pwc.com/india/individual/other-taxes",
+     "https://taxsummaries.pwc.com/india/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "old_regime",
+    "name": "Individual under old tax regime",
+    "appliesTo": "Resident individuals opting for the old regime with deductions",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 25000000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 50000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 100000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3000
+      }
+     ],
+     "base": "Net business profit after deductions"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 200000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 1508,
+    "reserveBasis": "Illustrative INR 1,500,000 net profit less INR 150,000 Section 80C-type deduction = 1,350,000; tax per old-regime slabs x 1.04 cess = 226,200, i.e. 15.1%.",
+    "deadlines": [
+     {
+      "name": "Advance tax instalments (15% / 45% / 75% / 100% cumulative)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       6,
+       9,
+       12,
+       3
+      ]
+     },
+     {
+      "name": "Income tax return, business/profession not requiring audit (PwC; statute date was 31 July - see notes)",
+      "type": "annual",
+      "day": 31,
+      "month": 8
+     }
+    ],
+    "notes": "Old regime slabs per PwC (higher exemption for age 60+ ignored); 87A rebate only up to INR 5 lakh income. Deductions available: up to INR 150,000 for eligible investments (80C-type) and a further INR 50,000 for notified pension scheme per PwC. Same GST, advance tax and filing rules as the new regime.",
+    "sources": [
+     "https://taxsummaries.pwc.com/india/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/india/individual/deductions",
+     "https://taxsummaries.pwc.com/india/individual/other-taxes",
+     "https://taxsummaries.pwc.com/india/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Pvt. Ltd.",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pvt Ltd",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pvt. Ltd",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Private Limited",
+    "caseSensitive": false,
+    "name": "Private Limited company"
+   },
+   {
+    "token": "Pvt. Limited",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "OPC",
+    "caseSensitive": true,
+    "name": "One Person Company"
+   },
+   {
+    "token": "Co-operative Society",
+    "caseSensitive": false,
+    "name": "Co-operative society"
+   }
+  ]
+ },
+ {
+  "code": "JP",
+  "name": "Japan",
+  "currency": "JPY",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "kojin_jigyonushi",
+    "name": "Sole proprietor (Kojin Jigyonushi), blue or white return",
+    "appliesTo": "Individuals with business or freelance income filing a Kakutei Shinkoku",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1950000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 3300000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 6950000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 9000000,
+       "rateBp": 2300
+      },
+      {
+       "upToMinor": 18000000,
+       "rateBp": 3300
+      },
+      {
+       "upToMinor": 40000000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "Taxable income after deductions (national income tax; 2.1% surtax and 10% resident tax extra)"
+    },
+    "allowanceMinor": 1040000,
+    "socialContributions": [
+     {
+      "name": "National Pension (Kokumin Nenkin), Category 1 insured, flat premium FY2026 (JPY 17,920 per month)",
+      "rateBp": null,
+      "base": "Flat monthly premium",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 215040
+     },
+     {
+      "name": "National Health Insurance (Kokumin Kenko Hoken) income-based part, Tokyo 23 wards FY2026: medical 7.51% + support 2.80% + child support 0.27%",
+      "rateBp": 1058,
+      "base": "Previous-year income minus JPY 430,000 basic deduction; rates differ by municipality",
+      "floorMinor": null,
+      "capMinor": 960000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "National Health Insurance per-capita levy (Tokyo 23 wards FY2026: 47,600 + 17,600 + 1,873), per insured person",
+      "rateBp": null,
+      "base": "Per insured person per year",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 67073
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 10000000,
+     "standardRateBp": 1000
+    },
+    "suggestedReserveRateBp": 2505,
+    "reserveBasis": "At JPY 4,870,000 (NTA 2025 average private-sector pay) treated as freelance revenue with no expenses: blue-return deduction 650,000; National Pension 215,040; NHI 468,055; national tax 155,387 (incl. 2.1% surtax) after basic deduction 1,040,000; resident tax 315,690; enterprise tax 66,000 (5%, only specified trades); total 1,220,172 = 25.1%.",
+    "deadlines": [
+     {
+      "name": "Final income tax return (kakutei shinkoku), filing window mid-Feb to 15 Mar (next business day if weekend)",
+      "type": "annual",
+      "day": 15,
+      "month": 3
+     },
+     {
+      "name": "Consumption tax return for sole proprietors (statutory date, not in PwC)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Preliminary national tax payment, 1st instalment (yotei nozei), if previous-year tax after withholding was JPY 150,000 or more",
+      "type": "annual",
+      "day": 31,
+      "month": 7
+     },
+     {
+      "name": "Preliminary national tax payment, 2nd instalment",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Resident tax instalments (June, August, October, January; exact day per municipality)",
+      "type": "quarterly",
+      "day": null,
+      "months": [
+       6,
+       8,
+       10,
+       1
+      ]
+     }
+    ],
+    "notes": "JPY has no minor unit: all amounts and brackets in this object are whole yen, not yen x 100. National brackets per PwC (5-45%), plus 2.1% reconstruction surtax; resident tax 10% (4% prefectural + 6% municipal) plus JPY 5,000 per capita (not source-verified); resident basic deduction stays JPY 430,000. 2026 reform (Diet approval 31 Mar 2026): national basic deduction for total income up to JPY 1.32m-4.89m is JPY 1,040,000 for 2026 and 2027 (permanent JPY 620,000 plus temporary special addition); JPY 670,000 for income to 6.55m, JPY 620,000 for 6.55m-23.5m (PwC). allowanceMinor uses 1,040,000. Blue-return special deduction JPY 650,000 (double-entry plus e-Tax), 550,000 paper, 100,000 simplified books (secondary sources; the 2026 reform changes apply from tax year 2027). National Pension JPY 17,920/month for FY2026 (Japan Pension Service). NHI figures are Tokyo 23-ward FY2026 rates (Ota ward page via search); annual caps for medical+support+child support 670,000+260,000+30,000 = 960,000 (excl. long-term care 170,000 for ages 40-64); other municipalities differ. Consumption tax 10% (reduced 8% for food ignored); exempt if taxable sales in the base period (two years earlier) are JPY 10m or less (NTA); invoice-system registration voluntary for small businesses, the 20% special measure window ended 30 Sep 2026. Enterprise tax 5% with JPY 2.9m deduction applies only to specified trades and was not source-verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/japan/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/japan/individual/deductions",
+     "https://taxsummaries.pwc.com/japan/individual/other-taxes",
+     "https://taxsummaries.pwc.com/japan/individual/tax-administration",
+     "https://www.nenkin.go.jp/international/english/japanese-system/nationalpension/np_contribution.html",
+     "https://www.city.minato.tokyo.jp/kuse/koho/minatomonthly/260401/national-pension-insurance-premium-revised.html",
+     "https://www.city.ota.tokyo.jp/seikatsu/kokunen/kokuho/hokenryou/keisan.html",
+     "https://www.nta.go.jp/english/taxes/consumption_tax/pdf/2025/general_00.pdf",
+     "https://hls-global.jp/en/2026/07/13/key-points-of-the-fy2026-reiwa-8-tax-reform-in-japan-2/",
+     "https://www.nippon.com/en/news/yjj2026092900834/japan-private-sector-wages-hit-record-high-in-2025.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u682a\u5f0f\u4f1a\u793e",
+    "caseSensitive": false,
+    "name": "Kabushiki Kaisha"
+   },
+   {
+    "token": "(\u682a)",
+    "caseSensitive": false,
+    "name": "Kabushiki Kaisha abbreviated"
+   },
+   {
+    "token": "\uff08\u682a\uff09",
+    "caseSensitive": false,
+    "name": "Kabushiki Kaisha abbreviated, full-width"
+   },
+   {
+    "token": "\u3231",
+    "caseSensitive": false,
+    "name": "Kabushiki Kaisha abbreviated, single character"
+   },
+   {
+    "token": "\u6709\u9650\u4f1a\u793e",
+    "caseSensitive": false,
+    "name": "Yugen Kaisha"
+   },
+   {
+    "token": "(\u6709)",
+    "caseSensitive": false,
+    "name": "Yugen Kaisha abbreviated"
+   },
+   {
+    "token": "\u3232",
+    "caseSensitive": false,
+    "name": "Yugen Kaisha abbreviated, single character"
+   },
+   {
+    "token": "\u5408\u540c\u4f1a\u793e",
+    "caseSensitive": false,
+    "name": "Godo Kaisha (LLC)"
+   },
+   {
+    "token": "\u5408\u540d\u4f1a\u793e",
+    "caseSensitive": false,
+    "name": "Gomei Kaisha"
+   },
+   {
+    "token": "\u5408\u8cc7\u4f1a\u793e",
+    "caseSensitive": false,
+    "name": "Goshi Kaisha"
+   },
+   {
+    "token": "\u4e00\u822c\u793e\u56e3\u6cd5\u4eba",
+    "caseSensitive": false,
+    "name": "General incorporated association"
+   },
+   {
+    "token": "K.K.",
+    "caseSensitive": false,
+    "name": "Kabushiki Kaisha"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   }
+  ]
+ },
+ {
+  "code": "KR",
+  "name": "South Korea",
+  "currency": "KRW",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor",
+    "name": "Sole proprietor (Gaein Sauppja)",
+    "appliesTo": "Individuals with business income filing comprehensive income tax in May",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 14000000,
+       "rateBp": 600
+      },
+      {
+       "upToMinor": 50000000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 88000000,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 150000000,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": 300000000,
+       "rateBp": 3800
+      },
+      {
+       "upToMinor": 500000000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": 1000000000,
+       "rateBp": 4200
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "Net business income after deductions (local income tax of 10% of this tax is extra)"
+    },
+    "allowanceMinor": 1500000,
+    "socialContributions": [
+     {
+      "name": "National Pension (regional subscriber, pays full 9.5% in 2026)",
+      "rateBp": 950,
+      "base": "Declared monthly income; upper limit KRW 6,590,000 per month from July 2026 (annual base cap shown); lower limit not verified (KRW 400,000 per month in the prior year)",
+      "floorMinor": null,
+      "capMinor": 79080000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "National Health Insurance (regional subscriber, income-based part; 2026 rate 7.19%, property/vehicle points and long-term care surcharge not modelled)",
+      "rateBp": 719,
+      "base": "Assessed annual income",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1000
+    },
+    "suggestedReserveRateBp": 2839,
+    "reserveBasis": "At KRW 50,460,000 (about KRW 4.205m per month x 12, secondary source): pension 9.5% = 4,793,700 (deductible), NHI 7.19% = 3,628,074, taxable 44,166,300 after KRW 1.5m deduction, tax per brackets + 10% local = 5,901,440; total 14,323,214 = 28.4%; assumes no expenses and likely overstates NHI.",
+    "deadlines": [
+     {
+      "name": "Comprehensive income tax return and payment (1-31 May; next business day if weekend)",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     },
+     {
+      "name": "Interim prepayment of comprehensive income tax (half of previous year's tax, notified by tax office)",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "VAT final return, simplified taxpayers (annual) and second-half general taxpayers",
+      "type": "annual",
+      "day": 25,
+      "month": 1
+     },
+     {
+      "name": "VAT first-half return for general taxpayers; prepayment notice payment for simplified taxpayers",
+      "type": "annual",
+      "day": 25,
+      "month": 7
+     }
+    ],
+    "notes": "KRW has no minor unit: all amounts and brackets are whole won, not won x 100. Brackets 6-45% per PwC (income from 1 Jan 2023), plus local income tax of 10% of the tax; no 2026 bracket change found in PwC. Basic deduction KRW 1.5m per person (PwC); pension contributions fully deductible; business-income taxpayers get no flat standard deduction. National Pension: 9.5% in 2026 rising 0.5 point a year to 13% in 2033 (news coverage; PwC shows 4.75% employee + 4.75% employer); income cap KRW 6.59m per month from July 2026 (PwC, Herald). NHI rate 7.19% (2026 and frozen for 2027, news); regional NHI actually combines income, property and vehicle points and adds long-term care, so the modelled rate is approximate. VAT 10%; every business must register, simplified taxpayer status (KRW 104m annual supply threshold since July 2024) is from general knowledge, not source-verified. Deadlines for return, 30 Nov interim payment and VAT dates from PwC plus secondary tax-calendar sources; complex filers (sincere-reporting confirmation) get 30 June.",
+    "sources": [
+     "https://taxsummaries.pwc.com/republic-of-korea/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/republic-of-korea/individual/deductions",
+     "https://taxsummaries.pwc.com/republic-of-korea/individual/other-taxes",
+     "https://taxsummaries.pwc.com/republic-of-korea/individual/tax-administration",
+     "https://biz.heraldcorp.com/article/10778196",
+     "https://view.asiae.co.kr/en/article/2025122917244912225",
+     "https://view.asiae.co.kr/en/article/2026090813454829682",
+     "https://braindetox.kr/en/posts/income_tax_interim_prepayment_nov_2026.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\uc8fc\uc2dd\ud68c\uc0ac",
+    "caseSensitive": false,
+    "name": "Jusik Hoesa (stock company)"
+   },
+   {
+    "token": "(\uc8fc)",
+    "caseSensitive": false,
+    "name": "Jusik Hoesa abbreviated"
+   },
+   {
+    "token": "\u321c",
+    "caseSensitive": false,
+    "name": "Jusik Hoesa abbreviated, single character"
+   },
+   {
+    "token": "\uff08\uc8fc\uff09",
+    "caseSensitive": false,
+    "name": "Jusik Hoesa abbreviated, full-width"
+   },
+   {
+    "token": "\uc720\ud55c\ud68c\uc0ac",
+    "caseSensitive": false,
+    "name": "Yuhan Hoesa (limited company)"
+   },
+   {
+    "token": "(\uc720)",
+    "caseSensitive": false,
+    "name": "Yuhan Hoesa abbreviated"
+   },
+   {
+    "token": "\uc720\ud55c\ucc45\uc784\ud68c\uc0ac",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "\ud569\uc790\ud68c\uc0ac",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "\ud569\uba85\ud68c\uc0ac",
+    "caseSensitive": false,
+    "name": "General partnership"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co.,Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   }
+  ]
+ },
+ {
+  "code": "SG",
+  "name": "Singapore",
+  "currency": "SGD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor",
+    "name": "Sole proprietor / self-employed",
+    "appliesTo": "Resident individuals with trade or business income",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2000000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 3000000,
+       "rateBp": 200
+      },
+      {
+       "upToMinor": 4000000,
+       "rateBp": 350
+      },
+      {
+       "upToMinor": 8000000,
+       "rateBp": 700
+      },
+      {
+       "upToMinor": 12000000,
+       "rateBp": 1150
+      },
+      {
+       "upToMinor": 16000000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 20000000,
+       "rateBp": 1800
+      },
+      {
+       "upToMinor": 24000000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 28000000,
+       "rateBp": 1950
+      },
+      {
+       "upToMinor": 32000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 50000000,
+       "rateBp": 2200
+      },
+      {
+       "upToMinor": 100000000,
+       "rateBp": 2300
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2400
+      }
+     ],
+     "base": "Chargeable income after reliefs and deductions"
+    },
+    "allowanceMinor": 100000,
+    "socialContributions": [
+     {
+      "name": "MediSave contribution, self-employed (SEP), age 35 to under 45 band",
+      "rateBp": 900,
+      "base": "Annual net trade income; due only if NTI above SGD 6,000; rates phase in up to SGD 18,000 and vary by age (8% under 35, 9% age 35-45, 10% age 45-50, 10.5% from 50 per third-party summaries); capped at the age-band maximum and the MediSave contribution ceiling",
+      "floorMinor": 600000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 100000000,
+     "standardRateBp": 900
+    },
+    "suggestedReserveRateBp": 1202,
+    "reserveBasis": "At SGD 69,300 net trade income (median gross monthly income 5,775 x 12, includes employer CPF): MediSave 9% = 6,237 (fully deductible); chargeable income 62,063 after SGD 1,000 earned income relief; tax per YA2026 brackets = 2,094; total 8,331 = 12.0%.",
+    "deadlines": [
+     {
+      "name": "Income tax return (e-Filing deadline, Form B for self-employed)",
+      "type": "annual",
+      "day": 18,
+      "month": 4
+     },
+     {
+      "name": "Tax payable within one month of the Notice of Assessment (GIRO instalments available)",
+      "type": "annual",
+      "day": null,
+      "month": 6
+     }
+    ],
+    "notes": "Brackets for YA2026 (income earned in 2025) per PwC; YA2027 (income earned in 2026) brackets not verified. Resident rates start with a 0% band to SGD 20,000. Earned income relief SGD 1,000 under age 55 (PwC); other reliefs not applied; total relief cap SGD 80,000. YA2026 rebates not verified. MediSave: official CPF structure confirmed (age and NTI based, only if NTI above SGD 6,000) but the 2026 rate table could not be read; 9% for age 35-45 matches an IRAS worked example. Self-employed make no CPF Ordinary or Special Account contributions (voluntary only). Compulsory MediSave is billed after the Notice of Assessment. GST 9% (PwC); mandatory registration if taxable turnover exceeds SGD 1 million in a calendar year or is expected to in the next 12 months (IRAS, via search). Filing date 18 April per PwC; the payment deadline entry month 6 is approximate because NOAs are issued from about June and tax is due one month later.",
+    "sources": [
+     "https://taxsummaries.pwc.com/singapore/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/singapore/individual/deductions",
+     "https://taxsummaries.pwc.com/singapore/individual/other-taxes",
+     "https://taxsummaries.pwc.com/singapore/individual/tax-administration",
+     "https://www.cpf.gov.sg/MAconrate",
+     "https://www.iras.gov.sg/irashome/GST/Non-GST-registered-businesses/Registering-for-GST/Do-I-Need-to-Register-for-GST/",
+     "https://stats.mom.gov.sg/pages/income-summary-table.aspx"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Pte. Ltd.",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pte Ltd",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pte. Ltd",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pte. Limited",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Pte Limited",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Private Limited",
+    "caseSensitive": false,
+    "name": "Private Limited"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Public company limited by shares"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "Co-operative",
+    "caseSensitive": false,
+    "name": "Co-operative society"
+   }
+  ]
+ },
+ {
+  "code": "TW",
+  "name": "Taiwan",
+  "currency": "TWD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor",
+    "name": "Sole proprietor / freelancer",
+    "appliesTo": "Residents with business or professional income",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 59000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 133000000,
+       "rateBp": 1200
+      },
+      {
+       "upToMinor": 266000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 498000000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4000
+      }
+     ],
+     "base": "Net taxable income after exemptions and deductions"
+    },
+    "allowanceMinor": 22800000,
+    "socialContributions": [
+     {
+      "name": "NHI supplementary premium on professional practice income (code 9A), withheld by payer",
+      "rateBp": 211,
+      "base": "Each single payment of professional practice income of TWD 20,000 or more",
+      "floorMinor": 2000000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 500
+    },
+    "suggestedReserveRateBp": 561,
+    "reserveBasis": "At TWD 760,632 (DGBAS 2025 average total annual earnings) as net professional income: taxable 532,632 after TWD 97,000 exemption and TWD 131,000 standard deduction; tax at 5% = 26,632; NHI supplementary premium 2.11% = 16,049; total 42,681 = 5.6%; regular NHI premium and labour insurance for the self-employed not included (unverified).",
+    "deadlines": [
+     {
+      "name": "Annual individual income tax return (1-31 May, no extension)",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     },
+     {
+      "name": "Provisional tax for sole proprietorship business income (1-30 Sep; not source-verified)",
+      "type": "annual",
+      "day": 30,
+      "month": 9
+     }
+    ],
+    "notes": "TWD amounts stored x 100 like other currencies with cents. Brackets (5/12/20/30/40%, first band to TWD 590,000) are for the 2025 return filed in 2026 per PwC; a media report of CPI-indexed amounts for 2026 income (exemption 101,000, standard deduction 136,000, first band 610,000) could not be verified against an official announcement, so 2026 income-year rules are not confirmed. Exemption TWD 97,000 plus single standard deduction TWD 131,000 (PwC) combined in allowanceMinor; basic living expense differential TWD 213,000 per person not applied; separate 20% basic income tax above TWD 7.5m. Business tax (VAT) standard 5%; since 1 Jan 2025 monthly-sales exemption thresholds are TWD 100,000 (goods) and TWD 50,000 (services) per KPMG/Orbitax via search, small-scale businesses under TWD 200,000 per month may pay a fixed 1% on assessed sales; registrationThresholdMinor holds the services threshold of TWD 50,000. NHI supplementary premium 2.11% per NHI administration table via search. Cost-deduction ratios for professional practice income by occupation not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/taiwan/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/taiwan/individual/deductions",
+     "https://taxsummaries.pwc.com/taiwan/individual/other-taxes",
+     "https://taxsummaries.pwc.com/taiwan/individual/tax-administration",
+     "https://kpmg.com/us/en/taxnewsflash/news/2025/02/taiwan-business-tax-threshold-increase.html",
+     "https://www.nhi.gov.tw/en/np-35-2.html",
+     "https://focustaiwan.tw/business/202603160026"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Company limited by shares"
+   },
+   {
+    "token": "\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "\u7121\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Unlimited company"
+   },
+   {
+    "token": "\u5169\u5408\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited partnership company"
+   },
+   {
+    "token": "\u80a1\u4efd\u5169\u5408\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Partnership limited by shares"
+   },
+   {
+    "token": "\u6709\u9650\u5408\u5925",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co.,Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Corp.",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   }
+  ]
+ }
+]

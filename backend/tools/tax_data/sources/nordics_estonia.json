@@ -1,0 +1,665 @@
+[
+ {
+  "code": "EE",
+  "name": "Estonia",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ee_fie",
+    "name": "Sole proprietor (FIE, fuusilisest isikust ettevotja), general regime",
+    "appliesTo": "Natural person registered as FIE in the commercial register; no turnover cap; business expenses deductible against business income.",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2200,
+     "base": "net business profit (income minus deductible business expenses), after basic exemption"
+    },
+    "allowanceMinor": 840000,
+    "socialContributions": [
+     {
+      "name": "Social tax (sotsiaalmaks), 33% of net business income",
+      "rateBp": 3300,
+      "base": "net business income",
+      "floorMinor": 1063200,
+      "capMinor": 11172000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 4500,
+    "reserveBasis": "Derived: 33% social tax plus 22% income tax on profit above the 8,400 EUR exemption gives about 43-47% of profit at 15-24k EUR; 45% is a conservative share of gross assuming few business costs.",
+    "deadlines": [
+     {
+      "name": "Social tax advance payment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Income tax return (forms A and E)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "Final income tax and social tax payment per tax notice",
+      "type": "annual",
+      "day": 1,
+      "month": 10
+     }
+    ],
+    "notes": "2026: income tax stayed 22% (planned 24% cancelled); basic exemption is a flat 8,400 EUR per year (700 per month) for all. Social tax floor is 886 EUR monthly base (292.38 EUR/month = 877.14 EUR/quarter); annual social tax maximum 36,867.60 EUR, which corresponds to a base cap of 111,720 EUR (EMTA formula uses 886 and 946 monthly bases). floorMinor and capMinor are annual social tax BASES. Advance payments are not required if an employer pays at least 877.14 EUR per quarter social tax for the person. EMTA says income tax advance payments for business income are due by the 15th of the third month of each quarter (15 Sep and 15 Dec stated); exact Q1/Q2 income tax advance dates not verified. Voluntary funded pension 2/4/6% is optional. VAT standard rate 24% since 1 July 2025; 40,000 EUR threshold taken from EMTA entrepreneur account page (turnover above which FIE/OU registration and VAT registration apply).",
+    "sources": [
+     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/income-tax",
+     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/social-tax",
+     "https://emta.ee/ru/biznes-klient/registraciya-predprinimatelstvo/predprinimatelyu/predprinimatel-fizicheskoe-lico-pfl/avansovye-platezhi-po-socialnomu-nalogu",
+     "https://assets.kpmg.com/content/dam/kpmgsites/ee/pdf/tax-cards/2026%20Tax%20Card-web.pdf.coredownload.inline.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "ee_entrepreneur_account",
+    "name": "Entrepreneur account (ettevotluskonto), simplified business income taxation",
+    "appliesTo": "Natural persons with small-scale own-account business income (services, crafts, short rentals, platform work) received into a special LHV Bank account; up to 40,000 EUR per calendar year; expenses cannot be deducted; no registration as FIE needed.",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 800,
+     "base": "gross amounts received into the entrepreneur account; income tax part is 22/55 of the 20% total rate"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social tax part (33/55 of the 20% total rate)",
+      "rateBp": 1200,
+      "base": "gross amounts received into the entrepreneur account",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 2000,
+    "reserveBasis": "The bank withholds and forwards a flat 20% of each amount received (8% income tax plus 12% social tax); 20% of gross is the full liability for the simplified scheme.",
+    "deadlines": [],
+    "notes": "Total rate 20% of amounts received (the 40% rate no longer applies from 1 Jan 2025). Optional funded pension contribution raises the rate to 22% (2%), 24% (4%) or 26% (6%). Tax is withheld and forwarded automatically by the bank; no monthly returns. Health insurance cover requires social tax of at least 292.38 EUR/month (886 x 33%), i.e. about 2,436.50 EUR received per month, otherwise cover lapses. No basic exemption or other deductions apply to account income. A resident company payer of a service to an account holder owes additional income tax of 22/78 on the payment. Amounts above 40,000 EUR per year require registering as FIE or OU.",
+    "sources": [
+     "https://emta.ee/en/private-client/taxes-and-payment/taxable-income/entrepreneur-account"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "O\u00dc",
+    "caseSensitive": true,
+    "name": "Osauhing"
+   },
+   {
+    "token": "AS",
+    "caseSensitive": true,
+    "name": "Aktsiaselts"
+   },
+   {
+    "token": "U\u00dc",
+    "caseSensitive": true,
+    "name": "Usaldusuhing"
+   },
+   {
+    "token": "T\u00dc",
+    "caseSensitive": true,
+    "name": "Taisuhing / Tulundusuhistu"
+   },
+   {
+    "token": "T\u00dcH",
+    "caseSensitive": true,
+    "name": "Tulundusuhistu"
+   },
+   {
+    "token": "MT\u00dc",
+    "caseSensitive": true,
+    "name": "Mittetulundusuhing"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sihtasutus"
+   },
+   {
+    "token": "Osa\u00fching",
+    "caseSensitive": false,
+    "name": "Osauhing"
+   },
+   {
+    "token": "Aktsiaselts",
+    "caseSensitive": false,
+    "name": "Aktsiaselts"
+   }
+  ]
+ },
+ {
+  "code": "DK",
+  "name": "Denmark",
+  "currency": "DKK",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "dk_enkeltmandsvirksomhed",
+    "name": "Sole proprietorship (enkeltmandsvirksomhed), personal tax",
+    "appliesTo": "Self-employed individual taxed on business profit as personal income; VAT registration mandatory above 50,000 DKK turnover in 12 months.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 64120000,
+       "rateBp": 3706
+      },
+      {
+       "upToMinor": 77790000,
+       "rateBp": 4456
+      },
+      {
+       "upToMinor": 259270000,
+       "rateBp": 5206
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5706
+      }
+     ],
+     "base": "personal income after 8% AM-bidrag (thresholds 641,200 / 777,900 / 2,592,700 DKK are after AM-bidrag). Rates combine bundskat 12.01% + average municipal tax 25.049% (+7.5% mellemskat, +7.5% topskat, +5% top-top). Church tax (about 0.639%, members only) excluded."
+    },
+    "allowanceMinor": 5410000,
+    "socialContributions": [
+     {
+      "name": "Labour market contribution (AM-bidrag)",
+      "rateBp": 800,
+      "base": "personal income (net business profit)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 2500
+    },
+    "suggestedReserveRateBp": 3500,
+    "reserveBasis": "Derived: at 300,000 DKK profit, AM-bidrag 24,000 plus about 37.06% on (276,000 - 54,100 allowance) is about 106,000, i.e. about 35% of profit.",
+    "deadlines": [
+     {
+      "name": "VAT return (half-yearly, turnover under 5m DKK)",
+      "type": "semiannual",
+      "day": 1,
+      "months": [
+       3,
+       9
+      ]
+     }
+    ],
+    "notes": "Personfradrag 54,100 DKK (several secondary sources; PwC page does not state it). PwC lists thresholds before AM-bidrag as 696,956 / 845,543 / 2,818,152, consistent with the after-AM figures used here (x0.92). Municipal tax is the PwC average of 25.049%; actual varies by municipality. No mandatory separate social security contributions for the self-employed besides AM-bidrag; ATP is optional. VAT half-year deadlines per skat.dk rule via Dinero: 1 Sep for Jan-Jun, 1 Mar for Jul-Dec. Annual self-employed return deadline not verified. VAT 50,000 DKK threshold from secondary sources (Dinero, tax.dk), not read on skat.dk itself.",
+    "sources": [
+     "https://taxsummaries.pwc.com/denmark/individual/taxes-on-personal-income",
+     "https://skat.dk/erhverv/moms/frister-indberet-og-betal-moms",
+     "https://dinero.dk/ordbog/personfradrag/",
+     "https://tax.dk/skat/momsregistrering.htm"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "A/S",
+    "caseSensitive": true,
+    "name": "Aktieselskab"
+   },
+   {
+    "token": "ApS",
+    "caseSensitive": true,
+    "name": "Anpartsselskab"
+   },
+   {
+    "token": "P/S",
+    "caseSensitive": true,
+    "name": "Partnerselskab"
+   },
+   {
+    "token": "K/S",
+    "caseSensitive": true,
+    "name": "Kommanditselskab"
+   },
+   {
+    "token": "I/S",
+    "caseSensitive": true,
+    "name": "Interessentskab"
+   },
+   {
+    "token": "A.m.b.a.",
+    "caseSensitive": false,
+    "name": "Andelsselskab med begraenset ansvar"
+   },
+   {
+    "token": "amba",
+    "caseSensitive": false,
+    "name": "Andelsselskab med begraenset ansvar"
+   },
+   {
+    "token": "F.m.b.A.",
+    "caseSensitive": false,
+    "name": "Forening med begraenset ansvar"
+   },
+   {
+    "token": "fmba",
+    "caseSensitive": false,
+    "name": "Forening med begraenset ansvar"
+   },
+   {
+    "token": "S.m.b.a.",
+    "caseSensitive": false,
+    "name": "Selskab med begraenset ansvar"
+   },
+   {
+    "token": "IVS",
+    "caseSensitive": true,
+    "name": "Iv\u00e6rks\u00e6tterselskab (abolished, still in use)"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ },
+ {
+  "code": "FI",
+  "name": "Finland",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "fi_toiminimi",
+    "name": "Sole trader (toiminimi, elinkeinonharjoittaja), YEL-insured",
+    "appliesTo": "Self-employed individual (private trader / freelancer) taxed on business income as earned income; VAT registration required above 20,000 EUR annual turnover.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2200000,
+       "rateBp": 1264
+      },
+      {
+       "upToMinor": 3260000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 4010000,
+       "rateBp": 3025
+      },
+      {
+       "upToMinor": 5210000,
+       "rateBp": 3325
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3750
+      }
+     ],
+     "base": "taxable earned income, STATE scale only; municipal income tax (differs per municipality) and church tax are charged on top and are not included here"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "YEL pension insurance (24.4% for ages 18-52, 53-62 and 63-69; 19.03% reduced rate for new entrepreneurs, first 4 years)",
+      "rateBp": 2440,
+      "base": "confirmed YEL income (self-chosen, must reflect work value)",
+      "floorMinor": 942309,
+      "capMinor": 21400000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health care contribution",
+      "rateBp": 110,
+      "base": "taxable earned income",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Daily allowance (sickness insurance) contribution; 0.23% below 17,255 EUR income",
+      "rateBp": 111,
+      "base": "YEL income of at least 17,255 EUR",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 2000000,
+     "standardRateBp": 2550
+    },
+    "suggestedReserveRateBp": 3500,
+    "reserveBasis": "Approximation: at about 25k EUR profit YEL (24.4%) is about 6.1k, state tax about 2.4k, municipal tax about 1.4k and Kela contributions about 0.6k, total about 10.5k (42%) before earned-income credits; 35% allows for credits. Not checked against an official calculator.",
+    "deadlines": [],
+    "notes": "State scale 2026 (veronmaksajat.fi): 0-22,000 at 12.64%; 22,000-32,600 at 19%; 32,600-40,100 at 30.25%; 40,100-52,100 at 33.25%; above 52,100 at 37.5%. Municipal tax rate average not verified from an official source. YEL min income 9,423.09 EUR and max 214,000 EUR for 2026. VAT standard rate 25.5% (since 1 Sep 2024). Prepayment and return deadlines were not verified.",
+    "sources": [
+     "https://www.veronmaksajat.fi/neuvot/henkiloverotus/tyo-elake-ja-etuudet/ansiotulojen-verot-ja-maksut/valtion-tulovero/",
+     "https://veritas.fi/en/entrepreneurs/yel-contributions/entrepreneurs-social-insurance-contributions/",
+     "https://www.vero.fi/en/individuals/tax-cards-and-tax-returns/tax_card/tax-rate-and-income-ceiling/tax-bases/",
+     "https://www.vero.fi/en/businesses-and-corporations/taxes-and-charges/vat/rates-of-vat/",
+     "https://www.vero.fi/en/detailed-guidance/guidance/48658/vat-exemption-for-small-businesses/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Oy",
+    "caseSensitive": true,
+    "name": "Osakeyhtio"
+   },
+   {
+    "token": "Oyj",
+    "caseSensitive": true,
+    "name": "Julkinen osakeyhtio"
+   },
+   {
+    "token": "Oy Ab",
+    "caseSensitive": true,
+    "name": "Osakeyhtio / Aktiebolag"
+   },
+   {
+    "token": "Ab",
+    "caseSensitive": true,
+    "name": "Aktiebolag"
+   },
+   {
+    "token": "Abp",
+    "caseSensitive": true,
+    "name": "Publikt aktiebolag"
+   },
+   {
+    "token": "Ky",
+    "caseSensitive": true,
+    "name": "Kommandiittiyhtio"
+   },
+   {
+    "token": "Ay",
+    "caseSensitive": true,
+    "name": "Avoin yhtio"
+   },
+   {
+    "token": "Osk",
+    "caseSensitive": true,
+    "name": "Osuuskunta"
+   },
+   {
+    "token": "Ab Oy",
+    "caseSensitive": true,
+    "name": "Aktiebolag / Osakeyhtio"
+   },
+   {
+    "token": "Osuuskunta",
+    "caseSensitive": false,
+    "name": "Osuuskunta"
+   }
+  ]
+ },
+ {
+  "code": "SE",
+  "name": "Sweden",
+  "currency": "SEK",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "se_enskild_firma",
+    "name": "Sole trader (enskild firma / enskild naringsverksamhet)",
+    "appliesTo": "Self-employed individual with F-tax; business profit taxed as income from business; VAT registration required above 120,000 SEK annual turnover.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 64300000,
+       "rateBp": 3238
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5238
+      }
+     ],
+     "base": "taxable earned income (net profit less egenavgifter-related deductions and basic deduction); 32.38% is the national average municipal tax rate for 2026, 20% state tax above 643,000 SEK"
+    },
+    "allowanceMinor": 2510000,
+    "socialContributions": [
+     {
+      "name": "Egenavgifter (self-employment contributions), total 28.97% incl. allman loneavgift 12.62%",
+      "rateBp": 2897,
+      "base": "avgiftsunderlag = net profit after the 25% schablonavdrag (born 1959 or later); effective rate on profit is about 22.5%",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 12000000,
+     "standardRateBp": 2500
+    },
+    "suggestedReserveRateBp": 4500,
+    "reserveBasis": "Approximation: egenavgifter about 22.5% of profit plus about 32.4% municipal tax on the remainder after basic deduction gives roughly 45-50% at 200-300k SEK profit; 45% used.",
+    "deadlines": [],
+    "notes": "Grundavdrag 2026 for under 66: 25,100 SEK at low incomes, max 45,600, min 17,400 (allowanceMinor shows the low-income figure; it varies with income). No egenavgifter if avgiftsunderlag below 1,000 SEK. Sickness insurance part varies with chosen waiting days. Reductions: sarskilt avdrag 7.5% (max 15,000 SEK), regional support 10% (max 18,000 SEK). The 120,000 SEK VAT limit comes from secondary sources, not read on Skatteverket. Return and F-tax payment deadlines not verified.",
+    "sources": [
+     "https://www.skatteverket.se/privat/skatter/beloppochprocent/2026",
+     "https://skatteverket.se/foretag/drivaforetag/foretagsformer/enskildnaringsverksamhet/egenavgifter.4.361dc8c15312eff6fd1f678.html",
+     "https://www.bokio.se/blogg/hojd-omsattningsgrans-for-moms"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "AB",
+    "caseSensitive": true,
+    "name": "Aktiebolag"
+   },
+   {
+    "token": "AB (publ)",
+    "caseSensitive": true,
+    "name": "Publikt aktiebolag"
+   },
+   {
+    "token": "HB",
+    "caseSensitive": true,
+    "name": "Handelsbolag"
+   },
+   {
+    "token": "KB",
+    "caseSensitive": true,
+    "name": "Kommanditbolag"
+   },
+   {
+    "token": "ek. f\u00f6r.",
+    "caseSensitive": false,
+    "name": "Ekonomisk forening"
+   },
+   {
+    "token": "ek f\u00f6r",
+    "caseSensitive": false,
+    "name": "Ekonomisk forening"
+   },
+   {
+    "token": "Aktiebolag",
+    "caseSensitive": false,
+    "name": "Aktiebolag"
+   },
+   {
+    "token": "Handelsbolag",
+    "caseSensitive": false,
+    "name": "Handelsbolag"
+   },
+   {
+    "token": "Kommanditbolag",
+    "caseSensitive": false,
+    "name": "Kommanditbolag"
+   }
+  ]
+ },
+ {
+  "code": "NO",
+  "name": "Norway",
+  "currency": "NOK",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "no_enkeltpersonforetak",
+    "name": "Sole proprietorship (enkeltpersonforetak, ENK)",
+    "appliesTo": "Self-employed individual with business income (naeringsinntekt) taxed as personal income.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 22610000,
+       "rateBp": 2200
+      },
+      {
+       "upToMinor": 31830000,
+       "rateBp": 2370
+      },
+      {
+       "upToMinor": 72505000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 98010000,
+       "rateBp": 3570
+      },
+      {
+       "upToMinor": 146720000,
+       "rateBp": 3880
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3980
+      }
+     ],
+     "base": "annual income; 22% tax on ordinary income (after personal allowance) plus trinnskatt (bracket tax) on personal income; brackets here combine 22% with trinnskatt 0/1.7/4.0/13.7/16.8/17.8% and treat personal income as equal to ordinary income"
+    },
+    "allowanceMinor": 11454000,
+    "socialContributions": [
+     {
+      "name": "National insurance contribution (trygdeavgift) for business income",
+      "rateBp": 1080,
+      "base": "personal income from business",
+      "floorMinor": 9965000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 2600,
+    "reserveBasis": "Approximation: at 250-400k NOK profit, 10.8% trygdeavgift plus 22% on income above the 114,540 allowance plus small trinnskatt gives about 23-28% of profit; 26% used.",
+    "deadlines": [
+     {
+      "name": "Tax return (skattemelding) for business income",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     },
+     {
+      "name": "Advance tax (forskuddsskatt) instalment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     }
+    ],
+    "notes": "Trygdeavgift 10.8% for most business income (7.6% for fishing, hunting, certain child care); applies above the 99,650 NOK lower limit and never exceeds 25% of income above that limit. Personal allowance 114,540 NOK deducted from ordinary income only. Advance tax dates come from a copy of a Skatteetaten document dated May 2025 and could not be confirmed against the current page. VAT threshold and rate not verified in this run.",
+    "sources": [
+     "https://www.skatteetaten.no/satser/trinnskatt/",
+     "https://www.skatteetaten.no/satser/trygdeavgift/",
+     "https://www.skatteetaten.no/satser/personfradrag/",
+     "https://www.skatteetaten.no/en/rates/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "AS",
+    "caseSensitive": true,
+    "name": "Aksjeselskap"
+   },
+   {
+    "token": "ASA",
+    "caseSensitive": true,
+    "name": "Allmennaksjeselskap"
+   },
+   {
+    "token": "ANS",
+    "caseSensitive": true,
+    "name": "Ansvarlig selskap"
+   },
+   {
+    "token": "DA",
+    "caseSensitive": true,
+    "name": "Selskap med delt ansvar"
+   },
+   {
+    "token": "KS",
+    "caseSensitive": true,
+    "name": "Kommandittselskap"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Samvirkeforetak"
+   },
+   {
+    "token": "BA",
+    "caseSensitive": true,
+    "name": "Selskap med begrenset ansvar"
+   },
+   {
+    "token": "NUF",
+    "caseSensitive": true,
+    "name": "Norskregistrert utenlandsk foretak"
+   }
+  ]
+ }
+]
