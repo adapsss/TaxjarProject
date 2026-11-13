@@ -45,7 +45,7 @@ async def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.g
         raise ApiError(422, "unknown_regime", f"There is no regime {profile.regime!r} for country {profile.country!r}.")
     currency = profile.tax_currency.strip().upper()
     if not fx.is_supported(currency):
-        raise ApiError(422, "unsupported_currency", f"{profile.tax_currency} is not supported. Use EUR, USD or GBP.")
+        raise ApiError(422, "unsupported_currency", f"{profile.tax_currency} is not a supported currency.")
 
     jar = session.get(JarRow, TAX_JAR_ID)
     if jar.currency != currency:

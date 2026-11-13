@@ -3,7 +3,10 @@
 Owner: role B, Backend 2. Route declarations (paths, function names, models) are
 exactly those of Task S0, so the generated frontend types stay the same.
 """
-from fastapi import APIRouter, Depends
+from datetime import date, datetime, timezone
+from typing import Optional
+
+from fastapi import APIRouter, Depends, Query
 from sqlmodel import Session
 
 from app import db, pipeline, reservations
@@ -58,3 +61,27 @@ async def pay_tax(session: Session = Depends(db.get_session), bus: EventBus = De
     return s.PayResult.model_validate(
         {"transaction": db.to_transaction(session, row), "paidAmount": paid, "currency": row.currency}
     )
+
+
+def _since(day: Optional[date]) -> datetime:
+    day = day or date(date.today().year, 1, 1)
+    return datetime(day.year, day.month, day.day, tzinfo=timezone.utc)
+
+
+@router.get("/tax/catch-up", response_model=s.CatchUp)
+async def catch_up_preview(
+    since: Optional[date] = Query(None, description="Defaults to 1 January this year"),
+    session: Session = Depends(db.get_session),
+):
+    """Income that arrived before the Tax Jar, and the tax it would set aside now."""
+    return s.CatchUp.model_validate(reservations.catch_up_preview(session, _since(since)))
+
+
+@router.post("/tax/catch-up", response_model=s.CatchUp)
+async def catch_up(
+    body: s.CatchUpRequest,
+    session: Session = Depends(db.get_session),
+    bus: EventBus = Depends(get_bus),
+):
+    """Set the tax aside for that earlier income now, in one go."""
+    return s.CatchUp.model_validate(reservations.catch_up(session, bus, _since(body.since)))

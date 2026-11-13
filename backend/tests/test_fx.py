@@ -45,9 +45,9 @@ def test_non_integer_amount_is_rejected(amount):
 
 def test_unsupported():
     with pytest.raises(fx.UnsupportedCurrency):
-        fx.convert(100, "JPY", "EUR")
+        fx.convert(100, "XYZ", "EUR")
     with pytest.raises(fx.UnsupportedCurrency):
-        fx.convert(100, "EUR", "JPY")
+        fx.convert(100, "EUR", "XYZ")
 
 
 def test_unsupported_is_a_value_error():
@@ -58,7 +58,9 @@ def test_is_supported():
     assert fx.is_supported("EUR")
     assert fx.is_supported("USD")
     assert fx.is_supported("GBP")
-    assert not fx.is_supported("JPY")
+    assert fx.is_supported("JPY")
+    assert fx.is_supported("PLN")
+    assert not fx.is_supported("XYZ")
     assert not fx.is_supported("eur")
 
 
@@ -70,4 +72,29 @@ def test_display_rate():
 
 def test_display_rate_unsupported():
     with pytest.raises(fx.UnsupportedCurrency):
-        fx.rate("JPY", "EUR")
+        fx.rate("XYZ", "EUR")
+
+
+def test_currencies_without_minor_units():
+    # ¥10,000 (no minor units) -> €61.00 (6100 cents)
+    assert fx.convert(10000, "JPY", "EUR") == 6100
+    # €61.00 -> ¥10,000
+    assert fx.convert(6100, "EUR", "JPY") == 10000
+
+
+def test_currencies_with_three_decimals():
+    # 1.000 KWD (1000 fils) -> €2.99
+    assert fx.convert(1000, "KWD", "EUR") == 299
+    assert fx.convert(299, "EUR", "KWD") == 1000
+
+
+def test_every_engine_country_currency_is_supported():
+    from app.engine.tax_rules import load_countries
+
+    currencies = {c["currency"] for c in load_countries() if c.get("currency")}
+    assert currencies <= set(fx.supported()), currencies - set(fx.supported())
+
+
+def test_small_rates_keep_precision():
+    assert fx.rate("KRW", "EUR") == 0.00064
+    assert fx.rate("PLN", "EUR") == 0.232

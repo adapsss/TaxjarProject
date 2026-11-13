@@ -76,7 +76,7 @@ def process_incoming(
         raise ApiError(422, "validation_error", "amount is too large.")
     currency = (currency or "").strip().upper()
     if not fx.is_supported(currency):
-        raise ApiError(422, "unsupported_currency", f"{currency or 'That currency'} is not supported. Use EUR, USD or GBP.")
+        raise ApiError(422, "unsupported_currency", f"{currency or 'That currency'} is not a supported currency.")
     reference = reference or ""
 
     profile = db.get_profile(session)

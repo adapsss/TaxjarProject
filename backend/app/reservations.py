@@ -6,7 +6,8 @@ after the commit.
 """
 
 import json
-from typing import Optional, Tuple
+from datetime import datetime
+from typing import List, Optional, Tuple
 
 from sqlmodel import Session, select
 
@@ -147,3 +148,58 @@ def pay_all(session: Session, bus: EventBus) -> Tuple[TransactionRow, int]:
 
     bus.publish("transaction.created", db.transaction_event(session, payment))
     return payment, total
+
+
+def catch_up_candidates(session: Session, since: datetime) -> List[TransactionRow]:
+    """Income that arrived since `since` and never had tax set aside: it predates the Tax Jar.
+
+    Payments the user undid are labelled personal, so they are never picked up again.
+    """
+    rows = session.exec(
+        select(TransactionRow)
+        .where(TransactionRow.direction == "in")
+        .where(TransactionRow.label == "income")
+        .where(TransactionRow.reservation_id == None)  # noqa: E711 (SQL IS NULL)
+        .where(TransactionRow.created_at >= since)
+        .order_by(TransactionRow.created_at)
+    ).all()
+    return list(rows)
+
+
+def catch_up_preview(session: Session, since: datetime) -> dict:
+    """What `catch_up` would do, without moving money: count, income and tax, in the tax currency."""
+    profile = db.get_profile(session)
+    rows = catch_up_candidates(session, since) if profile.enabled else []
+    income = sum(fx.convert(tx.amount, tx.currency, profile.tax_currency) for tx in rows)
+    tax = sum(fx.convert(compute_tax(tx.amount, profile.rate_bp), tx.currency, profile.tax_currency) for tx in rows)
+    return {
+        "since": since.date(),
+        "count": len(rows),
+        "income": income,
+        "reserved": tax,
+        "taxCurrency": profile.tax_currency,
+    }
+
+
+def catch_up(session: Session, bus: EventBus, since: datetime) -> dict:
+    """Set tax aside for every earlier income payment at once. Commits once; a second call moves nothing."""
+    profile = db.get_profile(session)
+    if not profile.enabled:
+        raise ApiError(409, "tax_profile_disabled", "Set up the Tax Jar first.")
+    rows = catch_up_candidates(session, since)
+    done: List[Tuple[TransactionRow, ReservationRow]] = []
+    for tx in rows:
+        reservation = reserve(session, tx, profile)
+        if reservation is not None:
+            done.append((tx, reservation))
+    session.commit()
+
+    for tx, _ in done:
+        bus.publish("reservation.created", db.transaction_event(session, tx))
+    return {
+        "since": since.date(),
+        "count": len(done),
+        "income": sum(fx.convert(tx.amount, tx.currency, profile.tax_currency) for tx, _ in done),
+        "reserved": sum(r.reserved_amount for _, r in done),
+        "taxCurrency": profile.tax_currency,
+    }

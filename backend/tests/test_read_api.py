@@ -51,7 +51,7 @@ def test_unknown_regime(client):
 
 
 def test_unsupported_tax_currency(client):
-    response = client.put("/api/tax-profile", json={**ONBOARDING, "taxCurrency": "JPY"})
+    response = client.put("/api/tax-profile", json={**ONBOARDING, "taxCurrency": "XYZ"})
     assert response.status_code == 422
     assert response.json()["error"]["code"] == "unsupported_currency"
 
@@ -95,3 +95,17 @@ def test_estonian_names_keep_their_accents(client):
     countries = {c["code"]: c for c in client.get("/api/tax/countries").json()}
     names = " | ".join(r["name"] for r in countries["EE"]["regimes"])
     assert "ettevõtluskonto" in names
+
+
+def test_tax_currency_can_be_the_countrys_own(client, session):
+    """A Polish freelancer keeps the jar in złoty: every engine country's currency is supported."""
+    response = client.put("/api/tax-profile", json={**ONBOARDING, "taxCurrency": "PLN"})
+    assert response.status_code == 200
+    assert response.json()["taxCurrency"] == "PLN"
+
+
+def test_countries_carry_their_currency(client):
+    countries = {c["code"]: c for c in client.get("/api/tax/countries").json()}
+    assert countries["EE"]["currency"] == "EUR"
+    assert countries["PL"]["currency"] == "PLN"
+    assert countries["*"]["currency"] is None

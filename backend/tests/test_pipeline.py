@@ -139,7 +139,7 @@ def test_lowercase_currency_is_accepted(client, onboarded):
 @pytest.mark.parametrize(
     "body, code",
     [
-        ({"senderName": "Acme Inc.", "amount": 100, "currency": "JPY", "reference": ""}, "unsupported_currency"),
+        ({"senderName": "Acme Inc.", "amount": 100, "currency": "XYZ", "reference": ""}, "unsupported_currency"),
         ({"senderName": "Acme Inc.", "amount": 0, "currency": "EUR", "reference": ""}, "validation_error"),
         ({"senderName": "Acme Inc.", "amount": -5, "currency": "EUR", "reference": ""}, "validation_error"),
         ({"senderName": "   ", "amount": 100, "currency": "EUR", "reference": ""}, "validation_error"),
@@ -204,3 +204,16 @@ def test_unanswered_payments_never_reserve_on_their_own(client, onboarded):
         tx = simulate(client, JOHN)
         assert tx["classification"]["label"] == "unknown"
         assert tx["reservation"] is None
+
+
+def test_payment_in_yen_reserves_into_a_euro_jar(client, session, onboarded):
+    """No minor units in JPY: ¥100,000 -> 20% = ¥20,000 -> €122.00."""
+    from invariants import assert_invariants
+
+    body = client.post(
+        "/api/simulate/incoming",
+        json={"senderName": "Sakura Studio K.K.", "amount": 100000, "currency": "JPY", "reference": "INV-7"},
+    ).json()
+    assert body["reservation"]["sourceAmount"] == 20000
+    assert body["reservation"]["reservedAmount"] == 12200
+    assert_invariants(session)

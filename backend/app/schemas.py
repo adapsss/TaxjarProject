@@ -103,6 +103,8 @@ class Regime(ApiModel):
 class Country(ApiModel):
     code: str
     name: str
+    # The country's own currency (ISO 4217), suggested as the tax currency. None for "*" (Other).
+    currency: Optional[str] = None
     regimes: list[Regime]
 
 
@@ -134,6 +136,21 @@ class TaxSummary(ApiModel):
     # Exact split of total_reserved; null when the regime defines no per-payment split.
     breakdown: Optional[list[TaxPart]] = None
     breakdown_rule: str = ""
+
+
+class CatchUp(ApiModel):
+    """Income received before the Tax Jar was set up, and the tax for it (preview or result)."""
+
+    since: date
+    count: int  # payments
+    income: int  # their total, converted to the tax currency
+    reserved: int  # tax set aside (or that would be), in the tax currency
+    tax_currency: str
+
+
+class CatchUpRequest(ApiModel):
+    # Defaults to 1 January of the current year: the tax year in most countries.
+    since: Optional[date] = None
 
 
 class PayResult(ApiModel):
