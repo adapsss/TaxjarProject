@@ -1,8 +1,30 @@
 from app.engine import describe_rule, get_regime, split_tax
 from helpers import ACME, JOHN, answer, simulate, undo
 
-ACCOUNT = get_regime("EE", "entrepreneur_account")
-FIE = get_regime("EE", "fie")
+class _Regime(dict):
+    """Looks a regime up on first use: tax data comes from the database, which is ready only once tests run."""
+
+    def __init__(self, country, regime):
+        super().__init__()
+        self._key = (country, regime)
+
+    def _load(self):
+        if not dict.__len__(self):
+            self.update(get_regime(*self._key))
+        return self
+
+    def __getitem__(self, k):
+        return dict.__getitem__(self._load(), k)
+
+    def get(self, k, default=None):
+        return dict.get(self._load(), k, default)
+
+    def __bool__(self):
+        return True
+
+
+ACCOUNT = _Regime("EE", "entrepreneur_account")
+FIE = _Regime("EE", "fie")
 
 
 def amounts(parts):

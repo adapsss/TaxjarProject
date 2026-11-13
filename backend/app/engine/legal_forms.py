@@ -1,4 +1,4 @@
-"""Legal-entity designators, loaded from legal_forms.json (data, not code).
+"""Legal-entity designators, read from the database (engine.data; data, not code).
 
 A designator counts only where company names actually carry it: as the last
 words of the name, or as the first words for designators written without
@@ -12,14 +12,12 @@ case-sensitive designators of up to four letters are ignored there unless the
 data marks them `capsSafe` (not also a common surname or name particle: "AG",
 "AB", "OY", but not "BA" or "SAM"), and only `capsLeading` ones may lead.
 """
-import json
 import re
-from functools import lru_cache
-from pathlib import Path
+import threading
 
+from . import data
 from .names import normalize_name
 
-_FILE = Path(__file__).with_name("legal_forms.json")
 _PUNCT = re.compile(r"[^\w\s]", re.UNICODE)
 _TRAILING_NOTE = re.compile(r"\s*\([^()]*\)\s*$")
 
@@ -32,11 +30,24 @@ def _literal(text: str) -> str:
     return " ".join(text.split()).rstrip(". ")
 
 
-@lru_cache(maxsize=1)
+_compiled_lock = threading.Lock()
+_compiled = (None, None)  # (the TaxData it was built from, the split forms)
+
+
 def _forms() -> tuple:
+    """The current forms, split for matching; rebuilt only when the tax data was re-read."""
+    global _compiled
+    current = data.current()
+    with _compiled_lock:
+        source, split = _compiled
+        if source is not current:
+            split = _split(current.legal_forms)
+            _compiled = (current, split)
+        return split
+
+
+def _split(raw) -> tuple:
     """Split designators into plain ones (matched by words) and punctuated ones (matched literally)."""
-    with _FILE.open(encoding="utf-8") as f:
-        raw = json.load(f)["forms"]
     plain, punctuated = [], []
     for form in raw:
         sensitive = bool(form.get("caseSensitive"))

@@ -5,6 +5,10 @@
                test may commit (commits become savepoints), and nothing leaks into the next test
     client     TestClient whose routes use that same session and a fresh event bus
     onboarded  profile set to EE / entrepreneur_account / 2000 / EUR / enabled
+    fake_clock the tax data's refresh clock, advanced by hand (60 s refresh interval)
+
+The tax data is imported once per run; the engine reads it through the current test's session,
+so a row a test changes is what the engine sees after the next refresh.
     events     list of (type, data) for every publish made during the test
 
 Start the database first:  docker compose up -d db   (it listens on 127.0.0.1:5433)
@@ -21,7 +25,10 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 from sqlmodel import Session
 
+from app import data_load
 from app.db import get_session, reset_to_seed
+from app.engine import data as tax_data
+from app.taxdata.repository import read_tax_data
 from app.events import EventBus, get_bus
 from app.main import create_app
 from app.models import PROFILE_ID, ProfileRow
@@ -48,8 +55,47 @@ def pg_engine():
             migrate(connection)
     except OperationalError as exc:
         pytest.exit(f"Start Postgres: docker compose up -d db (DB_PORT=5433). {exc.orig}", returncode=2)
+    with Session(engine) as session:
+        data_load.import_dataset(session, "tax")
     yield engine
     engine.dispose()
+
+
+class FakeClock:
+    def __init__(self) -> None:
+        self.now = 1000.0
+
+    def __call__(self) -> float:
+        return self.now
+
+    def advance(self, seconds: float) -> None:
+        self.now += seconds
+
+
+_active = {"session": None}
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _tax_data_from_postgres(pg_engine):
+    """Engine reads come from the running test's session, or from a fresh one outside a test session."""
+
+    def read():
+        if _active["session"] is not None:
+            return read_tax_data(_active["session"])
+        with Session(pg_engine) as s:
+            return read_tax_data(s)
+
+    tax_data.install(read, 60)
+    yield
+    tax_data.clear()
+
+
+@pytest.fixture
+def fake_clock():
+    clock = FakeClock()
+    tax_data.install(tax_data._reader, 60, clock)
+    yield clock
+    tax_data.install(tax_data._reader, 60)
 
 
 @pytest.fixture
@@ -58,7 +104,11 @@ def session(pg_engine):
     outer = connection.begin()
     with Session(bind=connection, join_transaction_mode="create_savepoint") as session:
         reset_to_seed(session)
+        _active["session"] = session
+        tax_data.clear()
         yield session
+        _active["session"] = None
+        tax_data.clear()
     outer.rollback()
     connection.close()
 

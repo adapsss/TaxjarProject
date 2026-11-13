@@ -1,6 +1,6 @@
 """Tax rules engine: country config, tax estimation and deadlines.
 
-Integer maths only, no network. Country data lives in countries.json; every
+Integer maths only, no network. Country data comes from the database (engine.data); every
 regime carries its sources, the date it was checked and an `unverified` list.
 
 Amounts are integers in the currency's minor unit as defined by ISO 4217:
@@ -8,22 +8,18 @@ cents for EUR or USD, whole units for JPY, KRW, CLP and ISK, thousandths for
 KWD and BHD. Rates are basis points.
 """
 import calendar
-import json
 from datetime import date
-from functools import lru_cache
-from pathlib import Path
 from typing import Optional
 
+from . import data
 from .breakdown import describe_rule
 
-_COUNTRIES_FILE = Path(__file__).with_name("countries.json")
 _OTHER = "*"
 
 
-@lru_cache(maxsize=1)
 def _raw() -> tuple:
-    with _COUNTRIES_FILE.open(encoding="utf-8") as f:
-        return tuple(json.load(f))
+    """Countries in the countries.json shape, as the database holds them now."""
+    return data.current().countries
 
 
 def _country(code: str) -> Optional[dict]:
