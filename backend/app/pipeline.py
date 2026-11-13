@@ -4,12 +4,13 @@
 """
 
 import json
-from typing import Optional
+from datetime import datetime, timezone
+from typing import List, Optional
 
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from app import db, fx
-from app.engine import classifier
+from app.engine import classifier, owner_context, payer_history
 from app.errors import ApiError
 from app.events import EventBus
 from app.models import BalanceRow, CounterpartyRow, TransactionRow
@@ -18,6 +19,40 @@ from app.reservations import get_transaction, reserve
 REASON_CONFIRMED = "you confirmed this was for work"
 REASON_DENIED = "you said this wasn't for work"
 MAX_AMOUNT = 10**12  # ten billion in major units, far beyond any real payment
+
+
+def _past_payments(session: Session, key: str) -> List[dict]:
+    """Earlier income from the same payer, as the engine's payer_history expects them.
+
+    Only payments already labelled income count: a friend's repeated transfers or
+    unanswered questions are not evidence that this payer is a client.
+    """
+    rows = session.exec(
+        select(TransactionRow).where(
+            TransactionRow.counterparty_key == key, TransactionRow.direction == "in", TransactionRow.label == "income"
+        )
+    ).all()
+    name = session.get(CounterpartyRow, key)
+    return [
+        {"name": name.name if name else key, "created_at": db.as_utc(r.created_at), "amount": r.amount, "currency": r.currency}
+        for r in rows
+    ]
+
+
+def _owner(session: Session, tax_currency: str) -> classifier.OwnerContext:
+    """The owner's typical income, from payments already labelled income in the tax currency.
+
+    home_currency stays None on purpose: with it, a USD payment gains the reason
+    "paid in a foreign currency" and the demo's why line for Acme changes.
+    """
+    amounts = session.exec(
+        select(TransactionRow.amount).where(
+            TransactionRow.direction == "in", TransactionRow.label == "income", TransactionRow.currency == tax_currency
+        )
+    ).all()
+    return classifier.OwnerContext(
+        home_currency=None, typical_income_minor=owner_context(None, amounts).typical_income_minor
+    )
 
 
 def process_incoming(
@@ -67,6 +102,10 @@ def process_incoming(
         reference=reference,
         owner_name=profile.owner_name,
         payer_status=counterparty.status,
+        currency=currency,
+        history=payer_history(name, _past_payments(session, key)),
+        owner=_owner(session, profile.tax_currency),
+        now=datetime.now(timezone.utc),
     )
     tx = TransactionRow(
         direction="in",

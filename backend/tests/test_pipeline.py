@@ -154,3 +154,53 @@ def test_bad_simulate_input(client, onboarded, events, body, code):
     assert response.json()["error"]["code"] == code
     assert len(client.get("/api/transactions").json()) == before
     assert events == []
+
+
+def _past_income(session, name, kind, amount, currency, months_ago):
+    from datetime import datetime, timedelta, timezone
+
+    from app.engine.classifier import normalize_name
+    from app.models import CounterpartyRow, TransactionRow
+
+    key = normalize_name(name)
+    if session.get(CounterpartyRow, key) is None:
+        session.add(CounterpartyRow(key=key, name=name, kind=kind))
+    for m in months_ago:
+        session.add(
+            TransactionRow(
+                direction="in", amount=amount, currency=currency, counterparty_key=key, reference="",
+                created_at=datetime.now(timezone.utc) - timedelta(days=30 * m), label="income", confidence=0.99,
+            )
+        )
+    session.commit()
+
+
+def test_regular_client_needs_no_question(client, session, onboarded):
+    _past_income(session, "Oskar Ilves", "person", 60000, "EUR", months_ago=(3, 2, 1))
+    tx = simulate(client, {"senderName": "Oskar Ilves", "senderKind": "person", "amount": 60000,
+                           "currency": "EUR", "reference": "March"})
+    assert tx["classification"]["label"] == "income"
+    assert "this payer has paid you before" in tx["classification"]["reasons"]
+
+
+def test_demo_payers_keep_their_labels_with_history(client, onboarded):
+    acme = simulate(client, ACME)
+    assert acme["classification"]["label"] == "income"
+    assert acme["classification"]["reasons"] == ["company sender", "invoice in reference"]
+    assert simulate(client, MARI)["classification"]["label"] == "personal"
+    assert simulate(client, JOHN)["classification"]["label"] == "unknown"
+
+
+def test_repeated_personal_payments_stay_personal(client, onboarded):
+    first = simulate(client, MARI)
+    second = simulate(client, MARI)
+    assert first["classification"]["label"] == "personal"
+    assert second["classification"]["label"] == "personal"
+    assert "this payer has paid you before" not in first["classification"]["reasons"]
+
+
+def test_unanswered_payments_never_reserve_on_their_own(client, onboarded):
+    for _ in range(4):
+        tx = simulate(client, JOHN)
+        assert tx["classification"]["label"] == "unknown"
+        assert tx["reservation"] is None
