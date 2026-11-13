@@ -1,0 +1,1578 @@
+[
+ {
+  "code": "IL",
+  "name": "Israel",
+  "currency": "ILS",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "osek_murshe",
+    "name": "Licensed dealer / self-employed (Osek Murshe)",
+    "appliesTo": "Self-employed individuals with annual turnover above the VAT-exempt dealer ceiling (about ILS 120,000) or who opt to be a licensed dealer; taxed on net profit at progressive rates",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 8412000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 12072000,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": 22800000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 30120000,
+       "rateBp": 3100
+      },
+      {
+       "upToMinor": 56028000,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": 72156000,
+       "rateBp": 4700
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5000
+      }
+     ],
+     "base": "Net business profit (turnover less deductible expenses); top band 50% includes 3% surtax above ILS 721,560"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "National Insurance (Bituach Leumi) - reduced band",
+      "rateBp": 447,
+      "base": "Monthly business income up to ILS 7,703 (annual ILS 92,436)",
+      "floorMinor": null,
+      "capMinor": 9243600,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "National Insurance (Bituach Leumi) - full band",
+      "rateBp": 1283,
+      "base": "Monthly income above ILS 7,703 up to the maximum insured ILS 51,910 (annual cap ILS 622,920)",
+      "floorMinor": null,
+      "capMinor": 62292000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance tax - reduced band",
+      "rateBp": 323,
+      "base": "Monthly income up to ILS 7,703",
+      "floorMinor": null,
+      "capMinor": 9243600,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance tax - full band",
+      "rateBp": 517,
+      "base": "Monthly income above ILS 7,703 up to ILS 51,910",
+      "floorMinor": null,
+      "capMinor": 62292000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 12000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 2150,
+    "reserveBasis": "Assumed net profit ILS 162,000 (about ILS 13,500 per month, wage level not verified): income tax 8,412+5,124+8,256 = 21,792 less 2.25 credit points x 2,904 = 6,534 gives 15,258; NI+health 7.7% x 92,436 + 18% x 69,564 = 19,640; total 34,898 / 162,000 = about 21.5%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (Form 1301), extensions common",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "Income tax advance payments (mikdamot) on turnover, monthly or bimonthly",
+      "type": "monthly",
+      "day": 15
+     }
+    ],
+    "notes": "Bracket check: monthly limits 7,010 / 10,060 / 19,000 / 25,100 / 46,690 / 60,130 x 12 give exactly PwC annual limits 84,120 / 120,720 / 228,000 / 301,200 / 560,280 / 721,560, so the first-pass limits are correct (the 20% and 31% bands were widened retroactively from 1 Jan 2026 to 19,000 and 25,100 per month; Globes). Credit points: residents get 2.25 (men) or 2.75 (women) points, each ILS 2,904 per year (tax credit, not a deduction; third-party sources, not official). Bituach Leumi rates are from the NII official page btl.gov.il (2026). Half of the NI part is deductible in the income tax base; ignored. 2% surtax on capital income above ILS 721,560 ignored. Osek patur (exempt dealer) charges no VAT below the ceiling, pays income tax and NI the same way; the ILS 120,000 ceiling is from third-party 2024-2026 guides, not verified on gov.il. Advance payment day 15 and bimonthly cycle come from a third-party table; PwC only says monthly or bimonthly, a percentage of turnover. Some sources give 31 May for the annual return; PwC says 30 April subject to extension. Bituach Leumi advance payment dates not verified. VAT 18% per PwC.",
+    "sources": [
+     "https://taxsummaries.pwc.com/israel/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/israel/individual/other-taxes",
+     "https://taxsummaries.pwc.com/israel/individual/tax-administration",
+     "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/Self_Employed/Pages/rates.aspx",
+     "https://en.globes.co.il/en/article-1001539434",
+     "https://taxbracketcalc.com/income-tax/israel-income-tax-calculator/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u05d1\u05e2\"\u05de",
+    "caseSensitive": false,
+    "name": "Limited liability company (ASCII quote)"
+   },
+   {
+    "token": "\u05d1\u05e2\u05f4\u05de",
+    "caseSensitive": false,
+    "name": "Limited liability company (gershayim)"
+   },
+   {
+    "token": "\u05d1\u05e2\u05de",
+    "caseSensitive": false,
+    "name": "Limited liability company (no quote)"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea \u05de\u05d5\u05d2\u05d1\u05dc\u05ea",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea",
+    "caseSensitive": false,
+    "name": "Partnership"
+   },
+   {
+    "token": "\u05d7\u05dc\"\u05e6",
+    "caseSensitive": false,
+    "name": "Public benefit company"
+   },
+   {
+    "token": "\u05d0\u05d2\u05d5\u05d3\u05d4 \u05e9\u05d9\u05ea\u05d5\u05e4\u05d9\u05ea",
+    "caseSensitive": false,
+    "name": "Cooperative society"
+   },
+   {
+    "token": "\u05e2\u05de\u05d5\u05ea\u05d4",
+    "caseSensitive": false,
+    "name": "Non-profit association (Amuta)"
+   },
+   {
+    "token": "B.M.",
+    "caseSensitive": true,
+    "name": "Be'Eravon Mugbal (Ltd), Latin transliteration"
+   }
+  ]
+ },
+ {
+  "code": "KW",
+  "name": "Kuwait",
+  "currency": "KWD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "individual_no_income_tax",
+    "name": "Individual / freelancer (no personal income tax, no zakat)",
+    "appliesTo": "Resident individuals carrying on freelance or sole-trader activity; Kuwait has no personal income tax regime and individuals file no tax return",
+    "incomeTax": {
+     "type": "none",
+     "base": "No personal income tax (PwC, reviewed 22 July 2026)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 0,
+    "reserveBasis": "No personal income tax, no VAT and no verified mandatory self-employed social contribution, so 0.",
+    "deadlines": [],
+    "notes": "Amounts in KWD are stored in fils (1 KWD = 1000 fils), not 1/100. Zakat (1%) and NLST (2.5%) apply to Kuwaiti shareholding companies, not to individuals (from general knowledge, not confirmed in a fetched source). Corporate bodies with foreign ownership pay 15% corporate tax; out of scope for individuals. VAT is not implemented: Kuwait's 2026-2030 fiscal plan omits it (vatupdate July 2026; PwC GCC indirect roundup Q3 2026), so vat is null. PIFSS: Kuwaiti self-employed may join voluntarily; older SSA profiles mention 5-15% of declared income and one calculator says 18.5%, none official, so socialContributions is left empty and unverified. PwC covers only employee PIFSS (8% employee plus 11.5% employer, ceiling KWD 2,750 per month). From Sept 2025 about 120 freelance activities are reserved for Kuwaiti citizens (licensing, not tax).",
+    "sources": [
+     "https://taxsummaries.pwc.com/kuwait/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/kuwait/individual/tax-administration",
+     "https://taxsummaries.pwc.com/kuwait/individual/other-taxes",
+     "https://www.vatupdate.com/2026/07/24/kuwait-keeps-vat-off-the-table-no-adoption-in-the-2026-2030-fiscal-plan/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0634.\u0645.\u0643",
+    "caseSensitive": false,
+    "name": "Kuwaiti shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0643.\u0645",
+    "caseSensitive": false,
+    "name": "Closed Kuwaiti shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0643.\u0639",
+    "caseSensitive": false,
+    "name": "Public Kuwaiti shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0643.\u0643",
+    "caseSensitive": false,
+    "name": "Closed Kuwaiti shareholding company (alt)"
+   },
+   {
+    "token": "\u0630.\u0645.\u0645",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u062a\u0636\u0627\u0645\u0646",
+    "caseSensitive": false,
+    "name": "General partnership"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u0634\u062e\u0635 \u0627\u0644\u0648\u0627\u062d\u062f",
+    "caseSensitive": false,
+    "name": "One person company"
+   },
+   {
+    "token": "W.L.L.",
+    "caseSensitive": false,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "WLL",
+    "caseSensitive": true,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "K.S.C.",
+    "caseSensitive": false,
+    "name": "Kuwaiti Shareholding Company"
+   },
+   {
+    "token": "KSC",
+    "caseSensitive": true,
+    "name": "Kuwaiti Shareholding Company"
+   },
+   {
+    "token": "KSCC",
+    "caseSensitive": true,
+    "name": "Kuwaiti Shareholding Company Closed"
+   },
+   {
+    "token": "K.S.C.C.",
+    "caseSensitive": false,
+    "name": "Kuwaiti Shareholding Company Closed"
+   },
+   {
+    "token": "KSCP",
+    "caseSensitive": true,
+    "name": "Kuwaiti Shareholding Company Public"
+   },
+   {
+    "token": "K.S.C.P.",
+    "caseSensitive": false,
+    "name": "Kuwaiti Shareholding Company Public"
+   },
+   {
+    "token": "S.P.C.",
+    "caseSensitive": false,
+    "name": "Single Person Company"
+   }
+  ]
+ },
+ {
+  "code": "QA",
+  "name": "Qatar",
+  "currency": "QAR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "qatari_resident_exempt",
+    "name": "Qatari national resident individual (exempt)",
+    "appliesTo": "Qatari natural persons resident in Qatar: gross income exempt under the Income Tax Law (OBG summary of Law 24/2018; PwC corporate page: wholly Qatari/GCC-owned entities not subject)",
+    "incomeTax": {
+     "type": "none",
+     "base": "Exempt"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 0,
+    "reserveBasis": "Exempt from income tax; no VAT in force; no verified self-employed social contribution.",
+    "deadlines": [],
+    "notes": "Exemption wording is from a 2020 OBG article and the PwC corporate page, not from the law text (law text fetch failed: HTTP 429). Verify with GTA.",
+    "sources": [
+     "https://oxfordbusinessgroup.com/reports/qatar/2020-report/economy/updated-framework-a-comprehensive-guide-to-the-countrys-taxation-laws",
+     "https://taxsummaries.pwc.com/qatar/corporate/taxes-on-corporate-income"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "business_individual_10pct",
+    "name": "Non-Qatari individual carrying on business or professional activity in Qatar",
+    "appliesTo": "Natural persons (not exempt Qatari residents) deriving Qatar-source income from a business, profession or contracting activity; employment salaries are not taxed",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "Net taxable profit from the activity (after deductible expenses)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 1000,
+    "reserveBasis": "10% flat rate on net profit, no allowance found; reserve is 10% of profit (assumes expenses are small relative to receipts); no self-employed social contribution verified.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return and payment of tax due (4 months after year end)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "Answer to the income tax vs zakat question: Qatar has no zakat levied on individuals; PwC says a self-employed individual may be subject to income tax on qualifying Qatar-source income, and the 10% flat rate for business income of natural persons comes from OBG (2020) and the general CIT rate in PwC; the individual-specific rate, any small-taxpayer rule and any allowance are not confirmed in an official or Big-4 page. Deadline: return and tax due within 4 months of year end (PwC corporate, Moore), so 30 April for a calendar year; individual-specific deadline not confirmed. Late penalties QAR 500 per day (Moore). VAT: not in force; PwC says laws not yet published. Qatari social insurance for self-employed not verified. Most expat freelancers hold residence via a sponsor or a freelancer permit; tax treatment of such permits not confirmed.",
+    "sources": [
+     "https://taxsummaries.pwc.com/qatar/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/qatar/individual/other-taxes",
+     "https://taxsummaries.pwc.com/qatar/corporate/taxes-on-corporate-income",
+     "https://taxsummaries.pwc.com/qatar/corporate/tax-administration",
+     "https://oxfordbusinessgroup.com/reports/qatar/2020-report/economy/updated-framework-a-comprehensive-guide-to-the-countrys-taxation-laws",
+     "https://www.moore-global.com/services/tax/international-corporate-tax/qatar/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "W.L.L.",
+    "caseSensitive": false,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "WLL",
+    "caseSensitive": true,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "\u0630.\u0645.\u0645",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "Q.P.S.C.",
+    "caseSensitive": false,
+    "name": "Qatari Public Shareholding Company"
+   },
+   {
+    "token": "QPSC",
+    "caseSensitive": true,
+    "name": "Qatari Public Shareholding Company"
+   },
+   {
+    "token": "Q.P.C.",
+    "caseSensitive": false,
+    "name": "Qatari Private Shareholding Company"
+   },
+   {
+    "token": "QPC",
+    "caseSensitive": true,
+    "name": "Qatari Private Shareholding Company"
+   },
+   {
+    "token": "Q.S.C.",
+    "caseSensitive": false,
+    "name": "Qatari Shareholding Company"
+   },
+   {
+    "token": "QSC",
+    "caseSensitive": true,
+    "name": "Qatari Shareholding Company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0642",
+    "caseSensitive": false,
+    "name": "Qatari shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0642.\u0639",
+    "caseSensitive": false,
+    "name": "Qatari public shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0642.\u062e",
+    "caseSensitive": false,
+    "name": "Qatari private shareholding company"
+   },
+   {
+    "token": "S.P.C.",
+    "caseSensitive": false,
+    "name": "Single Person Company"
+   },
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   }
+  ]
+ },
+ {
+  "code": "SA",
+  "name": "Saudi Arabia",
+  "currency": "SAR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "saudi_gcc_sole_proprietor_zakat",
+    "name": "Saudi / GCC national sole proprietor (zakat)",
+    "appliesTo": "Saudi and GCC citizens carrying on business as an individual; liable to zakat, not income tax; no personal income tax on individuals (PwC)",
+    "incomeTax": {
+     "type": "none",
+     "base": "No income tax; zakat 2.5% of the zakat base (net worth as adjusted for zakat, roughly equity plus adjusted net profit)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 37500000,
+     "standardRateBp": 1500
+    },
+    "suggestedReserveRateBp": 250,
+    "reserveBasis": "Zakat 2.5% of a zakat base; for a freelancer with little capital the base is close to annual net profit, so 2.5% of income is used as a rough reserve (base computation not verified).",
+    "deadlines": [
+     {
+      "name": "Annual zakat/tax return and payment (120 days after year end)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "VAT return (quarterly filers; due end of month following the quarter)",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     }
+    ],
+    "notes": "Zakat vs income tax: PwC corporate page says Saudi and GCC nationals are liable to zakat at 2.5% of the zakat base, non-Saudi investors to 20% income tax; PwC individual page says there is no individual income tax scheme and non-employment income is taxed as an entity/PE. PwC does not say how a Saudi sole proprietor is assessed; assumed zakat. Return deadline 120 days after year end = 30 April for a calendar year (PwC corporate). Advance payments (last day of 6th, 9th, 12th month, each 25% of prior-year liability) apply only when the prior-year liability is SAR 500,000 or more, so not relevant to small freelancers. VAT threshold SAR 375,000 mandatory, SAR 187,500 voluntary (ZATCA guidance); 3-month periods standard, monthly if revenue over SAR 40m; VAT filing due day (end of following month) not verified. GOSI for self-employed Saudis: SSA 2006 profile says 9% of declared income, floor SAR 1,500 and ceiling SAR 45,000 per month; a 2010 profile says 18%; no current source, so not entered. Many freelancers in Saudi hold a Freelance Document (MHRSD); its tax treatment is not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/saudi-arabia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/saudi-arabia/corporate/taxes-on-corporate-income",
+     "https://taxsummaries.pwc.com/saudi-arabia/corporate/tax-administration",
+     "https://taxsummaries.pwc.com/saudi-arabia/corporate/other-taxes",
+     "https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/(SMEs)%20Guidelines%20%E2%80%93%20Zatca%201.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "non_saudi_individual_20pct",
+    "name": "Resident non-Saudi individual carrying on business (income tax)",
+    "appliesTo": "Resident non-Saudi, non-GCC natural persons carrying on activity in Saudi Arabia",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2000,
+     "base": "Net adjusted profit"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 37500000,
+     "standardRateBp": 1500
+    },
+    "suggestedReserveRateBp": 2000,
+    "reserveBasis": "20% flat rate on net adjusted profit; no allowance; social contributions for non-Saudi self-employed not verified so none added.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return and payment (120 days after year end)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "VAT return (quarterly filers; due end of month following the quarter)",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     }
+    ],
+    "notes": "PwC corporate page: a resident non-Saudi individual carrying on activities in Saudi Arabia is subject to income tax at 20% of net adjusted profit. Entry and registration as self-employed is restricted for foreigners (many incorporate an LLC instead); not tax-verified. Non-Saudi employee GOSI is 2% employer-paid and does not apply to self-employed. VAT as in the other regime.",
+    "sources": [
+     "https://taxsummaries.pwc.com/saudi-arabia/corporate/taxes-on-corporate-income",
+     "https://taxsummaries.pwc.com/saudi-arabia/corporate/tax-administration",
+     "https://taxsummaries.pwc.com/saudi-arabia/individual/taxes-on-personal-income"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0634.\u0630.\u0645.\u0645",
+    "caseSensitive": false,
+    "name": "Limited liability company (abbrev.)"
+   },
+   {
+    "token": "\u0630.\u0645.\u0645",
+    "caseSensitive": false,
+    "name": "Limited liability company (abbrev.)"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0624\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0626\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
+    "caseSensitive": false,
+    "name": "Limited liability company (alt spelling)"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629",
+    "caseSensitive": false,
+    "name": "Joint stock company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629 \u0645\u0642\u0641\u0644\u0629",
+    "caseSensitive": false,
+    "name": "Closed joint stock company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u062a\u0636\u0627\u0645\u0646",
+    "caseSensitive": false,
+    "name": "General partnership company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u062a\u0648\u0635\u064a\u0629 \u0627\u0644\u0628\u0633\u064a\u0637\u0629",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629",
+    "caseSensitive": false,
+    "name": "Company"
+   },
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "JSC",
+    "caseSensitive": true,
+    "name": "Joint Stock Company"
+   },
+   {
+    "token": "SJSC",
+    "caseSensitive": true,
+    "name": "Simplified Joint Stock Company"
+   },
+   {
+    "token": "Co. Ltd",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co. Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ },
+ {
+  "code": "BH",
+  "name": "Bahrain",
+  "currency": "BHD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "individual_no_income_tax",
+    "name": "Individual / freelancer (no personal income tax, no zakat)",
+    "appliesTo": "All individuals including self-employed; Bahrain has no PIT regime and no tax return or payment requirements for individuals; VAT-registered once taxable supplies pass the threshold",
+    "incomeTax": {
+     "type": "none",
+     "base": "No personal income tax (PwC individual tax administration page)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 37500000,
+     "standardRateBp": 1000
+    },
+    "suggestedReserveRateBp": 0,
+    "reserveBasis": "No income tax and no verified self-employed social insurance; VAT is collected from customers and is not a reserve of income, so 0.",
+    "deadlines": [],
+    "notes": "Amounts in BHD are stored in fils (1 BHD = 1000 fils): VAT threshold BHD 37,500 = 37,500,000 fils (voluntary registration BHD 18,750 = 18,750,000 fils). VAT standard rate 10% since 1 Jan 2022 (PwC states 10%). No zakat or corporate-style tax on individuals. SIO contributions for self-employed Bahrainis (optional/voluntary) not found in any fetched source; PwC covers employees only (Bahraini 8% employee plus employer share, expat 1% plus 3%, monthly salary cap BHD 4,000 from 1 Jan 2026). VAT return frequency and due dates (NBR, quarterly for most filers) not verified, so no deadline entered. Corporate income tax applies only to oil/gas entities, and a 15% domestic minimum top-up tax to large MNE groups; out of scope.",
+    "sources": [
+     "https://taxsummaries.pwc.com/bahrain/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/bahrain/individual/tax-administration",
+     "https://taxsummaries.pwc.com/bahrain/individual/other-taxes",
+     "https://taxsummaries.pwc.com/bahrain/corporate/other-taxes"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "W.L.L.",
+    "caseSensitive": false,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "WLL",
+    "caseSensitive": true,
+    "name": "With Limited Liability"
+   },
+   {
+    "token": "B.S.C.",
+    "caseSensitive": false,
+    "name": "Bahraini Shareholding Company"
+   },
+   {
+    "token": "BSC",
+    "caseSensitive": true,
+    "name": "Bahraini Shareholding Company"
+   },
+   {
+    "token": "B.S.C. (c)",
+    "caseSensitive": false,
+    "name": "Bahraini Shareholding Company (closed)"
+   },
+   {
+    "token": "BSC (c)",
+    "caseSensitive": false,
+    "name": "Bahraini Shareholding Company (closed)"
+   },
+   {
+    "token": "\u0634.\u0630.\u0645.\u0645",
+    "caseSensitive": false,
+    "name": "Limited liability company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0628",
+    "caseSensitive": false,
+    "name": "Bahraini shareholding company"
+   },
+   {
+    "token": "\u0634.\u0645.\u0628 (\u0645)",
+    "caseSensitive": false,
+    "name": "Bahraini shareholding company (closed)"
+   },
+   {
+    "token": "S.P.C.",
+    "caseSensitive": false,
+    "name": "Single Person Company"
+   },
+   {
+    "token": "SPC",
+    "caseSensitive": true,
+    "name": "Single Person Company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u0634\u062e\u0635 \u0627\u0644\u0648\u0627\u062d\u062f",
+    "caseSensitive": false,
+    "name": "Single person company"
+   },
+   {
+    "token": "\u0634\u0631\u0643\u0629 \u062a\u0636\u0627\u0645\u0646",
+    "caseSensitive": false,
+    "name": "General partnership"
+   }
+  ]
+ },
+ {
+  "code": "MO",
+  "name": "Macao",
+  "currency": "MOP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "professional_tax_self_employed",
+    "name": "Professional tax (Imposto Profissional) - self-employed individual",
+    "appliesTo": "Individuals earning freelance/professional income in Macao (filed on form M/5 by the individual); commercial sole traders are instead under Complementary Tax",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 14400000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 16400000,
+       "rateBp": 700
+      },
+      {
+       "upToMinor": 18400000,
+       "rateBp": 800
+      },
+      {
+       "upToMinor": 22400000,
+       "rateBp": 900
+      },
+      {
+       "upToMinor": 30400000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 42400000,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 1200
+      }
+     ],
+     "base": "Assessable income = gross professional income less flat 25% standard deduction (or actual business expenses for self-employed); the tax computed from the table is then cut by 30% for income of 2026"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 80,
+    "reserveBasis": "Assumed gross MOP 240,000 (about MOP 20,000 per month, wage level not verified); 25% deduction gives 180,000 assessable; table tax 1,400 + 16,000 x 8% = 2,680; less 30% = 1,876; 1,876 / 240,000 = about 0.8%.",
+    "deadlines": [
+     {
+      "name": "Annual professional tax return (form M/5), 2025 deadline as extended by Order 35/2026",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     }
+    ],
+    "notes": "The 144,000 first bracket IS the 2026 personal allowance (raised from MOP 95,000), so allowanceMinor is 0 to avoid double counting. PwC: 25% standard deduction and a 30% reduction in tax liability for 2026 income (effective rate below 6.3%); these are not in the brackets. Foreign freelancers engaged by Macao entities without valid work visas pay the higher of 5% of taxable income or the table tax. 2026 relief needs annual Legislative Assembly approval. Deadline: Bloomberg Tax reports Order 35/2026 extended the 2025 M/5 deadline to 31 March; the ordinary statutory M/5 date and payment/instalment dates for self-employed are not verified and sources conflict (one guide says 15 April for Group B taxpayers with accounts). Social Security Fund contribution for self-employed not found (PwC covers employees only: MOP 90 per month, split 60 employer / 30 employee). No VAT/GST identified (PwC lists only excise-type consumption tax on tobacco and spirits). Complementary tax rules for sole proprietors in commerce not verified. Tax year 2026 rules per PwC.",
+    "sources": [
+     "https://taxsummaries.pwc.com/macau-sar/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/macau-sar/individual/deductions",
+     "https://taxsummaries.pwc.com/macau-sar/individual/significant-developments",
+     "https://taxsummaries.pwc.com/macau-sar/individual/other-taxes",
+     "https://news.bloombergtax.com/crypto/macau-gazettes-order-extending-filing-deadline-for-2025-professional-income-tax-returns"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limitada",
+    "caseSensitive": false,
+    "name": "Sociedade por quotas"
+   },
+   {
+    "token": "Lda.",
+    "caseSensitive": false,
+    "name": "Limitada"
+   },
+   {
+    "token": "Lda",
+    "caseSensitive": false,
+    "name": "Limitada"
+   },
+   {
+    "token": "Unipessoal",
+    "caseSensitive": false,
+    "name": "Sociedade unipessoal por quotas (single-member)"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "Sociedade An\u00f3nima",
+    "caseSensitive": false,
+    "name": "Joint stock company"
+   },
+   {
+    "token": "\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Company limited by shares"
+   },
+   {
+    "token": "\u4e00\u4eba\u6709\u9650\u516c\u53f8",
+    "caseSensitive": false,
+    "name": "Single-member limited company"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Limited company"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ },
+ {
+  "code": "MY",
+  "name": "Malaysia",
+  "currency": "MYR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor",
+    "name": "Sole proprietor / freelancer (Form B, resident individual)",
+    "appliesTo": "Resident individuals with business or professional income (Form B); non-residents pay a flat 30% (not modeled)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 500000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 2000000,
+       "rateBp": 100
+      },
+      {
+       "upToMinor": 3500000,
+       "rateBp": 300
+      },
+      {
+       "upToMinor": 5000000,
+       "rateBp": 600
+      },
+      {
+       "upToMinor": 7000000,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": 10000000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 40000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 60000000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 200000000,
+       "rateBp": 2800
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3000
+      }
+     ],
+     "base": "Chargeable income = adjusted business income less personal reliefs"
+    },
+    "allowanceMinor": 900000,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 50000000,
+     "standardRateBp": 800
+    },
+    "suggestedReserveRateBp": 270,
+    "reserveBasis": "Assumed net business income MYR 60,000 (about MYR 5,000 per month, wage level not verified): less self relief 9,000 = 51,000; tax 0 + 15,000 x 1% + 15,000 x 3% + 15,000 x 6% + 1,000 x 11% = 1,610; 1,610 / 60,000 = 2.7%. No mandatory self-employed social contribution.",
+    "deadlines": [
+     {
+      "name": "Form B annual return (e-Filing usually extended to mid-July)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "Self relief MYR 9,000 per PwC (YA 2026); other reliefs (EPF up to 4,000, insurance, lifestyle 2,500 etc.) not applied. A tax rebate of MYR 400 applies when chargeable income is MYR 35,000 or less (only an example confirmed by RinggitPlus: RM34,500 gets RM400; cutoff not confirmed in a primary source). Filing 30 June is from PwC; extension to 15 July for e-Filing seen for YA 2025 (RinggitPlus), not guaranteed for YA 2026. CP500 instalments: LHDN waived penalties for YA 2026; instalment dates for CP500 not verified, so none listed. SOCSO self-employed scheme (SKSPS) is mandatory only for some groups (licensed hawkers/traders from 1 Jan 2025, p-hailing); otherwise voluntary; official contribution table not verified so none entered. SST: service tax 8% (6% for some services) per PwC; the MYR 500,000 annual turnover registration threshold is NOT confirmed by any fetched source (general knowledge of Customs rules); freelance services are taxable only if they fall in a listed taxable service group. Rates are prevailing resident rates per PwC (YA 2026).",
+    "sources": [
+     "https://taxsummaries.pwc.com/malaysia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/malaysia/individual/deductions",
+     "https://taxsummaries.pwc.com/malaysia/individual/tax-administration",
+     "https://taxsummaries.pwc.com/malaysia/individual/other-taxes",
+     "https://ringgitplus.com/en/blog/personal-finance-news/no-penalties-for-cp500-tax-errors-throughout-2026.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Sdn Bhd",
+    "caseSensitive": false,
+    "name": "Sendirian Berhad (private limited)"
+   },
+   {
+    "token": "Sdn. Bhd.",
+    "caseSensitive": false,
+    "name": "Sendirian Berhad"
+   },
+   {
+    "token": "Sdn.Bhd.",
+    "caseSensitive": false,
+    "name": "Sendirian Berhad"
+   },
+   {
+    "token": "Sendirian Berhad",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Berhad",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "Bhd",
+    "caseSensitive": false,
+    "name": "Berhad"
+   },
+   {
+    "token": "Bhd.",
+    "caseSensitive": false,
+    "name": "Berhad"
+   },
+   {
+    "token": "PLT",
+    "caseSensitive": true,
+    "name": "Perkongsian Liabiliti Terhad (LLP)"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "Perkongsian Liabiliti Terhad",
+    "caseSensitive": false,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "Koperasi",
+    "caseSensitive": false,
+    "name": "Co-operative"
+   }
+  ]
+ },
+ {
+  "code": "PH",
+  "name": "Philippines",
+  "currency": "PHP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "eight_percent",
+    "name": "8% flat option (self-employed/professional)",
+    "appliesTo": "Non-VAT self-employed and professionals with gross receipts not above PHP 3,000,000, who elect the 8% option",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 800,
+     "base": "Gross sales/receipts and other non-operating income above PHP 250,000, in place of graduated rates and 3% percentage tax"
+    },
+    "allowanceMinor": 25000000,
+    "socialContributions": [
+     {
+      "name": "SSS (Social Security System) self-employed contribution",
+      "rateBp": 1500,
+      "base": "Monthly salary credit (declared income), annualized; MSC ceiling PHP 35,000 per month; floor not confirmed",
+      "floorMinor": null,
+      "capMinor": 42000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "PhilHealth premium (self-employed pays full rate)",
+      "rateBp": 500,
+      "base": "Declared monthly income, annualized; floor PHP 10,000 and ceiling PHP 100,000 per month",
+      "floorMinor": 12000000,
+      "capMinor": 120000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 300000000,
+     "standardRateBp": 1200
+    },
+    "suggestedReserveRateBp": 2130,
+    "reserveBasis": "Assumed gross PHP 300,000 (about PHP 25,000 per month, wage level not verified): income tax 8% x 50,000 = 4,000; SSS 15% x 25,000 x 12 = 45,000; PhilHealth 5% x 25,000 x 12 = 15,000; total 64,000 / 300,000 = about 21.3%.",
+    "deadlines": [
+     {
+      "name": "Quarterly income tax return and payment (form 1701Q), Q1-Q3",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       5,
+       8,
+       11
+      ]
+     },
+     {
+      "name": "Annual income tax return (1701/1701A) and first payment",
+      "type": "annual",
+      "day": 15,
+      "month": 4
+     }
+    ],
+    "notes": "Annual return due 15 April; if tax due exceeds PHP 2,000 it may be paid in two equal instalments, 15 April and 15 October (PwC). Quarterly 1701Q dates (15 May, 15 Aug, 15 Nov) are from general BIR rules, not from a fetched source. SSS 15% rate, MSC ceiling PHP 35,000, PhilHealth 5% with floor 10,000 and ceiling 100,000 come from third-party 2026 summaries, not SSS/PhilHealth pages; SSS floor (believed PHP 5,000) not confirmed, so null. Pag-IBIG for self-employed is voluntary (reported 2% up to PHP 200 per month), not included. Persons also employed cannot deduct the 250,000 from the 8% base (mixed-income earners). VAT 12% per PwC; PHP 3,000,000 threshold per PwC/first pass.",
+    "sources": [
+     "https://taxsummaries.pwc.com/philippines/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/philippines/individual/tax-administration",
+     "https://taxsummaries.pwc.com/philippines/individual/other-taxes",
+     "https://supertutor.ph/resources/benefits/philhealth-contribution-table-2026/",
+     "https://salaryph.pages.dev/sss-contribution-table-2026.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "graduated",
+    "name": "Graduated rates (net taxable income)",
+    "appliesTo": "Self-employed who do not elect the 8% option, or are VAT-registered, or exceed PHP 3,000,000",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 25000000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 40000000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 80000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 200000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 800000000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "Net taxable income (gross receipts less deductible expenses or the optional standard deduction)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "SSS (Social Security System) self-employed contribution",
+      "rateBp": 1500,
+      "base": "Monthly salary credit (declared income), annualized; MSC ceiling PHP 35,000 per month; floor not confirmed",
+      "floorMinor": null,
+      "capMinor": 42000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "PhilHealth premium (self-employed pays full rate)",
+      "rateBp": 500,
+      "base": "Declared monthly income, annualized; floor PHP 10,000 and ceiling PHP 100,000 per month",
+      "floorMinor": 12000000,
+      "capMinor": 120000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 300000000,
+     "standardRateBp": 1200
+    },
+    "suggestedReserveRateBp": 2250,
+    "reserveBasis": "Assumed net taxable PHP 300,000: tax 15% x 50,000 = 7,500; SSS 45,000 and PhilHealth 15,000 as in the 8% option; total 67,500 / 300,000 = 22.5%; percentage tax excluded.",
+    "deadlines": [
+     {
+      "name": "Quarterly income tax return and payment (form 1701Q), Q1-Q3",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       5,
+       8,
+       11
+      ]
+     },
+     {
+      "name": "Annual income tax return (1701) and first payment",
+      "type": "annual",
+      "day": 15,
+      "month": 4
+     }
+    ],
+    "notes": "Rates effective from 1 Jan 2023 per PwC (the 0% band is the PHP 250,000 exemption, so allowanceMinor is 0). Non-VAT taxpayers on graduated rates also pay percentage tax, generally 3% of gross receipts quarterly (BIR form 2551Q); this rate and dates are NOT confirmed by a fetched source. Optional standard deduction of 40% of gross receipts exists under the NIRC (not confirmed here). Social contributions as in the 8% regime.",
+    "sources": [
+     "https://taxsummaries.pwc.com/philippines/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/philippines/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Incorporated",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Corp.",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Corp",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Corporation",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "OPC",
+    "caseSensitive": true,
+    "name": "One Person Corporation"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co. Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Ltd. Co.",
+    "caseSensitive": false,
+    "name": "Limited Company"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "Coop.",
+    "caseSensitive": false,
+    "name": "Cooperative"
+   },
+   {
+    "token": "Cooperative",
+    "caseSensitive": false,
+    "name": "Cooperative"
+   },
+   {
+    "token": "Foundation",
+    "caseSensitive": false,
+    "name": "Non-stock foundation"
+   }
+  ]
+ },
+ {
+  "code": "TH",
+  "name": "Thailand",
+  "currency": "THB",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "individual_progressive",
+    "name": "Individual freelancer / sole proprietor (PND 90/91)",
+    "appliesTo": "Residents with business or professional income (Section 40(2)/40(8)); expenses deducted at actual or at a standard deduction of 10% to 60% depending on the activity",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 15000000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 30000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 50000000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 75000000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 100000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 200000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 500000000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "Net income after expense deductions and allowances"
+    },
+    "allowanceMinor": 6000000,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 180000000,
+     "standardRateBp": 700
+    },
+    "suggestedReserveRateBp": 100,
+    "reserveBasis": "Assumed gross THB 360,000 (about THB 30,000 per month, wage level not verified), 50% expense deduction capped at THB 100,000 (not verified), less THB 60,000 allowance = 200,000 taxable: 50,000 x 5% = 2,500; plus voluntary Section 40 SSO THB 840 per year (THB 70 per month) = 3,340 / 360,000 = about 0.9%; rounded to 1%.",
+    "deadlines": [
+     {
+      "name": "Annual return PND 90/91 (paper; online until 8 April)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Half-year return and tax payment for business income (first six months)",
+      "type": "annual",
+      "day": 30,
+      "month": 9
+     }
+    ],
+    "notes": "Brackets and THB 60,000 taxpayer allowance per PwC. Annual return: 31 March hardcopy, 8 April online; half-year return for first six months by 30 September (PwC). Standard deduction range 10% to 60% per PwC; the specific 50% / THB 100,000 cap for professional services is general knowledge, not confirmed. A 0.5% minimum tax on gross income over THB 120,000 may apply (not confirmed). VAT 7% per PwC (rate was extended at 7% in recent years); the THB 1.8 million registration threshold is general knowledge, not confirmed by a fetched source. Social security: Section 40 voluntary scheme, THB 70 per month option confirmed (higher tiers THB 100 / 300 not confirmed); Section 33 employee rate 5% capped at THB 875 per month does not apply to self-employed; none entered as mandatory. Withholding (3% on service fees) can be credited against tax; not modeled.",
+    "sources": [
+     "https://taxsummaries.pwc.com/thailand/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/thailand/individual/deductions",
+     "https://taxsummaries.pwc.com/thailand/individual/tax-administration",
+     "https://taxsummaries.pwc.com/thailand/individual/other-taxes",
+     "https://humanresourcesonline.net/thailand-boosts-section-40-benefits-for-over-500-000-self-employed-workers"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17",
+    "caseSensitive": false,
+    "name": "Company"
+   },
+   {
+    "token": "\u0e08\u0e33\u0e01\u0e31\u0e14",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "\u0e08\u0e33\u0e01\u0e31\u0e14 (\u0e21\u0e2b\u0e32\u0e0a\u0e19)",
+    "caseSensitive": false,
+    "name": "Public company limited"
+   },
+   {
+    "token": "\u0e1a\u0e21\u0e08.",
+    "caseSensitive": false,
+    "name": "Public company limited (abbrev.)"
+   },
+   {
+    "token": "\u0e1a\u0e08\u0e01.",
+    "caseSensitive": false,
+    "name": "Company limited (abbrev.)"
+   },
+   {
+    "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14",
+    "caseSensitive": false,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "\u0e2b\u0e08\u0e01.",
+    "caseSensitive": false,
+    "name": "Limited partnership (abbrev.)"
+   },
+   {
+    "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e2a\u0e32\u0e21\u0e31\u0e0d\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25",
+    "caseSensitive": false,
+    "name": "Registered ordinary partnership"
+   },
+   {
+    "token": "Co., Ltd.",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co., Ltd",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Co. Ltd",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Company Limited",
+    "caseSensitive": false,
+    "name": "Company Limited"
+   },
+   {
+    "token": "Public Company Limited",
+    "caseSensitive": false,
+    "name": "Public Company Limited"
+   },
+   {
+    "token": "PCL",
+    "caseSensitive": true,
+    "name": "Public Company Limited"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": true,
+    "name": "Public Limited Company"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ },
+ {
+  "code": "ZA",
+  "name": "South Africa",
+  "currency": "ZAR",
+  "taxYear": {
+   "startMonth": 3,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor",
+    "name": "Sole proprietor / provisional taxpayer",
+    "appliesTo": "Individuals with business income (non-remuneration income): provisional taxpayers, taxed progressively on net profit",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 24510000,
+       "rateBp": 1800
+      },
+      {
+       "upToMinor": 38310000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 53020000,
+       "rateBp": 3100
+      },
+      {
+       "upToMinor": 69580000,
+       "rateBp": 3600
+      },
+      {
+       "upToMinor": 88700000,
+       "rateBp": 3900
+      },
+      {
+       "upToMinor": 187860000,
+       "rateBp": 4100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "Net taxable income (profit less deductible expenses), tax year 1 Mar 2026 to 28 Feb 2027"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 230000000,
+     "standardRateBp": 1500
+    },
+    "suggestedReserveRateBp": 1560,
+    "reserveBasis": "Assumed net profit ZAR 360,000 (about ZAR 30,000 per month, wage level not verified): 18% x 245,100 = 44,118 + 26% x 114,900 = 29,874 = 73,992; less primary rebate 17,820 = 56,172; 56,172 / 360,000 = about 15.6%. No mandatory self-employed social contribution.",
+    "deadlines": [
+     {
+      "name": "First provisional tax payment (end of August)",
+      "type": "annual",
+      "day": 31,
+      "month": 8
+     },
+     {
+      "name": "Second provisional tax payment (end of February)",
+      "type": "annual",
+      "day": 28,
+      "month": 2
+     },
+     {
+      "name": "Optional third top-up provisional payment (September, after year end), not verified",
+      "type": "annual",
+      "day": 30,
+      "month": 9
+     },
+     {
+      "name": "Annual return ITR12 for provisional taxpayers (date set yearly by SARS notice; typically late January, not verified)",
+      "type": "annual",
+      "day": 31,
+      "month": 1
+     }
+    ],
+    "notes": "Rebates (tax credits) 2026/27: primary ZAR 17,820, secondary (65+) 9,765, tertiary (75+) 3,249 (SARS Budget 2026 FAQ via search); tax-free threshold ZAR 99,000 for under 65. Rebate is a credit, so allowanceMinor is 0 and the credit is netted in the reserve. Bracket limits agree with the Xero/SARS 2026 tables (18% up to 245,100). VAT standard rate 15%; compulsory registration threshold raised from ZAR 1,000,000 to ZAR 2,300,000 from 1 April 2026 and voluntary from 50,000 to 120,000 per SARS, but promulgation of the amending law was not confirmed (PwC still lists 1,000,000 with the rise expected). Provisional payment dates (end of August and end of February) per PwC; PwC says the annual filing date is fixed yearly by government notice. UIF and SDL apply to employers/employees, not to a sole proprietor without staff. Turnover tax micro-business regime (threshold also rising to ZAR 2.3m) not modeled.",
+    "sources": [
+     "https://taxsummaries.pwc.com/south-africa/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/south-africa/individual/other-taxes",
+     "https://taxsummaries.pwc.com/south-africa/individual/tax-administration",
+     "https://www.sars.gov.za/about/sars-tax-and-customs-system/budget/budget-2026-frequently-asked-questions/",
+     "https://www.sars.gov.za/faq/what-is-the-new-threshold-for-vat-registration/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "(Pty) Ltd",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "(Pty) Limited",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty Ltd",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "Pty",
+    "caseSensitive": false,
+    "name": "Proprietary"
+   },
+   {
+    "token": "Proprietary Limited",
+    "caseSensitive": false,
+    "name": "Proprietary Limited"
+   },
+   {
+    "token": "SOC Ltd",
+    "caseSensitive": false,
+    "name": "State-owned company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited (public company)"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Public company"
+   },
+   {
+    "token": "NPC",
+    "caseSensitive": true,
+    "name": "Non-Profit Company"
+   },
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Personal liability company"
+   },
+   {
+    "token": "Incorporated",
+    "caseSensitive": false,
+    "name": "Personal liability company"
+   },
+   {
+    "token": "CC",
+    "caseSensitive": true,
+    "name": "Close Corporation"
+   },
+   {
+    "token": "(RF)",
+    "caseSensitive": false,
+    "name": "Ring-fenced company"
+   }
+  ]
+ }
+]

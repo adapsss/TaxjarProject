@@ -66,6 +66,10 @@
     ],
     "notes": "IRPF mechanics and filing window from the Govern d'Andorra Guia practica de l'IRPF (personal minimum 24,000, flat 10% rate, 50% bonification capped at EUR 800, advance payment of 50% of last year's liquidation in September). CASS 22% of reference base and quota table for 2026 from a secondary 2026 guide (beancount.io), cross-checked arithmetically (22% x 2,672.52 = 587.95; floor 22% x 1,568.67 = 345.11); official CASS page not fetched; the previous file note that monthly 587.95 was conflicting is resolved by this arithmetic. Tier is assigned by prior-year net income, tiers at 100% and above mandatory. IGI general rate 4.5% from a secondary source only; IGI threshold and return frequency not verified. CASS contributions are deductible in the IRPF base. Business-profit tax and professional registration fees not modelled. Other CASS tiers per month: 25% EUR 146.99, 50% floor EUR 345.11, 62.5% EUR 367.47, 75% EUR 440.97, 125% EUR 734.94, 137.5% EUR 808.44.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.govern.ad/documents/d/guest/guia_irpf",
      "https://beancount.io/blog/2026/10/07/andorra-cass-self-employed-contributions-2026-hike-guide",
@@ -132,6 +136,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.cotizacion-dolar.com.ar/economia/categorias-monotributo-agosto-2026.html",
      "https://www.argentina.gob.ar/economia/ingresospublicos"
@@ -227,6 +235,10 @@
     ],
     "notes": "Income year 1 Jul 2026 - 30 Jun 2027 (2026/27): 15% rate on 18,201-45,000 confirmed by secondary sources (cut from 16% on 1 Jul 2026, legislated further cut to 14% from 1 Jul 2027); 0% tax-free threshold of AUD 18,200 is modelled as the first bracket, so allowanceMinor is 0 to avoid double counting. Medicare levy 2% (PwC); low-income reduction thresholds and Medicare levy surcharge ignored; LITO ignored. GST 10% (PwC), registration at GST turnover of AUD 75,000 (ATO guidance as summarised by search; ATO site blocked). No compulsory social security; superannuation is voluntary for sole traders (PwC: concessional cap AUD 32,500 for 2026/27). Return due 31 Oct, later when lodged via a registered tax agent. PAYG instalment dates per PwC; the ATO site was unreachable (HTTP 403) so ATO pages were not read directly.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/australia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/australia/individual/other-taxes",
@@ -359,6 +371,10 @@
     ],
     "notes": "Brackets from PwC (tax year not explicitly labelled, assumed 2026). SVS rates and bases are 2026 values per WKO page (Stand 01.01.2026); annual floor = Versicherungsgrenze 6,613.20, cap 97,020. Below the floor no compulsory GSVG insurance (Kleinunternehmer opt-in rules not modelled). Kleinunternehmer VAT threshold EUR 55,000 turnover (gross, per WKO; 10% tolerance up to 60,500 in the year). The 0% band is shown as allowanceMinor. Basic Gewinnfreibetrag of 15% on the first 33,000 of profit (assumed in the reserve, not sourced), tax credits (Verkehrsabsetzbetrag etc.) not modelled. Quarterly dates 15 Feb/May/Aug/Nov per usp.gv.at and secondary sources; SVS quarterly billing dates were not verified. Provisional SVS contributions are later reconciled to the final tax assessment.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/austria/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/austria/individual/other-taxes",
@@ -415,6 +431,10 @@
     "deadlines": [],
     "notes": "Amounts in BHD are stored in fils (1 BHD = 1000 fils): VAT threshold BHD 37,500 = 37,500,000 fils (voluntary registration BHD 18,750 = 18,750,000 fils). VAT standard rate 10% since 1 Jan 2022 (PwC states 10%). No zakat or corporate-style tax on individuals. SIO contributions for self-employed Bahrainis (optional/voluntary) not found in any fetched source; PwC covers employees only (Bahraini 8% employee plus employer share, expat 1% plus 3%, monthly salary cap BHD 4,000 from 1 Jan 2026). VAT return frequency and due dates (NBR, quarterly for most filers) not verified, so no deadline entered. Corporate income tax applies only to oil/gas entities, and a 15% domestic minimum top-up tax to large MNE groups; out of scope.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/bahrain/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/bahrain/individual/tax-administration",
@@ -514,6 +534,10 @@
     ],
     "notes": "Income tax brackets are assessment year 2026 (income 2025), latest on PwC; 2026 personal-income-tax reform not modelled. Basic exemption EUR 10,910 per PwC is applied as a tax reduction on the lowest bracket (25%), equivalent to subtracting it from taxable income. Communal surcharge 0-9% (avg 7%) not in brackets. Social contribution figures are 2026 values per Accountable.eu (secondary source; INASTI page unreachable), quarterly max EUR 5,103.05; admin fee 3-4% depends on fund; actual contributions are based on income 3 years back (for starters, provisional). Quarterly social dates are 'no later than the last day of March, June, September, December'. VAT franchise EUR 25,000 turnover per FPS Finance (a raise to 30,000 is reported but not in force). Side-activity and student rates not modelled. For sole traders the surcharge for insufficient prepayments is abolished from income year 2026 (secondary sources).",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/belgium/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/belgium/individual/other-taxes",
@@ -594,6 +618,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www8.receita.fazenda.gov.br/simplesnacional/Noticias/NoticiaCompleta.aspx%3Fid%3Dc3b2044c-ff97-432a-b33c-ecf2a3df6dc3",
      "https://www.contabeis.com.br/noticias/74842/mei-em-2026-veja-o-que-muda-no-das-nota-fiscal-e-regras/"
@@ -681,6 +709,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/brazil/individual/taxes-on-personal-income",
      "https://www.adrianofreire.com.br/blog/inss-contribuinte-individual-aliquotas-planos-2026",
@@ -750,6 +782,10 @@
     ],
     "notes": "All floor/cap values are annualised. Monthly insurable income 2026: min EUR 550.66 to 31 Jul then EUR 620.20; max EUR 2,111.64 to 31 Jul then EUR 2,300; annual figures here use the August onward values (620.20*12, 2300*12). Quarterly advance income tax exists for freelancers but due dates were not found. VAT threshold EUR 51,130 (BGN 100,000) from a consultancy source, not the tax authority. Bulgaria joined the euro on 1 Jan 2026.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/bulgaria/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/bulgaria/individual/other-taxes",
@@ -858,6 +894,10 @@
     ],
     "notes": "Federal brackets only: provincial or territorial income tax (and Quebec QPP/QST) is NOT modelled. Federal lowest rate is 14% for the full 2026 year. allowanceMinor is the 2026 basic personal amount maximum 16,452 CAD, a non-refundable credit at the 14% rate rather than a deduction, taken from secondary sources (CRA page not reachable); it phases down for net income above 181,440 CAD. CPP: CRA confirms 2026 YMPE 74,600, basic exemption 3,500, base self-employed maximum 8,460.90 CAD; CPP2 8% and 85,000 YAMPE (max 832 CAD) are from secondary sources. Half of CPP is deductible. GST small supplier threshold 30,000 CAD and 5% GST rate and filing dates are from general CRA rules, not re-fetched.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html",
      "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/canada-pension-plan-cpp/cpp-contribution-rates-maximums-exemptions.html",
@@ -913,6 +953,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/cayman-islands/individual/taxes-on-personal-income",
      "https://www.deloitte.com/content/dam/assets-shared/docs/services/tax/2026/dttl-tax-caymanislandshighlights-2026.pdf",
@@ -999,6 +1043,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.sii.cl/valores_y_fechas/renta/2026/personas_naturales.html"
     ],
@@ -1087,6 +1135,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/deductions",
@@ -1169,6 +1221,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/peoples-republic-of-china/individual/deductions",
@@ -1273,6 +1329,10 @@
     ],
     "notes": "Art. 241 bracket structure (0/19/28/33/35/37/39% with thresholds 1,090/1,700/4,100/8,670/18,970/31,000 UVT) is the long-standing table; search confirmed 7 brackets, 0% up to 1,090 UVT and 39% above 31,000 UVT, intermediate thresholds not re-verified this session. A pending bill (PL 477/2026) would change it but is not in force. Filing window depends on NIT digits (Aug-Oct 2026); day 31/month 8 is a placeholder not verified. Solidarity fund (extra 1% above 4 SMMLV), ARL, IBC ceiling (25 SMMLV) and the VAT responsibility threshold were not verified. SMMLV 2026 1,750,905 COP from press.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://estatuto.co/reforma/241",
      "https://accounter.co/noticias/editorial/accounter-uvt-2026-el-nuevo-numero-que-redefine-sanciones-topes-y-planeacion-tributaria",
@@ -1350,6 +1410,10 @@
     "unverified": [
      "incomeTax"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://siemprealdia.co/colombia/impuestos/regimen-simple-de-tributacion/",
      "https://legalytributarioenlinea.co.pwc.com/Repositorio%20PwC/PDF/Doctrina/DIAN/Prensa/2026/PRENSADIAN-000074-26.pdf"
@@ -1433,6 +1497,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.ey.com/es_ce/technical/tax/tax-alerts/costa-rica-ministerio-de-hacienda-establecio-los-tramos-del-impuesto-sobre-la-renta-para-el-periodo-fiscal-2026"
     ],
@@ -1530,6 +1598,10 @@
     "unverified": [
      "incomeTax"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://fiskalopedija.hr/baza-znanja/pausalni-obrt",
      "https://www.fiskai.hr/vodic/pausalni-obrt/",
@@ -1613,6 +1685,10 @@
     ],
     "notes": "Allowance EUR 600/month basic (PwC). 20%/30% rates are statutory default; municipalities set 15-23% / 25-33%. Min base EUR 797.20/month (2026, from pau\u0161alni-obrt sources), cap EUR 11,958/month (PwC salary cap, assumed to apply). Quarterly tax advances on income not verified. VAT threshold EUR 60,000 from advisor sources.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/croatia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/croatia/individual/other-taxes",
@@ -1717,6 +1793,10 @@
     ],
     "notes": "Brackets and EUR 22,000 tax-free amount apply from 1 January 2026 per PwC. The allowanceMinor equals the 0% band and must not be applied twice. Social insurance minimum/maximum insurable income by profession not verified (floor null). Filing deadline 31 January is for the second year after the tax year (e.g. 2026 return due 31 Jan 2028) per PwC; threshold EUR 120,000 from 2026 (EUR 70,000 earlier). VAT registration threshold not covered in sources used, so null; standard rate 19%. Special defence contribution not applicable to this earned income and not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/cyprus/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/cyprus/individual/other-taxes",
@@ -1810,6 +1890,10 @@
     ],
     "notes": "allowanceMinor is CZK 30,840 taxpayer credit (sleva na poplatn\u00edka, from my knowledge, not on fetched pages) divided by 15% = CZK 205,600 equivalent. Minimum monthly advances 2026: social CZK 5,720 (one source says 5,005), health CZK 3,306; annual floors = x12. Social cap CZK 2,350,416 (48x average wage, PwC). Social rate 29.2% on 50% base and health 13.5% on 50% base are standard but not on fetched pages. VAT threshold CZK 2,000,000 and 12% reduced rate from advisor knowledge/PwC.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/czech-republic/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/czech-republic/individual/other-taxes",
@@ -1873,6 +1957,10 @@
     ],
     "notes": "Bands 2026: CZK 9,984 / 16,745 / 27,139 per month. VAT payers cannot use the regime, so registration threshold not applicable (null). Exceeding CZK 2M ends the regime. Band income limits differ by source.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.dauc.cz/clanky/16415/zmeny-v-pausalnim-rezimu-2026",
      "https://www.banky.cz/clanky/pausalni-dan-2026-podnikatele-v-prvnim-pasmu-si-priplati-o-vic-nez-15-tisic-korun-rocne/",
@@ -1957,6 +2045,10 @@
     ],
     "notes": "Personfradrag 54,100 DKK (several secondary sources; PwC page does not state it). PwC lists thresholds before AM-bidrag as 696,956 / 845,543 / 2,818,152, consistent with the after-AM figures used here (x0.92). Municipal tax is the PwC average of 25.049%; actual varies by municipality. No mandatory separate social security contributions for the self-employed besides AM-bidrag; ATP is optional. VAT half-year deadlines per skat.dk rule via Dinero: 1 Sep for Jan-Jun, 1 Mar for Jul-Dec. Annual self-employed return deadline not verified. VAT 50,000 DKK threshold from secondary sources (Dinero, tax.dk), not read on skat.dk itself.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/denmark/individual/taxes-on-personal-income",
      "https://skat.dk/erhverv/moms/frister-indberet-og-betal-moms",
@@ -1989,84 +2081,8 @@
   "inheritsFrom": null,
   "regimes": [
    {
-    "id": "fie",
-    "name": "Sole proprietor (FIE, fuusilisest isikust ettevotja), general regime",
-    "appliesTo": "Natural person registered as FIE in the commercial register; no turnover cap; business expenses deductible against business income.",
-    "incomeTax": {
-     "type": "flat",
-     "rateBp": 2200,
-     "base": "net business profit (income minus deductible business expenses), after basic exemption"
-    },
-    "computable": true,
-    "allowanceMinor": 840000,
-    "socialContributions": [
-     {
-      "name": "Social tax (sotsiaalmaks), 33% of net business income",
-      "rateBp": 3300,
-      "base": "net business income",
-      "floorMinor": 1063200,
-      "capMinor": 11172000,
-      "fixedAnnualMinor": null
-     }
-    ],
-    "vat": {
-     "registrationThresholdMinor": 4000000,
-     "standardRateBp": 2400
-    },
-    "suggestedReserveRateBp": 4500,
-    "reserveRateSource": "researched",
-    "reserveBasis": "Derived: 33% social tax plus 22% income tax on profit above the 8,400 EUR exemption gives about 43-47% of profit at 15-24k EUR; 45% is a conservative share of gross assuming few business costs.",
-    "deadlines": [
-     {
-      "name": "Social tax advance payment",
-      "type": "quarterly",
-      "day": 15,
-      "months": [
-       3,
-       6,
-       9,
-       12
-      ]
-     },
-     {
-      "name": "Income tax return (forms A and E)",
-      "type": "annual",
-      "day": 30,
-      "month": 4
-     },
-     {
-      "name": "Final income tax and social tax payment per tax notice",
-      "type": "annual",
-      "day": 1,
-      "month": 10
-     }
-    ],
-    "notes": "2026: income tax stayed 22% (planned 24% cancelled); basic exemption is a flat 8,400 EUR per year (700 per month) for all. Social tax floor is 886 EUR monthly base (292.38 EUR/month = 877.14 EUR/quarter); annual social tax maximum 36,867.60 EUR, which corresponds to a base cap of 111,720 EUR (EMTA formula uses 886 and 946 monthly bases). floorMinor and capMinor are annual social tax BASES. Advance payments are not required if an employer pays at least 877.14 EUR per quarter social tax for the person. EMTA says income tax advance payments for business income are due by the 15th of the third month of each quarter (15 Sep and 15 Dec stated); exact Q1/Q2 income tax advance dates not verified. Voluntary funded pension 2/4/6% is optional. VAT standard rate 24% since 1 July 2025; 40,000 EUR threshold taken from EMTA entrepreneur account page (turnover above which FIE/OU registration and VAT registration apply).",
-    "unverified": [],
-    "sources": [
-     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/income-tax",
-     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/social-tax",
-     "https://emta.ee/ru/biznes-klient/registraciya-predprinimatelstvo/predprinimatelyu/predprinimatel-fizicheskoe-lico-pfl/avansovye-platezhi-po-socialnomu-nalogu",
-     "https://assets.kpmg.com/content/dam/kpmgsites/ee/pdf/tax-cards/2026%20Tax%20Card-web.pdf.coredownload.inline.pdf"
-    ],
-    "verifiedAt": "2026-11-13",
-    "defaultRate": 4500,
-    "hint": "Derived: 33% social tax plus 22% income tax on profit above the 8,400 EUR exemption gives about 43-47% of profit at 15-24k EUR; 45% is a conservative share of gross assuming few business costs.",
-    "deadline": {
-     "name": "Social tax advance payment",
-     "type": "quarterly",
-     "day": 15,
-     "months": [
-      3,
-      6,
-      9,
-      12
-     ]
-    }
-   },
-   {
     "id": "entrepreneur_account",
-    "name": "Entrepreneur account (ettevotluskonto), simplified business income taxation",
+    "name": "Entrepreneur account (ettev\u00f5tluskonto)",
     "appliesTo": "Natural persons with small-scale own-account business income (services, crafts, short rentals, platform work) received into a special LHV Bank account; up to 40,000 EUR per calendar year; expenses cannot be deducted; no registration as FIE needed.",
     "incomeTax": {
      "type": "flat",
@@ -2091,26 +2107,136 @@
     },
     "suggestedReserveRateBp": 2000,
     "reserveRateSource": "researched",
-    "reserveBasis": "The bank withholds and forwards a flat 20% of each amount received (8% income tax plus 12% social tax); 20% of gross is the full liability for the simplified scheme.",
+    "reserveBasis": "The bank sets the tax aside from every payment you receive. No monthly tax returns.",
     "deadlines": [
      {
-      "name": "Placeholder: monthly transfer by the bank (unverified)",
+      "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
       "type": "monthly",
       "day": 10
      }
     ],
-    "notes": "Total rate 20% of amounts received (the 40% rate no longer applies from 1 Jan 2025). Optional funded pension contribution raises the rate to 22% (2%), 24% (4%) or 26% (6%). Tax is withheld and forwarded automatically by the bank; no monthly returns. Health insurance cover requires social tax of at least 292.38 EUR/month (886 x 33%), i.e. about 2,436.50 EUR received per month, otherwise cover lapses. No basic exemption or other deductions apply to account income. A resident company payer of a service to an account holder owes additional income tax of 22/78 on the payment. Amounts above 40,000 EUR per year require registering as FIE or OU. The monthly deadline on the 10th is a placeholder, not a researched date.",
+    "notes": "Total rate 20% of amounts received (the 40% rate no longer applies from 1 Jan 2025). Optional funded pension contribution raises the rate to 22% (2%), 24% (4%) or 26% (6%). Tax is withheld and forwarded automatically by the bank; no monthly returns. Health insurance cover requires social tax of at least 292.38 EUR/month (886 x 33%), i.e. about 2,436.50 EUR received per month, otherwise cover lapses. No basic exemption or other deductions apply to account income. A resident company payer of a service to an account holder owes additional income tax of 22/78 on the payment. Amounts above 40,000 EUR per year require registering as FIE or OU.",
     "unverified": [],
+    "components": [
+     {
+      "id": "income_tax",
+      "name": "Income tax",
+      "shareNum": 22,
+      "shareDen": 55
+     },
+     {
+      "id": "social_tax",
+      "name": "Social tax",
+      "shareNum": 33,
+      "shareDen": 55
+     }
+    ],
+    "extraComponent": {
+     "id": "funded_pension",
+     "name": "Funded pension contribution",
+     "ratesBp": [
+      200,
+      400,
+      600
+     ]
+    },
+    "verification": "official",
+    "ruleText": null,
     "sources": [
-     "https://emta.ee/en/private-client/taxes-and-payment/taxable-income/entrepreneur-account"
+     "https://emta.ee/en/private-client/taxes-and-payment/taxable-income/entrepreneur-account",
+     "https://www.riigiteataja.ee/en/eli/ee/514032023002/consolide/current"
     ],
     "verifiedAt": "2026-11-13",
     "defaultRate": 2000,
-    "hint": "The bank withholds and forwards a flat 20% of each amount received (8% income tax plus 12% social tax); 20% of gross is the full liability for the simplified scheme.",
+    "hint": "The bank sets the tax aside from every payment you receive. No monthly tax returns.",
     "deadline": {
-     "name": "Placeholder: monthly transfer by the bank (unverified)",
+     "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
      "type": "monthly",
      "day": 10
+    }
+   },
+   {
+    "id": "fie",
+    "name": "FIE / self-employed",
+    "appliesTo": "Natural person registered as FIE in the commercial register; no turnover cap; business expenses deductible against business income.",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2200,
+     "base": "net business profit (income minus deductible business expenses), after basic exemption"
+    },
+    "computable": true,
+    "allowanceMinor": 840000,
+    "socialContributions": [
+     {
+      "name": "Social tax (sotsiaalmaks), 33% of net business income",
+      "rateBp": 3300,
+      "base": "net business income",
+      "floorMinor": 1063200,
+      "capMinor": 11172000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 4500,
+    "reserveRateSource": "researched",
+    "reserveBasis": "Tax is worked out on your yearly profit. 45% is a cautious share to set aside if you have few business costs.",
+    "deadlines": [
+     {
+      "name": "Income tax return (forms A and E)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "Final income tax and social tax payment per tax notice",
+      "type": "annual",
+      "day": 1,
+      "month": 10
+     },
+     {
+      "name": "Social tax advance payment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Income tax advance payment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       9,
+       12
+      ]
+     }
+    ],
+    "notes": "2026: income tax stayed 22% (planned 24% cancelled); basic exemption is a flat 8,400 EUR per year (700 per month) for all. Social tax floor is 886 EUR monthly base (292.38 EUR/month = 877.14 EUR/quarter); annual social tax maximum 36,867.60 EUR, which corresponds to a base cap of 111,720 EUR (EMTA formula uses 886 and 946 monthly bases). floorMinor and capMinor are annual social tax BASES. Advance payments are not required if an employer pays at least 877.14 EUR per quarter social tax for the person. EMTA says income tax advance payments for business income are due by the 15th of the third month of each quarter (15 Sep and 15 Dec stated); exact Q1/Q2 income tax advance dates not verified. Voluntary funded pension 2/4/6% is optional. VAT standard rate 24% since 1 July 2025; 40,000 EUR threshold taken from EMTA entrepreneur account page (turnover above which FIE/OU registration and VAT registration apply).",
+    "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "official",
+    "ruleText": "22% income tax on profit + 33% social tax",
+    "sources": [
+     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/income-tax",
+     "https://emta.ee/en/business-client/registration-business/businesses/self-employed-persons/social-tax",
+     "https://emta.ee/ru/biznes-klient/registraciya-predprinimatelstvo/predprinimatelyu/predprinimatel-fizicheskoe-lico-pfl/avansovye-platezhi-po-socialnomu-nalogu",
+     "https://assets.kpmg.com/content/dam/kpmgsites/ee/pdf/tax-cards/2026%20Tax%20Card-web.pdf.coredownload.inline.pdf"
+    ],
+    "verifiedAt": "2026-11-13",
+    "defaultRate": 4500,
+    "hint": "Tax is worked out on your yearly profit. 45% is a cautious share to set aside if you have few business costs.",
+    "deadline": {
+     "name": "Income tax return (forms A and E)",
+     "type": "annual",
+     "day": 30,
+     "month": 4
     }
    }
   ]
@@ -2195,6 +2321,10 @@
     "unverified": [
      "deadlines"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.veronmaksajat.fi/neuvot/henkiloverotus/tyo-elake-ja-etuudet/ansiotulojen-verot-ja-maksut/valtion-tulovero/",
      "https://veritas.fi/en/entrepreneurs/yel-contributions/entrepreneurs-social-insurance-contributions/",
@@ -2302,6 +2432,10 @@
     ],
     "notes": "Social rates, CFP and versement liberatoire rates 2026 per service-public.gouv.fr (rates) and swim.legal (CFP, liberatoire split, ceilings); ceilings 203,100 / 83,600 raised in 2026; abatements 71% / 50% / 34% are standard CGI values (art. 50-0, 102 ter) cited on swim.legal for BNC only. ACRE reduced rates in first year not modelled. VAT franchise (art. 293 B CGI): services 37,500 (tolerance 41,250), sales 85,000 (tolerance 93,500); the 25,000 single-threshold reform was abandoned in the 2026 finance law per secondary sources. Bareme is the 2026 scale (income 2025, +0.9% indexation) as the latest published; the 2026-income scale was not published at verification date. CEHR surtax above EUR 250,000 not modelled. Prelevement a la source: tax on micro income is settled via annual return and advance instalments.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://entreprendre.service-public.gouv.fr/vosdroits/F36232",
      "https://www.swim.legal/blog/taux-autoentrepreneur-2026-cotisations-impots",
@@ -2424,6 +2558,10 @@
     ],
     "notes": "2026 contributions per weblex.fr table (PASS 2026 = EUR 48,060; new common social assiette with 26% abatement from the 2025 regularisation). Maladie and family-allowance scales are progressive and only end points were verified, hence rateBp null and the reserve uses an estimate for maladie. Social contributions are provisional in 2026 and re-computed once the return is filed. ACRE, CIPAV and liberal-specific funds not modelled. Bareme 2026 (income 2025). Regime reel VAT: franchise thresholds as for micro (services 37,500 / sales 85,000); most reel traders are on actual VAT returns.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.weblex.fr/chiffres-cles/tableau-des-cotisations-sociales-dues-par-les-travailleurs-independants-annee-2026",
      "https://www.service-public.gouv.fr/particuliers/vosdroits/F1419",
@@ -2494,6 +2632,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/georgia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/georgia/individual/other-taxes",
@@ -2559,6 +2701,10 @@
     ],
     "notes": "Instalments due 15 May, 15 July, 15 September, 15 December (PwC; irregular spacing, so stored as the quarterly pattern with these months). Pension applicability unclear.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/georgia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/georgia/individual/other-taxes",
@@ -2692,6 +2838,10 @@
     ],
     "notes": "2026 tariff taken from s.32a EStG (gesetze-im-internet.de): Grundfreibetrag 12,348; zone 2 to 17,799 (formula 914.51y+1400); zone 3 to 69,878 (173.10z+2397, +1,034.87); 42% to 277,825; 45% above. Zones 2 and 3 are approximated by explicit bands with integer rates (average marginal rate per band), so rates are approximations of a continuous progression. Solidarity surcharge 5.5% of tax only above a high exemption limit (PwC), church tax 8-9% optional, not modelled. Trade tax (Gewerbesteuer, 3.5% x municipal Hebesatz, EUR 24,500 allowance) applies to traders, not Freiberufler; not modelled. Kleinunternehmerregelung (s.19 UStG): prior-year turnover up to EUR 25,000 and current year up to EUR 100,000 (secondary sources; unchanged for 2026). GKV figures from BMG/krankenkassen.de: BBG 69,750, avg additional contribution 2.9%, min base 1,318.33/month; care rate 3.6% is from general knowledge and not confirmed in sources. With tax adviser the filing deadline is extended (about 1 March of the second following year). Prepayment dates 10 Mar/Jun/Sep/Dec per s.37 EStG. Statutory pension insurance is voluntary for most freelancers (rate 18.6%, ceiling EUR 101,400/yr) and is excluded from socialContributions and the reserve. Prepayment dates 10 Mar/Jun/Sep/Dec confirmed from s.37 EStG.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.gesetze-im-internet.de/estg/__32a.html",
      "https://taxsummaries.pwc.com/germany/individual/taxes-on-personal-income",
@@ -2797,6 +2947,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/gibraltar/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/gibraltar/individual/deductions",
@@ -2892,6 +3046,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/gibraltar/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/gibraltar/individual/deductions",
@@ -2982,6 +3140,10 @@
     ],
     "notes": "Tax scale from PwC (tax year not stated on page; treated as 2026). EFKA category 1 amount EUR 250.77/month for 2026 per PwC Greece legal flash; other categories (2-6) not verified. VAT: EUR 10,000 domestic small-business exemption (optional) is not a mandatory registration threshold; standard rate 24%. Advance payment of 55% of current-year tax (50% in first year) is paid with the balance of previous year; exact payment dates/instalments not verified. Trade fee (telos epitideumatos) status for 2026 not verified. Solidarity levy not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/greece/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/greece/individual/other-taxes",
@@ -3085,6 +3247,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/guernsey/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/guernsey/individual/other-taxes",
@@ -3162,6 +3328,10 @@
     ],
     "notes": "Profits tax rates 7.5%/15% for unincorporated businesses per IRD guidance as summarised by search (IRD pam56e, gov.hk), PwC page did not give them; 2026/27 rates not separately confirmed. No VAT/GST in Hong Kong (PwC). MPF self-employed: 5% of relevant income, minimum HKD 7,100/month (85,200/yr), maximum HKD 30,000/month (360,000/yr) per MPFA; contributions deductible up to HKD 18,000. Instalment months (January and April) per PwC; day not stated. Median earnings is a proxy for the national average and is from Q2 2025.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.ird.gov.hk/eng/pdf/pam56e.pdf",
      "https://www.gov.hk/en/residents/taxes/taxfiling/filing/types/profitstax.htm",
@@ -3239,6 +3409,10 @@
     ],
     "notes": "Personal assessment (elective; lets personal allowances offset business profits, tax is the lower of assessed on profits tax or personal assessment). Bands 2/6/10/14/17% of HKD 50,000 each and the 15%/16% standard rate cap (first HKD 5m / remainder) per PwC for 2025/26; 2026/27 bands not separately confirmed. 2026/27 allowances per PwC: basic HKD 145,000, married HKD 290,000, child HKD 140,000/280,000, dependent parent HKD 55,000-110,000; allowanceMinor holds the single basic allowance. MPF contribution deductible up to HKD 18,000. The standard rate cap is not modelled in the brackets.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/hong-kong-sar/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/hong-kong-sar/individual/deductions",
@@ -3329,6 +3503,10 @@
     ],
     "notes": "Tax-free portion = half the annual minimum wage (HUF 1,936,800, 2026). Minimum wage 2026 HUF 322,800/month (PwC). VAT threshold HUF 12M (AAM) from my knowledge, not verified for 2026. Whether szocho applies to the full income base for \u00e1tal\u00e1ny is as stated by advisor sources. KATA: current 2022-law KATA is narrow; an extended KATA (HUF 100,000/month full-time) is only a 2027 draft bill, so no KATA regime is modelled.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/hungary/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/hungary/individual/other-taxes",
@@ -3398,6 +3576,10 @@
     ],
     "notes": "Family and other allowances exist but amounts not verified. Advance schedule not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/hungary/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/hungary/individual/other-taxes",
@@ -3484,6 +3666,10 @@
     ],
     "notes": "Personal allowance (personuafslattur) is a tax credit of ISK 72,492 per month / ISK 869,898 per year in 2026, represented here as allowanceMinor (credit value, not a deduction from income). Minimum calculated wage (reiknad endurgjald) for 2026 and exact withholding/tryggingagjald/VAT filing dates could not be verified (null/omitted). Balancing payments after assessment are collected on five due dates between 1 July and December (PwC). The VAT threshold of ISK 2,000,000 comes from secondary legal guides, not Skatturinn directly. Municipal rate varies by municipality. Bracket limits in minor units = ISK x 100. The personal allowance is a tax credit, not a deduction, and is not modelled; estimates overstate tax.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/iceland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/iceland/individual/other-taxes",
@@ -3585,6 +3771,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/india/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/india/individual/deductions",
@@ -3665,6 +3855,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/india/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/india/individual/deductions",
@@ -3790,6 +3984,10 @@
     ],
     "notes": "2026 figures. Preliminary tax must be at least 90% of the final liability for the year, or 100% of the prior year liability, or 105% of the pre-preceding year if paid by monthly direct debit. Balance of tax is due 31 October of the following year. VAT threshold EUR 42,500 applies to services; EUR 85,000 for goods (if 90% or more of turnover is goods). Standard VAT rate 23%. The bi-monthly VAT date (19th, 23rd online) is from general knowledge and not verified from a fetched source. Earned income credit and personal credit amounts from PwC; Revenue page itself unreachable.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/ireland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/ireland/individual/other-taxes",
@@ -3890,6 +4088,10 @@
     ],
     "notes": "Tax year runs 6 April to 5 April; 2026/27 figures. Per PwC the payment on account is due 6 January within the year of assessment and the balance 6 January after year end. Budget 2026 changes were cross-checked with PwC only (gov.im pages returned 403); one local news source quoted differing NI limits (160/938/6.20) which were disregarded as inconsistent with the Treasury headline figures reported (176/1,082/6.75). Married couples have a combined 34,000 allowance, not modelled.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/isle-of-man/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/isle-of-man/individual/deductions",
@@ -4015,6 +4217,10 @@
     ],
     "notes": "Bracket check: monthly limits 7,010 / 10,060 / 19,000 / 25,100 / 46,690 / 60,130 x 12 give exactly PwC annual limits 84,120 / 120,720 / 228,000 / 301,200 / 560,280 / 721,560, so the first-pass limits are correct (the 20% and 31% bands were widened retroactively from 1 Jan 2026 to 19,000 and 25,100 per month; Globes). Credit points: residents get 2.25 (men) or 2.75 (women) points, each ILS 2,904 per year (tax credit, not a deduction; third-party sources, not official). Bituach Leumi rates are from the NII official page btl.gov.il (2026). Half of the NI part is deductible in the income tax base; ignored. 2% surtax on capital income above ILS 721,560 ignored. Osek patur (exempt dealer) charges no VAT below the ceiling, pays income tax and NI the same way; the ILS 120,000 ceiling is from third-party 2024-2026 guides, not verified on gov.il. Advance payment day 15 and bimonthly cycle come from a third-party table; PwC only says monthly or bimonthly, a percentage of turnover. Some sources give 31 May for the annual return; PwC says 30 April subject to extension. Bituach Leumi advance payment dates not verified. VAT 18% per PwC.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/israel/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/israel/individual/other-taxes",
@@ -4108,6 +4314,10 @@
     ],
     "notes": "2026 figures per PwC Worldwide Tax Summaries. Advances are 40% (June) and 60% (November) of prior-year liability. VAT registration threshold for ordinary regime not stated in the source (VAT applies from first invoice for ordinary regime), so null. IRAP no longer applies to individual self-employed. Municipal and regional surcharge ranges vary by location. Artigiani and commercianti INPS rates not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/italy/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/italy/individual/other-taxes",
@@ -4174,6 +4384,10 @@
     ],
     "notes": "Forfettario details (EUR 85,000/100,000 thresholds, 15%/5% rates, 78% coefficient) come from Italian tax-advice websites, not an official source or Big-4; coefficients vary by ATECO code. Forfettario taxpayers are exempt from charging VAT, so VAT threshold is null/not applicable. PwC pages did not cover this regime.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.money.it/regime-forfettario-2026-come-funziona-requisiti-limiti",
      "https://centrofiscale.com/regime-forfettario-2026-requisiti-aliquote/",
@@ -4303,6 +4517,10 @@
     ],
     "notes": "JPY has no minor unit: all amounts and brackets in this object are whole yen, not yen x 100. National brackets per PwC (5-45%), plus 2.1% reconstruction surtax; resident tax 10% (4% prefectural + 6% municipal) plus JPY 5,000 per capita (not source-verified); resident basic deduction stays JPY 430,000. 2026 reform (Diet approval 31 Mar 2026): national basic deduction for total income up to JPY 1.32m-4.89m is JPY 1,040,000 for 2026 and 2027 (permanent JPY 620,000 plus temporary special addition); JPY 670,000 for income to 6.55m, JPY 620,000 for 6.55m-23.5m (PwC). allowanceMinor uses 1,040,000. Blue-return special deduction JPY 650,000 (double-entry plus e-Tax), 550,000 paper, 100,000 simplified books (secondary sources; the 2026 reform changes apply from tax year 2027). National Pension JPY 17,920/month for FY2026 (Japan Pension Service). NHI figures are Tokyo 23-ward FY2026 rates (Ota ward page via search); annual caps for medical+support+child support 670,000+260,000+30,000 = 960,000 (excl. long-term care 170,000 for ages 40-64); other municipalities differ. Consumption tax 10% (reduced 8% for food ignored); exempt if taxable sales in the base period (two years earlier) are JPY 10m or less (NTA); invoice-system registration voluntary for small businesses, the 20% special measure window ended 30 Sep 2026. Enterprise tax 5% with JPY 2.9m deduction applies only to specified trades and was not source-verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/japan/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/japan/individual/deductions",
@@ -4414,6 +4632,10 @@
     ],
     "notes": "Jersey tax is called GST (not VAT), 5% single rate, no reduced rate. Payments on account are 50% of previous year liability (40% if employment earnings are 25% or less of income). Class 2 lower earnings limit, minimum contribution and instalment dates not verified; gov.je pages conflict on monthly Class 2 figures (1,297 default versus 1,082.80 older max). Exemption limit 21,250 is the single-person figure from PwC (last reviewed 22 July 2026); married couples are taxed under different limits not modelled. Class 2 appears to be an earnings-related 6% primary + 6.5% secondary split totalling 12.5% for the self-employed.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/jersey/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/jersey/individual/other-taxes",
@@ -4467,6 +4689,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/kuwait/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/kuwait/individual/tax-administration",
@@ -4565,6 +4791,10 @@
     ],
     "notes": "Rates per PwC 2026 pages. The VAT registration threshold of EUR 50,000 is from secondary sources (one lists possible postponement to EUR 55,000), PwC page did not state it. Sources conflict on whether the minimum quarterly contribution (3 x minimum wage EUR 780 = EUR 2,340) still applies from 2026; floorMinor shows the monthly minimum wage as the assumed floor. Optional reduced 10% contribution rate exists for low income. Filing window is 1 April-1 July if income exceeds EUR 105,300. The 25.5%/33% rates and the EUR 6,600 fixed personal allowance come from PwC; no official VID page was confirmed.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/latvia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/latvia/individual/other-taxes",
@@ -4630,6 +4860,10 @@
     ],
     "notes": "VID states 25% for 2026 and a EUR 50 minimum annual payment; the exact turnover limit was not stated on the VID page (EUR 50,000 per secondary sources). One secondary source mentions a proposed 10% beginner MUN rate that could not be confirmed. A secondary source gives payment by the 23rd; VID gives the 15th.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.vid.gov.lv/en/node/57223",
      "https://taxsummaries.pwc.com/latvia/individual/taxes-on-personal-income",
@@ -4737,6 +4971,10 @@
     ],
     "notes": "National tax table and 150-180% municipal surcharge from PwC (reviewed 9 June 2026; tax year not stated). Personal exemption single CHF 15,855 (formula zero point is CHF 15,900). Other deductions (insurance premiums etc.) not modelled. 2026 contribution rates from the AHV-IV-FAK-Anstalten 2026 budget document (AHV 8.25%, IV 1.35%, FAK 2.1%, admin 0.585%); an older 2022 contribution sheet gave 11.891% total. How the admin contribution is applied to self-employed (3.4% of the total in the 2022 sheet) was approximated by adding 0.585 points. Self-employed pay provisional (Akonto) contributions on expected income. Provisional income tax payments exist for self-employed (based on the last return) but dates not given. VAT is the shared Swiss-Liechtenstein area: 8.1% standard rate and CHF 100,000 turnover threshold (secondary sources, Liechtenstein MWSTG); VAT return dates not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/liechtenstein/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/liechtenstein/individual/other-taxes",
@@ -4822,6 +5060,10 @@
     ],
     "notes": "Rates of 20/25/32% and social contribution rates are from PwC 2026. The 5% rate up to EUR 20,000 and gradual rise to EUR 42,500 come only from secondary sources (Roedl, Motieka), not VMI directly. PwC states the basic tax-free amount (EUR 747/month) is described for employment income only; whether it applies to individual activity could not be verified, so allowanceMinor is 0. The VAT threshold of EUR 45,000 is from secondary sources. Sodra payment dates for self-employed were not verified and are omitted. Second-pillar pension contribution became voluntary from 1 Jan 2026. Cap 43 AW = EUR 99,422.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/lithuania/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/lithuania/individual/other-taxes",
@@ -4876,6 +5118,10 @@
     ],
     "notes": "Certificate price varies by municipality and activity and was not verified (secondary source cited EUR 684/year for housing rental in Vilnius). The income limit of EUR 50,000 comes from a VMI document snippet; other sites still show EUR 45,000. Income tax type set to none because it is a fixed fee, not a rate on income.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/lithuania/individual/other-taxes",
      "https://taxsummaries.pwc.com/lithuania/individual/deductions",
@@ -5071,6 +5317,10 @@
     ],
     "notes": "Scale is the 'adapted as of 2025' scale on PwC (reviewed 3 Aug 2026; no 2026-specific scale found), tax class 1; the 0% band 0-13,230 is in the brackets so allowanceMinor stays 0. Solidarity surcharge 7% of tax (9% above EUR 150,000 class 1). CCSS rates: official CCSS social parameters page 2026 (pension 17% total; 8.5% per share, health 5.60%, cash 0.50%, dependency 1.40%, accident 0.65% x bonus-malus), min wage 2,771.33 from 1 June 2026 (2,703.74 before), max 13,856.63. Whether the 17% pension applies fully to self-employed (versus 16% in one secondary source) was resolved in favour of 17% from the CCSS table (state pays the third share). VAT franchise EUR 50,000 turnover (since 1 Jan 2025) per secondary sources. Class 1 tax credits (CIS, expense forfait) not modelled. Single tax class planned from 2028.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/luxembourg/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/luxembourg/individual/other-taxes",
@@ -5162,6 +5412,10 @@
      "socialContributions",
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/macau-sar/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/macau-sar/individual/deductions",
@@ -5263,6 +5517,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/malaysia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/malaysia/individual/deductions",
@@ -5347,6 +5605,10 @@
     ],
     "notes": "The 0% band up to EUR 12,000 is modelled as brackets; allowanceMinor shown equals that 0% band and must not be applied twice. Malta grants no personal allowances. Minimum Class 2 contribution not stated in source. Provisional tax is paid in three instalments (20%/30%/50%) based on last filed self-assessment; calendar dates not verified. VAT: service providers with turnover up to EUR 35,000 may be small enterprises (Article 11 exempt, thresholds vary by activity). Weekly maximum treated as 52 weeks per year.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/malta/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/malta/individual/other-taxes",
@@ -5401,6 +5663,10 @@
     ],
     "notes": "Detailed eligibility conditions for the 10% rate not verified; treat as optional. Whether social security is payable at the standard 15% on such income is assumed from the general rule.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/malta/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/malta/individual/other-taxes",
@@ -5517,6 +5783,10 @@
     ],
     "notes": "Contribution amounts valid from 1 Oct 2026 per Caisses Sociales de Monaco worker letter (CAMTI 1,128 per quarter; CARTI 564.84/1,129.68/1,694.52/2,259.36). CARTI class 1 income ceiling EUR 3,000 monthly (Ministerial Order 2026-366). VAT follows the French system (rate 20%, Franco-Monegasque convention 1963); no Monaco-specific small-business VAT threshold found, returns monthly or quarterly (secondary sources). Percentage-of-income social contributions do not exist for self-employed. Personal income tax: none for non-French residents, per secondary sources; official gov.mc/PwC pages unavailable. Other CARTI classes per quarter: class 1 EUR 564.84 (only if average monthly income below EUR 3,000), class 3 EUR 1,694.52, class 4 EUR 2,259.36.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.caisses-sociales.mc/content/download/3108/file/Lettre_information_travailleurs_independants_octobre_2025.pdf",
      "https://www.cleiss.fr/docs/regimes/regime_monaco_ns.html",
@@ -5607,6 +5877,10 @@
     ],
     "notes": "ISB rate 25% and the 25%-of-turnover-abroad threshold per KPMG Monaco newsletter 2025 No4 (secondary: official portal wording is 'more than 25%'). Applicability to sole traders and the exact filing dates not verified; social contributions as in the other regime. First-year relief for new businesses exists per a secondary source and is not modelled. Other CARTI classes per quarter: class 1 EUR 564.84 (only if average monthly income below EUR 3,000), class 3 EUR 1,694.52, class 4 EUR 2,259.36.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.caisses-sociales.mc/content/download/3108/file/Lettre_information_travailleurs_independants_octobre_2025.pdf",
      "https://www.cleiss.fr/docs/regimes/regime_monaco_ns.html",
@@ -5692,6 +5966,10 @@
     ],
     "notes": "2026 values from KvK belastingtarieven 2026 and PwC: brackets 35.75% to 38,883, 37.56% to 78,426, 49.50% above; zelfstandigenaftrek EUR 1,200 (falls to 900 in 2027; needs 1,225 hours), MKB 12.70%, Zvw 4.85% (normal 6.10%), max contribution income 79,409, algemene heffingskorting max 3,115, arbeidskorting max 5,685 (SRA says 5,712; conflicting). Startersaftrek, AOW-age brackets, and voorlopige aanslag installments (usually monthly) not modelled or dated. KOR (small business scheme) threshold EUR 20,000 annual turnover. Official Belastingdienst pages could not be fetched; VAT return dates come from general knowledge.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/netherlands/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/netherlands/individual/tax-administration",
@@ -5806,6 +6084,10 @@
     ],
     "notes": "NZ tax year 1 Apr - 31 Mar; the 2026/27 year starts 1 Apr 2026. Brackets in force since 31 Jul 2024 per PwC, which states thresholds were last modified in 2024; no 2026/27 change found but not confirmed on the IRD site (IRD pages returned 404 or were unreachable). Instalment days vary (28 Aug, 15 Jan, 7 May); the quarterly entry uses day 28 with months [8,1,5] as a compact encoding, actual days are 28 Aug, 15 Jan, 7 May. ACC 2026/27 figures (earners levy 1.75/100, maximum liable earnings NZD 156,641, minimum NZD 50,501, work levy average 0.69/100, working safer 0.08/100) come from third-party summaries of the ACC/Gazette levy notice, not read from acc.co.nz; levy applies on liable earnings, minimum earnings rule modelled as floor. GST 15% (PwC); registration threshold NZD 60,000 over 12 months per third-party guides (IRD page not read). Tax agent extension to 31 March for the return (PwC). KiwiSaver is voluntary for the self-employed. Terminal tax date not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/new-zealand/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/new-zealand/individual/other-taxes",
@@ -5905,6 +6187,10 @@
     ],
     "notes": "10% flat PIT. Floor/cap on contribution base: min 50% and max 16x average salary (PwC, employee context), MKD values not found. Annual exemption MKD 123,240 (2025) applies to employees, so allowance set to 0. VAT threshold MKD 2,000,000 from secondary sources (one source says about EUR 50,000). Monthly advance = one twelfth of prior-year tax (PwC). A presumptive small-taxpayer regime may exist but was not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/north-macedonia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/north-macedonia/individual/other-taxes",
@@ -6011,6 +6297,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.skatteetaten.no/satser/trinnskatt/",
      "https://www.skatteetaten.no/satser/trygdeavgift/",
@@ -6092,6 +6382,10 @@
      "socialContributions",
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/peru/individual/taxes-on-personal-income"
     ],
@@ -6137,6 +6431,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://tramitesperu.com/sunat/nuevo-rus/",
      "https://yo-facturo.com/blog/nuevo-rus-regimen-unico-simplificado-2026/"
@@ -6171,6 +6469,10 @@
      "socialContributions",
      "deadlines"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://tramitesperu.com/sunat/regimen-rer/",
      "https://modelo.pe/blog/nrus-rer-rmt-regimen-general-explicados-comparativo-2026/"
@@ -6248,6 +6550,10 @@
     ],
     "notes": "Annual return due 15 April; if tax due exceeds PHP 2,000 it may be paid in two equal instalments, 15 April and 15 October (PwC). Quarterly 1701Q dates (15 May, 15 Aug, 15 Nov) are from general BIR rules, not from a fetched source. SSS 15% rate, MSC ceiling PHP 35,000, PhilHealth 5% with floor 10,000 and ceiling 100,000 come from third-party 2026 summaries, not SSS/PhilHealth pages; SSS floor (believed PHP 5,000) not confirmed, so null. Pag-IBIG for self-employed is voluntary (reported 2% up to PHP 200 per month), not included. Persons also employed cannot deduct the 250,000 from the 8% base (mixed-income earners). VAT 12% per PwC; PHP 3,000,000 threshold per PwC/first pass.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/philippines/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/philippines/individual/tax-administration",
@@ -6350,6 +6656,10 @@
     ],
     "notes": "Rates effective from 1 Jan 2023 per PwC (the 0% band is the PHP 250,000 exemption, so allowanceMinor is 0). Non-VAT taxpayers on graduated rates also pay percentage tax, generally 3% of gross receipts quarterly (BIR form 2551Q); this rate and dates are NOT confirmed by a fetched source. Optional standard deduction of 40% of gross receipts exists under the NIRC (not confirmed here). Social contributions as in the 8% regime.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/philippines/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/philippines/individual/tax-administration"
@@ -6440,6 +6750,10 @@
     ],
     "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. Health minimum PLN 432.54/month from Feb 2026 (4,806 x 9%). Tax-free amount PLN 30,000 implemented via PLN 3,600 reducing amount.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/poland/individual/other-taxes",
@@ -6508,6 +6822,10 @@
     ],
     "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. No tax-free amount. Annual cap on deductible health contribution exists but not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/poland/individual/other-taxes",
@@ -6568,6 +6886,10 @@
     ],
     "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. Statutory 2027 draft would cut the revenue limit to EUR 250,000 (not law).",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/poland/individual/other-taxes",
@@ -6678,6 +7000,10 @@
     ],
     "notes": "Bracket table and Social Security rate/base from PwC 2026; IAS EUR 537.13 and specific deduction EUR 4,587.09 from the AT newsletter 39 (Jan 2026); coefficients from a secondary consumer article (Cofidis). VAT exemption threshold EUR 15,000 with a EUR 18,750 tolerance limit per the AT newsletter. Not verified and omitted: Seguranca Social quarterly declaration dates, VAT periodic return dates, and payment-on-account dates (these exist for self-employed exempt from withholding). First-year and second-year income reductions and IRS Jovem were not modelled. Standard withholding on professional invoices is 23% (secondary source). Madeira/Azores have different rates (VAT 22%/16%).",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/portugal/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/portugal/individual/other-taxes",
@@ -6730,6 +7056,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://oxfordbusinessgroup.com/reports/qatar/2020-report/economy/updated-framework-a-comprehensive-guide-to-the-countrys-taxation-laws",
      "https://taxsummaries.pwc.com/qatar/corporate/taxes-on-corporate-income"
@@ -6771,6 +7101,10 @@
      "socialContributions",
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/qatar/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/qatar/individual/other-taxes",
@@ -6858,6 +7192,10 @@
     ],
     "notes": "2026 contribution ceilings use minimum wage RON 4,050 (RON 4,325 from 1 Jul 2026 does not change 2026 ceilings per contzilla). No advance payments mentioned by PwC. VAT threshold RON 395,000 from my knowledge, not verified for 2026; standard VAT 21% (PwC).",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/romania/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/romania/individual/other-taxes",
@@ -6921,6 +7259,10 @@
     ],
     "notes": "2026 contribution ceilings use minimum wage RON 4,050 (RON 4,325 from 1 Jul 2026 does not change 2026 ceilings per contzilla). No advance payments mentioned by PwC. VAT threshold RON 395,000 from my knowledge, not verified for 2026; standard VAT 21% (PwC). Norm amounts and eligibility ceiling not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/romania/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/romania/individual/other-taxes",
@@ -7022,6 +7364,10 @@
     ],
     "notes": "Zakat vs income tax: PwC corporate page says Saudi and GCC nationals are liable to zakat at 2.5% of the zakat base, non-Saudi investors to 20% income tax; PwC individual page says there is no individual income tax scheme and non-employment income is taxed as an entity/PE. PwC does not say how a Saudi sole proprietor is assessed; assumed zakat. Return deadline 120 days after year end = 30 April for a calendar year (PwC corporate). Advance payments (last day of 6th, 9th, 12th month, each 25% of prior-year liability) apply only when the prior-year liability is SAR 500,000 or more, so not relevant to small freelancers. VAT threshold SAR 375,000 mandatory, SAR 187,500 voluntary (ZATCA guidance); 3-month periods standard, monthly if revenue over SAR 40m; VAT filing due day (end of following month) not verified. GOSI for self-employed Saudis: SSA 2006 profile says 9% of declared income, floor SAR 1,500 and ceiling SAR 45,000 per month; a 2010 profile says 18%; no current source, so not entered. Many freelancers in Saudi hold a Freelance Document (MHRSD); its tax treatment is not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/saudi-arabia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/saudi-arabia/corporate/taxes-on-corporate-income",
@@ -7081,6 +7427,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/saudi-arabia/corporate/taxes-on-corporate-income",
      "https://taxsummaries.pwc.com/saudi-arabia/corporate/tax-administration",
@@ -7199,6 +7549,10 @@
     ],
     "notes": "Brackets for YA2026 (income earned in 2025) per PwC; YA2027 (income earned in 2026) brackets not verified. Resident rates start with a 0% band to SGD 20,000. Earned income relief SGD 1,000 under age 55 (PwC); other reliefs not applied; total relief cap SGD 80,000. YA2026 rebates not verified. MediSave: official CPF structure confirmed (age and NTI based, only if NTI above SGD 6,000) but the 2026 rate table could not be read; 9% for age 35-45 matches an IRAS worked example. Self-employed make no CPF Ordinary or Special Account contributions (voluntary only). Compulsory MediSave is billed after the Notice of Assessment. GST 9% (PwC); mandatory registration if taxable turnover exceeds SGD 1 million in a calendar year or is expected to in the next 12 months (IRAS, via search). Filing date 18 April per PwC; the payment deadline entry month 6 is approximate because NOAs are issued from about June and tax is due one month later.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/singapore/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/singapore/individual/deductions",
@@ -7280,6 +7634,10 @@
      "socialContributions",
      "deadlines"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.deloitte.com/content/dam/assets-shared/docs/services/tax/2026/dttl-tax-sintmaartenhighlights-2026.pdf"
     ],
@@ -7368,6 +7726,10 @@
     ],
     "notes": "Brackets computed as 154.8x, 212.4x, 264.0x the subsistence minimum EUR 284.13 (PwC multiples; EUR values match tagalliances/forvis summaries); subsistence minimum rose from 1 Jul 2026 to EUR 295.22 (ca-staff) but effect on 2026 thresholds not confirmed. Allowance 21x subsistence minimum = EUR 5,966.74, reduced at higher incomes (not modelled). A reduced 15% rate for small entrepreneurs (revenue up to EUR 100,000) exists per a calculator site, not verified, so not modelled. Social cap EUR 16,764/month is the PwC employee cap, assumed. Minimum social contribution EUR 303.11/month = 363,732 minor per year. Standard VAT 23% and threshold EUR 50,000 from my knowledge, not on fetched pages. Health rate 16% per PwC; health minimum not verified. Advance income tax payments for SZCO exist but schedule not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/slovak-republic/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/slovak-republic/individual/other-taxes",
@@ -7454,6 +7816,10 @@
     ],
     "notes": "Brackets computed as 154.8x, 212.4x, 264.0x the subsistence minimum EUR 284.13 (PwC multiples; EUR values match tagalliances/forvis summaries); subsistence minimum rose from 1 Jul 2026 to EUR 295.22 (ca-staff) but effect on 2026 thresholds not confirmed. Allowance 21x subsistence minimum = EUR 5,966.74, reduced at higher incomes (not modelled). A reduced 15% rate for small entrepreneurs (revenue up to EUR 100,000) exists per a calculator site, not verified, so not modelled. Social cap EUR 16,764/month is the PwC employee cap, assumed. Minimum social contribution EUR 303.11/month = 363,732 minor per year. Standard VAT 23% and threshold EUR 50,000 from my knowledge, not on fetched pages. Health rate 16% per PwC; health minimum not verified. Advance income tax payments for SZCO exist but schedule not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/slovak-republic/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/slovak-republic/individual/other-taxes",
@@ -7548,6 +7914,10 @@
     ],
     "notes": "General allowance EUR 5,551.93 at total income of EUR 17,766.18 or more, higher/phased for lower incomes (PwC). Only long-term care 2% verified; pension, health and other rates and minimum bases not verified. VAT threshold not verified (older EUR 60,000, may have changed). Advance (akontacija) schedule not found.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/slovenia/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/slovenia/individual/other-taxes",
@@ -7609,6 +7979,10 @@
     ],
     "notes": "2026 reform (ZIURS, 11 May 2026) introduced a social contribution cap and lower base for low-revenue s.p.; final terms unconfirmed. Flat 20% and 80% expense rate come from secondary sources only.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://sibiz.eu/slovenias-2026-tax-reform-0-vat-on-food-lower-rental-taxes-social-cap-and-even-lower-taxes-for-sole-proprietors-s-p/",
      "https://senica.si/en/media/news/winter-allowance-and-sole-proprietors-using-flat-rate-expenses-key-tax-changes-as-of-2026",
@@ -7715,6 +8089,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/south-africa/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/south-africa/individual/other-taxes",
@@ -7841,6 +8219,10 @@
     ],
     "notes": "KRW has no minor unit: all amounts and brackets are whole won, not won x 100. Brackets 6-45% per PwC (income from 1 Jan 2023), plus local income tax of 10% of the tax; no 2026 bracket change found in PwC. Basic deduction KRW 1.5m per person (PwC); pension contributions fully deductible; business-income taxpayers get no flat standard deduction. National Pension: 9.5% in 2026 rising 0.5 point a year to 13% in 2033 (news coverage; PwC shows 4.75% employee + 4.75% employer); income cap KRW 6.59m per month from July 2026 (PwC, Herald). NHI rate 7.19% (2026 and frozen for 2027, news); regional NHI actually combines income, property and vehicle points and adds long-term care, so the modelled rate is approximate. VAT 10%; every business must register, simplified taxpayer status (KRW 104m annual supply threshold since July 2024) is from general knowledge, not source-verified. Deadlines for return, 30 Nov interim payment and VAT dates from PwC plus secondary tax-calendar sources; complex filers (sincere-reporting confirmation) get 30 June.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/republic-of-korea/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/republic-of-korea/individual/deductions",
@@ -7956,6 +8338,10 @@
     ],
     "notes": "Brackets are the 2026 withholding scale from PwC (state + default regional); real regional scales differ. The monthly base of EUR 1,300 and the quota of about EUR 410 are assumptions from the income bracket table (secondary sources) and were not verified; sources disagree slightly on the 2026 rate (31.4% PwC vs 31.5% others) and on tramo-1 quota (about EUR 200-230). Min base EUR 653.59 and max EUR 5,101.20 per PwC. Modelo 130 dates and the 5% deduction come from secondary commercial guides; Q4 and VAT dates are standard but not confirmed by an official source here. No VAT registration threshold exists for professionals in practice, but PwC page did not state it, so null.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/spain/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/spain/individual/other-taxes",
@@ -8051,6 +8437,10 @@
     ],
     "notes": "The flat fee amount (EUR 80 base, about EUR 88.64 with MEI) is from secondary sources and was not verified against the Seguridad Social. After the reduced period the standard RETA contribution applies.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.oie.es/cuotas-de-autonomos/",
      "https://taxsummaries.pwc.com/spain/individual/taxes-on-personal-income",
@@ -8124,6 +8514,10 @@
     "unverified": [
      "deadlines"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.skatteverket.se/privat/skatter/beloppochprocent/2026",
      "https://skatteverket.se/foretag/drivaforetag/foretagsformer/enskildnaringsverksamhet/egenavgifter.4.361dc8c15312eff6fd1f678.html",
@@ -8240,6 +8634,10 @@
     ],
     "notes": "Federal scale per PwC (reviewed 1 July 2026, 2026 table, single filers). Cantonal/communal taxes (e.g. Zurich, Geneva) are the bulk of the tax and not modelled; PwC gives no combined range. AHV scale: 10% above CHF 60,500, sliding from 5.371% at CHF 10,100, min CHF 530 (Magic Heidi, from BSV Merkblatt 2.02 state 1 Jan 2026; secondary source); older source says 9,700 for the lower bound. Cantonal FAK contributions (about 1-3%) and administrative surcharge up to 5% of AHV not included. BVG and ALV are voluntary/not compulsory for self-employed. VAT: 8.1% standard, mandatory registration from CHF 100,000 worldwide turnover (secondary sources; ESTV page not fetched); VAT return dates not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/switzerland/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/switzerland/individual/tax-administration",
@@ -8339,6 +8737,10 @@
     ],
     "notes": "TWD amounts stored x 100 like other currencies with cents. Brackets (5/12/20/30/40%, first band to TWD 590,000) are for the 2025 return filed in 2026 per PwC; a media report of CPI-indexed amounts for 2026 income (exemption 101,000, standard deduction 136,000, first band 610,000) could not be verified against an official announcement, so 2026 income-year rules are not confirmed. Exemption TWD 97,000 plus single standard deduction TWD 131,000 (PwC) combined in allowanceMinor; basic living expense differential TWD 213,000 per person not applied; separate 20% basic income tax above TWD 7.5m. Business tax (VAT) standard 5%; since 1 Jan 2025 monthly-sales exemption thresholds are TWD 100,000 (goods) and TWD 50,000 (services) per KPMG/Orbitax via search, small-scale businesses under TWD 200,000 per month may pay a fixed 1% on assessed sales; registrationThresholdMinor holds the services threshold of TWD 50,000. NHI supplementary premium 2.11% per NHI administration table via search. Cost-deduction ratios for professional practice income by occupation not verified.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/taiwan/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/taiwan/individual/deductions",
@@ -8440,6 +8842,10 @@
     "unverified": [
      "socialContributions"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/thailand/individual/taxes-on-personal-income",
      "https://taxsummaries.pwc.com/thailand/individual/deductions",
@@ -8552,6 +8958,10 @@
     ],
     "notes": "2026-27 tax year, 6 April to 5 April. Each payment on account is 50% of the previous year's tax and Class 4 bill. Return must be filed by 30 December to have a bill under 3,000 collected through the PAYE tax code. Standard VAT rate 20% (from general knowledge, gov.uk page fetched did not state it). Paper return date 31 October and Making Tax Digital for Income Tax quarterly updates for qualifying self-employed (profit above 50,000 from April 2026) were not verified in this pass. Scottish taxpayers use different bands.",
     "unverified": [],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.gov.uk/income-tax-rates",
      "https://www.gov.uk/self-employed-national-insurance-rates",
@@ -8668,6 +9078,10 @@
     "unverified": [
      "vat"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
      "https://www.irs.gov/taxtopics/tc554",
@@ -8761,6 +9175,10 @@
      "vat",
      "suggestedReserveRateBp"
     ],
+    "components": null,
+    "extraComponent": null,
+    "verification": "secondary",
+    "ruleText": null,
     "sources": [
      "https://taxsummaries.pwc.com/uruguay/individual/taxes-on-personal-income"
     ],
@@ -8804,6 +9222,10 @@
     "unverified": [],
     "sources": [],
     "verifiedAt": "2026-11-13",
+    "components": null,
+    "extraComponent": null,
+    "verification": "user",
+    "ruleText": null,
     "defaultRate": 2000,
     "hint": "Enter the percentage you want to set aside.",
     "deadline": null

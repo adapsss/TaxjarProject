@@ -5,6 +5,9 @@ import { useStore } from '../data/store'
 import { formatMoney, formatRate } from '../lib/money'
 
 const CURRENCIES = ['EUR', 'USD', 'GBP']
+/** Listed first while the search box is empty: the demo account holder lives in Estonia. */
+const SUGGESTED = ['EE']
+const OTHER = '*'
 const FLAG_EMOJI: Record<string, string> = { EE: '🇪🇪', XX: '🌍', '*': '🌍' }
 
 /** Remount when the demo state switches, so the wizard starts from the right step. */
@@ -23,6 +26,15 @@ function SetupFlow() {
   const [rate, setRate] = useState(db.profile.rate)
   const [currency, setCurrency] = useState(db.profile.taxCurrency)
   const [error, setError] = useState<string | null>(null)
+  const [query, setQuery] = useState('')
+
+  const other = countries.find((x) => x.code === OTHER)
+  const searching = query.trim() !== ''
+  // The chosen country stays in the list even when the search no longer matches it.
+  const listed = countries
+    .filter((x) => x.code !== OTHER && (x.code === country || matches(x, query)))
+    .sort((a, b) => (searching ? 0 : rank(a.code) - rank(b.code)) || a.name.localeCompare(b.name))
+  const pickCountry = (code: string) => (setCountry(code), setRegime(''))
 
   const c = countries.find((x) => x.code === country)
   const r = c?.regimes.find((x) => x.id === regime)
@@ -46,16 +58,46 @@ function SetupFlow() {
 
       {step === 1 && (
         <Step title="Where do you pay taxes?" sub="We’ll use the right rules and deadlines for your country.">
-          <div role="radiogroup" className="space-y-2.5">
-            {countries.map((x) => (
-              <Choice key={x.code} checked={country === x.code} onClick={() => (setCountry(x.code), setRegime(''))} label={x.name}>
-                <span className="text-[28px] leading-none">{FLAG_EMOJI[x.code] ?? '🏳️'}</span>
-                <span className="flex-1">
+          <label className="block">
+            <span className="sr-only">Search countries</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={countries.length ? `Search ${countries.length - (other ? 1 : 0)} countries` : 'Search countries'}
+              className="w-full rounded-2xl border-2 border-line bg-white px-5 py-3.5 text-[15px] font-medium outline-none placeholder:text-muted focus:border-forest"
+            />
+          </label>
+          <div role="radiogroup" aria-label="Country">
+          <div className="mt-3 max-h-[392px] space-y-2.5 overflow-y-auto pr-1">
+            {listed.map((x) => (
+              <Choice key={x.code} checked={country === x.code} onClick={() => pickCountry(x.code)} label={x.name}>
+                <CountryMark code={x.code} />
+                <span className="min-w-0 flex-1">
                   <span className="block font-semibold">{x.name}</span>
-                  <span className="block text-sm text-muted">{x.regimes.map((g) => g.name).join(' · ')}</span>
+                  <span className="block truncate text-sm text-muted">{x.regimes.map((g) => g.name).join(' · ')}</span>
                 </span>
               </Choice>
             ))}
+            {listed.length === 0 && (
+              <p role="status" className="rounded-2xl bg-canvas px-5 py-6 text-center text-sm text-muted">
+                {countries.length === 0
+                  ? 'Loading countries…'
+                  : `No country matches “${query}”.${other ? ' You can still set your own rate below.' : ''}`}
+              </p>
+            )}
+          </div>
+          {other && (
+            <div className="mt-3 border-t border-line pt-3">
+              <Choice checked={country === OTHER} onClick={() => pickCountry(OTHER)} label="Somewhere else">
+                <CountryMark code={OTHER} />
+                <span className="flex-1">
+                  <span className="block font-semibold">Somewhere else</span>
+                  <span className="block text-sm text-muted">Set your own rate. No country rules or deadlines.</span>
+                </span>
+              </Choice>
+            </div>
+          )}
           </div>
           <Footer>
             <span />
@@ -75,6 +117,7 @@ function SetupFlow() {
                     <span className="num rounded-full bg-canvas px-2.5 py-0.5 text-[13px] font-bold text-forest">{formatRate(g.defaultRate)}</span>
                   </span>
                   <span className="mt-1 block text-sm leading-relaxed text-muted">{g.hint}</span>
+                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-forest/80">{g.breakdownRule}</span>}
                 </span>
               </Choice>
             ))}
@@ -160,6 +203,25 @@ function SetupFlow() {
       )}
     </div>
   )
+}
+
+const rank = (code: string) => {
+  const i = SUGGESTED.indexOf(code)
+  return i === -1 ? SUGGESTED.length : i
+}
+
+/** Case- and accent-insensitive match on the country name or its code. */
+const fold = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+function matches(country: { code: string; name: string }, query: string): boolean {
+  const q = fold(query.trim())
+  return !q || fold(country.name).includes(q) || country.code.toLowerCase() === q
+}
+
+/** A flag where we have one, otherwise the country code as a plain badge. */
+function CountryMark({ code }: { code: string }) {
+  const flag = FLAG_EMOJI[code]
+  if (flag) return <span className="w-10 text-center text-[28px] leading-none">{flag}</span>
+  return <span className="grid h-7 w-10 shrink-0 place-items-center rounded-md bg-canvas text-[12px] font-bold tracking-wide text-forest">{code}</span>
 }
 
 function Progress({ step }: { step: number }) {

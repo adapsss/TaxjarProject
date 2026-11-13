@@ -1,0 +1,902 @@
+[
+ {
+  "code": "IE",
+  "name": "Ireland",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ie_sole_trader",
+    "name": "Sole trader (self-assessed, Form 11)",
+    "appliesTo": "Self-employed individuals taxed under Case I/II; income tax, USC and PRSI Class S all self-assessed",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 4400000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4000
+      }
+     ],
+     "base": "net profit; standard-rate band EUR 44,000 for a single person (EUR 53,000 married one income); tax credits then deducted from the tax"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "PRSI Class S",
+      "rateBp": 424,
+      "base": "all income (trade, profession, investment) with no upper cap; 4.20% to 30 Sep 2026 and 4.35% from 1 Oct 2026, so 424 is the time-weighted 2026 blend (9/12 x 4.20 + 3/12 x 4.35); liable only if total income is EUR 5,000 or more",
+      "floorMinor": 50000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "USC 0.5% band",
+      "rateBp": 50,
+      "base": "income up to EUR 12,012",
+      "floorMinor": null,
+      "capMinor": 1201200,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "USC 2% band",
+      "rateBp": 200,
+      "base": "income EUR 12,012 to 28,700",
+      "floorMinor": 1201200,
+      "capMinor": 2870000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "USC 3% band",
+      "rateBp": 300,
+      "base": "income EUR 28,700 to 70,044",
+      "floorMinor": 2870000,
+      "capMinor": 7004400,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "USC 8% band",
+      "rateBp": 800,
+      "base": "income above EUR 70,044; self-assessed income above EUR 100,000 attracts 11% on the excess; USC not payable if income is EUR 13,000 or less",
+      "floorMinor": 7004400,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4250000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 2070,
+    "reserveBasis": "Profit EUR 50,000 single: income tax 44,000x20% + 6,000x40% = 11,200 less credits 4,000 (personal 2,000 + earned income 2,000) = 7,200; USC 60 + 334 + 639 = 1,033; PRSI 4.24% = 2,120; total 10,353 / 50,000 = 20.7%.",
+    "deadlines": [
+     {
+      "name": "Pay preliminary tax for current year and file Form 11 for previous year (ROS filing may be extended to mid-November)",
+      "type": "annual",
+      "day": 31,
+      "month": 10
+     },
+     {
+      "name": "VAT return (bi-monthly period, ROS date typically 23rd)",
+      "type": "quarterly",
+      "day": 19,
+      "months": [
+       1,
+       3,
+       5,
+       7,
+       9,
+       11
+      ]
+     }
+    ],
+    "notes": "2026 figures. Preliminary tax must be at least 90% of the final liability for the year, or 100% of the prior year liability, or 105% of the pre-preceding year if paid by monthly direct debit. Balance of tax is due 31 October of the following year. VAT threshold EUR 42,500 applies to services; EUR 85,000 for goods (if 90% or more of turnover is goods). Standard VAT rate 23%. The bi-monthly VAT date (19th, 23rd online) is from general knowledge and not verified from a fetched source. Earned income credit and personal credit amounts from PwC; Revenue page itself unreachable.",
+    "sources": [
+     "https://taxsummaries.pwc.com/ireland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/ireland/individual/other-taxes",
+     "https://taxsummaries.pwc.com/ireland/individual/other-tax-credits-and-incentives",
+     "https://taxsummaries.pwc.com/ireland/individual/tax-administration",
+     "https://www.xero.com/ie/guides/vat-threshold-ireland/",
+     "https://www.charteredaccountants.ie/News/knowledge-centre-news-item/income-tax-measures-budget-2026",
+     "https://www.bdo.ie/en-gb/insights/2025/budget-2026/budget-2026-personal-tax"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private company limited by shares"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "DAC",
+    "caseSensitive": true,
+    "name": "Designated Activity Company"
+   },
+   {
+    "token": "CLG",
+    "caseSensitive": true,
+    "name": "Company Limited by Guarantee"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public Limited Company"
+   },
+   {
+    "token": "UC",
+    "caseSensitive": true,
+    "name": "Unlimited Company"
+   },
+   {
+    "token": "Unlimited Company",
+    "caseSensitive": false,
+    "name": "Unlimited Company"
+   },
+   {
+    "token": "Teoranta",
+    "caseSensitive": false,
+    "name": "Teoranta"
+   },
+   {
+    "token": "Teo",
+    "caseSensitive": false,
+    "name": "Teoranta"
+   },
+   {
+    "token": "CPT",
+    "caseSensitive": true,
+    "name": "Cuideachta Phoblach Teoranta"
+   },
+   {
+    "token": "CGA",
+    "caseSensitive": true,
+    "name": "Cuideachta Ghniomhaiochta Ainmnithe"
+   },
+   {
+    "token": "CTR",
+    "caseSensitive": true,
+    "name": "Cuideachta faoi Theorainn Rathaiochta"
+   },
+   {
+    "token": "ICAV",
+    "caseSensitive": true,
+    "name": "Irish Collective Asset-management Vehicle"
+   }
+  ]
+ },
+ {
+  "code": "GB",
+  "name": "United Kingdom",
+  "currency": "GBP",
+  "taxYear": {
+   "startMonth": 4,
+   "startDay": 6
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "gb_sole_trader",
+    "name": "Sole trader (Self Assessment)",
+    "appliesTo": "Self-employed individuals in England, Wales and Northern Ireland (Scottish income tax bands differ and are not modelled); VAT registration compulsory above GBP 90,000 taxable turnover",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1257000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 5027000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 12514000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "taxable profit (total income including the personal allowance band): 0% to 12,570, 20% to 50,270, 40% to 125,140, 45% above; personal allowance tapers away above 100,000 income"
+    },
+    "allowanceMinor": 1257000,
+    "socialContributions": [
+     {
+      "name": "Class 4 NIC (main rate)",
+      "rateBp": 600,
+      "base": "profits between 12,570 and 50,270",
+      "floorMinor": 1257000,
+      "capMinor": 5027000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Class 4 NIC (upper rate)",
+      "rateBp": 200,
+      "base": "profits above 50,270",
+      "floorMinor": 5027000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Class 2 NIC (voluntary, deemed paid at profits of 7,105 or more)",
+      "rateBp": 0,
+      "base": "3.65 per week (about 189.80 per year); not payable at or above the small profits threshold 7,105 because treated as paid; voluntary below it",
+      "floorMinor": 710500,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 9000000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 1717,
+    "reserveBasis": "Profit GBP 37,000: income tax 20% x (37,000 - 12,570) = 4,886; Class 4 6% x 24,430 = 1,466; Class 2 treated as paid; total 6,352 / 37,000 = 17.2%.",
+    "deadlines": [
+     {
+      "name": "Online Self Assessment return for the tax year ended 5 April, and balancing payment plus first payment on account",
+      "type": "annual",
+      "day": 31,
+      "month": 1
+     },
+     {
+      "name": "Second payment on account",
+      "type": "annual",
+      "day": 31,
+      "month": 7
+     },
+     {
+      "name": "Paper Self Assessment return",
+      "type": "annual",
+      "day": 31,
+      "month": 10
+     }
+    ],
+    "notes": "2026-27 tax year, 6 April to 5 April. Each payment on account is 50% of the previous year's tax and Class 4 bill. Return must be filed by 30 December to have a bill under 3,000 collected through the PAYE tax code. Standard VAT rate 20% (from general knowledge, gov.uk page fetched did not state it). Paper return date 31 October and Making Tax Digital for Income Tax quarterly updates for qualifying self-employed (profit above 50,000 from April 2026) were not verified in this pass. Scottish taxpayers use different bands.",
+    "sources": [
+     "https://www.gov.uk/income-tax-rates",
+     "https://www.gov.uk/self-employed-national-insurance-rates",
+     "https://www.gov.uk/vat-registration-thresholds",
+     "https://www.gov.uk/self-assessment-tax-returns/deadlines"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "CIC",
+    "caseSensitive": true,
+    "name": "Community interest company"
+   },
+   {
+    "token": "CIO",
+    "caseSensitive": true,
+    "name": "Charitable incorporated organisation"
+   },
+   {
+    "token": "SCIO",
+    "caseSensitive": true,
+    "name": "Scottish charitable incorporated organisation"
+   },
+   {
+    "token": "Cyf",
+    "caseSensitive": false,
+    "name": "Cyfyngedig (Welsh limited)"
+   },
+   {
+    "token": "Cyfyngedig",
+    "caseSensitive": false,
+    "name": "Cyfyngedig (Welsh limited)"
+   },
+   {
+    "token": "CCC",
+    "caseSensitive": true,
+    "name": "Cwmni Cyfyngedig Cyhoeddus (Welsh public limited company)"
+   }
+  ]
+ },
+ {
+  "code": "GI",
+  "name": "Gibraltar",
+  "currency": "GBP",
+  "taxYear": {
+   "startMonth": 7,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "gi_allowances_based",
+    "name": "Self-employed, Allowances Based System (ABS)",
+    "appliesTo": "Self-employed individuals resident in Gibraltar who elect (or are assessed under) the allowances system; the taxpayer is taxed under whichever of ABS or GIBS gives the lower tax",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 400000,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": 1600000,
+       "rateBp": 1700
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3900
+      }
+     ],
+     "base": "taxable income after personal allowance and other allowances (first 4,000 at 14%, next 12,000 at 17%, balance 39%); tapering relief applies to taxable income of 11,451 to 19,500 per PwC; income of 11,450 or less is exempt"
+    },
+    "allowanceMinor": 345500,
+    "socialContributions": [
+     {
+      "name": "Social insurance, self-employed (code SE)",
+      "rateBp": 2000,
+      "base": "gross earnings, with annual minimum 1,583.40 and maximum 2,784.60 (weekly 30.45 to 53.55) per schedule effective 1 July 2026",
+      "floorMinor": 158340,
+      "capMinor": 278460,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 3166,
+    "reserveBasis": "Profit GBP 30,000: taxable 30,000 - 3,455 = 26,545; tax 4,000x14% + 12,000x17% + 10,545x39% = 6,713; social insurance 20% x 30,000 = 6,000 capped at 2,784.60; total 9,497.6 / 30,000 = 31.7%.",
+    "deadlines": [
+     {
+      "name": "Income tax return for year of assessment ended 30 June",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Payment on account (50% of prior-year tax), non-PAYE income",
+      "type": "semiannual",
+      "day": 31,
+      "months": [
+       1
+      ]
+     },
+     {
+      "name": "Payment on account (50% of prior-year tax), non-PAYE income",
+      "type": "semiannual",
+      "day": 30,
+      "months": [
+       6
+      ]
+     }
+    ],
+    "notes": "Gibraltar tax year (year of assessment) runs 1 July to 30 June. PwC page used for rates is labelled 2025/26; allowance figures (personal 3,455) are from PwC deductions page labelled 2026/27 while gibraltar.com shows 3,455 for 2025/26, so allowance appears unchanged. The 11,450 exemption and tapering relief are not modelled in the bracket table. Payments on account on 31 Jan and 30 Jun are stated by PwC for income not collected under PAYE; applicability to the self-employed is not explicitly confirmed. Gibraltar has no VAT; import duty applies to goods.",
+    "sources": [
+     "https://taxsummaries.pwc.com/gibraltar/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/gibraltar/individual/deductions",
+     "https://taxsummaries.pwc.com/gibraltar/individual/other-taxes",
+     "https://taxsummaries.pwc.com/gibraltar/individual/tax-administration",
+     "https://www.gibraltar.gov.gi/uploads/Income Tax Office/Self-Employed/Social Insurance Contributions Class 2026-2027x.pdf",
+     "https://gibraltar.com/en/doing-business/gibraltar-tax-facts.php"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "gi_gross_income_based",
+    "name": "Self-employed, Gross Income Based System (GIBS)",
+    "appliesTo": "Self-employed individuals resident in Gibraltar who elect the gross income based system with no personal allowances; applied if it gives lower tax than ABS",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1700000,
+       "rateBp": 1600
+      },
+      {
+       "upToMinor": 2500000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 4000000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 10500000,
+       "rateBp": 2800
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2500
+      }
+     ],
+     "base": "gross assessable income above 25,000 (bands shown); for gross income up to 25,000 the bands are 10,000 at 6%, next 7,000 at 20%, balance 28%; limited deductions (e.g. mortgage interest 1,500, pension 1,500, medical insurance 3,000)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social insurance, self-employed (code SE)",
+      "rateBp": 2000,
+      "base": "gross earnings, annual minimum 1,583.40 and maximum 2,784.60",
+      "floorMinor": 158340,
+      "capMinor": 278460,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 2758,
+    "reserveBasis": "Profit GBP 30,000 (above 25,000 table): 17,000x16% + 8,000x19% + 5,000x25% = 5,490; social insurance capped at 2,784.60; total 8,274.6 / 30,000 = 27.6%.",
+    "deadlines": [
+     {
+      "name": "Income tax return for year of assessment ended 30 June",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Payment on account (50% of prior-year tax), non-PAYE income",
+      "type": "semiannual",
+      "day": 31,
+      "months": [
+       1
+      ]
+     },
+     {
+      "name": "Payment on account (50% of prior-year tax), non-PAYE income",
+      "type": "semiannual",
+      "day": 30,
+      "months": [
+       6
+      ]
+     }
+    ],
+    "notes": "PwC page ambiguous on the over-25,000 table: first 17,000 at 16%, next 8,000 at 19%, next 15,000 at 25%, next 65,000 at 28%, remainder at 25% (cap at gross income 100,000 or less is labelled by PwC). The remainder 25% below the preceding 28% was kept as listed and should be verified with the Income Tax Office calculator. Gibraltar has no VAT.",
+    "sources": [
+     "https://taxsummaries.pwc.com/gibraltar/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/gibraltar/individual/deductions",
+     "https://gibraltar.com/en/doing-business/gibraltar-tax-facts.php"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited partnership"
+   }
+  ]
+ },
+ {
+  "code": "GG",
+  "name": "Guernsey",
+  "currency": "GBP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "gg_self_employed",
+    "name": "Self-employed (Guernsey income tax, Class 2 social insurance)",
+    "appliesTo": "Resident self-employed individuals (single person; Guernsey, Alderney and Herm are separate for some purposes, Guernsey figures shown)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2000,
+     "base": "net income after allowances (single person allowance 15,200 for 2026); optional tax cap for high earners (e.g. 160,000 on non-Guernsey-source income)"
+    },
+    "allowanceMinor": 1520000,
+    "socialContributions": [
+     {
+      "name": "Class 2 social insurance (self-employed)",
+      "rateBp": 1240,
+      "base": "earnings between the lower earnings limit and the upper earnings limit; upper annual limit 196,560 (3,780 per week); maximum weekly contribution 468.72 for 2026; lower earnings limit believed 9,984 per year but not confirmed",
+      "floorMinor": null,
+      "capMinor": 19656000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 2480,
+    "reserveBasis": "Profit GBP 40,000: income tax 20% x (40,000 - 15,200) = 4,960; Class 2 12.4% x 40,000 = 4,960 (lower earnings limit ignored); total 9,920 / 40,000 = 24.8%.",
+    "deadlines": [
+     {
+      "name": "Income tax return for previous calendar year",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Interim assessment instalment (quarterly, 15th after quarter end)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     }
+    ],
+    "notes": "No VAT or GST in Guernsey; GST proposals for 2028 were in the 2025 Budget. A balancing payment is due within 30 days of the final assessment. The 12.4% Class 2 rate and the 9,984 lower earnings limit come from secondary sources (PwC Worldwide Tax Summaries for the 468.72 weekly maximum; official ordinance confirms only the 3,780 weekly upper limit); a May 2026 proposal for a 2.5% rate between the upper limit and 250,000 was not treated as enacted. Allowance withdrawn at 1 per 5 of income above 82,500.",
+    "sources": [
+     "https://taxsummaries.pwc.com/guernsey/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/guernsey/individual/other-taxes",
+     "https://taxsummaries.pwc.com/guernsey/individual/deductions",
+     "https://taxsummaries.pwc.com/guernsey/individual/tax-administration",
+     "https://www.expanship.com/gg/blog/guernsey-payroll-tax",
+     "https://www.gov.gg/SScontributions"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "PCC",
+    "caseSensitive": true,
+    "name": "Protected cell company"
+   },
+   {
+    "token": "ICC",
+    "caseSensitive": true,
+    "name": "Incorporated cell company"
+   }
+  ]
+ },
+ {
+  "code": "JE",
+  "name": "Jersey",
+  "currency": "GBP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "je_self_employed",
+    "name": "Self-employed (Jersey income tax, Class 2 social security)",
+    "appliesTo": "Resident self-employed individuals (single person figures); GST registration compulsory only above GBP 300,000 taxable supplies",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2125000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 9208333,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2000
+      }
+     ],
+     "base": "net income; liability is the lower of (a) 20% of income after allowances and (b) 26% of income above the exemption limit of 21,250. The two meet at about 92,083, so the brackets reproduce the lower-of result for a single person with no other allowances"
+    },
+    "allowanceMinor": 2125000,
+    "socialContributions": [
+     {
+      "name": "Class 2 social security (standard earnings band)",
+      "rateBp": 1250,
+      "base": "self-employed profits up to the standard earnings limit of 72,744 (2026)",
+      "floorMinor": null,
+      "capMinor": 7274400,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Class 2 social security (upper band)",
+      "rateBp": 250,
+      "base": "profits above 72,744 up to upper earnings limit 331,584 (2026)",
+      "floorMinor": 7274400,
+      "capMinor": 33158400,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 30000000,
+     "standardRateBp": 500
+    },
+    "suggestedReserveRateBp": 2271,
+    "reserveBasis": "Profit GBP 35,000: marginal-rate tax 26% x (35,000 - 21,250) = 3,575 (lower than 20% x 35,000 = 7,000); Class 2 12.5% x 35,000 = 4,375; total 7,950 / 35,000 = 22.7%.",
+    "deadlines": [
+     {
+      "name": "Income tax return, paper",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     },
+     {
+      "name": "Income tax return, electronic",
+      "type": "annual",
+      "day": 31,
+      "month": 7
+     },
+     {
+      "name": "Final payment of prior-year tax plus first payment on account (10% surcharge on unpaid)",
+      "type": "annual",
+      "day": 30,
+      "month": 11
+     },
+     {
+      "name": "Second payment on account",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     }
+    ],
+    "notes": "Jersey tax is called GST (not VAT), 5% single rate, no reduced rate. Payments on account are 50% of previous year liability (40% if employment earnings are 25% or less of income). Class 2 lower earnings limit, minimum contribution and instalment dates not verified; gov.je pages conflict on monthly Class 2 figures (1,297 default versus 1,082.80 older max). Exemption limit 21,250 is the single-person figure from PwC (last reviewed 22 July 2026); married couples are taxed under different limits not modelled. Class 2 appears to be an earnings-related 6% primary + 6.5% secondary split totalling 12.5% for the self-employed.",
+    "sources": [
+     "https://taxsummaries.pwc.com/jersey/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/jersey/individual/other-taxes",
+     "https://taxsummaries.pwc.com/jersey/individual/deductions",
+     "https://taxsummaries.pwc.com/jersey/individual/tax-administration",
+     "https://www.gov.je/TaxesMoney/GST/Businesses/Registration/pages/shouldibe.aspx",
+     "https://www.gov.je/Industry/BusinessAdviceHub/BusinessTaxesSocialSecurity/Pages/SocialSecurityPaymentsBusinessOwnersSelfEmployed.aspx"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "ILP",
+    "caseSensitive": true,
+    "name": "Incorporated limited partnership"
+   },
+   {
+    "token": "SLP",
+    "caseSensitive": true,
+    "name": "Separate limited partnership"
+   },
+   {
+    "token": "PCC",
+    "caseSensitive": true,
+    "name": "Protected cell company"
+   },
+   {
+    "token": "ICC",
+    "caseSensitive": true,
+    "name": "Incorporated cell company"
+   }
+  ]
+ },
+ {
+  "code": "IM",
+  "name": "Isle of Man",
+  "currency": "GBP",
+  "taxYear": {
+   "startMonth": 4,
+   "startDay": 6
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "im_self_employed",
+    "name": "Self-employed (Isle of Man income tax, Class 2 and Class 4 National Insurance)",
+    "appliesTo": "Resident self-employed individuals (single person figures); VAT registration compulsory above GBP 90,000 taxable turnover",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 650000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2100
+      }
+     ],
+     "base": "taxable profit after the personal allowance (brackets apply to income above the allowance); allowance reduced by 1 for every 2 of income above 100,000"
+    },
+    "allowanceMinor": 1700000,
+    "socialContributions": [
+     {
+      "name": "Class 4 NIC (main rate)",
+      "rateBp": 800,
+      "base": "profits between 9,152 and 56,264 per year (176 to 1,082 per week)",
+      "floorMinor": 915200,
+      "capMinor": 5626400,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Class 4 NIC (upper rate)",
+      "rateBp": 100,
+      "base": "profits above 56,264",
+      "floorMinor": 5626400,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Class 2 NIC (flat weekly)",
+      "rateBp": 0,
+      "base": "6.75 per week (351 per year), payable if profits exceed 9,152",
+      "floorMinor": 915200,
+      "capMinor": null,
+      "fixedAnnualMinor": 35100
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 9000000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 1567,
+    "reserveBasis": "Profit GBP 35,000: taxable 35,000 - 17,000 = 18,000; tax 6,500x10% + 11,500x21% = 3,065; Class 4 8% x (35,000 - 9,152) = 2,068; Class 2 351; total 5,484 / 35,000 = 15.7%.",
+    "deadlines": [
+     {
+      "name": "Income tax return for tax year ended 5 April",
+      "type": "annual",
+      "day": 6,
+      "month": 10
+     },
+     {
+      "name": "Payment on account and balance of tax (6 January)",
+      "type": "annual",
+      "day": 6,
+      "month": 1
+     }
+    ],
+    "notes": "Tax year runs 6 April to 5 April; 2026/27 figures. Per PwC the payment on account is due 6 January within the year of assessment and the balance 6 January after year end. Budget 2026 changes were cross-checked with PwC only (gov.im pages returned 403); one local news source quoted differing NI limits (160/938/6.20) which were disregarded as inconsistent with the Treasury headline figures reported (176/1,082/6.75). Married couples have a combined 34,000 allowance, not modelled.",
+    "sources": [
+     "https://taxsummaries.pwc.com/isle-of-man/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/isle-of-man/individual/deductions",
+     "https://taxsummaries.pwc.com/isle-of-man/individual/other-taxes",
+     "https://taxsummaries.pwc.com/isle-of-man/individual/tax-administration",
+     "https://www.gov.im/news/2026/feb/17/budget-2026-all-the-facts-and-figures/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Private limited company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "PLC",
+    "caseSensitive": false,
+    "name": "Public limited company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited liability partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited partnership"
+   },
+   {
+    "token": "ICC",
+    "caseSensitive": true,
+    "name": "Incorporated cell company"
+   },
+   {
+    "token": "PCC",
+    "caseSensitive": true,
+    "name": "Protected cell company"
+   }
+  ]
+ }
+]

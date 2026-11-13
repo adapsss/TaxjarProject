@@ -1,0 +1,1928 @@
+[
+ {
+  "code": "BG",
+  "name": "Bulgaria",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "bg_self_employed",
+    "name": "Self-employed person / freelancer (samoosiguryavasht se, 10% flat tax)",
+    "appliesTo": "Freelancers, civil-contract workers and sole traders taxed under the Personal Income Tax Act",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "net profit; freelancers may deduct 25% normative expenses of gross income (lawyers 40%), mandatory social contributions are deductible"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Health insurance",
+      "rateBp": 800,
+      "base": "chosen monthly insurable income, annualised",
+      "floorMinor": 744240,
+      "capMinor": 2760000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Pension fund, DZPO, illness/maternity, other social funds",
+      "rateBp": null,
+      "base": "chosen monthly insurable income, annualised; combined social rate not verified (sources give 14.8% to 17% pension plus other funds)",
+      "floorMinor": 744240,
+      "capMinor": 2760000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5113000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 2700,
+    "reserveBasis": "Estimate for EUR 18,000 gross: tax 10% x (75% x 18,000 minus about 3,960 contributions) = about 954; contributions assumed about 33% of an EUR 12,000 insurable base = about 3,960; total about 4,914 = 27%. Contribution rate is not verified, so treat as rough.",
+    "deadlines": [
+     {
+      "name": "Annual return and income tax payment (5% discount if filed and paid electronically by 31 March, capped EUR 255.65)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     },
+     {
+      "name": "Monthly social and health contributions (due date not verified against NRA/NSSI)",
+      "type": "monthly",
+      "day": 25
+     }
+    ],
+    "notes": "All floor/cap values are annualised. Monthly insurable income 2026: min EUR 550.66 to 31 Jul then EUR 620.20; max EUR 2,111.64 to 31 Jul then EUR 2,300; annual figures here use the August onward values (620.20*12, 2300*12). Quarterly advance income tax exists for freelancers but due dates were not found. VAT threshold EUR 51,130 (BGN 100,000) from a consultancy source, not the tax authority. Bulgaria joined the euro on 1 Jan 2026.",
+    "sources": [
+     "https://taxsummaries.pwc.com/bulgaria/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/bulgaria/individual/other-taxes",
+     "https://taxsummaries.pwc.com/bulgaria/individual/deductions",
+     "https://taxsummaries.pwc.com/bulgaria/individual/tax-administration",
+     "https://www.bta.bg/en/news/1177740-social-security-income-thresholds-increase-from-august-1-civil-servants-pay-own",
+     "https://www.innovires.com/en/blog/social-security-self-employed-bulgaria.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0415\u041e\u041e\u0414",
+    "caseSensitive": true,
+    "name": "Ednolichno druzhestvo s ogranichena otgovornost (single-member LLC)"
+   },
+   {
+    "token": "\u041e\u041e\u0414",
+    "caseSensitive": true,
+    "name": "Druzhestvo s ogranichena otgovornost (LLC)"
+   },
+   {
+    "token": "\u0410\u0414",
+    "caseSensitive": true,
+    "name": "Aktsionerno druzhestvo (joint-stock company)"
+   },
+   {
+    "token": "\u0415\u0410\u0414",
+    "caseSensitive": true,
+    "name": "Ednolichno aktsionerno druzhestvo (single-member JSC)"
+   },
+   {
+    "token": "\u041a\u0414",
+    "caseSensitive": true,
+    "name": "Komanditno druzhestvo (limited partnership)"
+   },
+   {
+    "token": "\u041a\u0414\u0410",
+    "caseSensitive": true,
+    "name": "Komanditno druzhestvo s aktsii"
+   },
+   {
+    "token": "\u0421\u0414",
+    "caseSensitive": true,
+    "name": "Sabiratelno druzhestvo (general partnership)"
+   },
+   {
+    "token": "EOOD",
+    "caseSensitive": true,
+    "name": "Ednolichno druzhestvo s ogranichena otgovornost"
+   },
+   {
+    "token": "OOD",
+    "caseSensitive": true,
+    "name": "Druzhestvo s ogranichena otgovornost"
+   },
+   {
+    "token": "EAD",
+    "caseSensitive": true,
+    "name": "Ednolichno aktsionerno druzhestvo"
+   },
+   {
+    "token": "AD",
+    "caseSensitive": true,
+    "name": "Aktsionerno druzhestvo"
+   },
+   {
+    "token": "KD",
+    "caseSensitive": true,
+    "name": "Komanditno druzhestvo"
+   },
+   {
+    "token": "SD",
+    "caseSensitive": true,
+    "name": "Sabiratelno druzhestvo"
+   }
+  ]
+ },
+ {
+  "code": "HR",
+  "name": "Croatia",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "hr_pausalni_obrt",
+    "name": "Pau\u0161alni obrt (flat-rate craft)",
+    "appliesTo": "Craftsmen and freelancers with annual receipts up to EUR 60,000 (above that: leave regime and VAT applies)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [],
+     "base": "fixed annual tax by receipt class (7 classes); presumptive, not a percentage of actual profit"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension pillar I (MIO I)",
+      "rateBp": 1500,
+      "base": "fixed monthly base EUR 797.20",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 143496
+     },
+     {
+      "name": "Pension pillar II (MIO II)",
+      "rateBp": 500,
+      "base": "fixed monthly base EUR 797.20",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 47832
+     },
+     {
+      "name": "Health insurance (HZZO)",
+      "rateBp": 1650,
+      "base": "fixed monthly base EUR 797.20",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 157848
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 6000000,
+     "standardRateBp": 2500
+    },
+    "suggestedReserveRateBp": 1350,
+    "reserveBasis": "EUR 30,000 receipts (class 4): contributions 290.98 x 12 = 3,492 plus tax about 137.70 x 4 = 551; total 4,043 = 13.5%.",
+    "deadlines": [
+     {
+      "name": "Monthly pension and health contributions",
+      "type": "monthly",
+      "day": 15
+     },
+     {
+      "name": "Quarterly flat tax (sources disagree: end of quarter vs after quarter)",
+      "type": "quarterly",
+      "day": 31,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Annual return PO-SD",
+      "type": "annual",
+      "day": 15,
+      "month": 1
+     }
+    ],
+    "notes": "Monthly contributions: MIO I 119.58, MIO II 39.86, HZZO 131.54 EUR (about 291). Quarterly tax due date conflicts across sources (end of quarter vs 30 Apr/31 Jul/31 Oct/31 Jan). Class boundaries other than class 4 not captured. Sources are advisor sites, not Porezna uprava. Fixed annual tax by receipt class; e.g. class 4 (EUR 19,900.01-30,600) about EUR 137.70 per quarter.",
+    "sources": [
+     "https://fiskalopedija.hr/baza-znanja/pausalni-obrt",
+     "https://www.fiskai.hr/vodic/pausalni-obrt/",
+     "https://fiskalopedija.hr/baza-znanja/placanja-doprinosa-pausalni-obrt",
+     "https://taxsummaries.pwc.com/croatia/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "hr_obrt_income",
+    "name": "Obrt / slobodna profesija on income (dohodak)",
+    "appliesTo": "Craftsmen and freelancers taxed on actual income (receipts less expenses)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 6000000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3000
+      }
+     ],
+     "base": "annual income less contributions, expenses and personal allowance"
+    },
+    "allowanceMinor": 720000,
+    "socialContributions": [
+     {
+      "name": "Pension pillar I (MIO I)",
+      "rateBp": 1500,
+      "base": "monthly base, annualised",
+      "floorMinor": 956640,
+      "capMinor": 14349600,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Pension pillar II (MIO II)",
+      "rateBp": 500,
+      "base": "monthly base, annualised",
+      "floorMinor": 956640,
+      "capMinor": 14349600,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance (HZZO)",
+      "rateBp": 1650,
+      "base": "monthly base, annualised",
+      "floorMinor": 956640,
+      "capMinor": 14349600,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 6000000,
+     "standardRateBp": 2500
+    },
+    "suggestedReserveRateBp": 1850,
+    "reserveBasis": "EUR 30,000 receipts, 30% costs = 21,000 profit; contributions at the minimum base 3,492; tax 20% x (21,000-3,492-7,200 allowance) = 2,062; total 5,554 = 18.5%. Local surtax (prirez) ignored.",
+    "deadlines": [
+     {
+      "name": "Monthly contributions",
+      "type": "monthly",
+      "day": 15
+     },
+     {
+      "name": "Annual income tax return (DOH)",
+      "type": "annual",
+      "day": 28,
+      "month": 2
+     }
+    ],
+    "notes": "Allowance EUR 600/month basic (PwC). 20%/30% rates are statutory default; municipalities set 15-23% / 25-33%. Min base EUR 797.20/month (2026, from pau\u0161alni-obrt sources), cap EUR 11,958/month (PwC salary cap, assumed to apply). Quarterly tax advances on income not verified. VAT threshold EUR 60,000 from advisor sources.",
+    "sources": [
+     "https://taxsummaries.pwc.com/croatia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/croatia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/croatia/individual/deductions",
+     "https://taxsummaries.pwc.com/croatia/individual/tax-administration",
+     "https://fiskalopedija.hr/baza-znanja/placanja-doprinosa-pausalni-obrt"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "d.o.o.",
+    "caseSensitive": false,
+    "name": "dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u"
+   },
+   {
+    "token": "d.o.o",
+    "caseSensitive": false,
+    "name": "dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u"
+   },
+   {
+    "token": "j.d.o.o.",
+    "caseSensitive": false,
+    "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u"
+   },
+   {
+    "token": "j.d.o.o",
+    "caseSensitive": false,
+    "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u"
+   },
+   {
+    "token": "d.d.",
+    "caseSensitive": false,
+    "name": "dioni\u010dko dru\u0161tvo"
+   },
+   {
+    "token": "d.n.o.",
+    "caseSensitive": false,
+    "name": "javno trgova\u010dko dru\u0161tvo"
+   },
+   {
+    "token": "k.d.",
+    "caseSensitive": false,
+    "name": "komanditno dru\u0161tvo"
+   },
+   {
+    "token": "zadruga",
+    "caseSensitive": false,
+    "name": "zadruga (cooperative)"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ },
+ {
+  "code": "CZ",
+  "name": "Czechia",
+  "currency": "CZK",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "cz_osvc",
+    "name": "Self-employed (OSV\u010c), actual or flat-rate expenses",
+    "appliesTo": "Freelancers and sole traders (main activity); flat-rate expenses 80% craft/agri, 60% trades, 40% liberal professions/royalties, 30% rent, with caps",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 176281200,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2300
+      }
+     ],
+     "base": "net profit (income less actual or flat-rate expenses); 15% to CZK 1,762,812, 23% above"
+    },
+    "allowanceMinor": 20560000,
+    "socialContributions": [
+     {
+      "name": "Social security",
+      "rateBp": 2920,
+      "base": "50% of profit; minimum annual base applies",
+      "floorMinor": 6864000,
+      "capMinor": 235041600,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 1350,
+      "base": "50% of profit; minimum applies, no cap",
+      "floorMinor": 3967200,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 200000000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 1900,
+    "reserveBasis": "CZK 600,000 gross, 60% flat expenses = profit 240,000; tax 15% = 36,000 less credit 30,840 = 5,160; social 29.2% x 120,000 = 35,040 so minimum 68,640 applies; health 13.5% x 120,000 = 16,200 so minimum 39,672 applies; total 113,472 = 18.9%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (1 May if filed electronically; 1 July via tax adviser)",
+      "type": "annual",
+      "day": 1,
+      "month": 4
+     },
+     {
+      "name": "Monthly health insurance advance (day not verified)",
+      "type": "monthly",
+      "day": 8
+     },
+     {
+      "name": "Monthly social insurance advance (day not verified)",
+      "type": "monthly",
+      "day": 20
+     }
+    ],
+    "notes": "allowanceMinor is CZK 30,840 taxpayer credit (sleva na poplatn\u00edka, from my knowledge, not on fetched pages) divided by 15% = CZK 205,600 equivalent. Minimum monthly advances 2026: social CZK 5,720 (one source says 5,005), health CZK 3,306; annual floors = x12. Social cap CZK 2,350,416 (48x average wage, PwC). Social rate 29.2% on 50% base and health 13.5% on 50% base are standard but not on fetched pages. VAT threshold CZK 2,000,000 and 12% reduced rate from advisor knowledge/PwC.",
+    "sources": [
+     "https://taxsummaries.pwc.com/czech-republic/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/czech-republic/individual/other-taxes",
+     "https://taxsummaries.pwc.com/czech-republic/individual/deductions",
+     "https://taxsummaries.pwc.com/czech-republic/individual/tax-administration",
+     "https://www.businessinfo.cz/navody/tip-pro-podnikatele-minimalni-zalohy-osvc-v-roce-2026/",
+     "https://www.pruvodcepodnikanim.cz/clanek/minimalni-zalohy-osvc-2026/",
+     "https://www.dauc.cz/clanky/16415/zmeny-v-pausalnim-rezimu-2026"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "cz_pausalni_rezim",
+    "name": "Pau\u0161\u00e1ln\u00ed re\u017eim (flat-rate regime, first band)",
+    "appliesTo": "OSV\u010c with annual income up to CZK 2,000,000 (first band limit CZK 1M-2M depending on activity), not VAT payers, not keeping accounts",
+    "incomeTax": {
+     "type": "none",
+     "base": "fixed CZK 100 per month income tax inside the monthly flat payment (credit offsets rest)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social security (fixed, 1.15x minimum)",
+      "rateBp": null,
+      "base": "fixed monthly CZK 6,578",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 7893600
+     },
+     {
+      "name": "Health insurance (fixed minimum)",
+      "rateBp": null,
+      "base": "fixed monthly CZK 3,306",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 3967200
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 2000,
+    "reserveBasis": "First band total CZK 9,984 per month = 119,808 per year (tax 1,200 + social 78,936 + health 39,672) on CZK 600,000 gross = 20.0%.",
+    "deadlines": [
+     {
+      "name": "Monthly flat payment (tax + insurance)",
+      "type": "monthly",
+      "day": 20
+     }
+    ],
+    "notes": "Bands 2026: CZK 9,984 / 16,745 / 27,139 per month. VAT payers cannot use the regime, so registration threshold not applicable (null). Exceeding CZK 2M ends the regime. Band income limits differ by source.",
+    "sources": [
+     "https://www.dauc.cz/clanky/16415/zmeny-v-pausalnim-rezimu-2026",
+     "https://www.banky.cz/clanky/pausalni-dan-2026-podnikatele-v-prvnim-pasmu-si-priplati-o-vic-nez-15-tisic-korun-rocne/",
+     "https://financnisprava.gov.cz/cs/dane/dane/dan-z-prijmu/pausalni-dan/informace-k-institutu-pausalni-dane-pro-rok-2025"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "s.r.o.",
+    "caseSensitive": false,
+    "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm"
+   },
+   {
+    "token": "s.r.o",
+    "caseSensitive": false,
+    "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm"
+   },
+   {
+    "token": "spol. s r.o.",
+    "caseSensitive": false,
+    "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm"
+   },
+   {
+    "token": "a.s.",
+    "caseSensitive": false,
+    "name": "akciov\u00e1 spole\u010dnost"
+   },
+   {
+    "token": "a.s",
+    "caseSensitive": false,
+    "name": "akciov\u00e1 spole\u010dnost"
+   },
+   {
+    "token": "v.o.s.",
+    "caseSensitive": false,
+    "name": "ve\u0159ejn\u00e1 obchodn\u00ed spole\u010dnost"
+   },
+   {
+    "token": "k.s.",
+    "caseSensitive": false,
+    "name": "komanditn\u00ed spole\u010dnost"
+   },
+   {
+    "token": "z.s.",
+    "caseSensitive": false,
+    "name": "zapsan\u00fd spolek"
+   },
+   {
+    "token": "z.\u00fa.",
+    "caseSensitive": false,
+    "name": "zapsan\u00fd \u00fastav"
+   },
+   {
+    "token": "o.p.s.",
+    "caseSensitive": false,
+    "name": "obecn\u011b prosp\u011b\u0161n\u00e1 spole\u010dnost"
+   },
+   {
+    "token": "s.p.",
+    "caseSensitive": false,
+    "name": "st\u00e1tn\u00ed podnik"
+   },
+   {
+    "token": "dru\u017estvo",
+    "caseSensitive": false,
+    "name": "dru\u017estvo (cooperative)"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ },
+ {
+  "code": "HU",
+  "name": "Hungary",
+  "currency": "HUF",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "hu_atalanyado",
+    "name": "\u00c1tal\u00e1nyad\u00f3z\u00e1s (flat-rate cost method)",
+    "appliesTo": "Egy\u00e9ni v\u00e1llalkoz\u00f3 with revenue up to 10x annual minimum wage (about HUF 38.7M; 50x for pure retail); cost ratio 45% general, 80%/90% for some activities",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1500,
+     "base": "revenue less presumptive costs (45% general ratio -> 55% of revenue); first HUF 1,936,800 of income tax-free"
+    },
+    "allowanceMinor": 193680000,
+    "socialContributions": [
+     {
+      "name": "Social security contribution (TB, pension 10% + health 7% + labour market 1.5%)",
+      "rateBp": 1850,
+      "base": "income base; minimum base 100% of minimum wage (HUF 322,800/month)",
+      "floorMinor": 387360000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Social contribution tax (szocho)",
+      "rateBp": 1300,
+      "base": "income base; minimum base 100% of minimum wage",
+      "floorMinor": 387360000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 1200000000,
+     "standardRateBp": 2700
+    },
+    "suggestedReserveRateBp": 2200,
+    "reserveBasis": "HUF 9,000,000 revenue, 45% cost ratio = income 4,950,000; SZJA 15% x (4,950,000-1,936,800) = 452,000; TB 18.5% = 915,750; szocho 13% = 643,500; total 2,011,250 = 22.3%.",
+    "deadlines": [
+     {
+      "name": "Annual SZJA return",
+      "type": "annual",
+      "day": 20,
+      "month": 5
+     },
+     {
+      "name": "Monthly TB and szocho advances (day not verified)",
+      "type": "monthly",
+      "day": 12
+     },
+     {
+      "name": "Quarterly SZJA advance (dates not verified)",
+      "type": "quarterly",
+      "day": 12,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     }
+    ],
+    "notes": "Tax-free portion = half the annual minimum wage (HUF 1,936,800, 2026). Minimum wage 2026 HUF 322,800/month (PwC). VAT threshold HUF 12M (AAM) from my knowledge, not verified for 2026. Whether szocho applies to the full income base for \u00e1tal\u00e1ny is as stated by advisor sources. KATA: current 2022-law KATA is narrow; an extended KATA (HUF 100,000/month full-time) is only a 2027 draft bill, so no KATA regime is modelled.",
+    "sources": [
+     "https://taxsummaries.pwc.com/hungary/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/hungary/individual/other-taxes",
+     "https://taxsummaries.pwc.com/hungary/individual/tax-administration",
+     "https://financera.hu/szemelyes-penzugyek/atalanyadozas/",
+     "https://biztosdontes.hu/cikkek/atalanyadozas-2026",
+     "https://nav.gov.hu/print/ado/szocialis_hozzajarulasi_ado/Csokken_a_szocialis_hozzajarulasi_ado_alapja_es_valtozik_az_egyeni_vallalkozok_bevallasi_gyakorisaga"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "hu_tetelas",
+    "name": "T\u00e9teles k\u00f6lts\u00e9gelsz\u00e1mol\u00e1s (itemised costs)",
+    "appliesTo": "Egy\u00e9ni v\u00e1llalkoz\u00f3 deducting actual documented costs",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1500,
+     "base": "revenue less documented costs"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social security contribution (TB, pension 10% + health 7% + labour market 1.5%)",
+      "rateBp": 1850,
+      "base": "income base; minimum base 100% of minimum wage (HUF 322,800/month)",
+      "floorMinor": 387360000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Social contribution tax (szocho)",
+      "rateBp": 1300,
+      "base": "income base; minimum base 100% of minimum wage",
+      "floorMinor": 387360000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 1200000000,
+     "standardRateBp": 2700
+    },
+    "suggestedReserveRateBp": 3700,
+    "reserveBasis": "HUF 9,000,000 revenue, 20% documented costs = 7,200,000 profit; (15% + 18.5% + 13%) = 46.5% x 7,200,000 = 3,348,000 = 37%. Overstated if contribution bases are capped or deductions apply.",
+    "deadlines": [
+     {
+      "name": "Annual SZJA return",
+      "type": "annual",
+      "day": 20,
+      "month": 5
+     },
+     {
+      "name": "Monthly TB and szocho advances (day not verified)",
+      "type": "monthly",
+      "day": 12
+     }
+    ],
+    "notes": "Family and other allowances exist but amounts not verified. Advance schedule not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/hungary/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/hungary/individual/other-taxes",
+     "https://taxsummaries.pwc.com/hungary/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Kft.",
+    "caseSensitive": false,
+    "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Kft",
+    "caseSensitive": false,
+    "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Zrt.",
+    "caseSensitive": false,
+    "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Zrt",
+    "caseSensitive": false,
+    "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Nyrt.",
+    "caseSensitive": false,
+    "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Nyrt",
+    "caseSensitive": false,
+    "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Rt.",
+    "caseSensitive": false,
+    "name": "r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Bt.",
+    "caseSensitive": false,
+    "name": "bet\u00e9ti t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Bt",
+    "caseSensitive": true,
+    "name": "bet\u00e9ti t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Kkt.",
+    "caseSensitive": false,
+    "name": "k\u00f6zkereseti t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Kkt",
+    "caseSensitive": true,
+    "name": "k\u00f6zkereseti t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Kht.",
+    "caseSensitive": false,
+    "name": "k\u00f6zhaszn\u00fa t\u00e1rsas\u00e1g"
+   },
+   {
+    "token": "Sz\u00f6vetkezet",
+    "caseSensitive": false,
+    "name": "sz\u00f6vetkezet (cooperative)"
+   },
+   {
+    "token": "Egyes\u00fclet",
+    "caseSensitive": false,
+    "name": "egyes\u00fclet (association)"
+   }
+  ]
+ },
+ {
+  "code": "PL",
+  "name": "Poland",
+  "currency": "PLN",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "pl_scale",
+    "name": "Tax scale (skala podatkowa)",
+    "appliesTo": "Sole proprietors (JDG) on general rules",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 12000000,
+       "rateBp": 1200
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3200
+      }
+     ],
+     "base": "net profit less ZUS social; 12% to PLN 120,000, 32% above"
+    },
+    "allowanceMinor": 3000000,
+    "socialContributions": [
+     {
+      "name": "ZUS social contributions (pension, disability, accident, sickness, Labour Fund)",
+      "rateBp": null,
+      "base": "fixed on base 60% of forecast average wage (PLN 5,652/month); about PLN 1,926.76 per month",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 2312112
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 900,
+      "base": "net income (min PLN 432.54/month)",
+      "floorMinor": 519048,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 20000000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 3320,
+    "reserveBasis": "PLN 120,000 revenue, no costs: income after ZUS 96,879; tax 12% x 96,879 - 3,600 = 8,025; health 9% = 8,719; ZUS 23,121; total 39,865 = 33.2%.",
+    "deadlines": [
+     {
+      "name": "Monthly income tax advance and ZUS contributions (ZUS day for sole proprietors not verified)",
+      "type": "monthly",
+      "day": 20
+     },
+     {
+      "name": "Annual PIT return and balance payment",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. Health minimum PLN 432.54/month from Feb 2026 (4,806 x 9%). Tax-free amount PLN 30,000 implemented via PLN 3,600 reducing amount.",
+    "sources": [
+     "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/poland/individual/other-taxes",
+     "https://taxsummaries.pwc.com/poland/individual/tax-administration",
+     "https://www.pit.pl/?p=7473",
+     "https://www.ifirma.pl/blog/skladki-zus-2026-ile-wynosza-aktualne-skladki-zus-dla-przedsiebiorcow/",
+     "https://poradnikprzedsiebiorcy.pl/-ryczalt-ewidencjonowany"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "pl_linear",
+    "name": "Flat tax 19% (podatek liniowy)",
+    "appliesTo": "Sole proprietors electing 19% flat tax",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1900,
+     "base": "net profit less ZUS social"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "ZUS social contributions (pension, disability, accident, sickness, Labour Fund)",
+      "rateBp": null,
+      "base": "fixed on base 60% of forecast average wage (PLN 5,652/month); about PLN 1,926.76 per month",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 2312112
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 490,
+      "base": "net income (min PLN 432.54/month)",
+      "floorMinor": 519048,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 20000000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 3860,
+    "reserveBasis": "PLN 120,000 revenue, no costs: income after ZUS 96,879; tax 19% = 18,407; health 4.9% = 4,747; ZUS 23,121; total 46,275 = 38.6%.",
+    "deadlines": [
+     {
+      "name": "Monthly income tax advance and ZUS contributions (ZUS day for sole proprietors not verified)",
+      "type": "monthly",
+      "day": 20
+     },
+     {
+      "name": "Annual PIT return and balance payment",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. No tax-free amount. Annual cap on deductible health contribution exists but not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/poland/individual/other-taxes",
+     "https://taxsummaries.pwc.com/poland/individual/tax-administration",
+     "https://www.pit.pl/?p=7473",
+     "https://www.ifirma.pl/blog/skladki-zus-2026-ile-wynosza-aktualne-skladki-zus-dla-przedsiebiorcow/",
+     "https://poradnikprzedsiebiorcy.pl/-ryczalt-ewidencjonowany"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "pl_ryczalt",
+    "name": "Rycza\u0142t od przychod\u00f3w ewidencjonowanych (lump sum on revenue)",
+    "appliesTo": "Sole proprietors with prior-year revenue up to EUR 2,000,000; no cost deduction; rates 2%-17% by activity (e.g. 12% IT up to PLN 1M then 15%, 8.5% many services, 14% some professional, 15% medical)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1200,
+     "base": "gross revenue less ZUS social paid; 12% shown is IT services"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "ZUS social contributions (pension, disability, accident, sickness, Labour Fund)",
+      "rateBp": null,
+      "base": "fixed on base 60% of forecast average wage (PLN 5,652/month); about PLN 1,926.76 per month",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 2312112
+     },
+     {
+      "name": "Health insurance (tiered fixed)",
+      "rateBp": null,
+      "base": "fixed monthly by prior-year revenue: up to PLN 60,000 = 498.35; 60,000-300,000 = 830.58; above 300,000 = 1,495.04 (2026 per ifirma/pit.pl; PwC labels 2023)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 20000000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 3730,
+    "reserveBasis": "PLN 120,000 revenue at 12%: tax 12% x (120,000-23,121) = 11,625; health tier 2 = 830.58 x 12 = 9,967; ZUS 23,121; total 44,713 = 37.3%.",
+    "deadlines": [
+     {
+      "name": "Monthly income tax advance and ZUS contributions (ZUS day for sole proprietors not verified)",
+      "type": "monthly",
+      "day": 20
+     },
+     {
+      "name": "Annual PIT return and balance payment",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "ZUS 2026: monthly social about PLN 1,926.76 (from pit.pl, unverified vs ZUS); starter relief (6 months none, then 24 months on 30% of minimum wage base) not modelled. VAT exemption threshold PLN 200,000 from my knowledge, not on fetched pages. Statutory 2027 draft would cut the revenue limit to EUR 250,000 (not law).",
+    "sources": [
+     "https://taxsummaries.pwc.com/poland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/poland/individual/other-taxes",
+     "https://taxsummaries.pwc.com/poland/individual/tax-administration",
+     "https://www.pit.pl/?p=7473",
+     "https://www.ifirma.pl/blog/skladki-zus-2026-ile-wynosza-aktualne-skladki-zus-dla-przedsiebiorcow/",
+     "https://poradnikprzedsiebiorcy.pl/-ryczalt-ewidencjonowany"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "sp. z o.o.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105"
+   },
+   {
+    "token": "sp.z o.o.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105"
+   },
+   {
+    "token": "sp. z o. o.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": true,
+    "name": "sp\u00f3\u0142ka akcyjna"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "sp\u00f3\u0142ka akcyjna"
+   },
+   {
+    "token": "sp. j.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka jawna"
+   },
+   {
+    "token": "sp.j.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka jawna"
+   },
+   {
+    "token": "sp. k.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka komandytowa"
+   },
+   {
+    "token": "sp.k.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka komandytowa"
+   },
+   {
+    "token": "sp. p.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka partnerska"
+   },
+   {
+    "token": "S.K.A.",
+    "caseSensitive": true,
+    "name": "sp\u00f3\u0142ka komandytowo-akcyjna"
+   },
+   {
+    "token": "P.S.A.",
+    "caseSensitive": true,
+    "name": "prosta sp\u00f3\u0142ka akcyjna"
+   },
+   {
+    "token": "sp. z o.o. sp. k.",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105 sp\u00f3\u0142ka komandytowa"
+   },
+   {
+    "token": "sp\u00f3\u0142dzielnia",
+    "caseSensitive": false,
+    "name": "sp\u00f3\u0142dzielnia (cooperative)"
+   }
+  ]
+ },
+ {
+  "code": "RO",
+  "name": "Romania",
+  "currency": "RON",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ro_pfa_real",
+    "name": "PFA, real system (sistem real)",
+    "appliesTo": "Authorised sole traders keeping income and expense records",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "net income (revenue less deductible expenses, CAS and CASS paid)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CAS (pension)",
+      "rateBp": 2500,
+      "base": "chosen base: 12 minimum wages (RON 48,600) if net income 12-24 minimum wages; 24 minimum wages (RON 97,200) if 24 or more",
+      "floorMinor": 4860000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CASS (health)",
+      "rateBp": 1000,
+      "base": "net annual income, minimum 6 minimum wages (RON 24,300), cap 72 minimum wages",
+      "floorMinor": 2430000,
+      "capMinor": 29160000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 39500000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 3400,
+    "reserveBasis": "RON 120,000 gross, net 100,000: CAS 25% x 97,200 = 24,300; CASS 10% x 100,000 = 10,000; tax 10% x (100,000-24,300-10,000) = 6,570; total 40,870 = 34.1%.",
+    "deadlines": [
+     {
+      "name": "Declaratia unica (annual return) and payment of income tax, CAS, CASS",
+      "type": "annual",
+      "day": 25,
+      "month": 5
+     }
+    ],
+    "notes": "2026 contribution ceilings use minimum wage RON 4,050 (RON 4,325 from 1 Jul 2026 does not change 2026 ceilings per contzilla). No advance payments mentioned by PwC. VAT threshold RON 395,000 from my knowledge, not verified for 2026; standard VAT 21% (PwC).",
+    "sources": [
+     "https://taxsummaries.pwc.com/romania/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/romania/individual/other-taxes",
+     "https://taxsummaries.pwc.com/romania/individual/tax-administration",
+     "https://www.contzilla.ro/pfa-2026-norma-sau-sistem-real-cas-cass-impozit/",
+     "https://contapp.ro/blog/?p=141863"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "ro_pfa_norma",
+    "name": "PFA, income norm (norma de venit)",
+    "appliesTo": "Authorised sole traders in eligible CAEN activities with revenue below the annual ceiling (ceiling not verified)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "annual income norm set by county and CAEN code (presumptive net income), not actual receipts"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CAS (pension)",
+      "rateBp": 2500,
+      "base": "chosen base: 12 minimum wages (RON 48,600) if net income 12-24 minimum wages; 24 minimum wages (RON 97,200) if 24 or more",
+      "floorMinor": 4860000,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CASS (health)",
+      "rateBp": 1000,
+      "base": "net annual income, minimum 6 minimum wages (RON 24,300), cap 72 minimum wages",
+      "floorMinor": 2430000,
+      "capMinor": 29160000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 39500000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 2200,
+    "reserveBasis": "Illustrative norm RON 60,000 on RON 100,000 gross: CAS 25% x 48,600 = 12,150; CASS 10% x 60,000 = 6,000; tax 10% x (60,000-12,150-6,000) = 4,185; total 22,335 = 22%. Norms vary by county and activity, so this is illustrative.",
+    "deadlines": [
+     {
+      "name": "Declaratia unica (annual return) and payment of income tax, CAS, CASS",
+      "type": "annual",
+      "day": 25,
+      "month": 5
+     }
+    ],
+    "notes": "2026 contribution ceilings use minimum wage RON 4,050 (RON 4,325 from 1 Jul 2026 does not change 2026 ceilings per contzilla). No advance payments mentioned by PwC. VAT threshold RON 395,000 from my knowledge, not verified for 2026; standard VAT 21% (PwC). Norm amounts and eligibility ceiling not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/romania/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/romania/individual/other-taxes",
+     "https://taxsummaries.pwc.com/romania/individual/tax-administration",
+     "https://www.contzilla.ro/pfa-2026-norma-sau-sistem-real-cas-cass-impozit/",
+     "https://contapp.ro/blog/?p=141863"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "societate cu r\u0103spundere limitat\u0103"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "societate cu r\u0103spundere limitat\u0103"
+   },
+   {
+    "token": "S.R.L.-D",
+    "caseSensitive": false,
+    "name": "SRL debutant"
+   },
+   {
+    "token": "SRL-D",
+    "caseSensitive": true,
+    "name": "SRL debutant"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": true,
+    "name": "societate pe ac\u021biuni"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "societate pe ac\u021biuni"
+   },
+   {
+    "token": "S.N.C.",
+    "caseSensitive": false,
+    "name": "societate \u00een nume colectiv"
+   },
+   {
+    "token": "SNC",
+    "caseSensitive": true,
+    "name": "societate \u00een nume colectiv"
+   },
+   {
+    "token": "S.C.S.",
+    "caseSensitive": false,
+    "name": "societate \u00een comandit\u0103 simpl\u0103"
+   },
+   {
+    "token": "SCS",
+    "caseSensitive": true,
+    "name": "societate \u00een comandit\u0103 simpl\u0103"
+   },
+   {
+    "token": "S.C.A.",
+    "caseSensitive": false,
+    "name": "societate \u00een comandit\u0103 pe ac\u021biuni"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": true,
+    "name": "societate comercial\u0103"
+   },
+   {
+    "token": "R.A.",
+    "caseSensitive": true,
+    "name": "regie autonom\u0103"
+   },
+   {
+    "token": "S.R.L",
+    "caseSensitive": false,
+    "name": "societate cu r\u0103spundere limitat\u0103"
+   }
+  ]
+ },
+ {
+  "code": "SK",
+  "name": "Slovakia",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sk_pausalne_vydavky",
+    "name": "SZ\u010cO with flat-rate expenses (pau\u0161\u00e1lne v\u00fddavky 60%)",
+    "appliesTo": "Self-employed non-VAT-payers; 60% of income as expenses, capped at EUR 20,000 expenses per year (revenue up to about EUR 33,333)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 4398332,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 6034921,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 7501032,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "income less 60% flat expenses (max EUR 20,000), less social contributions"
+    },
+    "allowanceMinor": 596674,
+    "socialContributions": [
+     {
+      "name": "Social insurance (pension, disability, sickness, reserve fund)",
+      "rateBp": 3315,
+      "base": "assessment base = 1/12 of profit, annualised; minimum base 60% of average wage (EUR 914.40/month); minimum EUR 303.11/month",
+      "floorMinor": 1097280,
+      "capMinor": 20116800,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 1600,
+      "base": "assessment base from profit; minimum base not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 2150,
+    "reserveBasis": "EUR 24,000 gross: expenses 14,400, profit 9,600; social minimum 303.11 x 12 = 3,637; health 16% x 9,600 = 1,536; tax about 0 after allowance 5,967; total 5,173 = 21.6%. Health minimum could raise it.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return and payment (extendable by 3 months)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Monthly social insurance (day not verified)",
+      "type": "monthly",
+      "day": 20
+     }
+    ],
+    "notes": "Brackets computed as 154.8x, 212.4x, 264.0x the subsistence minimum EUR 284.13 (PwC multiples; EUR values match tagalliances/forvis summaries); subsistence minimum rose from 1 Jul 2026 to EUR 295.22 (ca-staff) but effect on 2026 thresholds not confirmed. Allowance 21x subsistence minimum = EUR 5,966.74, reduced at higher incomes (not modelled). A reduced 15% rate for small entrepreneurs (revenue up to EUR 100,000) exists per a calculator site, not verified, so not modelled. Social cap EUR 16,764/month is the PwC employee cap, assumed. Minimum social contribution EUR 303.11/month = 363,732 minor per year. Standard VAT 23% and threshold EUR 50,000 from my knowledge, not on fetched pages. Health rate 16% per PwC; health minimum not verified. Advance income tax payments for SZCO exist but schedule not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/slovak-republic/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/slovak-republic/individual/other-taxes",
+     "https://taxsummaries.pwc.com/slovak-republic/individual/tax-administration",
+     "https://www.podnikajte.sk/socialne-a-zdravotne-odvody/minimalne-odvody-szco-od-1-1-2026",
+     "https://www.tatrabanka.sk/sk/business/navigacia-podnikatela/zaciatok-podnikania/blog/pausalne-vydavky/",
+     "https://taxravens.com/en/slovakia/income-tax"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "sk_skutocne_vydavky",
+    "name": "SZ\u010cO with actual expenses (da\u0148ov\u00e1 evidencia)",
+    "appliesTo": "Self-employed persons (also VAT payers) deducting documented expenses",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 4398332,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 6034921,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 7501032,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3500
+      }
+     ],
+     "base": "income less actual expenses and social contributions"
+    },
+    "allowanceMinor": 596674,
+    "socialContributions": [
+     {
+      "name": "Social insurance (pension, disability, sickness, reserve fund)",
+      "rateBp": 3315,
+      "base": "assessment base = 1/12 of profit, annualised; minimum base 60% of average wage (EUR 914.40/month); minimum EUR 303.11/month",
+      "floorMinor": 1097280,
+      "capMinor": 20116800,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 1600,
+      "base": "assessment base from profit; minimum base not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 2150,
+    "reserveBasis": "Same illustration as flat expenses: EUR 24,000 gross with 60% actual costs gives profit 9,600; total 5,173 = 21.6%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return and payment (extendable by 3 months)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Monthly social insurance (day not verified)",
+      "type": "monthly",
+      "day": 20
+     }
+    ],
+    "notes": "Brackets computed as 154.8x, 212.4x, 264.0x the subsistence minimum EUR 284.13 (PwC multiples; EUR values match tagalliances/forvis summaries); subsistence minimum rose from 1 Jul 2026 to EUR 295.22 (ca-staff) but effect on 2026 thresholds not confirmed. Allowance 21x subsistence minimum = EUR 5,966.74, reduced at higher incomes (not modelled). A reduced 15% rate for small entrepreneurs (revenue up to EUR 100,000) exists per a calculator site, not verified, so not modelled. Social cap EUR 16,764/month is the PwC employee cap, assumed. Minimum social contribution EUR 303.11/month = 363,732 minor per year. Standard VAT 23% and threshold EUR 50,000 from my knowledge, not on fetched pages. Health rate 16% per PwC; health minimum not verified. Advance income tax payments for SZCO exist but schedule not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/slovak-republic/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/slovak-republic/individual/other-taxes",
+     "https://taxsummaries.pwc.com/slovak-republic/individual/tax-administration",
+     "https://www.podnikajte.sk/socialne-a-zdravotne-odvody/minimalne-odvody-szco-od-1-1-2026",
+     "https://www.tatrabanka.sk/sk/business/navigacia-podnikatela/zaciatok-podnikania/blog/pausalne-vydavky/",
+     "https://taxravens.com/en/slovakia/income-tax"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "s.r.o.",
+    "caseSensitive": false,
+    "name": "spolo\u010dnos\u0165 s ru\u010den\u00edm obmedzen\u00fdm"
+   },
+   {
+    "token": "s. r. o.",
+    "caseSensitive": false,
+    "name": "spolo\u010dnos\u0165 s ru\u010den\u00edm obmedzen\u00fdm"
+   },
+   {
+    "token": "spol. s r.o.",
+    "caseSensitive": false,
+    "name": "spolo\u010dnos\u0165 s ru\u010den\u00edm obmedzen\u00fdm"
+   },
+   {
+    "token": "a.s.",
+    "caseSensitive": false,
+    "name": "akciov\u00e1 spolo\u010dnos\u0165"
+   },
+   {
+    "token": "a. s.",
+    "caseSensitive": false,
+    "name": "akciov\u00e1 spolo\u010dnos\u0165"
+   },
+   {
+    "token": "v.o.s.",
+    "caseSensitive": false,
+    "name": "verejn\u00e1 obchodn\u00e1 spolo\u010dnos\u0165"
+   },
+   {
+    "token": "k.s.",
+    "caseSensitive": false,
+    "name": "komanditn\u00e1 spolo\u010dnos\u0165"
+   },
+   {
+    "token": "n.o.",
+    "caseSensitive": false,
+    "name": "neziskov\u00e1 organiz\u00e1cia"
+   },
+   {
+    "token": "o.z.",
+    "caseSensitive": false,
+    "name": "ob\u010dianske zdru\u017eenie"
+   },
+   {
+    "token": "dru\u017estvo",
+    "caseSensitive": false,
+    "name": "dru\u017estvo (cooperative)"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ },
+ {
+  "code": "SI",
+  "name": "Slovenia",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "si_sp",
+    "name": "Samostojni podjetnik (s.p.), actual expenses",
+    "appliesTo": "Sole proprietors keeping accounts of actual income and expenses",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 972143,
+       "rateBp": 1600
+      },
+      {
+       "upToMinor": 2859244,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 5718488,
+       "rateBp": 3300
+      },
+      {
+       "upToMinor": 8234623,
+       "rateBp": 3900
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5000
+      }
+     ],
+     "base": "annual taxable profit less contributions"
+    },
+    "allowanceMinor": 555193,
+    "socialContributions": [
+     {
+      "name": "Pension and disability insurance",
+      "rateBp": null,
+      "base": "monthly contribution base (profit-based, minimum applies); cap EUR 7,500 per month from 1 Jul 2026 (annualised cap shown)",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": null,
+      "base": "monthly contribution base",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Long-term care",
+      "rateBp": 200,
+      "base": "contribution base",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2200
+    },
+    "suggestedReserveRateBp": 2400,
+    "reserveBasis": "Rough estimate: EUR 36,000 revenue, 30% costs = profit 25,200; contributions assumed about 6,000 (rates not verified); tax 16% x 9,721 + 26% x (19,200-5,552-9,721) = 2,576; total about 8,576 = 23.8%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return for business income",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Monthly social contributions (day not verified)",
+      "type": "monthly",
+      "day": 15
+     }
+    ],
+    "notes": "General allowance EUR 5,551.93 at total income of EUR 17,766.18 or more, higher/phased for lower incomes (PwC). Only long-term care 2% verified; pension, health and other rates and minimum bases not verified. VAT threshold not verified (older EUR 60,000, may have changed). Advance (akontacija) schedule not found.",
+    "sources": [
+     "https://taxsummaries.pwc.com/slovenia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/slovenia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/slovenia/individual/tax-administration",
+     "https://taxsummaries.pwc.com/slovenia/individual/deductions",
+     "https://sibiz.eu/slovenias-2026-tax-reform-0-vat-on-food-lower-rental-taxes-social-cap-and-even-lower-taxes-for-sole-proprietors-s-p/",
+     "https://senica.si/en/media/news/winter-allowance-and-sole-proprietors-using-flat-rate-expenses-key-tax-changes-as-of-2026"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "si_normiranec",
+    "name": "Normirani s.p. (lump-sum expenses)",
+    "appliesTo": "Sole proprietors using normalised expenses; revenue ceiling reported EUR 120,000 for full-time (conflicting: EUR 50,000 part-time)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2000,
+     "base": "revenue less normalised expenses (reported 80% of revenue; unverified), about 4% of revenue effective"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension and disability insurance",
+      "rateBp": null,
+      "base": "monthly contribution base (profit-based, minimum applies); cap EUR 7,500 per month from 1 Jul 2026 (annualised cap shown)",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": null,
+      "base": "monthly contribution base",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Long-term care",
+      "rateBp": 200,
+      "base": "contribution base",
+      "floorMinor": null,
+      "capMinor": 9000000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2200
+    },
+    "suggestedReserveRateBp": 1500,
+    "reserveBasis": "Analyst estimate: average full-time normiranec total burden about 15.3% of revenue in 2026 (beancount.io); tax alone about 4% (20% x 20% of revenue). Not computed from verified contribution rates.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return for business income",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Monthly social contributions (day not verified)",
+      "type": "monthly",
+      "day": 15
+     }
+    ],
+    "notes": "2026 reform (ZIURS, 11 May 2026) introduced a social contribution cap and lower base for low-revenue s.p.; final terms unconfirmed. Flat 20% and 80% expense rate come from secondary sources only.",
+    "sources": [
+     "https://sibiz.eu/slovenias-2026-tax-reform-0-vat-on-food-lower-rental-taxes-social-cap-and-even-lower-taxes-for-sole-proprietors-s-p/",
+     "https://senica.si/en/media/news/winter-allowance-and-sole-proprietors-using-flat-rate-expenses-key-tax-changes-as-of-2026",
+     "https://taxsummaries.pwc.com/slovenia/individual/taxes-on-personal-income",
+     "https://beancount.io/blog/2026/10/03/slovenia-normiranci-2026-overhaul-flat-rate-tax-freelancer-guide"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "d.o.o.",
+    "caseSensitive": false,
+    "name": "dru\u017eba z omejeno odgovornostjo"
+   },
+   {
+    "token": "d.o.o",
+    "caseSensitive": false,
+    "name": "dru\u017eba z omejeno odgovornostjo"
+   },
+   {
+    "token": "d.d.",
+    "caseSensitive": false,
+    "name": "delni\u0161ka dru\u017eba"
+   },
+   {
+    "token": "d.n.o.",
+    "caseSensitive": false,
+    "name": "dru\u017eba z neomejeno odgovornostjo"
+   },
+   {
+    "token": "k.d.",
+    "caseSensitive": false,
+    "name": "komanditna dru\u017eba"
+   },
+   {
+    "token": "k.d.d.",
+    "caseSensitive": false,
+    "name": "komanditna delni\u0161ka dru\u017eba"
+   },
+   {
+    "token": "z.o.o.",
+    "caseSensitive": false,
+    "name": "zadruga z omejeno odgovornostjo"
+   },
+   {
+    "token": "zadruga",
+    "caseSensitive": false,
+    "name": "zadruga (cooperative)"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   }
+  ]
+ },
+ {
+  "code": "MK",
+  "name": "North Macedonia",
+  "currency": "MKD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "mk_sole_trader",
+    "name": "Sole trader (trgovec pojedinec), 10% flat tax on net income",
+    "appliesTo": "Self-employed individuals and sole traders keeping accounts",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 1000,
+     "base": "net income (revenue less expenses and social contributions paid)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension and disability insurance",
+      "rateBp": 1880,
+      "base": "monthly base between 50% and 16x the average salary",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Health insurance",
+      "rateBp": 750,
+      "base": "monthly base",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Employment insurance",
+      "rateBp": 120,
+      "base": "monthly base",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Additional health insurance (injury/occupational)",
+      "rateBp": 50,
+      "base": "monthly base",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 200000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 2800,
+    "reserveBasis": "Rough estimate: MKD 720,000 revenue, 20% costs = 576,000 profit; contributions 28% = 161,000; tax 10% x (576,000-161,000) = 41,500; total 202,500 = 28%. Applicability of the 28% employee-side rates to sole traders and the base are not verified.",
+    "deadlines": [
+     {
+      "name": "Annual return and accounts (taxpayers keeping accounts)",
+      "type": "annual",
+      "day": 15,
+      "month": 3
+     },
+     {
+      "name": "Settlement of balance after monthly advances",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "10% flat PIT. Floor/cap on contribution base: min 50% and max 16x average salary (PwC, employee context), MKD values not found. Annual exemption MKD 123,240 (2025) applies to employees, so allowance set to 0. VAT threshold MKD 2,000,000 from secondary sources (one source says about EUR 50,000). Monthly advance = one twelfth of prior-year tax (PwC). A presumptive small-taxpayer regime may exist but was not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/north-macedonia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/north-macedonia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/north-macedonia/individual/tax-administration",
+     "https://taxsummaries.pwc.com/north-macedonia/individual/deductions",
+     "https://www.acciyo.com/sole-proprietorship-north-macedonia-tax-a-guide-to-the-10-flat-rate-and-social-contributions/",
+     "https://eurofast.eu/wp-content/uploads/2026/02/PayrollGuide2026-NorthMacedonia.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "\u0414\u041e\u041e\u0415\u041b",
+    "caseSensitive": true,
+    "name": "Drustvo so ogranicena odgovornost, ednocleno (single-member LLC)"
+   },
+   {
+    "token": "\u0414\u041e\u041e",
+    "caseSensitive": true,
+    "name": "Dru\u0161tvo so ograni\u010dena odgovornost (LLC)"
+   },
+   {
+    "token": "\u0410\u0414",
+    "caseSensitive": true,
+    "name": "Akcionersko dru\u0161tvo (joint-stock company)"
+   },
+   {
+    "token": "\u041a\u0414",
+    "caseSensitive": true,
+    "name": "Komanditno dru\u0161tvo (limited partnership)"
+   },
+   {
+    "token": "\u0408\u0422\u0414",
+    "caseSensitive": true,
+    "name": "Javno trgovsko dru\u0161tvo (general partnership)"
+   },
+   {
+    "token": "\u041a\u041a\u0414",
+    "caseSensitive": true,
+    "name": "Komanditno dru\u0161tvo so akcii"
+   },
+   {
+    "token": "DOOEL",
+    "caseSensitive": true,
+    "name": "Dru\u0161tvo so ograni\u010dena odgovornost, edno\u010dlen"
+   },
+   {
+    "token": "DOO",
+    "caseSensitive": true,
+    "name": "Dru\u0161tvo so ograni\u010dena odgovornost"
+   },
+   {
+    "token": "AD",
+    "caseSensitive": true,
+    "name": "Akcionersko dru\u0161tvo"
+   },
+   {
+    "token": "KD",
+    "caseSensitive": true,
+    "name": "Komanditno dru\u0161tvo"
+   },
+   {
+    "token": "JTD",
+    "caseSensitive": true,
+    "name": "Javno trgovsko dru\u0161tvo"
+   }
+  ]
+ },
+ {
+  "code": "GE",
+  "name": "Georgia",
+  "currency": "GEL",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ge_small_business",
+    "name": "Small business status (1% regime, individual entrepreneur)",
+    "appliesTo": "Individual entrepreneurs with annual turnover up to GEL 500,000 (3% on excess; status revoked after two consecutive years above)",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 100,
+     "base": "gross turnover"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": 10000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 100,
+    "reserveBasis": "1% of gross turnover; no mandatory self-employed social contribution identified (PwC lists self-employed among those exempt from mandatory pension enrolment), so reserve is 1%.",
+    "deadlines": [
+     {
+      "name": "Monthly turnover declaration and payment (zero return if no income)",
+      "type": "monthly",
+      "day": 15
+     }
+    ],
+    "notes": "Micro-business status (0% on turnover up to GEL 30,000) also exists but was not verified. VAT threshold GEL 100,000 from my knowledge, not on fetched pages; VAT 18% (PwC). Monthly 15th deadline from Andersen Georgia; PwC says small business status reports monthly without a date.",
+    "sources": [
+     "https://taxsummaries.pwc.com/georgia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/georgia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/georgia/individual/tax-administration",
+     "https://ge.andersen.com/1-tax-regime/",
+     "https://expathub.ge/tax-freelancers-individuals-small-businesses-georgia/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "ge_standard",
+    "name": "Standard individual entrepreneur",
+    "appliesTo": "Individual entrepreneurs without small business status",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2000,
+     "base": "net profit (income less deductible expenses)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension contribution (self-employed share; government adds 2% below GEL 24,000 income, 1% to GEL 60,000)",
+      "rateBp": 400,
+      "base": "annual income; PwC also lists self-employed among those exempt, so enrolment may be voluntary",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 10000000,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 1920,
+    "reserveBasis": "GEL 60,000 gross, 20% costs = profit 48,000; tax 20% = 9,600; pension 4% x 48,000 = 1,920 (if applicable); total 11,520 = 19.2%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax declaration (before 1 April)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     },
+     {
+      "name": "Estimated PIT instalment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       5,
+       7,
+       9,
+       12
+      ]
+     }
+    ],
+    "notes": "Instalments due 15 May, 15 July, 15 September, 15 December (PwC; irregular spacing, so stored as the quarterly pattern with these months). Pension applicability unclear.",
+    "sources": [
+     "https://taxsummaries.pwc.com/georgia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/georgia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/georgia/individual/tax-administration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "\u10e8\u10de\u10e1",
+    "caseSensitive": true,
+    "name": "shezghudulia pasukhismgeblobis sazogadoeba (LLC)"
+   },
+   {
+    "token": "\u10e8.\u10de.\u10e1.",
+    "caseSensitive": true,
+    "name": "shezghudulia pasukhismgeblobis sazogadoeba"
+   },
+   {
+    "token": "\u10e1\u10e1",
+    "caseSensitive": true,
+    "name": "sakaktsio sazogadoeba (joint-stock company)"
+   },
+   {
+    "token": "\u10e1.\u10e1.",
+    "caseSensitive": true,
+    "name": "sakaktsio sazogadoeba"
+   },
+   {
+    "token": "JSC",
+    "caseSensitive": true,
+    "name": "Joint Stock Company"
+   },
+   {
+    "token": "\u10d0\u10d0\u10d8\u10de",
+    "caseSensitive": true,
+    "name": "arasamtavrobo aramomgebiani iuridiuli piri (non-profit)"
+   },
+   {
+    "token": "\u10e1\u10e1\u10d8\u10de",
+    "caseSensitive": true,
+    "name": "sakhelmtsifo sajaro samartlis iuridiuli piri"
+   },
+   {
+    "token": "\u10d9\u10dd\u10dd\u10de\u10d4\u10e0\u10d0\u10e2\u10d8\u10d5\u10d8",
+    "caseSensitive": true,
+    "name": "kooperativi (cooperative)"
+   }
+  ]
+ }
+]

@@ -85,6 +85,7 @@ def test_to_transaction_embeds_reservation_and_known_client(session):
     assert tx.reservation.model_dump(by_alias=True) == {
         "id": reservation.id, "transactionId": row.id, "sourceAmount": 30000, "sourceCurrency": "USD",
         "rate": 2000, "fxRate": 0.92, "reservedAmount": 27600, "taxCurrency": "EUR", "status": "reserved",
+        "breakdown": None,
     }
 
 

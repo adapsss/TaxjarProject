@@ -8,7 +8,9 @@ name, or a name that is nothing but a designator, never counts.
 
 Short upper-case designators ("AS", "SA", "AB") are matched case-sensitively.
 When the whole name is printed in capitals, case carries no information, so
-designators of one or two letters are ignored there.
+case-sensitive designators of up to four letters are ignored there unless the
+data marks them `capsSafe` (not also a common surname or name particle: "AG",
+"AB", "OY", but not "BA" or "SAM"), and only `capsLeading` ones may lead.
 """
 import json
 import re
@@ -44,7 +46,8 @@ def _forms() -> tuple:
             continue
         words = _words(token)
         if words:
-            plain.append((words, sensitive, sum(len(w) for w in words)))
+            plain.append((words, sensitive, sum(len(w) for w in words),
+                          bool(form.get("capsSafe")), bool(form.get("capsLeading"))))
     return tuple(plain), tuple(punctuated)
 
 
@@ -55,12 +58,17 @@ def has_legal_form(name: str) -> bool:
     exact = _words(name)
     folded = _words(normalize_name(name))
     all_caps = not any(c.islower() for c in name)
-    for words, sensitive, letters in plain:
-        if sensitive and all_caps and letters <= 2:
+    for words, sensitive, letters, caps_safe, caps_leading in plain:
+        doubtful = sensitive and all_caps and letters <= 4
+        if doubtful and not caps_safe:
             continue
         have = exact if sensitive else folded
         size = len(words)
-        if len(have) > size and (have[-size:] == words or have[:size] == words):
+        if len(have) <= size:
+            continue
+        if have[-size:] == words:
+            return True
+        if have[:size] == words and (caps_leading or not doubtful):
             return True
     # "a.s.", "A/S", "S.p.A.": only the exact written form at the end of the name,
     # so a person's initials ("Maria A. S.") are not mistaken for a designator

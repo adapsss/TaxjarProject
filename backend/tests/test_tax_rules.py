@@ -116,5 +116,5 @@ def test_load_countries_api_shape():
     for country in countries:
         assert set(country) == {"code", "name", "currency", "regimes"}
         for regime in country["regimes"]:
-            assert set(regime) == {"id", "name", "defaultRate", "hint", "deadline"}
+            assert set(regime) == {"id", "name", "defaultRate", "hint", "deadline", "breakdownRule"}
             assert isinstance(regime["defaultRate"], int)

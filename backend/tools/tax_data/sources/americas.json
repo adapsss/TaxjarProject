@@ -1,0 +1,1677 @@
+[
+ {
+  "code": "US",
+  "name": "United States",
+  "currency": "USD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed_sole_prop",
+    "name": "Self-employed / sole proprietor (Schedule C, SE tax)",
+    "appliesTo": "Independent contractors and sole proprietors with net earnings from self-employment of $400 or more; single filer modelled",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1240000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 5040000,
+       "rateBp": 1200
+      },
+      {
+       "upToMinor": 10570000,
+       "rateBp": 2200
+      },
+      {
+       "upToMinor": 20177500,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 25622500,
+       "rateBp": 3200
+      },
+      {
+       "upToMinor": 64060000,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3700
+      }
+     ],
+     "base": "taxable income = net profit minus half of SE tax minus standard deduction (federal only, single filer)"
+    },
+    "allowanceMinor": 1610000,
+    "socialContributions": [
+     {
+      "name": "Self-employment tax: Social Security (OASDI)",
+      "rateBp": 1240,
+      "base": "92.35% of net earnings from self-employment",
+      "floorMinor": null,
+      "capMinor": 18450000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Self-employment tax: Medicare",
+      "rateBp": 290,
+      "base": "92.35% of net earnings from self-employment (extra 0.9% Additional Medicare Tax above $200,000 for single filers)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 2200,
+    "reserveBasis": "At about 60,000 USD net profit: SE tax around 8,500 USD plus federal income tax around 4,500 USD is roughly 21-22% of gross; rounded to 2200.",
+    "deadlines": [
+     {
+      "name": "Estimated tax payment (Form 1040-ES)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       4,
+       6,
+       9,
+       1
+      ]
+     },
+     {
+      "name": "Annual return (Form 1040)",
+      "type": "annual",
+      "day": 15,
+      "month": 4
+     }
+    ],
+    "notes": "Federal only: state and local income taxes and state sales tax are NOT modelled. Standard deduction 16,100 USD for single filers in 2026 (Rev. Proc. 2025-32). Qualified business income deduction, credits and itemised deductions not modelled. The OASDI wage base for 2026 is 184,500 USD (SSA/Federal Register, confirmed via search results; ssa.gov page itself returned 403). Deadlines are the standard IRS dates and were not re-fetched; Jan 15 instalment falls in the following calendar year.",
+    "sources": [
+     "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+     "https://www.irs.gov/taxtopics/tc554",
+     "https://www.ssa.gov/oact/cola/cbb.html",
+     "https://www.govinfo.gov/content/pkg/FR-2025-11-03/pdf/2025-19763.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Incorporated",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Corp",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Corporation",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "L.L.C.",
+    "caseSensitive": false,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "PLLC",
+    "caseSensitive": true,
+    "name": "Professional Limited Liability Company"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "PC",
+    "caseSensitive": true,
+    "name": "Professional Corporation"
+   }
+  ]
+ },
+ {
+  "code": "CA",
+  "name": "Canada",
+  "currency": "CAD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed_sole_prop",
+    "name": "Self-employed / sole proprietor (T2125, CPP self-employed)",
+    "appliesTo": "Sole proprietors and independent contractors; federal tax modelled, provincial tax not",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 5852300,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": 11704500,
+       "rateBp": 2050
+      },
+      {
+       "upToMinor": 18144000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 25848200,
+       "rateBp": 2900
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3300
+      }
+     ],
+     "base": "net business income minus deductions (federal brackets only, before non-refundable credits)"
+    },
+    "allowanceMinor": 1645200,
+    "socialContributions": [
+     {
+      "name": "CPP base contribution (self-employed, both halves)",
+      "rateBp": 1190,
+      "base": "net self-employment earnings between basic exemption 3,500 and YMPE 74,600 CAD",
+      "floorMinor": 350000,
+      "capMinor": 7460000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CPP2 (second additional contribution, self-employed)",
+      "rateBp": 800,
+      "base": "self-employment earnings between 74,600 CAD (YMPE) and 85,000 CAD (YAMPE)",
+      "floorMinor": null,
+      "capMinor": 1040000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 3000000,
+     "standardRateBp": 500
+    },
+    "suggestedReserveRateBp": 2000,
+    "reserveBasis": "At about 60,000 CAD net: CPP about 6,700 CAD plus federal tax around 5,500 CAD gives roughly 20% of gross before provincial tax; provincial tax would add more.",
+    "deadlines": [
+     {
+      "name": "Income tax instalments",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Self-employed return filing (balance owing due April 30)",
+      "type": "annual",
+      "day": 15,
+      "month": 6
+     }
+    ],
+    "notes": "Federal brackets only: provincial or territorial income tax (and Quebec QPP/QST) is NOT modelled. Federal lowest rate is 14% for the full 2026 year. allowanceMinor is the 2026 basic personal amount maximum 16,452 CAD, a non-refundable credit at the 14% rate rather than a deduction, taken from secondary sources (CRA page not reachable); it phases down for net income above 181,440 CAD. CPP: CRA confirms 2026 YMPE 74,600, basic exemption 3,500, base self-employed maximum 8,460.90 CAD; CPP2 8% and 85,000 YAMPE (max 832 CAD) are from secondary sources. Half of CPP is deductible. GST small supplier threshold 30,000 CAD and 5% GST rate and filing dates are from general CRA rules, not re-fetched.",
+    "sources": [
+     "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html",
+     "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/canada-pension-plan-cpp/cpp-contribution-rates-maximums-exemptions.html",
+     "https://www.cp24.com/news/money/2025/12/01/heres-how-much-you-will-be-taxed-in-2026-canada-revenue-agency/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Incorporated",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Corp",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Corporation",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Lt\u00e9e",
+    "caseSensitive": false,
+    "name": "Limit\u00e9e"
+   },
+   {
+    "token": "Limit\u00e9e",
+    "caseSensitive": false,
+    "name": "Limit\u00e9e"
+   },
+   {
+    "token": "Incorpor\u00e9e",
+    "caseSensitive": false,
+    "name": "Incorpor\u00e9e"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "S.E.N.C.",
+    "caseSensitive": false,
+    "name": "Soci\u00e9t\u00e9 en nom collectif"
+   },
+   {
+    "token": "SENCRL",
+    "caseSensitive": true,
+    "name": "Soci\u00e9t\u00e9 en nom collectif \u00e0 responsabilit\u00e9 limit\u00e9e"
+   }
+  ]
+ },
+ {
+  "code": "AR",
+  "name": "Argentina",
+  "currency": "ARS",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "monotributo",
+    "name": "Monotributo (Regimen Simplificado para Pequenos Contribuyentes)",
+    "appliesTo": "Individuals and small partnerships with annual gross income up to the Category K ceiling (ARS 126,610,838.75 for services/goods per sources); categories A to K, recategorised every six months",
+    "incomeTax": {
+     "type": "none",
+     "base": "income tax and VAT are included in a single fixed monthly fee by category"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Monotributo monthly fee (tax plus pension plus health), Category A shown",
+      "rateBp": null,
+      "base": "fixed monthly amount by category; Category A 49,527.18 ARS per month, Category K 1,614,446.04 ARS (services) or 702,103.24 ARS (goods)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 59432616
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 800,
+    "reserveBasis": "Fee is fixed by category: about 5% of the Category A ceiling (49,527 ARS x 12 vs 12,009,410 ARS) up to about 15% for Category K services (1,614,446 x 12 vs 126,610,839); 8% is a mid-range rule of thumb.",
+    "deadlines": [
+     {
+      "name": "Monthly Monotributo payment",
+      "type": "monthly",
+      "day": 20
+     }
+    ],
+    "notes": "Scale reported as valid from 1 August 2026 (some sources say July to December 2026); figures come from press and calculator sites because the ARCA table could not be opened, so verify against ARCA. Only Categories A and K were captured; intermediate categories are not listed. fixedAnnualMinor is Category A x 12 = 594,326.16 ARS. Monthly due day 20 is general knowledge and unverified. General regime (responsable inscripto / Ganancias) not modelled.",
+    "sources": [
+     "https://www.cotizacion-dolar.com.ar/economia/categorias-monotributo-agosto-2026.html",
+     "https://www.argentina.gob.ar/economia/ingresospublicos"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "S.A.S.",
+    "caseSensitive": false,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "SAS",
+    "caseSensitive": true,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "S.A.U.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima Unipersonal"
+   },
+   {
+    "token": "SAU",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima Unipersonal"
+   },
+   {
+    "token": "S.C.A.",
+    "caseSensitive": false,
+    "name": "Sociedad en Comandita por Acciones"
+   },
+   {
+    "token": "Coop. Ltda.",
+    "caseSensitive": false,
+    "name": "Cooperativa Limitada"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Sociedad Colectiva"
+   }
+  ]
+ },
+ {
+  "code": "BR",
+  "name": "Brazil",
+  "currency": "BRL",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "mei",
+    "name": "Microempreendedor Individual (MEI)",
+    "appliesTo": "Individual micro-entrepreneurs with annual gross revenue up to BRL 81,000, at most one employee, listed MEI activities",
+    "incomeTax": {
+     "type": "none",
+     "base": "income tax, social security and ISS/ICMS collapsed into a fixed monthly DAS-MEI"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "DAS-MEI: INSS portion (5% of minimum wage 1,621) plus ISS (5 BRL) and/or ICMS (1 BRL)",
+      "rateBp": null,
+      "base": "fixed monthly amount: 81.05 BRL INSS plus 5 BRL ISS (services) and/or 1 BRL ICMS (goods)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 103260
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 300,
+    "reserveBasis": "DAS-MEI is about 86 BRL per month; at a modest 4,000 BRL per month that is 2.2%, and at the 6,750 BRL monthly ceiling 1.3%; 3% leaves headroom for annual income tax on the taxable share of turnover.",
+    "deadlines": [
+     {
+      "name": "DAS-MEI payment",
+      "type": "monthly",
+      "day": 20
+     },
+     {
+      "name": "DASN-SIMEI annual declaration",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     }
+    ],
+    "notes": "fixedAnnualMinor = (81.05 + 5.00) x 12 = 1,032.60 BRL (services activity). Truck-driver MEI pays more (194.52 BRL INSS). Due dates 20th and 31 May are general rules, not re-fetched. Sources are the Receita Simples Nacional notice and press; official page not opened directly. Simples Nacional (Annex III/IV) not modelled.",
+    "sources": [
+     "https://www8.receita.fazenda.gov.br/simplesnacional/Noticias/NoticiaCompleta.aspx%3Fid%3Dc3b2044c-ff97-432a-b33c-ecf2a3df6dc3",
+     "https://www.contabeis.com.br/noticias/74842/mei-em-2026-veja-o-que-muda-no-das-nota-fiscal-e-regras/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "autonomo_pf",
+    "name": "Autonomo / Pessoa Fisica (carne-leao plus INSS contribuinte individual)",
+    "appliesTo": "Self-employed individuals without MEI registration, taxed as individuals",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2914560,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 3391980,
+       "rateBp": 750
+      },
+      {
+       "upToMinor": 4501260,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 5597616,
+       "rateBp": 2250
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2750
+      }
+     ],
+     "base": "annualised monthly progressive table (monthly brackets x 12) on net professional income after INSS and allowed deductions; Law 15.270/2025 reduction not embedded"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "INSS contribuinte individual (normal plan)",
+      "rateBp": 2000,
+      "base": "monthly income between minimum wage 1,621 and ceiling 8,475.55 BRL",
+      "floorMinor": 162100,
+      "capMinor": 847555,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "INSS simplified plan (alternative)",
+      "rateBp": 1100,
+      "base": "minimum wage only, 1,621 BRL; limited benefits",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 2200,
+    "reserveBasis": "At 6,000 BRL per month: INSS 20% (1,200) plus income tax about 230 after the Law 15.270 reduction is roughly 24%; with the 11% INSS plan about 15%; 22% used.",
+    "deadlines": [
+     {
+      "name": "INSS payment (GPS)",
+      "type": "monthly",
+      "day": 15
+     },
+     {
+      "name": "Annual IRPF declaration",
+      "type": "annual",
+      "day": 31,
+      "month": 5
+     }
+    ],
+    "notes": "From 1 Jan 2026 Law 15.270/2025 gives a monthly reduction: income tax is zero up to 5,000 BRL per month and phases out (reduction = 978.62 - 0.133145 x income) up to 7,350 BRL; not embedded in the brackets. Monthly simplified discount 607.20 BRL. Brackets from PwC (monthly table 2,428.80 / 2,826.65 / 3,751.05 / 4,664.68). Teto INSS 8,475.55 BRL and minimum wage 1,621 BRL from secondary sources. ISS municipal tax not modelled. Due dates are general rules, not re-fetched.",
+    "sources": [
+     "https://taxsummaries.pwc.com/brazil/individual/taxes-on-personal-income",
+     "https://www.adrianofreire.com.br/blog/inss-contribuinte-individual-aliquotas-planos-2026",
+     "https://www.jettax.com.br/blog/nova-tabela-do-ir-2026-veja-faixas-e-aliquotas/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Ltda",
+    "caseSensitive": false,
+    "name": "Sociedade Limitada"
+   },
+   {
+    "token": "Ltda.",
+    "caseSensitive": false,
+    "name": "Sociedade Limitada"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "S/A",
+    "caseSensitive": true,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "EIRELI",
+    "caseSensitive": true,
+    "name": "Empresa Individual de Responsabilidade Limitada"
+   },
+   {
+    "token": "EPP",
+    "caseSensitive": true,
+    "name": "Empresa de Pequeno Porte"
+   },
+   {
+    "token": "ME",
+    "caseSensitive": true,
+    "name": "Microempresa"
+   },
+   {
+    "token": "Cia",
+    "caseSensitive": false,
+    "name": "Companhia"
+   },
+   {
+    "token": "Cia.",
+    "caseSensitive": false,
+    "name": "Companhia"
+   },
+   {
+    "token": "Companhia",
+    "caseSensitive": false,
+    "name": "Companhia"
+   },
+   {
+    "token": "Cooperativa",
+    "caseSensitive": false,
+    "name": "Cooperativa"
+   }
+  ]
+ },
+ {
+  "code": "CL",
+  "name": "Chile",
+  "currency": "CLP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "honorarios",
+    "name": "Trabajador independiente con boleta de honorarios (Impuesto Global Complementario)",
+    "appliesTo": "Individuals issuing boletas de honorarios (professional services) taxed as individuals",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 11265804,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 25035120,
+       "rateBp": 400
+      },
+      {
+       "upToMinor": 41725200,
+       "rateBp": 800
+      },
+      {
+       "upToMinor": 58415280,
+       "rateBp": 1350
+      },
+      {
+       "upToMinor": 75105360,
+       "rateBp": 2300
+      },
+      {
+       "upToMinor": 100140480,
+       "rateBp": 3040
+      },
+      {
+       "upToMinor": 258696240,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4000
+      }
+     ],
+     "base": "annual net taxable income (gross honorarios less 30% presumed expenses up to the statutory cap or actual expenses); AT 2026 table, amounts in whole pesos"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension and health contributions for independent workers",
+      "rateBp": null,
+      "base": "share of honorarios income (rate and cap not verified)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1900
+    },
+    "suggestedReserveRateBp": 1500,
+    "reserveBasis": "Withholding on boletas is 15.25% in 2026 per the statutory schedule (not re-verified) and is refunded against final tax; with 1.5M CLP per month income tax is about 2% so 15% (withholding) is the cash to hold back; value kept at 15%.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (Operacion Renta)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "CLP is modelled in whole pesos (ISO 4217 exponent 0), NOT multiplied by 100. Brackets are the SII Impuesto Global Complementario table for tax year 2026 (13.5 UTA exempt = 11,265,804 CLP; UTA 834,504). Social contribution rates and the 15.25% withholding rate were not verified (search was rate-limited). Boleta de honorarios is generally not subject to IVA. Pro Pyme regime (14 D) not modelled.",
+    "sources": [
+     "https://www.sii.cl/valores_y_fechas/renta/2026/personas_naturales.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "SpA",
+    "caseSensitive": true,
+    "name": "Sociedad por Acciones"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "Ltda",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "Ltda.",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "Limitada",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "EIRL",
+    "caseSensitive": true,
+    "name": "Empresa Individual de Responsabilidad Limitada"
+   },
+   {
+    "token": "E.I.R.L.",
+    "caseSensitive": false,
+    "name": "Empresa Individual de Responsabilidad Limitada"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Sociedad Colectiva"
+   },
+   {
+    "token": "Cia.",
+    "caseSensitive": false,
+    "name": "Compania"
+   }
+  ]
+ },
+ {
+  "code": "CO",
+  "name": "Colombia",
+  "currency": "COP",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ordinario_independiente",
+    "name": "Impuesto de renta ordinario - persona natural independiente (cedula general)",
+    "appliesTo": "Resident individuals earning fees or business income, who declare under the ordinary regime",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 5708766000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 8903580000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 21473340000,
+       "rateBp": 2800
+      },
+      {
+       "upToMinor": 45408258000,
+       "rateBp": 3300
+      },
+      {
+       "upToMinor": 99353478000,
+       "rateBp": 3500
+      },
+      {
+       "upToMinor": 162359400000,
+       "rateBp": 3700
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3900
+      }
+     ],
+     "base": "renta liquida gravable after deductions and the 25% exempt labour income rule; Article 241 table in UVT (UVT 52,374 COP in 2026)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Health (EPS)",
+      "rateBp": 1250,
+      "base": "IBC = 40% of monthly income, minimum 1 SMMLV (1,750,905 COP)",
+      "floorMinor": 175090500,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Pension",
+      "rateBp": 1600,
+      "base": "IBC = 40% of monthly income, minimum 1 SMMLV (1,750,905 COP)",
+      "floorMinor": 175090500,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1900
+    },
+    "suggestedReserveRateBp": 1400,
+    "reserveBasis": "Social security is about 28.5% of 40% of income, i.e. 11.4% of gross; income tax is zero below roughly 1,090 UVT (57.1M COP) taxable, so 14% covers social security with a small margin.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (Form 210)",
+      "type": "annual",
+      "day": 31,
+      "month": 8
+     }
+    ],
+    "notes": "Art. 241 bracket structure (0/19/28/33/35/37/39% with thresholds 1,090/1,700/4,100/8,670/18,970/31,000 UVT) is the long-standing table; search confirmed 7 brackets, 0% up to 1,090 UVT and 39% above 31,000 UVT, intermediate thresholds not re-verified this session. A pending bill (PL 477/2026) would change it but is not in force. Filing window depends on NIT digits (Aug-Oct 2026); day 31/month 8 is a placeholder not verified. Solidarity fund (extra 1% above 4 SMMLV), ARL, IBC ceiling (25 SMMLV) and the VAT responsibility threshold were not verified. SMMLV 2026 1,750,905 COP from press.",
+    "sources": [
+     "https://estatuto.co/reforma/241",
+     "https://accounter.co/noticias/editorial/accounter-uvt-2026-el-nuevo-numero-que-redefine-sanciones-topes-y-planeacion-tributaria",
+     "https://www.eluniversal.com.co/colombia/2026/01/05/salario-minimo-2026-cuanto-pagaran-los-trabajadores-independientes-por-seguridad-social-en-colombia/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "simple",
+    "name": "Regimen Simple de Tributacion (RST) - professional and consulting services",
+    "appliesTo": "Individuals and companies with gross income below 100,000 UVT; professional/consulting/scientific services group",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 31424400000,
+       "rateBp": 590
+      },
+      {
+       "upToMinor": 78561000000,
+       "rateBp": 730
+      },
+      {
+       "upToMinor": 157122000000,
+       "rateBp": 1200
+      },
+      {
+       "upToMinor": 523740000000,
+       "rateBp": 1450
+      }
+     ],
+     "base": "gross annual turnover; consolidated rate replaces income tax and ICA (municipal), annual rates by revenue band"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Pension contribution (outside SIMPLE)",
+      "rateBp": 1600,
+      "base": "IBC = 40% of monthly income, minimum 1 SMMLV",
+      "floorMinor": 175090500,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1900
+    },
+    "suggestedReserveRateBp": 1700,
+    "reserveBasis": "5.9% SIMPLE rate on the first 6,000 UVT of turnover plus pension and health on 40% of income (about 11.4% of gross) is roughly 17%.",
+    "deadlines": [
+     {
+      "name": "SIMPLE advance payment (anticipos bimestrales)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     }
+    ],
+    "notes": "Rates 5.9/7.3/12/14.5% by band come from secondary sources and could not be matched with the official text; conflicting source seen. Advance payments are actually bimonthly; the deadline entry is approximate and unverified. Health contribution not listed separately here. Bogota ICA is included in the consolidated rate but ICA differs by municipality.",
+    "sources": [
+     "https://siemprealdia.co/colombia/impuestos/regimen-simple-de-tributacion/",
+     "https://legalytributarioenlinea.co.pwc.com/Repositorio%20PwC/PDF/Doctrina/DIAN/Prensa/2026/PRENSADIAN-000074-26.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.S.",
+    "caseSensitive": false,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "SAS",
+    "caseSensitive": true,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "Ltda",
+    "caseSensitive": false,
+    "name": "Sociedad Limitada"
+   },
+   {
+    "token": "Ltda.",
+    "caseSensitive": false,
+    "name": "Sociedad Limitada"
+   },
+   {
+    "token": "S.C.A.",
+    "caseSensitive": false,
+    "name": "Sociedad en Comandita por Acciones"
+   },
+   {
+    "token": "S. en C.",
+    "caseSensitive": false,
+    "name": "Sociedad en Comandita"
+   },
+   {
+    "token": "E.U.",
+    "caseSensitive": true,
+    "name": "Empresa Unipersonal"
+   },
+   {
+    "token": "Cooperativa",
+    "caseSensitive": false,
+    "name": "Cooperativa"
+   },
+   {
+    "token": "ESAL",
+    "caseSensitive": true,
+    "name": "Entidad sin Animo de Lucro"
+   }
+  ]
+ },
+ {
+  "code": "CR",
+  "name": "Costa Rica",
+  "currency": "CRC",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "actividades_lucrativas",
+    "name": "Persona fisica con actividades lucrativas (independiente)",
+    "appliesTo": "Self-employed individuals and sole proprietors earning profit from lucrative activities",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 624400000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 832900000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 1041400000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 2087200000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2500
+      }
+     ],
+     "base": "annual net profit (income less deductible expenses); 2026 brackets under Executive Decree 45333-H"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CCSS contributions for independent workers",
+      "rateBp": null,
+      "base": "rate and base not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1300
+    },
+    "suggestedReserveRateBp": 1000,
+    "reserveBasis": "Income tax is 0% up to 6.244M CRC net profit and 10-25% above; CCSS contributions (not verified) add roughly 10% on top; 10% is an estimate of CCSS only at modest income.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return (D-101)",
+      "type": "annual",
+      "day": 15,
+      "month": 3
+     }
+    ],
+    "notes": "EY states the 0% exempt amount for lucrative activities is 6,244,000 CRC for 2026. CCSS rate, 13% VAT, filing date and quarterly advance payments are not verified. Simplified tax regime for small taxpayers not researched. Reserve rate is a rough placeholder, mostly unverified.",
+    "sources": [
+     "https://www.ey.com/es_ce/technical/tax/tax-alerts/costa-rica-ministerio-de-hacienda-establecio-los-tramos-del-impuesto-sobre-la-renta-para-el-periodo-fiscal-2026"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "Ltda",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "Limitada",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "EIRL",
+    "caseSensitive": true,
+    "name": "Empresa Individual de Responsabilidad Limitada"
+   },
+   {
+    "token": "Sociedad Anonima",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "Cooperativa",
+    "caseSensitive": false,
+    "name": "Cooperativa"
+   }
+  ]
+ },
+ {
+  "code": "PE",
+  "name": "Peru",
+  "currency": "PEN",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "cuarta_categoria",
+    "name": "Trabajador independiente - renta de cuarta categoria (recibos por honorarios)",
+    "appliesTo": "Individuals providing independent professional services",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2750000,
+       "rateBp": 800
+      },
+      {
+       "upToMinor": 11000000,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": 19250000,
+       "rateBp": 1700
+      },
+      {
+       "upToMinor": 24750000,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3000
+      }
+     ],
+     "base": "annual labour income after allowances, UIT 5,500 PEN; rates by UIT band"
+    },
+    "allowanceMinor": 3850000,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 800,
+    "reserveBasis": "Taxable income after the 7 UIT allowance (38,500 PEN) is small at modest income, so tax is about 1-3% of gross; the usual 8% withholding on recibos por honorarios is a refundable advance, 8% retained as reserve.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     }
+    ],
+    "notes": "Brackets (8/14/17/20/30% at 5/20/35/45 UIT) and 7 UIT allowance from PwC; extra 3 UIT for deductible spending mentioned there. The 20% deduction for fourth category (cap 24 UIT) and the 8% withholding were not verified in this session. Fourth-category earners generally cannot use RUS/RER. Filing day/month is a placeholder. Mandatory pension for independents not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/peru/individual/taxes-on-personal-income"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "nuevo_rus",
+    "name": "Nuevo RUS (Nuevo Regimen Unico Simplificado)",
+    "appliesTo": "Individuals with business income up to 96,000 PEN per year (8,000 PEN per month); not for professional services",
+    "incomeTax": {
+     "type": "none",
+     "base": "fixed monthly fee replaces income tax and IGV"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Monthly fee: Category 1 (up to 5,000 PEN monthly) 20 PEN, Category 2 (up to 8,000 PEN) 50 PEN",
+      "rateBp": null,
+      "base": "fixed monthly fee",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 24000
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 100,
+    "reserveBasis": "Fee is 20-50 PEN per month, 0.4-0.6% of the category ceiling; 1% leaves margin.",
+    "deadlines": [],
+    "notes": "fixedAnnualMinor is Category 1 (20 x 12 PEN); Category 2 is 600 PEN per year. Due dates depend on RUC digit and were not collected.",
+    "sources": [
+     "https://tramitesperu.com/sunat/nuevo-rus/",
+     "https://yo-facturo.com/blog/nuevo-rus-regimen-unico-simplificado-2026/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "rer",
+    "name": "Regimen Especial de Renta (RER)",
+    "appliesTo": "Individuals and companies with annual income and purchases up to 525,000 PEN, up to 10 workers, listed activities",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 150,
+     "base": "monthly net income (turnover)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 1800
+    },
+    "suggestedReserveRateBp": 300,
+    "reserveBasis": "1.5% monthly income tax on turnover; IGV collected on sales is a pass-through; 3% adds a margin for IGV timing.",
+    "deadlines": [],
+    "notes": "Fixed assets limit 126,000 PEN. IGV 18% (16% plus 2% IPM) is general knowledge, not verified here. Due dates not collected.",
+    "sources": [
+     "https://tramitesperu.com/sunat/regimen-rer/",
+     "https://modelo.pe/blog/nrus-rer-rmt-regimen-general-explicados-comparativo-2026/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.C.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima Cerrada"
+   },
+   {
+    "token": "SAC",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima Cerrada"
+   },
+   {
+    "token": "S.A.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima Abierta"
+   },
+   {
+    "token": "SAA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima Abierta"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "Sociedad Comercial de Responsabilidad Limitada"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Sociedad Comercial de Responsabilidad Limitada"
+   },
+   {
+    "token": "E.I.R.L.",
+    "caseSensitive": false,
+    "name": "Empresa Individual de Responsabilidad Limitada"
+   },
+   {
+    "token": "EIRL",
+    "caseSensitive": true,
+    "name": "Empresa Individual de Responsabilidad Limitada"
+   },
+   {
+    "token": "S.C.R.L.",
+    "caseSensitive": false,
+    "name": "Sociedad Civil de Responsabilidad Limitada"
+   },
+   {
+    "token": "SCRL",
+    "caseSensitive": true,
+    "name": "Sociedad Civil de Responsabilidad Limitada"
+   }
+  ]
+ },
+ {
+  "code": "UY",
+  "name": "Uruguay",
+  "currency": "UYU",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "irpf_independiente",
+    "name": "IRPF categoria II - independent professional (labour income)",
+    "appliesTo": "Self-employed professionals taxed under IRPF progressive scale on labour income",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 57657600,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 82368000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 123552000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 247104000,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 411840000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 617760000,
+       "rateBp": 2700
+      },
+      {
+       "upToMinor": 947232000,
+       "rateBp": 3100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3600
+      }
+     ],
+     "base": "annual taxable labour income; scale as of 31 Dec 2025 (BPC-indexed, may be revised in 2026)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "BPS contributions (pension, health)",
+      "rateBp": null,
+      "base": "not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": null,
+    "reserveBasis": "Not derived: BPS contribution rates and deductions were not verified, so no reserve rate is proposed.",
+    "deadlines": [],
+    "notes": "Scale from PwC (resident individuals, 31 Dec 2025). BPC value, IRPF category I (business income) rate, IVA and BPS rates not verified. Monotributo (BPS) and Literal E (minimum VAT, around 5,910 UYU per month per one source) exist but figures conflict between sources and were not captured.",
+    "sources": [
+     "https://taxsummaries.pwc.com/uruguay/individual/taxes-on-personal-income"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Sociedad de Responsabilidad Limitada"
+   },
+   {
+    "token": "S.A.S.",
+    "caseSensitive": false,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "SAS",
+    "caseSensitive": true,
+    "name": "Sociedad por Acciones Simplificada"
+   },
+   {
+    "token": "Ltda",
+    "caseSensitive": false,
+    "name": "Sociedad Limitada"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Sociedad Colectiva"
+   },
+   {
+    "token": "Cooperativa",
+    "caseSensitive": false,
+    "name": "Cooperativa"
+   }
+  ]
+ },
+ {
+  "code": "KY",
+  "name": "Cayman Islands",
+  "currency": "KYD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "no_income_tax",
+    "name": "Self-employed / sole trader (no direct taxation)",
+    "appliesTo": "Any individual; Cayman levies no income, capital gains or withholding tax on individuals",
+    "incomeTax": {
+     "type": "none",
+     "base": "no income tax on individuals"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": null
+    },
+    "suggestedReserveRateBp": 0,
+    "reserveBasis": "No income tax or VAT; nothing to reserve for tax under this model.",
+    "deadlines": [],
+    "notes": "Trade and business licence fees, work permit fees and National Pensions Scheme contributions may apply but were not verified and are not modelled. No VAT/sales tax per Carey Olsen.",
+    "sources": [
+     "https://taxsummaries.pwc.com/cayman-islands/individual/taxes-on-personal-income",
+     "https://www.deloitte.com/content/dam/assets-shared/docs/services/tax/2026/dttl-tax-caymanislandshighlights-2026.pdf",
+     "https://www.careyolsen.com/briefing/pdf_generate/1611"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Ltd.",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "Limited",
+    "caseSensitive": false,
+    "name": "Limited"
+   },
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "ELP",
+    "caseSensitive": true,
+    "name": "Exempted Limited Partnership"
+   },
+   {
+    "token": "SPC",
+    "caseSensitive": true,
+    "name": "Segregated Portfolio Company"
+   },
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Corp",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "Foundation Company",
+    "caseSensitive": false,
+    "name": "Foundation Company"
+   }
+  ]
+ },
+ {
+  "code": "SX",
+  "name": "Sint Maarten",
+  "currency": "XCG",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed",
+    "name": "Self-employed / sole proprietor (income tax on business profit)",
+    "appliesTo": "Resident individuals carrying on a business; profit taxed under individual income tax (not profit tax)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 3657600,
+       "rateBp": 1250
+      },
+      {
+       "upToMinor": 5486400,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 7620000,
+       "rateBp": 2625
+      },
+      {
+       "upToMinor": 11429700,
+       "rateBp": 3375
+      },
+      {
+       "upToMinor": 16154000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4750
+      }
+     ],
+     "base": "annual taxable income in XCG, rates include 25% surtax"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social insurance (AOV/AWW/ZV) for self-employed",
+      "rateBp": null,
+      "base": "not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 500
+    },
+    "suggestedReserveRateBp": 1600,
+    "reserveBasis": "At about 60,000 XCG taxable the scale gives roughly 9,600 XCG (about 16%) before allowances; social insurance not included because not verified.",
+    "deadlines": [],
+    "notes": "Currency is the Caribbean guilder (XCG), which replaced the ANG per Deloitte. 5% is the BBO sales tax standard rate; registration threshold not verified. Individual return is due two months after it is received from the tax office; no fixed date, so deadlines are empty. Personal allowances exist but amounts were not verified.",
+    "sources": [
+     "https://www.deloitte.com/content/dam/assets-shared/docs/services/tax/2026/dttl-tax-sintmaartenhighlights-2026.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "N.V.",
+    "caseSensitive": false,
+    "name": "Naamloze Vennootschap"
+   },
+   {
+    "token": "NV",
+    "caseSensitive": true,
+    "name": "Naamloze Vennootschap"
+   },
+   {
+    "token": "B.V.",
+    "caseSensitive": false,
+    "name": "Besloten Vennootschap"
+   },
+   {
+    "token": "BV",
+    "caseSensitive": true,
+    "name": "Besloten Vennootschap"
+   },
+   {
+    "token": "V.O.F.",
+    "caseSensitive": false,
+    "name": "Vennootschap onder Firma"
+   },
+   {
+    "token": "VOF",
+    "caseSensitive": true,
+    "name": "Vennootschap onder Firma"
+   },
+   {
+    "token": "C.V.",
+    "caseSensitive": false,
+    "name": "Commanditaire Vennootschap"
+   },
+   {
+    "token": "CV",
+    "caseSensitive": true,
+    "name": "Commanditaire Vennootschap"
+   },
+   {
+    "token": "Stichting",
+    "caseSensitive": false,
+    "name": "Foundation"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ },
+ {
+  "code": "GU",
+  "name": "Guam",
+  "currency": "USD",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "US",
+  "regimes": [],
+  "legalForms": [
+   {
+    "token": "Inc",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Inc.",
+    "caseSensitive": false,
+    "name": "Incorporated"
+   },
+   {
+    "token": "Corp",
+    "caseSensitive": false,
+    "name": "Corporation"
+   },
+   {
+    "token": "LLC",
+    "caseSensitive": true,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "L.L.C.",
+    "caseSensitive": false,
+    "name": "Limited Liability Company"
+   },
+   {
+    "token": "LLP",
+    "caseSensitive": true,
+    "name": "Limited Liability Partnership"
+   },
+   {
+    "token": "LP",
+    "caseSensitive": true,
+    "name": "Limited Partnership"
+   },
+   {
+    "token": "Ltd",
+    "caseSensitive": false,
+    "name": "Limited"
+   }
+  ]
+ }
+]

@@ -76,6 +76,8 @@ def reserve(session: Session, tx: TransactionRow, profile: ProfileRow) -> Option
         reserved_amount=reserved,
         tax_currency=profile.tax_currency,
         status="reserved",
+        country=profile.country,
+        regime=profile.regime,
     )
     tx.reservation_id = reservation.id
     session.add_all([balance, jar, reservation, tx])

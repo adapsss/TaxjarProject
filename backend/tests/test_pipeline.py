@@ -15,6 +15,8 @@ def test_acme_reserves_276_eur(client, session, onboarded, events):
     assert {k: reservation[k] for k in reservation if k not in ("id", "transactionId")} == {
         "sourceAmount": 30000, "sourceCurrency": "USD", "rate": 2000, "fxRate": 0.92,
         "reservedAmount": 27600, "taxCurrency": "EUR", "status": "reserved",
+        "breakdown": [{"id": "income_tax", "name": "Income tax", "amount": 11040},
+                      {"id": "social_tax", "name": "Social tax", "amount": 16560}],
     }
     assert tx["reservationId"] == reservation["id"]
     assert balance(client, "USD") - usd == 120000

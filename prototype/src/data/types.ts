@@ -32,6 +32,12 @@ export interface Classification {
   confidence: number
   reasons: string[]
 }
+/** One tax inside a reserved amount, e.g. income tax or social tax. */
+export interface TaxPart {
+  id: string
+  name: string
+  amount: number
+}
 export interface TaxReservation {
   id: string
   transactionId: string
@@ -42,6 +48,8 @@ export interface TaxReservation {
   reservedAmount: number
   taxCurrency: string
   status: 'reserved' | 'undone' | 'paid'
+  /** Exact split of reservedAmount; null when the regime defines no per-payment split. */
+  breakdown?: TaxPart[] | null
 }
 export interface Transaction {
   id: string
@@ -65,6 +73,8 @@ export interface Regime {
   name: string
   defaultRate: number
   hint: string
+  /** The regime's taxes in words, shown where no money split exists. */
+  breakdownRule?: string
 }
 export interface Country {
   code: string
@@ -83,6 +93,9 @@ export interface TaxSummary {
   estimatedDue: number
   nextDeadline: string | null // YYYY-MM-DD
   disclaimer: string
+  /** Exact split of totalReserved; null when the regime defines no per-payment split. */
+  breakdown?: TaxPart[] | null
+  breakdownRule?: string
 }
 export interface PayResult {
   transaction: Transaction

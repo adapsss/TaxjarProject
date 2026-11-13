@@ -53,6 +53,8 @@ function toSummary(db: engine.DB, server: TaxSummary | null): engine.Summary {
     estimatedDue: server.estimatedDue,
     // "2026-12-10" as a local date, so it never shifts a day across time zones.
     nextDeadline: server.nextDeadline ? new Date(`${server.nextDeadline}T00:00:00`) : null,
+    breakdown: server.breakdown ?? null,
+    breakdownRule: server.breakdownRule ?? '',
   }
 }
 

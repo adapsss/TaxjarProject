@@ -1,0 +1,842 @@
+[
+ {
+  "code": "IS",
+  "name": "Iceland",
+  "currency": "ISK",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "sole_proprietor_standard",
+    "name": "Sjalfstaett starfandi einstaklingur (self-employed sole proprietor)",
+    "appliesTo": "Individuals running their own business; taxed on profit via the tax return, paying withholding on a calculated wage (reiknad endurgjald). VAT registration obligatory above ISK 2,000,000 taxable turnover in 12 months.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 597746400,
+       "rateBp": 3149
+      },
+      {
+       "upToMinor": 1678140000,
+       "rateBp": 3799
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4629
+      }
+     ],
+     "base": "Annual taxable income (profit/calculated wage), combined state tax (16.55%/23.05%/31.35%) plus municipal tax at the 14.94% maximum rate; actual municipal rate ranges 12.44%-14.94%. Bracket limits are the annual equivalents of the monthly 2026 thresholds (ISK 5,977,464 and 16,781,400)."
+    },
+    "allowanceMinor": 86989800,
+    "socialContributions": [
+     {
+      "name": "Tryggingagjald (social insurance levy)",
+      "rateBp": 635,
+      "base": "Calculated wage / remuneration from own business",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Mandatory pension fund contribution (lifeyrissjodur), minimum total",
+      "rateBp": 1550,
+      "base": "Calculated wage / remuneration; 4% employee share is deductible from income tax base, remainder treated as business cost; builds personal pension rights",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 200000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 2900,
+    "reserveBasis": "Assume ISK 9,600,000 annual profit: tax 31.49% on 5,977,464 + 37.99% on the rest = about 3,023,000 less personal credit 869,898 = about 2,153,000 (22.4%); tryggingagjald 6.35% = about 610,000 (6.4%). Total about 28.8%, rounded to 2900 bp; excludes the pension contribution, which is savings and partly deductible.",
+    "deadlines": [
+     {
+      "name": "Annual income tax return filing (PwC: before end of 14 March)",
+      "type": "annual",
+      "day": 14,
+      "month": 3
+     }
+    ],
+    "notes": "Personal allowance (personuafslattur) is a tax credit of ISK 72,492 per month / ISK 869,898 per year in 2026, represented here as allowanceMinor (credit value, not a deduction from income). Minimum calculated wage (reiknad endurgjald) for 2026 and exact withholding/tryggingagjald/VAT filing dates could not be verified (null/omitted). Balancing payments after assessment are collected on five due dates between 1 July and December (PwC). The VAT threshold of ISK 2,000,000 comes from secondary legal guides, not Skatturinn directly. Municipal rate varies by municipality. Bracket limits in minor units = ISK x 100.",
+    "sources": [
+     "https://taxsummaries.pwc.com/iceland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/iceland/individual/other-taxes",
+     "https://taxsummaries.pwc.com/iceland/individual/tax-administration",
+     "https://www.skatturinn.is/atvinnurekstur/stadgreidsla-og-reiknad-endurgjald/personuafslattur/",
+     "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/tryggingagjald/",
+     "https://commoner-law.com/en/iceland/tax-rights/vsk-business-registration"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "ehf.",
+    "caseSensitive": false,
+    "name": "Einkahlutafelag"
+   },
+   {
+    "token": "ehf",
+    "caseSensitive": false,
+    "name": "Einkahlutafelag"
+   },
+   {
+    "token": "hf.",
+    "caseSensitive": false,
+    "name": "Hlutafelag"
+   },
+   {
+    "token": "hf",
+    "caseSensitive": true,
+    "name": "Hlutafelag"
+   },
+   {
+    "token": "ohf.",
+    "caseSensitive": false,
+    "name": "Opinbert hlutafelag"
+   },
+   {
+    "token": "ohf",
+    "caseSensitive": false,
+    "name": "Opinbert hlutafelag"
+   },
+   {
+    "token": "slf.",
+    "caseSensitive": false,
+    "name": "Sameignarfelag"
+   },
+   {
+    "token": "sf.",
+    "caseSensitive": true,
+    "name": "Samvinnufelag"
+   },
+   {
+    "token": "ses.",
+    "caseSensitive": false,
+    "name": "Sjalfseignarstofnun"
+   }
+  ]
+ },
+ {
+  "code": "LV",
+  "name": "Latvia",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "self_employed_general",
+    "name": "Saimnieciskas darbibas veicejs (self-employed, general regime)",
+    "appliesTo": "Individuals registered with the VID as self-employed (saimnieciska darbiba), taxed on net profit with personal income tax (IIN) and mandatory state social insurance contributions (VSAOI).",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 10530000,
+       "rateBp": 2550
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3300
+      }
+     ],
+     "base": "Annual net profit (turnover minus business expenses) after deducting paid VSAOI and allowances; an extra 3% applies to total annual income above EUR 200,000 (not modelled)"
+    },
+    "allowanceMinor": 660000,
+    "socialContributions": [
+     {
+      "name": "VSAOI (state social insurance), standard rate",
+      "rateBp": 3107,
+      "base": "Monthly self-employed income (profit); 29.36% for those of retirement age",
+      "floorMinor": 78000,
+      "capMinor": 10530000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 4200,
+    "reserveBasis": "Assume EUR 24,000 annual profit: VSAOI 31.07% = 7,457; taxable = 24,000 - 7,457 - 6,600 allowance = 9,943 x 25.5% = 2,535; total 9,992 / 24,000 = 41.6%, rounded to 4200 bp. The 24,000 figure is an assumed approximate average-wage level, not a verified statistic.",
+    "deadlines": [
+     {
+      "name": "Quarterly VSAOI report",
+      "type": "quarterly",
+      "day": 17,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Quarterly VSAOI payment",
+      "type": "quarterly",
+      "day": 23,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Annual income tax (IIN) declaration, window 1 March - 1 June",
+      "type": "annual",
+      "day": 1,
+      "month": 6
+     },
+     {
+      "name": "Annual IIN payment",
+      "type": "annual",
+      "day": 23,
+      "month": 6
+     }
+    ],
+    "notes": "Rates per PwC 2026 pages. The VAT registration threshold of EUR 50,000 is from secondary sources (one lists possible postponement to EUR 55,000), PwC page did not state it. Sources conflict on whether the minimum quarterly contribution (3 x minimum wage EUR 780 = EUR 2,340) still applies from 2026; floorMinor shows the monthly minimum wage as the assumed floor. Optional reduced 10% contribution rate exists for low income. Filing window is 1 April-1 July if income exceeds EUR 105,300. The 25.5%/33% rates and the EUR 6,600 fixed personal allowance come from PwC; no official VID page was confirmed.",
+    "sources": [
+     "https://taxsummaries.pwc.com/latvia/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/latvia/individual/other-taxes",
+     "https://taxsummaries.pwc.com/latvia/individual/tax-administration",
+     "https://taxsummaries.pwc.com/latvia/individual/deductions",
+     "https://pats.lv/en/blog/pasnodarbinato-atskaites-termini-sagatavosana-iesniegsana-2026"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "micro_enterprise_tax",
+    "name": "Mikrouznemuma nodoklis (MUN, micro-enterprise tax)",
+    "appliesTo": "Sole traders and micro-enterprises whose expected turnover stays below the VAT registration threshold (EUR 50,000 per secondary sources) and who opt into MUN status with the VID.",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2500,
+     "base": "Gross turnover (before expenses); single tax replacing IIN and VSAOI"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Included in MUN (VSAOI, IIN and business risk fee replaced by the single tax)",
+      "rateBp": 0,
+      "base": "Covered by the 25% turnover tax",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 5000
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 2500,
+    "reserveBasis": "MUN is a single 25% tax on turnover (VID 2026) that already includes income tax and social contributions, so reserve 25% of gross; minimum annual payment is EUR 50.",
+    "deadlines": [
+     {
+      "name": "Quarterly MUN declaration and payment",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     }
+    ],
+    "notes": "VID states 25% for 2026 and a EUR 50 minimum annual payment; the exact turnover limit was not stated on the VID page (EUR 50,000 per secondary sources). One secondary source mentions a proposed 10% beginner MUN rate that could not be confirmed. A secondary source gives payment by the 23rd; VID gives the 15th.",
+    "sources": [
+     "https://www.vid.gov.lv/en/node/57223",
+     "https://taxsummaries.pwc.com/latvia/individual/taxes-on-personal-income",
+     "https://pats.lv/en/blog/pasnodarbinato-atskaites-termini-sagatavosana-iesniegsana-2026"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "SIA",
+    "caseSensitive": true,
+    "name": "Sabiedriba ar ierobezotu atbildibu"
+   },
+   {
+    "token": "AS",
+    "caseSensitive": true,
+    "name": "Akciju sabiedriba"
+   },
+   {
+    "token": "KS",
+    "caseSensitive": true,
+    "name": "Komanditsabiedriba"
+   },
+   {
+    "token": "PS",
+    "caseSensitive": true,
+    "name": "Pilnsabiedriba"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea (Eiropas komercsabiedriba)"
+   },
+   {
+    "token": "Kooperativa sabiedriba",
+    "caseSensitive": false,
+    "name": "Kooperativa sabiedriba"
+   }
+  ]
+ },
+ {
+  "code": "LT",
+  "name": "Lithuania",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "individual_activity_certificate",
+    "name": "Individuali veikla pagal pazyma (individual activity under activity certificate)",
+    "appliesTo": "Self-employed individuals registering an individual activity with the tax authority (VMI) and declaring income annually; the freelancer default when not using a business certificate or company.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": 8323700,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 13872900,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 3200
+      }
+     ],
+     "base": "Annual taxable profit: income minus actual expenses or a flat 30% of income without documents. Brackets: 5% effective on profit up to EUR 20,000 (small-business relief), rising gradually to 20% at EUR 42,500 (modelled here as 20% for the whole second band, a conservative simplification), then the general 20% / 25% (above 36 average wages, EUR 83,237) / 32% (above 60 average wages, EUR 138,729)."
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Sodra social insurance incl. PSD health 6.98% (total 19.5%)",
+      "rateBp": 1950,
+      "base": "90% of taxable activity income (income after allowable deductions)",
+      "floorMinor": null,
+      "capMinor": 9942200,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4500000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 1600,
+    "reserveBasis": "Assume EUR 27,744 annual revenue (about 12 x EUR 2,312 average monthly wage implied by the EUR 83,237 = 36 AW threshold) with flat 30% expenses: profit 19,421 taxed at about 5% = 971; Sodra 19.5% x 90% x 19,421 = 3,408; total 4,379 / 27,744 = 15.8%, rounded to 1600 bp. Using actual expenses lower than 30% or income above EUR 20,000 profit would raise this.",
+    "deadlines": [
+     {
+      "name": "Annual personal income tax return filing and payment",
+      "type": "annual",
+      "day": 1,
+      "month": 5
+     }
+    ],
+    "notes": "Rates of 20/25/32% and social contribution rates are from PwC 2026. The 5% rate up to EUR 20,000 and gradual rise to EUR 42,500 come only from secondary sources (Roedl, Motieka), not VMI directly. PwC states the basic tax-free amount (EUR 747/month) is described for employment income only; whether it applies to individual activity could not be verified, so allowanceMinor is 0. The VAT threshold of EUR 45,000 is from secondary sources. Sodra payment dates for self-employed were not verified and are omitted. Second-pillar pension contribution became voluntary from 1 Jan 2026. Cap 43 AW = EUR 99,422.",
+    "sources": [
+     "https://taxsummaries.pwc.com/lithuania/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/lithuania/individual/other-taxes",
+     "https://taxsummaries.pwc.com/lithuania/individual/tax-administration",
+     "https://taxsummaries.pwc.com/lithuania/individual/deductions",
+     "https://motieka.com/news/tax-reform-2026-key-changes-in-lithuania-for-businesses-and-individuals/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "business_certificate",
+    "name": "Verslo liudijimas (business certificate)",
+    "appliesTo": "Individuals in eligible activities with annual income under the business certificate limit (EUR 50,000 from 2026 per VMI document; earlier EUR 45,000); fixed income tax set per municipality.",
+    "incomeTax": {
+     "type": "none",
+     "base": "Fixed periodic income tax amount for the certificate set by the municipality (not verified); income above EUR 50,000 is taxed as individual activity"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Sodra social insurance incl. PSD health 6.98% (total 15.7%)",
+      "rateBp": 1570,
+      "base": "Official minimum monthly salary in force (EUR 1,153 in 2026, per PwC deductions page), paid monthly",
+      "floorMinor": 115300,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4500000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 800,
+    "reserveBasis": "Sodra 15.7% x EUR 1,153 x 12 = about 2,172 per year / 27,744 assumed revenue = 7.8%, rounded to 800 bp; excludes the municipal certificate fee, which could not be verified.",
+    "deadlines": [
+     {
+      "name": "Annual return (if required)",
+      "type": "annual",
+      "day": 1,
+      "month": 5
+     }
+    ],
+    "notes": "Certificate price varies by municipality and activity and was not verified (secondary source cited EUR 684/year for housing rental in Vilnius). The income limit of EUR 50,000 comes from a VMI document snippet; other sites still show EUR 45,000. Income tax type set to none because it is a fixed fee, not a rate on income.",
+    "sources": [
+     "https://taxsummaries.pwc.com/lithuania/individual/other-taxes",
+     "https://taxsummaries.pwc.com/lithuania/individual/deductions",
+     "https://www.vmi.lt/evmi/documents/20142/391071/Mokes\u010di\u0173+\u012fstatymo+pakeitimai+nuo+2026-01-01.pdf"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "UAB",
+    "caseSensitive": true,
+    "name": "Uzdaroji akcine bendrove"
+   },
+   {
+    "token": "AB",
+    "caseSensitive": true,
+    "name": "Akcine bendrove"
+   },
+   {
+    "token": "MB",
+    "caseSensitive": true,
+    "name": "Mazoji bendrija"
+   },
+   {
+    "token": "T\u016aB",
+    "caseSensitive": true,
+    "name": "Tikroji ukine bendrija"
+   },
+   {
+    "token": "K\u016aB",
+    "caseSensitive": true,
+    "name": "Komanditine ukine bendrija"
+   },
+   {
+    "token": "V\u0161\u012e",
+    "caseSensitive": true,
+    "name": "Viesoji istaiga"
+   },
+   {
+    "token": "\u017d\u016aB",
+    "caseSensitive": true,
+    "name": "Zemes ukio bendrove"
+   },
+   {
+    "token": "Kooperatin\u0117 bendrov\u0117",
+    "caseSensitive": false,
+    "name": "Kooperatine bendrove"
+   }
+  ]
+ },
+ {
+  "code": "ES",
+  "name": "Spain",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "autonomo_estimacion_directa_simplificada",
+    "name": "Autonomo - estimacion directa simplificada (IRPF, RETA)",
+    "appliesTo": "Self-employed persons (trabajador autonomo) registered in RETA; simplified direct estimation is the default for turnover up to EUR 600,000.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1245000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 2020000,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 3520000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 6000000,
+       "rateBp": 3700
+      },
+      {
+       "upToMinor": 30000000,
+       "rateBp": 4500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4700
+      }
+     ],
+     "base": "Net business profit (income minus deductible expenses, incl. 5% hard-to-justify expenses capped EUR 2,000 in simplified method) minus the EUR 2,000 fixed reduction and Social Security contributions; combined state+regional default scale, each autonomous community may set its own scale"
+    },
+    "allowanceMinor": 555000,
+    "socialContributions": [
+     {
+      "name": "RETA autonomo contribution (31.4% per PwC; about 31.5% incl. MEI per other sources)",
+      "rateBp": 3140,
+      "base": "Elected monthly contribution base within the income bracket (15 brackets based on net income)",
+      "floorMinor": 65359,
+      "capMinor": 510120,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 2900,
+    "reserveBasis": "Assume EUR 27,000 annual net profit and a bracket base of about EUR 1,300/month: Social Security about 410 x 12 = 4,920; IRPF taxable base 27,000 - 4,920 - 5% (1,104) - 2,000 = 18,976 gives 2,365 + 6,526 x 24% = 3,932 less 5,550 x 19% (1,055) = 2,877; total 7,797 / 27,000 = 28.9%, rounded to 2900 bp.",
+    "deadlines": [
+     {
+      "name": "Modelo 130 quarterly IRPF advance payment (Q1-Q3; Q4 by 30 January)",
+      "type": "quarterly",
+      "day": 20,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Modelo 303 quarterly VAT return (Q4 by 30 January)",
+      "type": "quarterly",
+      "day": 20,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Annual IRPF return (Renta), window 11 April - 30 June",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "Brackets are the 2026 withholding scale from PwC (state + default regional); real regional scales differ. The monthly base of EUR 1,300 and the quota of about EUR 410 are assumptions from the income bracket table (secondary sources) and were not verified; sources disagree slightly on the 2026 rate (31.4% PwC vs 31.5% others) and on tramo-1 quota (about EUR 200-230). Min base EUR 653.59 and max EUR 5,101.20 per PwC. Modelo 130 dates and the 5% deduction come from secondary commercial guides; Q4 and VAT dates are standard but not confirmed by an official source here. No VAT registration threshold exists for professionals in practice, but PwC page did not state it, so null.",
+    "sources": [
+     "https://taxsummaries.pwc.com/spain/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/spain/individual/other-taxes",
+     "https://taxsummaries.pwc.com/spain/individual/tax-administration",
+     "https://taxsummaries.pwc.com/spain/individual/deductions",
+     "https://sparkreceipt.com/es-es/blog/modelo-130/",
+     "https://www.oie.es/cuotas-de-autonomos/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "autonomo_tarifa_plana",
+    "name": "Autonomo - tarifa plana (new self-employed flat contribution, first year)",
+    "appliesTo": "Newly registered autonomos (first 12 months, extendable another 12 if net income stays below the minimum wage); same IRPF rules as the standard regime.",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1245000,
+       "rateBp": 1900
+      },
+      {
+       "upToMinor": 2020000,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 3520000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 6000000,
+       "rateBp": 3700
+      },
+      {
+       "upToMinor": 30000000,
+       "rateBp": 4500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4700
+      }
+     ],
+     "base": "Net business profit after expenses, EUR 2,000 fixed reduction, and the flat Social Security fee"
+    },
+    "allowanceMinor": 555000,
+    "socialContributions": [
+     {
+      "name": "Tarifa plana flat monthly fee (about EUR 80, about EUR 88.64 with MEI per secondary sources)",
+      "rateBp": 0,
+      "base": "Fixed monthly fee during the reduced period",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 106368
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 1800,
+    "reserveBasis": "Assume EUR 27,000 net profit: flat fee 1,064; taxable 27,000 - 1,064 - 5% (1,297) - 2,000 = 22,639 gives 2,365 + 1,860 + 732 = 4,958 less 1,055 = 3,903; total 4,967 / 27,000 = 18.4%, rounded to 1800 bp.",
+    "deadlines": [
+     {
+      "name": "Modelo 130 quarterly IRPF advance payment (Q1-Q3; Q4 by 30 January)",
+      "type": "quarterly",
+      "day": 20,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Annual IRPF return (Renta), window 11 April - 30 June",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "The flat fee amount (EUR 80 base, about EUR 88.64 with MEI) is from secondary sources and was not verified against the Seguridad Social. After the reduced period the standard RETA contribution applies.",
+    "sources": [
+     "https://www.oie.es/cuotas-de-autonomos/",
+     "https://taxsummaries.pwc.com/spain/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/spain/individual/deductions"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.L.",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada"
+   },
+   {
+    "token": "SL",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada"
+   },
+   {
+    "token": "S.L.U.",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada Unipersonal"
+   },
+   {
+    "token": "SLU",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada Unipersonal"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima"
+   },
+   {
+    "token": "S.A.U.",
+    "caseSensitive": true,
+    "name": "Sociedad Anonima Unipersonal"
+   },
+   {
+    "token": "S.L.N.E.",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada Nueva Empresa"
+   },
+   {
+    "token": "S.Coop.",
+    "caseSensitive": false,
+    "name": "Sociedad Cooperativa"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": true,
+    "name": "Sociedad Colectiva"
+   },
+   {
+    "token": "S.Com.",
+    "caseSensitive": false,
+    "name": "Sociedad Comanditaria"
+   },
+   {
+    "token": "S.L.L.",
+    "caseSensitive": true,
+    "name": "Sociedad Limitada Laboral"
+   }
+  ]
+ },
+ {
+  "code": "PT",
+  "name": "Portugal",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "trabalhador_independente_simplificado",
+    "name": "Trabalhador independente - regime simplificado (IRS category B, recibos verdes)",
+    "appliesTo": "Self-employed individuals (Category B) with annual gross income below EUR 200,000 taxed under the simplified regime, where taxable income is a fixed coefficient of turnover (0.75 for art. 151 professional services, 0.35 other services, 0.15 goods and some hospitality).",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 834200,
+       "rateBp": 1250
+      },
+      {
+       "upToMinor": 1258700,
+       "rateBp": 1570
+      },
+      {
+       "upToMinor": 1783800,
+       "rateBp": 2120
+      },
+      {
+       "upToMinor": 2308900,
+       "rateBp": 2410
+      },
+      {
+       "upToMinor": 2939700,
+       "rateBp": 3110
+      },
+      {
+       "upToMinor": 4309000,
+       "rateBp": 3490
+      },
+      {
+       "upToMinor": 4656600,
+       "rateBp": 4310
+      },
+      {
+       "upToMinor": 8663400,
+       "rateBp": 4460
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4800
+      }
+     ],
+     "base": "Presumptive taxable income: turnover x coefficient (0.75 for professional services) minus the specific deduction (8.54 x IAS = EUR 4,587.09, or Social Security contributions if higher). 2026 mainland resident scale; 2.5% solidarity surcharge above EUR 80,000 and 5% above EUR 250,000 not modelled."
+    },
+    "allowanceMinor": 458709,
+    "socialContributions": [
+     {
+      "name": "Seguranca Social independent worker contribution",
+      "rateBp": 2140,
+      "base": "One third per quarter of relevant income: 70% of service income or 20% of sales income received in the previous three months",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 1500000,
+     "standardRateBp": 2300
+    },
+    "suggestedReserveRateBp": 2300,
+    "reserveBasis": "Assume EUR 25,000 annual revenue from professional services: Social Security 21.4% x 70% x 25,000 = 3,745; taxable 25,000 x 0.75 = 18,750 minus higher of specific deduction 4,587 or SS 3,745 = 14,163; IRS 21.2% x 14,163 - 959.26 = 2,043; total 5,788 / 25,000 = 23.2%, rounded to 2300 bp. The 25,000 revenue is an assumed average-wage level, not a verified statistic.",
+    "deadlines": [
+     {
+      "name": "Annual IRS return filing (30 June)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     },
+     {
+      "name": "Annual IRS payment of tax due (31 August)",
+      "type": "annual",
+      "day": 31,
+      "month": 8
+     }
+    ],
+    "notes": "Bracket table and Social Security rate/base from PwC 2026; IAS EUR 537.13 and specific deduction EUR 4,587.09 from the AT newsletter 39 (Jan 2026); coefficients from a secondary consumer article (Cofidis). VAT exemption threshold EUR 15,000 with a EUR 18,750 tolerance limit per the AT newsletter. Not verified and omitted: Seguranca Social quarterly declaration dates, VAT periodic return dates, and payment-on-account dates (these exist for self-employed exempt from withholding). First-year and second-year income reductions and IRS Jovem were not modelled. Standard withholding on professional invoices is 23% (secondary source). Madeira/Azores have different rates (VAT 22%/16%).",
+    "sources": [
+     "https://taxsummaries.pwc.com/portugal/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/portugal/individual/other-taxes",
+     "https://taxsummaries.pwc.com/portugal/individual/tax-administration",
+     "https://info.portaldasfinancas.gov.pt/pt/at/Divulgacao/publicacoes_internas/Newsletter_AT/Documents/Newsletter-39-janeiro-2026.pdf",
+     "https://contasconnosco.cofidis.pt/direitos-e-deveres/e-trabalhador-independente-este-aviso-e-para-si"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "Lda.",
+    "caseSensitive": false,
+    "name": "Sociedade por Quotas (Limitada)"
+   },
+   {
+    "token": "Lda",
+    "caseSensitive": false,
+    "name": "Sociedade por Quotas (Limitada)"
+   },
+   {
+    "token": "Limitada",
+    "caseSensitive": false,
+    "name": "Sociedade por Quotas"
+   },
+   {
+    "token": "Unipessoal",
+    "caseSensitive": false,
+    "name": "Sociedade Unipessoal por Quotas"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": true,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Sociedade Anonima"
+   },
+   {
+    "token": "SGPS",
+    "caseSensitive": true,
+    "name": "Sociedade Gestora de Participacoes Sociais"
+   },
+   {
+    "token": "CRL",
+    "caseSensitive": true,
+    "name": "Cooperativa de Responsabilidade Limitada"
+   },
+   {
+    "token": "C.R.L.",
+    "caseSensitive": true,
+    "name": "Cooperativa de Responsabilidade Limitada"
+   }
+  ]
+ }
+]

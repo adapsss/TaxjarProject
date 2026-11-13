@@ -14,6 +14,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
+from .breakdown import describe_rule
+
 _COUNTRIES_FILE = Path(__file__).with_name("countries.json")
 _OTHER = "*"
 
@@ -53,7 +55,9 @@ def load_countries() -> list:
         source = _resolve(entry["code"])
         regimes = []
         for regime in (source or {}).get("regimes", []):
-            regimes.append({key: regime[key] for key in ("id", "name", "defaultRate", "hint", "deadline")})
+            item = {key: regime[key] for key in ("id", "name", "defaultRate", "hint", "deadline")}
+            item["breakdownRule"] = describe_rule(regime)
+            regimes.append(item)
         result.append(
             {
                 "code": entry["code"],

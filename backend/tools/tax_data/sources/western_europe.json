@@ -1,0 +1,2151 @@
+[
+ {
+  "code": "AT",
+  "name": "Austria",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "at_gewerbe_selbstaendig",
+    "name": "Selbstaendige / Einzelunternehmer (GSVG/SVS)",
+    "appliesTo": "Sole traders and freelancers with trade licence or neue Selbstaendige",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1353900,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 2199200,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 3645800,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 7036500,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": 10485900,
+       "rateBp": 4800
+      },
+      {
+       "upToMinor": 100000000,
+       "rateBp": 5000
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5500
+      }
+     ],
+     "base": "net profit after deductions"
+    },
+    "allowanceMinor": 1353900,
+    "socialContributions": [
+     {
+      "name": "SVS Pensionsversicherung (PV)",
+      "rateBp": 1850,
+      "base": "Beitragsgrundlage = net profit (plus paid social contributions, simplified to net profit); monthly min 55110, max 808500",
+      "floorMinor": 661320,
+      "capMinor": 9702000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "SVS Krankenversicherung (KV)",
+      "rateBp": 680,
+      "base": "same Beitragsgrundlage",
+      "floorMinor": 661320,
+      "capMinor": 9702000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Selbstaendigenvorsorge (SV-Vorsorge, severance)",
+      "rateBp": 153,
+      "base": "same Beitragsgrundlage",
+      "floorMinor": 661320,
+      "capMinor": 9702000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Unfallversicherung (UV) flat",
+      "rateBp": null,
+      "base": "flat EUR 12.95 per month",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 15540
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5500000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 3300,
+    "reserveBasis": "Profit EUR 40,000: SVS 26.83% x 40,000 = 10,732 + UV 155 = 10,887; taxable = 40,000 - 10,887 - 15% Gewinnfreibetrag on 33,000 (4,950) = 24,163; tax = 20% x 8,453 (13,539-21,992) + 30% x 2,171 = 2,342 (before tax credits); total 13,229 = 33.1%, rounded to 33%.",
+    "deadlines": [
+     {
+      "name": "Einkommensteuer-Vorauszahlung (quarterly, 15 Feb/May/Aug/Nov per usp.gv.at)",
+      "type": "quarterly",
+      "day": 15,
+      "months": [
+       2,
+       5,
+       8,
+       11
+      ]
+     },
+     {
+      "name": "Einkommensteuererklaerung (electronic via FinanzOnline; paper is 30 April)",
+      "type": "annual",
+      "day": 30,
+      "month": 6
+     }
+    ],
+    "notes": "Brackets from PwC (tax year not explicitly labelled, assumed 2026). SVS rates and bases are 2026 values per WKO page (Stand 01.01.2026); annual floor = Versicherungsgrenze 6,613.20, cap 97,020. Below the floor no compulsory GSVG insurance (Kleinunternehmer opt-in rules not modelled). Kleinunternehmer VAT threshold EUR 55,000 turnover (gross, per WKO; 10% tolerance up to 60,500 in the year). The 0% band is shown as allowanceMinor. Basic Gewinnfreibetrag of 15% on the first 33,000 of profit (assumed in the reserve, not sourced), tax credits (Verkehrsabsetzbetrag etc.) not modelled. Quarterly dates 15 Feb/May/Aug/Nov per usp.gv.at and secondary sources; SVS quarterly billing dates were not verified. Provisional SVS contributions are later reconciled to the final tax assessment.",
+    "sources": [
+     "https://taxsummaries.pwc.com/austria/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/austria/individual/other-taxes",
+     "https://taxsummaries.pwc.com/austria/individual/tax-administration",
+     "https://www.wko.at/entlohnung/beitragswesen-selbstaendige-2026",
+     "https://www.wko.at/steuern/kleinunternehmerregelung-oesterreich-faq",
+     "https://www.usp.gv.at/themen/steuern-finanzen/einkommensteuer-ueberblick/est-vorauszahlungen-und-est-erklaerung.html"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "GmbH",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "Ges.m.b.H.",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "AG",
+    "caseSensitive": true,
+    "name": "Aktiengesellschaft"
+   },
+   {
+    "token": "OG",
+    "caseSensitive": true,
+    "name": "Offene Gesellschaft"
+   },
+   {
+    "token": "KG",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft"
+   },
+   {
+    "token": "GmbH & Co KG",
+    "caseSensitive": false,
+    "name": "GmbH & Co Kommanditgesellschaft"
+   },
+   {
+    "token": "eG",
+    "caseSensitive": true,
+    "name": "eingetragene Genossenschaft"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "Privatstiftung",
+    "caseSensitive": false,
+    "name": "Privatstiftung"
+   },
+   {
+    "token": "FlexKapG",
+    "caseSensitive": true,
+    "name": "Flexible Kapitalgesellschaft"
+   },
+   {
+    "token": "eGen",
+    "caseSensitive": true,
+    "name": "eingetragene Genossenschaft"
+   },
+   {
+    "token": "GesbR",
+    "caseSensitive": true,
+    "name": "Gesellschaft buergerlichen Rechts"
+   }
+  ]
+ },
+ {
+  "code": "BE",
+  "name": "Belgium",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "be_zelfstandige",
+    "name": "Zelfstandige / Independant (natural person)",
+    "appliesTo": "Self-employed natural persons in main or side activity",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1632000,
+       "rateBp": 2500
+      },
+      {
+       "upToMinor": 2880000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": 4984000,
+       "rateBp": 4500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 5000
+      }
+     ],
+     "base": "net taxable income after social contributions and expenses"
+    },
+    "allowanceMinor": 1091000,
+    "socialContributions": [
+     {
+      "name": "Sociale bijdragen zelfstandige in hoofdberoep",
+      "rateBp": 2050,
+      "base": "net taxable professional income; 20.5% up to 75,024.54, then 14.16% on the part from 75,024.54 to 110,562.42, nothing above; below 17,374.08 a fixed minimum of EUR 890.42 per quarter (3,561.68/yr) applies; plus fund admin fee about 3-4%",
+      "floorMinor": 1737408,
+      "capMinor": 11056242,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 2500000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 4100,
+    "reserveBasis": "Profit EUR 40,000: social 20.5% x 40,000 = 8,200 + ~3.5% admin = 8,487; taxable 31,513; tax 4,080 + 4,992 + 1,221 = 10,293 less 25% x 10,910 = 2,727.5 -> 7,566; + 7% communal surcharge 530 = 8,096; total 16,583 = 41.5%, rounded to 41%.",
+    "deadlines": [
+     {
+      "name": "Social contribution quarterly payment (last day of the quarter's final month)",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Voorafbetalingen (advance tax payments) Q1-Q3 (Q3 is 12 Oct per some sources)",
+      "type": "quarterly",
+      "day": 10,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Voorafbetaling Q4 (20-22 Dec depending on source)",
+      "type": "annual",
+      "day": 20,
+      "month": 12
+     }
+    ],
+    "notes": "Income tax brackets are assessment year 2026 (income 2025), latest on PwC; 2026 personal-income-tax reform not modelled. Basic exemption EUR 10,910 per PwC is applied as a tax reduction on the lowest bracket (25%), equivalent to subtracting it from taxable income. Communal surcharge 0-9% (avg 7%) not in brackets. Social contribution figures are 2026 values per Accountable.eu (secondary source; INASTI page unreachable), quarterly max EUR 5,103.05; admin fee 3-4% depends on fund; actual contributions are based on income 3 years back (for starters, provisional). Quarterly social dates are 'no later than the last day of March, June, September, December'. VAT franchise EUR 25,000 turnover per FPS Finance (a raise to 30,000 is reported but not in force). Side-activity and student rates not modelled. For sole traders the surcharge for insufficient prepayments is abolished from income year 2026 (secondary sources).",
+    "sources": [
+     "https://taxsummaries.pwc.com/belgium/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/belgium/individual/other-taxes",
+     "https://taxsummaries.pwc.com/belgium/individual/deductions",
+     "https://taxsummaries.pwc.com/belgium/individual/tax-administration",
+     "https://www.accountable.eu/en-be/blog/social-security-contributions-self-employed/",
+     "https://finance.belgium.be/en/enterprises/vat/vat-obligation/vat-exemption-scheme-small-businesses",
+     "https://www.securex.be/nl/lex4you/zelfstandige/nieuws/denk-aan-jouw-voorafbetalingen-voor-het-derde-kwartaal"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "BV",
+    "caseSensitive": true,
+    "name": "Besloten Vennootschap"
+   },
+   {
+    "token": "BVBA",
+    "caseSensitive": true,
+    "name": "Besloten Vennootschap met Beperkte Aansprakelijkheid"
+   },
+   {
+    "token": "NV",
+    "caseSensitive": true,
+    "name": "Naamloze Vennootschap"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Societe Anonyme"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Societe a Responsabilite Limitee"
+   },
+   {
+    "token": "SComm",
+    "caseSensitive": false,
+    "name": "Societe en commandite"
+   },
+   {
+    "token": "CommV",
+    "caseSensitive": false,
+    "name": "Commanditaire Vennootschap"
+   },
+   {
+    "token": "VOF",
+    "caseSensitive": true,
+    "name": "Vennootschap onder Firma"
+   },
+   {
+    "token": "CV",
+    "caseSensitive": true,
+    "name": "Cooperatieve Vennootschap"
+   },
+   {
+    "token": "SC",
+    "caseSensitive": true,
+    "name": "Societe Cooperative"
+   },
+   {
+    "token": "VZW",
+    "caseSensitive": true,
+    "name": "Vereniging zonder winstoogmerk"
+   },
+   {
+    "token": "ASBL",
+    "caseSensitive": true,
+    "name": "Association sans but lucratif"
+   },
+   {
+    "token": "CVBA",
+    "caseSensitive": true,
+    "name": "Cooperatieve Vennootschap met Beperkte Aansprakelijkheid"
+   },
+   {
+    "token": "SPRL",
+    "caseSensitive": true,
+    "name": "Societe privee a responsabilite limitee"
+   },
+   {
+    "token": "SCRL",
+    "caseSensitive": true,
+    "name": "Societe cooperative a responsabilite limitee"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "IVZW",
+    "caseSensitive": true,
+    "name": "Internationale vereniging zonder winstoogmerk"
+   }
+  ]
+ },
+ {
+  "code": "DE",
+  "name": "Germany",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "de_freiberufler_gewerbe",
+    "name": "Freiberufler / Einzelunternehmer (Einkommensteuer)",
+    "appliesTo": "Freelancers (Freiberufler) and sole traders; Kleinunternehmerregelung for small turnover",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1234800,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 1400000,
+       "rateBp": 1550
+      },
+      {
+       "upToMinor": 1600000,
+       "rateBp": 1885
+      },
+      {
+       "upToMinor": 1779900,
+       "rateBp": 2229
+      },
+      {
+       "upToMinor": 2400000,
+       "rateBp": 2504
+      },
+      {
+       "upToMinor": 3000000,
+       "rateBp": 2717
+      },
+      {
+       "upToMinor": 3800000,
+       "rateBp": 2958
+      },
+      {
+       "upToMinor": 4600000,
+       "rateBp": 3235
+      },
+      {
+       "upToMinor": 5600000,
+       "rateBp": 3546
+      },
+      {
+       "upToMinor": 6987800,
+       "rateBp": 3960
+      },
+      {
+       "upToMinor": 27782500,
+       "rateBp": 4200
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "taxable income (profit minus deductions); zone 2 and 3 of s.32a EStG approximated by integer-rate bands whose rates equal the average marginal rate of the band, so cumulative tax matches the statutory formula within a few euros"
+    },
+    "allowanceMinor": 1234800,
+    "socialContributions": [
+     {
+      "name": "Statutory health insurance (voluntary GKV): general 14.6% + average additional contribution 2.9%",
+      "rateBp": 1750,
+      "base": "net profit; minimum assessment base EUR 1,318.33/month, ceiling EUR 5,812.50/month (69,750/yr); private insurance (PKV) is an alternative",
+      "floorMinor": 1581996,
+      "capMinor": 6975000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Long-term care insurance (Pflegeversicherung)",
+      "rateBp": 360,
+      "base": "same base as GKV (4.2% for childless over 23)",
+      "floorMinor": 1581996,
+      "capMinor": 6975000,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 2500000,
+     "standardRateBp": 1900
+    },
+    "suggestedReserveRateBp": 3300,
+    "reserveBasis": "Profit EUR 40,000: GKV 17.5% = 7,000 + care 3.6% = 1,440 = 8,440; taxable ~31,560; s.32a tax = (173.10 x 1.3761 + 2,397) x 1.3761 + 1,034.87 = 4,661; total 13,101 = 32.8%, rounded to 33%. Voluntary pension contributions and trade tax excluded.",
+    "deadlines": [
+     {
+      "name": "Einkommensteuer-Vorauszahlung (s.37 EStG, quarterly)",
+      "type": "quarterly",
+      "day": 10,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Einkommensteuererklaerung without tax adviser (s.149 AO), for the prior year",
+      "type": "annual",
+      "day": 31,
+      "month": 7
+     }
+    ],
+    "notes": "2026 tariff taken from s.32a EStG (gesetze-im-internet.de): Grundfreibetrag 12,348; zone 2 to 17,799 (formula 914.51y+1400); zone 3 to 69,878 (173.10z+2397, +1,034.87); 42% to 277,825; 45% above. Zones 2 and 3 are approximated by explicit bands with integer rates (average marginal rate per band), so rates are approximations of a continuous progression. Solidarity surcharge 5.5% of tax only above a high exemption limit (PwC), church tax 8-9% optional, not modelled. Trade tax (Gewerbesteuer, 3.5% x municipal Hebesatz, EUR 24,500 allowance) applies to traders, not Freiberufler; not modelled. Kleinunternehmerregelung (s.19 UStG): prior-year turnover up to EUR 25,000 and current year up to EUR 100,000 (secondary sources; unchanged for 2026). GKV figures from BMG/krankenkassen.de: BBG 69,750, avg additional contribution 2.9%, min base 1,318.33/month; care rate 3.6% is from general knowledge and not confirmed in sources. With tax adviser the filing deadline is extended (about 1 March of the second following year). Prepayment dates 10 Mar/Jun/Sep/Dec per s.37 EStG. Statutory pension insurance is voluntary for most freelancers (rate 18.6%, ceiling EUR 101,400/yr) and is excluded from socialContributions and the reserve. Prepayment dates 10 Mar/Jun/Sep/Dec confirmed from s.37 EStG.",
+    "sources": [
+     "https://www.gesetze-im-internet.de/estg/__32a.html",
+     "https://taxsummaries.pwc.com/germany/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/germany/individual/other-taxes",
+     "https://www.bundesgesundheitsministerium.de/beitraege-und-tarife.html",
+     "https://www.krankenkassen.de/gesetzliche-krankenkassen/system-gesetzliche-krankenversicherung/sozialversicherung-rechengroessen-beitragsbemessungsgrenze-versicherungspflichtgrenze/rechengroessen-2026/",
+     "https://www.finanzamt.nrw.de/steuerinfos/weitere-themen/steuererklaerung/abgabepflichten-und-fristen",
+     "https://www.mehrwertsteuerrechner.de/kleinunternehmerregelung/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "GmbH",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "AG",
+    "caseSensitive": true,
+    "name": "Aktiengesellschaft"
+   },
+   {
+    "token": "KG",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft"
+   },
+   {
+    "token": "OHG",
+    "caseSensitive": true,
+    "name": "Offene Handelsgesellschaft"
+   },
+   {
+    "token": "GbR",
+    "caseSensitive": true,
+    "name": "Gesellschaft buergerlichen Rechts"
+   },
+   {
+    "token": "GmbH & Co. KG",
+    "caseSensitive": false,
+    "name": "GmbH & Co. Kommanditgesellschaft"
+   },
+   {
+    "token": "eG",
+    "caseSensitive": true,
+    "name": "eingetragene Genossenschaft"
+   },
+   {
+    "token": "e.V.",
+    "caseSensitive": false,
+    "name": "eingetragener Verein"
+   },
+   {
+    "token": "KGaA",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft auf Aktien"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "PartG mbB",
+    "caseSensitive": false,
+    "name": "Partnerschaftsgesellschaft mit beschraenkter Berufshaftung"
+   },
+   {
+    "token": "UG (haftungsbeschraenkt)",
+    "caseSensitive": false,
+    "name": "Unternehmergesellschaft (haftungsbeschraenkt)"
+   },
+   {
+    "token": "UG (haftungsbeschr\u00e4nkt)",
+    "caseSensitive": false,
+    "name": "Unternehmergesellschaft (haftungsbeschraenkt)"
+   },
+   {
+    "token": "gGmbH",
+    "caseSensitive": false,
+    "name": "gemeinnuetzige GmbH"
+   },
+   {
+    "token": "mbH",
+    "caseSensitive": true,
+    "name": "mit beschraenkter Haftung (suffix)"
+   },
+   {
+    "token": "PartG",
+    "caseSensitive": true,
+    "name": "Partnerschaftsgesellschaft"
+   },
+   {
+    "token": "AG & Co. KG",
+    "caseSensitive": false,
+    "name": "AG & Co. Kommanditgesellschaft"
+   }
+  ]
+ },
+ {
+  "code": "FR",
+  "name": "France",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "fr_micro_entrepreneur",
+    "name": "Micro-entrepreneur / auto-entrepreneur (micro-BIC / micro-BNC)",
+    "appliesTo": "Sole traders with annual turnover up to EUR 203,100 (sale of goods and housing) or EUR 83,600 (services, BIC and BNC) in 2026; switch to reel only after exceeding for 2 consecutive years. Freelancers are mostly BNC (liberal): 25.6% social rate (23.2% for CIPAV regulated professions)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1160000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 2957900,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": 8457700,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 18191700,
+       "rateBp": 4100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "taxable income = turnover minus flat abatement (BNC liberal 34%, BIC services 50%, BIC sales 71%; minimum abatement EUR 305) added to other household income; bareme per tax share (single = 1 part). Alternative: versement liberatoire flat on turnover (1.0% sales, 1.7% BIC services, 2.2% BNC) if prior-year-minus-1 reference taxable income per part is at most EUR 29,315"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Cotisations micro-social: BNC liberal non reglementee (SSI), default for freelancers",
+      "rateBp": 2560,
+      "base": "gross turnover collected, flat. Alternatives by activity: BNC regulated/CIPAV 23.2%, BIC services 21.2%, BIC sales 12.3%",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Contribution a la formation professionnelle (CFP), liberal",
+      "rateBp": 20,
+      "base": "gross turnover collected (0.20% liberal, 0.10% commerce, 0.30% artisan)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 3750000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 3000,
+    "reserveBasis": "BNC liberal, turnover EUR 40,000: social 25.6% = 10,240 + CFP 0.2% = 80; taxable after 34% abatement = 26,400, tax (26,400 - 11,600) x 11% = 1,628; total 11,948 = 29.9%, rounded to 30%. With versement liberatoire: 25.6% + 0.2% + 2.2% = 28.0%.",
+    "deadlines": [
+     {
+      "name": "Turnover declaration and social contribution payment, quarterly option (30 Apr, 31 Jul, 31 Oct, 31 Jan); monthly option is end of each following month",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Turnover declaration quarterly option, last quarter",
+      "type": "annual",
+      "day": 31,
+      "month": 1
+     },
+     {
+      "name": "Income tax return (online 21 May / 28 May / 4 June 2026 by department; paper 19 May)",
+      "type": "annual",
+      "day": 28,
+      "month": 5
+     }
+    ],
+    "notes": "Social rates, CFP and versement liberatoire rates 2026 per service-public.gouv.fr (rates) and swim.legal (CFP, liberatoire split, ceilings); ceilings 203,100 / 83,600 raised in 2026; abatements 71% / 50% / 34% are standard CGI values (art. 50-0, 102 ter) cited on swim.legal for BNC only. ACRE reduced rates in first year not modelled. VAT franchise (art. 293 B CGI): services 37,500 (tolerance 41,250), sales 85,000 (tolerance 93,500); the 25,000 single-threshold reform was abandoned in the 2026 finance law per secondary sources. Bareme is the 2026 scale (income 2025, +0.9% indexation) as the latest published; the 2026-income scale was not published at verification date. CEHR surtax above EUR 250,000 not modelled. Prelevement a la source: tax on micro income is settled via annual return and advance instalments.",
+    "sources": [
+     "https://entreprendre.service-public.gouv.fr/vosdroits/F36232",
+     "https://www.swim.legal/blog/taux-autoentrepreneur-2026-cotisations-impots",
+     "https://www.service-public.gouv.fr/particuliers/vosdroits/F1419",
+     "https://taxsummaries.pwc.com/france/individual/taxes-on-personal-income",
+     "https://economie.gouv.fr/particuliers/impot-sur-revenu-calendrier",
+     "https://www.moneyvox.fr/impot/actualites/106837/impot-sur-le-revenu-le-calendrier-2026-des-neuf-dates-a-ne-pas-oublier",
+     "https://hayot-expertise.fr/blog/franchise-en-base-de-tva"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "fr_reel",
+    "name": "Entreprise individuelle au regime reel (declaration controlee BNC / reel BIC), TNS",
+    "appliesTo": "Sole traders above micro ceilings or opting out of micro",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1160000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 2957900,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": 8457700,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 18191700,
+       "rateBp": 4100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4500
+      }
+     ],
+     "base": "net profit (turnover minus actual expenses), per tax share (single = 1 part), added to other household income; deductible social contributions reduce it"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Maladie-maternite (progressive scale)",
+      "rateBp": null,
+      "base": "social assiette = profit minus 26% abatement; 0% up to EUR 9,612, rising progressively to 8.50% at 300% PASS, 6.50% above 144,180 (intermediate scale not verified)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Indemnites journalieres",
+      "rateBp": 50,
+      "base": "assiette up to 5 PASS (240,300)",
+      "floorMinor": null,
+      "capMinor": 24030000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Retraite de base",
+      "rateBp": 1787,
+      "base": "assiette up to 1 PASS (EUR 48,060), plus 0.72% on the part above; minimum contribution EUR 967",
+      "floorMinor": null,
+      "capMinor": 4806000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Retraite complementaire",
+      "rateBp": 810,
+      "base": "assiette up to 1 PASS, then 9.10% from 1 to 4 PASS (192,240)",
+      "floorMinor": null,
+      "capMinor": 19224000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Invalidite-deces",
+      "rateBp": 130,
+      "base": "assiette up to 1 PASS; minimum EUR 72",
+      "floorMinor": null,
+      "capMinor": 4806000,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Allocations familiales (progressive 0 to 3.10%)",
+      "rateBp": null,
+      "base": "0% below assiette 52,866, 3.10% from 140% PASS; intermediate scale not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CSG-CRDS",
+      "rateBp": 970,
+      "base": "social assiette (profit minus 26%)",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Contribution a la formation professionnelle (CFP)",
+      "rateBp": null,
+      "base": "flat EUR 120 (liberal/commercant, 0.25% of 1 PASS), EUR 139 artisan",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 12000
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 3750000,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 3500,
+    "reserveBasis": "Profit EUR 40,000: assiette 74% = 29,600; retraite base 5,289 + complementaire 2,398 + IJ 148 + invalidite 385 + CSG-CRDS 2,871 + maladie ~3% (888, estimate) + CFP 120 = 12,099 (30.2%); taxable = 40,000 - (12,099 - non-deductible CSG/CRDS 1,347) = 29,248; tax 11% x 17,648 = 1,941; total 14,040 = 35.1%, rounded to 35%.",
+    "deadlines": [
+     {
+      "name": "Income tax return and 2042-C-PRO / professional return (online 21 May / 28 May / 4 June 2026 by department)",
+      "type": "annual",
+      "day": 28,
+      "month": 5
+     }
+    ],
+    "notes": "2026 contributions per weblex.fr table (PASS 2026 = EUR 48,060; new common social assiette with 26% abatement from the 2025 regularisation). Maladie and family-allowance scales are progressive and only end points were verified, hence rateBp null and the reserve uses an estimate for maladie. Social contributions are provisional in 2026 and re-computed once the return is filed. ACRE, CIPAV and liberal-specific funds not modelled. Bareme 2026 (income 2025). Regime reel VAT: franchise thresholds as for micro (services 37,500 / sales 85,000); most reel traders are on actual VAT returns.",
+    "sources": [
+     "https://www.weblex.fr/chiffres-cles/tableau-des-cotisations-sociales-dues-par-les-travailleurs-independants-annee-2026",
+     "https://www.service-public.gouv.fr/particuliers/vosdroits/F1419",
+     "https://taxsummaries.pwc.com/france/individual/taxes-on-personal-income",
+     "https://www.lecoindesentrepreneurs.fr/cotisations-sociales-independants-changements-2026/",
+     "https://www.moneyvox.fr/impot/actualites/106837/impot-sur-le-revenu-le-calendrier-2026-des-neuf-dates-a-ne-pas-oublier"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "SARL",
+    "caseSensitive": true,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "EURL",
+    "caseSensitive": true,
+    "name": "Entreprise unipersonnelle a responsabilite limitee"
+   },
+   {
+    "token": "SAS",
+    "caseSensitive": true,
+    "name": "Societe par actions simplifiee"
+   },
+   {
+    "token": "SASU",
+    "caseSensitive": true,
+    "name": "Societe par actions simplifiee unipersonnelle"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Societe anonyme"
+   },
+   {
+    "token": "SCI",
+    "caseSensitive": true,
+    "name": "Societe civile immobiliere"
+   },
+   {
+    "token": "SNC",
+    "caseSensitive": true,
+    "name": "Societe en nom collectif"
+   },
+   {
+    "token": "SCA",
+    "caseSensitive": true,
+    "name": "Societe en commandite par actions"
+   },
+   {
+    "token": "SCOP",
+    "caseSensitive": true,
+    "name": "Societe cooperative et participative"
+   },
+   {
+    "token": "SELARL",
+    "caseSensitive": true,
+    "name": "Societe d'exercice liberal a responsabilite limitee"
+   },
+   {
+    "token": "GIE",
+    "caseSensitive": true,
+    "name": "Groupement d'interet economique"
+   },
+   {
+    "token": "SELAS",
+    "caseSensitive": true,
+    "name": "Societe d'exercice liberal par actions simplifiee"
+   },
+   {
+    "token": "SCP",
+    "caseSensitive": true,
+    "name": "Societe civile professionnelle"
+   },
+   {
+    "token": "SCM",
+    "caseSensitive": true,
+    "name": "Societe civile de moyens"
+   },
+   {
+    "token": "SEL",
+    "caseSensitive": true,
+    "name": "Societe d'exercice liberal"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "SCS",
+    "caseSensitive": true,
+    "name": "Societe en commandite simple"
+   },
+   {
+    "token": "S.A.R.L.",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "S.A.S.",
+    "caseSensitive": false,
+    "name": "Societe par actions simplifiee"
+   }
+  ]
+ },
+ {
+  "code": "LU",
+  "name": "Luxembourg",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "lu_independant",
+    "name": "Independant / Profession liberale",
+    "appliesTo": "Self-employed and liberal professionals, natural persons",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1323000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 1543500,
+       "rateBp": 800
+      },
+      {
+       "upToMinor": 1764000,
+       "rateBp": 900
+      },
+      {
+       "upToMinor": 1984500,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 2205000,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": 2425500,
+       "rateBp": 1200
+      },
+      {
+       "upToMinor": 2655000,
+       "rateBp": 1400
+      },
+      {
+       "upToMinor": 2884500,
+       "rateBp": 1600
+      },
+      {
+       "upToMinor": 3114000,
+       "rateBp": 1800
+      },
+      {
+       "upToMinor": 3343500,
+       "rateBp": 2000
+      },
+      {
+       "upToMinor": 3573000,
+       "rateBp": 2200
+      },
+      {
+       "upToMinor": 3802500,
+       "rateBp": 2400
+      },
+      {
+       "upToMinor": 4032000,
+       "rateBp": 2600
+      },
+      {
+       "upToMinor": 4261500,
+       "rateBp": 2800
+      },
+      {
+       "upToMinor": 4491000,
+       "rateBp": 3000
+      },
+      {
+       "upToMinor": 4720500,
+       "rateBp": 3200
+      },
+      {
+       "upToMinor": 4950000,
+       "rateBp": 3400
+      },
+      {
+       "upToMinor": 5179500,
+       "rateBp": 3600
+      },
+      {
+       "upToMinor": 5409000,
+       "rateBp": 3800
+      },
+      {
+       "upToMinor": 11745000,
+       "rateBp": 3900
+      },
+      {
+       "upToMinor": 17616000,
+       "rateBp": 4000
+      },
+      {
+       "upToMinor": 23487000,
+       "rateBp": 4100
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4200
+      }
+     ],
+     "base": "taxable income (tax class 1 scale, 2025)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CCSS pension (self-employed bears both shares; state pays the third share)",
+      "rateBp": 1700,
+      "base": "net professional income; min base = social minimum wage EUR 2,771.33/month (from 1 June 2026), max 5x SSM = 13,856.63/month",
+      "floorMinor": 3325596,
+      "capMinor": 16627956,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CCSS sickness - healthcare benefits",
+      "rateBp": 560,
+      "base": "same base",
+      "floorMinor": 3325596,
+      "capMinor": 16627956,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "CCSS sickness - cash benefits",
+      "rateBp": 50,
+      "base": "same base",
+      "floorMinor": 3325596,
+      "capMinor": 16627956,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Accident insurance (AAA), base rate multiplied by bonus-malus factor",
+      "rateBp": 65,
+      "base": "same base",
+      "floorMinor": 3325596,
+      "capMinor": 16627956,
+      "fixedAnnualMinor": null
+     },
+     {
+      "name": "Dependency (long-term care) contribution",
+      "rateBp": 140,
+      "base": "professional income above an annual abatement of EUR 8,313.96; no minimum or maximum",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 5000000,
+     "standardRateBp": 1700
+    },
+    "suggestedReserveRateBp": 3000,
+    "reserveBasis": "Profit EUR 40,000: CCSS 17% + 5.6% + 0.5% + 0.65% on 40,000 = 9,500 + dependency 1.4% x (40,000 - 8,314) = 444 -> 9,944; taxable ~30,056; class 1 scale tax = 2,009 + 7% solidarity surcharge 141 = 2,150; total 12,094 = 30.2%, rounded to 30%.",
+    "deadlines": [
+     {
+      "name": "CCSS contribution invoice payment (monthly invoicing, due within 10 days of statement)",
+      "type": "monthly",
+      "day": 10
+     },
+     {
+      "name": "Individual income tax return (31 December of the following year, as of tax year 2022)",
+      "type": "annual",
+      "day": 31,
+      "month": 12
+     }
+    ],
+    "notes": "Scale is the 'adapted as of 2025' scale on PwC (reviewed 3 Aug 2026; no 2026-specific scale found), tax class 1; the 0% band 0-13,230 is in the brackets so allowanceMinor stays 0. Solidarity surcharge 7% of tax (9% above EUR 150,000 class 1). CCSS rates: official CCSS social parameters page 2026 (pension 17% total; 8.5% per share, health 5.60%, cash 0.50%, dependency 1.40%, accident 0.65% x bonus-malus), min wage 2,771.33 from 1 June 2026 (2,703.74 before), max 13,856.63. Whether the 17% pension applies fully to self-employed (versus 16% in one secondary source) was resolved in favour of 17% from the CCSS table (state pays the third share). VAT franchise EUR 50,000 turnover (since 1 Jan 2025) per secondary sources. Class 1 tax credits (CIS, expense forfait) not modelled. Single tax class planned from 2028.",
+    "sources": [
+     "https://taxsummaries.pwc.com/luxembourg/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/luxembourg/individual/other-taxes",
+     "https://taxsummaries.pwc.com/luxembourg/individual/tax-administration",
+     "https://ccss.public.lu/en/parametres-sociaux.html",
+     "https://ccss.public.lu/en/independants/cotisations-sociales/assiette-cotisation-adaptation.html",
+     "https://guichet.public.lu/fr/entreprises/fiscalite/impots-benefices/tva/regime-franchise/franchise-transfrontalier.html",
+     "https://www.taxenlight.com/fr/tva-au-luxembourg/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Societe anonyme"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Societe anonyme"
+   },
+   {
+    "token": "S.a r.l.",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "Sarl",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "S.a r.l.-S",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee simplifiee"
+   },
+   {
+    "token": "S.C.A.",
+    "caseSensitive": false,
+    "name": "Societe en commandite par actions"
+   },
+   {
+    "token": "S.e.n.c.",
+    "caseSensitive": false,
+    "name": "Societe en nom collectif"
+   },
+   {
+    "token": "S.e.c.s.",
+    "caseSensitive": false,
+    "name": "Societe en commandite simple"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Societe cooperative"
+   },
+   {
+    "token": "GmbH",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "AG",
+    "caseSensitive": true,
+    "name": "Aktiengesellschaft"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "S.\u00e0 r.l.",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "S\u00e0rl",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "SCSp",
+    "caseSensitive": true,
+    "name": "Societe en commandite speciale"
+   },
+   {
+    "token": "S.C.Sp.",
+    "caseSensitive": false,
+    "name": "Societe en commandite speciale"
+   },
+   {
+    "token": "SCA",
+    "caseSensitive": true,
+    "name": "Societe en commandite par actions"
+   },
+   {
+    "token": "ASBL",
+    "caseSensitive": true,
+    "name": "Association sans but lucratif"
+   },
+   {
+    "token": "GIE",
+    "caseSensitive": true,
+    "name": "Groupement d'interet economique"
+   }
+  ]
+ },
+ {
+  "code": "NL",
+  "name": "Netherlands",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "nl_eenmanszaak_zzp",
+    "name": "Eenmanszaak / ZZP (zelfstandige zonder personeel)",
+    "appliesTo": "Sole proprietors meeting the 1,225-hour test for entrepreneur deductions (hours test per secondary sources)",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 3888300,
+       "rateBp": 3575
+      },
+      {
+       "upToMinor": 7842600,
+       "rateBp": 3756
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 4950
+      }
+     ],
+     "base": "Box 1 taxable income (profit minus zelfstandigenaftrek and 12.7% MKB-winstvrijstelling); the first bracket combines income tax 8.10% and national insurance premiums 27.65% (35.75%); second bracket 37.56%; third 49.50% (PwC, KvK 2026)"
+    },
+    "allowanceMinor": 120000,
+    "socialContributions": [
+     {
+      "name": "Zvw income-dependent health contribution (reduced rate for self-employed)",
+      "rateBp": 485,
+      "base": "profit (after ondernemersaftrek); maximum contribution income EUR 79,409; AOW/Anw/Wlz premiums are already inside the 35.75% first bracket",
+      "floorMinor": null,
+      "capMinor": 7940900,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 2000000,
+     "standardRateBp": 2100
+    },
+    "suggestedReserveRateBp": 1500,
+    "reserveBasis": "Profit EUR 40,000: less zelfstandigenaftrek 1,200 = 38,800, less MKB 12.7% (4,928) = 33,872 taxable; 35.75% = 12,109; less algemene heffingskorting about 2,850 (3,115 phased out from 29,736) and arbeidskorting about 5,300 (estimate, max 5,685) = 3,959; plus Zvw 4.85% x 38,800 = 1,882; total 5,841 = 14.6%, rounded to 15%. Without any tax credits the same profit would need about 31%; credits are only fully available when there is no other income and the hours test is met.",
+    "deadlines": [
+     {
+      "name": "Aangifte inkomstenbelasting (income tax return), in principle before 1 May",
+      "type": "annual",
+      "day": 1,
+      "month": 5
+     }
+    ],
+    "notes": "2026 values from KvK belastingtarieven 2026 and PwC: brackets 35.75% to 38,883, 37.56% to 78,426, 49.50% above; zelfstandigenaftrek EUR 1,200 (falls to 900 in 2027; needs 1,225 hours), MKB 12.70%, Zvw 4.85% (normal 6.10%), max contribution income 79,409, algemene heffingskorting max 3,115, arbeidskorting max 5,685 (SRA says 5,712; conflicting). Startersaftrek, AOW-age brackets, and voorlopige aanslag installments (usually monthly) not modelled or dated. KOR (small business scheme) threshold EUR 20,000 annual turnover. Official Belastingdienst pages could not be fetched; VAT return dates come from general knowledge.",
+    "sources": [
+     "https://taxsummaries.pwc.com/netherlands/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/netherlands/individual/tax-administration",
+     "https://www.kvk.nl/geldzaken/belastingtarieven-2026/",
+     "https://www.sra.nl/nieuws/259001/2025/09/nieuwe-belastingtarieven--kortingen-en-faciliteiten-2026",
+     "https://www.kvk.nl/starten/starter-zo-werkt-de-kleineondernemersregeling-kor/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "B.V.",
+    "caseSensitive": false,
+    "name": "Besloten Vennootschap"
+   },
+   {
+    "token": "BV",
+    "caseSensitive": true,
+    "name": "Besloten Vennootschap"
+   },
+   {
+    "token": "N.V.",
+    "caseSensitive": false,
+    "name": "Naamloze Vennootschap"
+   },
+   {
+    "token": "NV",
+    "caseSensitive": true,
+    "name": "Naamloze Vennootschap"
+   },
+   {
+    "token": "V.O.F.",
+    "caseSensitive": false,
+    "name": "Vennootschap onder firma"
+   },
+   {
+    "token": "VOF",
+    "caseSensitive": true,
+    "name": "Vennootschap onder firma"
+   },
+   {
+    "token": "C.V.",
+    "caseSensitive": false,
+    "name": "Commanditaire vennootschap"
+   },
+   {
+    "token": "CV",
+    "caseSensitive": true,
+    "name": "Commanditaire vennootschap"
+   },
+   {
+    "token": "Co\u00f6peratie",
+    "caseSensitive": false,
+    "name": "Cooperatie"
+   },
+   {
+    "token": "U.A.",
+    "caseSensitive": false,
+    "name": "Uitgesloten Aansprakelijkheid"
+   },
+   {
+    "token": "Stichting",
+    "caseSensitive": false,
+    "name": "Stichting"
+   },
+   {
+    "token": "Maatschap",
+    "caseSensitive": false,
+    "name": "Maatschap"
+   },
+   {
+    "token": "W.A.",
+    "caseSensitive": false,
+    "name": "Wederzijdse Aansprakelijkheid"
+   },
+   {
+    "token": "B.A.",
+    "caseSensitive": false,
+    "name": "Beperkte Aansprakelijkheid"
+   },
+   {
+    "token": "Vereniging",
+    "caseSensitive": false,
+    "name": "Vereniging"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "Commanditaire Vennootschap",
+    "caseSensitive": false,
+    "name": "Commanditaire Vennootschap"
+   }
+  ]
+ },
+ {
+  "code": "LI",
+  "name": "Liechtenstein",
+  "currency": "CHF",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "li_selbstaendig",
+    "name": "Selbstaendigerwerbende",
+    "appliesTo": "Self-employed natural persons resident in Liechtenstein",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1590000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 2114000,
+       "rateBp": 250
+      },
+      {
+       "upToMinor": 4228000,
+       "rateBp": 750
+      },
+      {
+       "upToMinor": 7399000,
+       "rateBp": 1000
+      },
+      {
+       "upToMinor": 10570000,
+       "rateBp": 1250
+      },
+      {
+       "upToMinor": 13741000,
+       "rateBp": 1500
+      },
+      {
+       "upToMinor": 16912000,
+       "rateBp": 1625
+      },
+      {
+       "upToMinor": 21140000,
+       "rateBp": 1750
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 2000
+      }
+     ],
+     "base": "taxable income, single filer. National tax (PwC table: tax = rate x income - fixed deduction, equivalent to marginal rates 1/3/4/5/6/6.5/7/8% above CHF 15,900) multiplied by 2.5 to include the minimum municipal surcharge of 150% of the national tax; municipalities charge 150-180% (factor 2.5-2.8)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "AHV/IV/FAK contributions (AHV 8.25% + IV 1.35% + FAK 2.1% = 11.7%, plus administrative cost contribution 0.585%)",
+      "rateBp": 1229,
+      "base": "net self-employment income (total rate, no employer/employee split); no unemployment insurance for self-employed; minimum contribution not verified",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 10000000,
+     "standardRateBp": 810
+    },
+    "suggestedReserveRateBp": 1800,
+    "reserveBasis": "Profit CHF 80,000 (assumed near national average, no official wage figure used): AHV/IV/FAK 12.285% = 9,828; taxable 70,172; national tax 4% x 70,172 - 1,004 = 1,803; x2.5 with 150% municipal surcharge = 4,508; total 14,336 = 17.9%, rounded to 18% (about 19% at the 180% surcharge).",
+    "deadlines": [
+     {
+      "name": "Tax return (normally mid to end of April of the following year; extension possible on request)",
+      "type": "annual",
+      "day": 30,
+      "month": 4
+     }
+    ],
+    "notes": "National tax table and 150-180% municipal surcharge from PwC (reviewed 9 June 2026; tax year not stated). Personal exemption single CHF 15,855 (formula zero point is CHF 15,900). Other deductions (insurance premiums etc.) not modelled. 2026 contribution rates from the AHV-IV-FAK-Anstalten 2026 budget document (AHV 8.25%, IV 1.35%, FAK 2.1%, admin 0.585%); an older 2022 contribution sheet gave 11.891% total. How the admin contribution is applied to self-employed (3.4% of the total in the 2022 sheet) was approximated by adding 0.585 points. Self-employed pay provisional (Akonto) contributions on expected income. Provisional income tax payments exist for self-employed (based on the last return) but dates not given. VAT is the shared Swiss-Liechtenstein area: 8.1% standard rate and CHF 100,000 turnover threshold (secondary sources, Liechtenstein MWSTG); VAT return dates not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/liechtenstein/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/liechtenstein/individual/other-taxes",
+     "https://taxsummaries.pwc.com/liechtenstein/individual/tax-administration",
+     "https://www.ahv.li/fileadmin/user_upload/Dokumente/Ueber/VKV/AHV-IV-FAK-VKV--2026.pdf",
+     "https://www.ahv.li/fileadmin/user_upload/Dokumente/Online-Schalter/MB/AHV-IV-FAK-MB-1-01--AHV-IV-FAK-ALV-Beitraege.pdf",
+     "https://trykintsugi.com/de/sales-tax-guides/europe/liechtenstein"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "AG",
+    "caseSensitive": true,
+    "name": "Aktiengesellschaft"
+   },
+   {
+    "token": "GmbH",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "Anstalt",
+    "caseSensitive": false,
+    "name": "Anstalt"
+   },
+   {
+    "token": "Stiftung",
+    "caseSensitive": false,
+    "name": "Stiftung"
+   },
+   {
+    "token": "Genossenschaft",
+    "caseSensitive": false,
+    "name": "Genossenschaft"
+   },
+   {
+    "token": "KG",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "Treuunternehmen",
+    "caseSensitive": false,
+    "name": "Treuunternehmen"
+   },
+   {
+    "token": "Trust reg.",
+    "caseSensitive": false,
+    "name": "Trust registered"
+   },
+   {
+    "token": "Kollektivgesellschaft",
+    "caseSensitive": false,
+    "name": "Kollektivgesellschaft"
+   },
+   {
+    "token": "GmbH & Co. KG",
+    "caseSensitive": false,
+    "name": "GmbH & Co. Kommanditgesellschaft"
+   },
+   {
+    "token": "Verein",
+    "caseSensitive": false,
+    "name": "Verein"
+   },
+   {
+    "token": "KGaA",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft auf Aktien"
+   }
+  ]
+ },
+ {
+  "code": "CH",
+  "name": "Switzerland",
+  "currency": "CHF",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ch_selbstaendig",
+    "name": "Selbstaendigerwerbende (AHV self-employed)",
+    "appliesTo": "Self-employed persons registered with a cantonal Ausgleichskasse",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 1520000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 3320000,
+       "rateBp": 77
+      },
+      {
+       "upToMinor": 4350000,
+       "rateBp": 88
+      },
+      {
+       "upToMinor": 5800000,
+       "rateBp": 264
+      },
+      {
+       "upToMinor": 7620000,
+       "rateBp": 297
+      },
+      {
+       "upToMinor": 8210000,
+       "rateBp": 594
+      },
+      {
+       "upToMinor": 10890000,
+       "rateBp": 660
+      },
+      {
+       "upToMinor": 14150000,
+       "rateBp": 880
+      },
+      {
+       "upToMinor": 18510000,
+       "rateBp": 1100
+      },
+      {
+       "upToMinor": 79390000,
+       "rateBp": 1320
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 1150
+      }
+     ],
+     "base": "federal direct tax only, single filer, 2026 scale (PwC); above CHF 793,900 the whole income is taxed at 11.5% (approximated as a marginal bracket); cantonal and municipal income taxes are additional and vary widely (not modelled)"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "AHV/IV/EO (8.1% + 1.4% + 0.5%)",
+      "rateBp": 1000,
+      "base": "net self-employment income; full 10.0% from CHF 60,500, sliding scale from 5.371% at CHF 10,100; fixed minimum CHF 530/yr below CHF 10,100; admin surcharge up to 5% not included",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 10000000,
+     "standardRateBp": 810
+    },
+    "suggestedReserveRateBp": 1900,
+    "reserveBasis": "Profit CHF 80,000 (about Swiss median wage): AHV/IV/EO 10% + up to 5% admin = 8,400; taxable after AHV and ~3,000 other deductions = 68,600; federal tax = 138.6 + 90.6 + 382.8 + 10,600 x 2.97% = 927; cantonal+communal assumed about 9% of taxable = 6,200 (UNVERIFIED estimate, canton-dependent); total ~15,500 = 19.4%, rounded to 19%. FAK (cantonal family allowance) and voluntary BVG not included.",
+    "deadlines": [
+     {
+      "name": "AHV provisional (Akonto) contributions, quarterly, no later than 10 days after quarter end",
+      "type": "quarterly",
+      "day": 10,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "Tax return in canton of residence (31 March in most cantons; extensions to September/November on request)",
+      "type": "annual",
+      "day": 31,
+      "month": 3
+     }
+    ],
+    "notes": "Federal scale per PwC (reviewed 1 July 2026, 2026 table, single filers). Cantonal/communal taxes (e.g. Zurich, Geneva) are the bulk of the tax and not modelled; PwC gives no combined range. AHV scale: 10% above CHF 60,500, sliding from 5.371% at CHF 10,100, min CHF 530 (Magic Heidi, from BSV Merkblatt 2.02 state 1 Jan 2026; secondary source); older source says 9,700 for the lower bound. Cantonal FAK contributions (about 1-3%) and administrative surcharge up to 5% of AHV not included. BVG and ALV are voluntary/not compulsory for self-employed. VAT: 8.1% standard, mandatory registration from CHF 100,000 worldwide turnover (secondary sources; ESTV page not fetched); VAT return dates not verified.",
+    "sources": [
+     "https://taxsummaries.pwc.com/switzerland/individual/taxes-on-personal-income",
+     "https://taxsummaries.pwc.com/switzerland/individual/tax-administration",
+     "https://taxsummaries.pwc.com/switzerland/individual/other-taxes",
+     "https://magicheidi.ch/blog/ahv-beitraege-selbstaendigerwerbende",
+     "https://www.weka.ch/themen/personal/sozialversicherungen/sozialversicherungsbeitraege/article/sozialversicherungskennzahlen-2026-alle-aenderungen-im-ueberblick/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "AG",
+    "caseSensitive": true,
+    "name": "Aktiengesellschaft"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Societe anonyme"
+   },
+   {
+    "token": "GmbH",
+    "caseSensitive": false,
+    "name": "Gesellschaft mit beschraenkter Haftung"
+   },
+   {
+    "token": "Sarl",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "Sagl",
+    "caseSensitive": false,
+    "name": "Societa a garanzia limitata"
+   },
+   {
+    "token": "KlG",
+    "caseSensitive": true,
+    "name": "Kollektivgesellschaft"
+   },
+   {
+    "token": "Genossenschaft",
+    "caseSensitive": false,
+    "name": "Genossenschaft"
+   },
+   {
+    "token": "SCA",
+    "caseSensitive": true,
+    "name": "Societe en commandite par actions"
+   },
+   {
+    "token": "S\u00e0rl",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "KG",
+    "caseSensitive": true,
+    "name": "Kommanditgesellschaft"
+   },
+   {
+    "token": "S.\u00e0 r.l.",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Societe anonyme"
+   },
+   {
+    "token": "SE",
+    "caseSensitive": true,
+    "name": "Societas Europaea"
+   },
+   {
+    "token": "Kollektivgesellschaft",
+    "caseSensitive": false,
+    "name": "Kollektivgesellschaft"
+   },
+   {
+    "token": "SNC",
+    "caseSensitive": true,
+    "name": "Societe en nom collectif"
+   },
+   {
+    "token": "SCmA",
+    "caseSensitive": true,
+    "name": "Societe en commandite par actions"
+   }
+  ]
+ },
+ {
+  "code": "MC",
+  "name": "Monaco",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "mc_independant",
+    "name": "Travailleur independant (CAMTI/CARTI), no personal income tax",
+    "appliesTo": "Self-employed persons resident or operating in Monaco whose activity is mostly local (under 25% of turnover generated outside Monaco) and who are not French nationals subject to French income tax (French nationals resident since after 13 Oct 1962 remain taxable in France)",
+    "incomeTax": {
+     "type": "none",
+     "base": "Monaco levies no personal income tax on residents (non-French); this regime assumes no business profits tax applies"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CAMTI (health, maternity, accident, family) fixed quarterly contribution EUR 1,128 from 1 Oct 2026",
+      "rateBp": null,
+      "base": "fixed amount independent of income",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 451200
+     },
+     {
+      "name": "CARTI pension class 2 (EUR 1,129.68 per quarter) - default assumption",
+      "rateBp": null,
+      "base": "fixed, chosen class",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 451872
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 2300,
+    "reserveBasis": "Fixed social contributions only: CAMTI 4,512 + CARTI class 2 4,518.72 = 9,030.72 per year, divided by an assumed EUR 40,000 profit = 22.6%, rounded to 23%. With CARTI class 1 it would be 16.9%. Income tax 0.",
+    "deadlines": [
+     {
+      "name": "CAMTI quarterly contribution (called at the start of the quarter)",
+      "type": "quarterly",
+      "day": 1,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "CARTI quarterly contribution (called at the end of the quarter)",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Annual CARTI class change deadline (circular received each October)",
+      "type": "annual",
+      "day": 15,
+      "month": 11
+     }
+    ],
+    "notes": "Contribution amounts valid from 1 Oct 2026 per Caisses Sociales de Monaco worker letter (CAMTI 1,128 per quarter; CARTI 564.84/1,129.68/1,694.52/2,259.36). CARTI class 1 income ceiling EUR 3,000 monthly (Ministerial Order 2026-366). VAT follows the French system (rate 20%, Franco-Monegasque convention 1963); no Monaco-specific small-business VAT threshold found, returns monthly or quarterly (secondary sources). Percentage-of-income social contributions do not exist for self-employed. Personal income tax: none for non-French residents, per secondary sources; official gov.mc/PwC pages unavailable. Other CARTI classes per quarter: class 1 EUR 564.84 (only if average monthly income below EUR 3,000), class 3 EUR 1,694.52, class 4 EUR 2,259.36.",
+    "sources": [
+     "https://www.caisses-sociales.mc/content/download/3108/file/Lettre_information_travailleurs_independants_octobre_2025.pdf",
+     "https://www.cleiss.fr/docs/regimes/regime_monaco_ns.html",
+     "https://www.en.caisses-sociales.mc/home/self-employed-worker",
+     "https://kpmg.com/mc/fr/home/newsletters/newsletters-2025-no4/kpmg-monaco_newsletter-2025-no4_fiscalite_calendrier_isb.html",
+     "https://www.superindep.fr/blog/2024/comment-marche-tva-a-monaco/"
+    ],
+    "verifiedAt": "2026-11-13"
+   },
+   {
+    "id": "mc_isb_activity",
+    "name": "Independant with business profit tax (Impot sur les benefices, ISB)",
+    "appliesTo": "Commercial (BIC-type) activities carried out in Monaco with at least 25% of turnover generated outside Monaco (full profit then taxed); whether sole traders in liberal professions fall under ISB is not confirmed",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 2500,
+     "base": "net profit of the business (ISB, 25% since financial years opened on or after 1 Jan 2022), applies to 100% of profit once the 25% foreign-turnover threshold is met; no personal income tax"
+    },
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "CAMTI (health, maternity, accident, family) fixed quarterly contribution EUR 1,128 from 1 Oct 2026",
+      "rateBp": null,
+      "base": "fixed amount independent of income",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 451200
+     },
+     {
+      "name": "CARTI pension class 2 (EUR 1,129.68 per quarter) - default assumption",
+      "rateBp": null,
+      "base": "fixed, chosen class",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 451872
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 2000
+    },
+    "suggestedReserveRateBp": 4200,
+    "reserveBasis": "Profit EUR 40,000: social 9,030.72 (CAMTI + CARTI class 2), ISB 25% x (40,000 - 9,031) = 7,742; total 16,773 = 41.9%, rounded to 42%. Applies only when the ISB threshold is met.",
+    "deadlines": [
+     {
+      "name": "CAMTI quarterly contribution (called at the start of the quarter)",
+      "type": "quarterly",
+      "day": 1,
+      "months": [
+       1,
+       4,
+       7,
+       10
+      ]
+     },
+     {
+      "name": "CARTI quarterly contribution (called at the end of the quarter)",
+      "type": "quarterly",
+      "day": 30,
+      "months": [
+       3,
+       6,
+       9,
+       12
+      ]
+     },
+     {
+      "name": "Annual CARTI class change deadline (circular received each October)",
+      "type": "annual",
+      "day": 15,
+      "month": 11
+     }
+    ],
+    "notes": "ISB rate 25% and the 25%-of-turnover-abroad threshold per KPMG Monaco newsletter 2025 No4 (secondary: official portal wording is 'more than 25%'). Applicability to sole traders and the exact filing dates not verified; social contributions as in the other regime. First-year relief for new businesses exists per a secondary source and is not modelled. Other CARTI classes per quarter: class 1 EUR 564.84 (only if average monthly income below EUR 3,000), class 3 EUR 1,694.52, class 4 EUR 2,259.36.",
+    "sources": [
+     "https://www.caisses-sociales.mc/content/download/3108/file/Lettre_information_travailleurs_independants_octobre_2025.pdf",
+     "https://www.cleiss.fr/docs/regimes/regime_monaco_ns.html",
+     "https://www.en.caisses-sociales.mc/home/self-employed-worker",
+     "https://kpmg.com/mc/fr/home/newsletters/newsletters-2025-no4/kpmg-monaco_newsletter-2025-no4_fiscalite_calendrier_isb.html",
+     "https://www.superindep.fr/blog/2024/comment-marche-tva-a-monaco/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.M.",
+    "caseSensitive": false,
+    "name": "Societe anonyme monegasque"
+   },
+   {
+    "token": "SAM",
+    "caseSensitive": true,
+    "name": "Societe anonyme monegasque"
+   },
+   {
+    "token": "S.A.R.L.",
+    "caseSensitive": false,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "SARL",
+    "caseSensitive": true,
+    "name": "Societe a responsabilite limitee"
+   },
+   {
+    "token": "S.C.S.",
+    "caseSensitive": false,
+    "name": "Societe en commandite simple"
+   },
+   {
+    "token": "S.N.C.",
+    "caseSensitive": false,
+    "name": "Societe en nom collectif"
+   },
+   {
+    "token": "SCS",
+    "caseSensitive": true,
+    "name": "Societe en commandite simple"
+   },
+   {
+    "token": "SNC",
+    "caseSensitive": true,
+    "name": "Societe en nom collectif"
+   },
+   {
+    "token": "SCI",
+    "caseSensitive": true,
+    "name": "Societe civile immobiliere"
+   },
+   {
+    "token": "S.C.I.",
+    "caseSensitive": false,
+    "name": "Societe civile immobiliere"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Societe civile"
+   },
+   {
+    "token": "GIE",
+    "caseSensitive": true,
+    "name": "Groupement d'interet economique"
+   }
+  ]
+ },
+ {
+  "code": "AD",
+  "name": "Andorra",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": null,
+  "regimes": [
+   {
+    "id": "ad_autonom",
+    "name": "Treballador autonom (self-employed)",
+    "appliesTo": "Self-employed residents registered with CASS",
+    "incomeTax": {
+     "type": "progressive",
+     "brackets": [
+      {
+       "upToMinor": 2400000,
+       "rateBp": 0
+      },
+      {
+       "upToMinor": 4000000,
+       "rateBp": 500
+      },
+      {
+       "upToMinor": null,
+       "rateBp": 1000
+      }
+     ],
+     "base": "IRPF taxable base (net business income after CASS contributions). Official mechanics: 10% on (base - EUR 24,000 personal minimum), reduced by a bonification of 50% of that tax capped at EUR 800 for earned/business income, which is equivalent to 0% to 24,000, 5% to 40,000, 10% above"
+    },
+    "allowanceMinor": 2400000,
+    "socialContributions": [
+     {
+      "name": "CASS self-employed contribution, tier 100% of reference base (standard; mandatory for higher incomes)",
+      "rateBp": 2200,
+      "base": "22% of the monthly reference base EUR 2,672.52 = EUR 587.95/month (7,055.40/yr) at tier 100%; tiers range from 25% (EUR 146.99/month) / minimum-wage floor 50% (EUR 345.11) to 137.5% (EUR 808.44), set by prior-year net income; 10% general branch + 12% retirement branch",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": 705540
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": null,
+     "standardRateBp": 450
+    },
+    "suggestedReserveRateBp": 1900,
+    "reserveBasis": "Profit EUR 40,000 (average salary is about EUR 32,000, so a conservative proxy): CASS tier 100% = 7,055; IRPF base 40,000 - 7,055 = 32,945, tax = 5% x (32,945 - 24,000) = 447; total 7,502 = 18.8%, rounded to 19%. IGI (VAT) is collected from customers and is excluded.",
+    "deadlines": [
+     {
+      "name": "IRPF return (form 300), 1 April to 30 September of the following year",
+      "type": "annual",
+      "day": 30,
+      "month": 9
+     },
+     {
+      "name": "Pagament fraccionat (advance payment of 50% of prior-year IRPF liquidation) in September",
+      "type": "annual",
+      "day": 30,
+      "month": 9
+     }
+    ],
+    "notes": "IRPF mechanics and filing window from the Govern d'Andorra Guia practica de l'IRPF (personal minimum 24,000, flat 10% rate, 50% bonification capped at EUR 800, advance payment of 50% of last year's liquidation in September). CASS 22% of reference base and quota table for 2026 from a secondary 2026 guide (beancount.io), cross-checked arithmetically (22% x 2,672.52 = 587.95; floor 22% x 1,568.67 = 345.11); official CASS page not fetched; the previous file note that monthly 587.95 was conflicting is resolved by this arithmetic. Tier is assigned by prior-year net income, tiers at 100% and above mandatory. IGI general rate 4.5% from a secondary source only; IGI threshold and return frequency not verified. CASS contributions are deductible in the IRPF base. Business-profit tax and professional registration fees not modelled. Other CASS tiers per month: 25% EUR 146.99, 50% floor EUR 345.11, 62.5% EUR 367.47, 75% EUR 440.97, 125% EUR 734.94, 137.5% EUR 808.44.",
+    "sources": [
+     "https://www.govern.ad/documents/d/guest/guia_irpf",
+     "https://beancount.io/blog/2026/10/07/andorra-cass-self-employed-contributions-2026-hike-guide",
+     "https://andorrainsiders.com/en/andorra-tax-residence-for-digital-nomads-2026/",
+     "https://andorrainsiders.com/en/andorra-vs-spain-taxes-comparison/"
+    ],
+    "verifiedAt": "2026-11-13"
+   }
+  ],
+  "legalForms": [
+   {
+    "token": "S.A.",
+    "caseSensitive": false,
+    "name": "Societat Anonima"
+   },
+   {
+    "token": "SA",
+    "caseSensitive": true,
+    "name": "Societat Anonima"
+   },
+   {
+    "token": "S.L.",
+    "caseSensitive": false,
+    "name": "Societat Limitada"
+   },
+   {
+    "token": "SL",
+    "caseSensitive": true,
+    "name": "Societat Limitada"
+   },
+   {
+    "token": "S.L.U.",
+    "caseSensitive": false,
+    "name": "Societat Limitada Unipersonal"
+   },
+   {
+    "token": "S.C.",
+    "caseSensitive": false,
+    "name": "Societat Civil"
+   },
+   {
+    "token": "SAU",
+    "caseSensitive": true,
+    "name": "Societat Anonima Unipersonal"
+   },
+   {
+    "token": "S.A.U.",
+    "caseSensitive": false,
+    "name": "Societat Anonima Unipersonal"
+   },
+   {
+    "token": "SLU",
+    "caseSensitive": true,
+    "name": "Societat Limitada Unipersonal"
+   },
+   {
+    "token": "SRL",
+    "caseSensitive": true,
+    "name": "Societat de Responsabilitat Limitada"
+   },
+   {
+    "token": "S.R.L.",
+    "caseSensitive": false,
+    "name": "Societat de Responsabilitat Limitada"
+   },
+   {
+    "token": "Societat Col\u00b7lectiva",
+    "caseSensitive": false,
+    "name": "Societat Col\u00b7lectiva"
+   }
+  ]
+ },
+ {
+  "code": "GF",
+  "name": "French Guiana",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "GP",
+  "name": "Guadeloupe",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "MQ",
+  "name": "Martinique",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "YT",
+  "name": "Mayotte",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "RE",
+  "name": "Reunion",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "BL",
+  "name": "Saint Barthelemy",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "MF",
+  "name": "Saint Martin",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ },
+ {
+  "code": "PM",
+  "name": "Saint Pierre and Miquelon",
+  "currency": "EUR",
+  "taxYear": {
+   "startMonth": 1,
+   "startDay": 1
+  },
+  "inheritsFrom": "FR",
+  "regimes": [],
+  "legalForms": []
+ }
+]
