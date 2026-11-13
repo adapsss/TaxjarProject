@@ -83,6 +83,10 @@ Do not use `Flag`, `Illustration` or other `@wise/art` components: they load ima
 
 `.github/workflows/ci.yml` runs on every push and pull request: the backend tests on Python 3.10 (what the plan requires) and 3.13, the frontend's lint, unit tests and build, then the golden path in a real browser against a running backend. Screenshots and logs are kept as a build artifact.
 
+## Deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml` on the team's EC2 server: it builds both images, runs the backend and frontend tests inside them, pushes the images to ECR and restarts the app from `compose.prod.yaml`. A failing test stops the deploy. Server setup, rollback and day-to-day commands: [docs/deploy.md](docs/deploy.md).
+
 ## The API contract
 
 The contract is frozen: `backend/app/schemas.py`, the route paths, `frontend/src/api/schema.d.ts`, `frontend/src/api/client.ts` and the route table in `frontend/src/App.tsx`. Changes go through the tech lead.

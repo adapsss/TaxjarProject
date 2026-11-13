@@ -1,12 +1,19 @@
 # Web: builds frontend/ and serves it with Caddy, which is also the gateway
 # for both hostnames (live app and simulator) and proxies /api to the backend.
 # Build context is the repo root (see compose.yaml): the app imports ../demo/scenarios.json.
-FROM node:24-slim AS build
+FROM node:24-slim AS sources
 WORKDIR /src/frontend
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY demo/ /src/demo/
 COPY frontend/ ./
+
+# Lint and unit tests. Not part of the shipped image: the deploy pipeline builds this
+# stage on its own (`--target test`) and stops if it fails.
+FROM sources AS test
+RUN npx oxlint src && npm test
+
+FROM sources AS build
 RUN npm run build
 
 FROM caddy:2-alpine

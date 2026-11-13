@@ -1,0 +1,44 @@
+# Production on one server: runs the images the deploy pipeline pushed to the registry.
+# Nothing is built here. The pipeline writes .env next to this file and runs:
+#
+#   docker compose -f compose.prod.yaml pull
+#   docker compose -f compose.prod.yaml up -d --wait
+#
+# REGISTRY and IMAGE_TAG are required, e.g.
+#   REGISTRY=123456789012.dkr.ecr.eu-north-1.amazonaws.com
+#   IMAGE_TAG=<git commit sha>
+name: taxjar
+
+services:
+  backend:
+    image: ${REGISTRY:?set REGISTRY}/taxjar-backend:${IMAGE_TAG:?set IMAGE_TAG}
+    volumes:
+      - backend-data:/srv/backend/data # SQLite; survives deploys and reboots
+    restart: always
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  web:
+    image: ${REGISTRY}/taxjar-web:${IMAGE_TAG}
+    ports:
+      - "${APP_PORT:-80}:80" # the app
+      - "${SIMULATOR_PORT:-8081}:81" # shortcut to the simulator
+    environment:
+      APP_PORT: ${APP_PORT:-80} # the simulator shortcut redirects here
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:80/api/account"]
+      interval: 5s
+      timeout: 3s
+      start_period: 5s
+      retries: 10
+    restart: always
+    logging: *logging
+
+volumes:
+  backend-data:

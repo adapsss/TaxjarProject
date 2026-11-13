@@ -1,0 +1,127 @@
+# Every push to main: test on the server, push the images to the registry, run them on the server.
+#
+# All three jobs run on the one EC2 server, which is registered as a self-hosted runner
+# with the label `taxjar`. The server only needs Docker and the AWS CLI: tests run inside
+# the images that are about to ship. Access to the registry comes from the server's IAM
+# role, so the repository holds no AWS keys. Setup: docs/deploy.md.
+#
+# Repository variables (Settings > Secrets and variables > Actions > Variables):
+#   AWS_REGION     e.g. eu-north-1
+#   ECR_REGISTRY   e.g. 123456789012.dkr.ecr.eu-north-1.amazonaws.com
+#   APP_PORT       optional, default 80
+#
+# Run it by hand (Actions > Deploy > Run workflow) with a commit sha to roll back to that image.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Commit sha of an image already in the registry (rollback). Empty: build this commit."
+        required: false
+        default: ""
+
+# One deploy at a time, and never cancel one half way.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  REGISTRY: ${{ vars.ECR_REGISTRY }}
+  IMAGE_TAG: ${{ inputs.image_tag || github.sha }}
+  BACKEND_IMAGE: ${{ vars.ECR_REGISTRY }}/taxjar-backend
+  WEB_IMAGE: ${{ vars.ECR_REGISTRY }}/taxjar-web
+
+jobs:
+  test:
+    name: Test on the server
+    if: ${{ !inputs.image_tag }}
+    runs-on: [self-hosted, taxjar]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the configuration
+        run: |
+          test -n "$AWS_REGION" || { echo "Set the repository variable AWS_REGION"; exit 1; }
+          test -n "$REGISTRY" || { echo "Set the repository variable ECR_REGISTRY"; exit 1; }
+      - name: Build the backend image
+        run: docker build -f docker/backend.Dockerfile -t "$BACKEND_IMAGE:$IMAGE_TAG" .
+      - name: Backend tests, inside the image that ships
+        run: docker run --rm "$BACKEND_IMAGE:$IMAGE_TAG" python -m pytest -q -p no:cacheprovider
+      - name: Frontend lint and unit tests
+        run: docker build -f docker/web.Dockerfile --target test .
+      - name: Build the web image (type-check and production build)
+        run: docker build -f docker/web.Dockerfile -t "$WEB_IMAGE:$IMAGE_TAG" .
+
+  publish:
+    name: Push to the registry
+    needs: test
+    runs-on: [self-hosted, taxjar]
+    timeout-minutes: 15
+    steps:
+      - name: Log in to the registry
+        run: aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
+      - name: Push both images, by commit and as latest
+        run: |
+          for image in "$BACKEND_IMAGE" "$WEB_IMAGE"; do
+            docker tag "$image:$IMAGE_TAG" "$image:latest"
+            docker push "$image:$IMAGE_TAG"
+            docker push "$image:latest"
+          done
+
+  deploy:
+    name: Run on the server
+    needs: publish
+    # Also runs for a rollback, where test and publish are skipped.
+    if: ${{ always() && (needs.publish.result == 'success' || (inputs.image_tag && needs.publish.result == 'skipped')) }}
+    runs-on: [self-hosted, taxjar]
+    timeout-minutes: 15
+    environment: production
+    env:
+      APP_DIR: /opt/taxjar
+      APP_PORT: ${{ vars.APP_PORT || '80' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to the registry
+        run: aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
+      - name: Remember the running version, for the automatic rollback
+        id: previous
+        run: |
+          mkdir -p "$APP_DIR"
+          tag=$(sed -n 's/^IMAGE_TAG=//p' "$APP_DIR/.env" 2>/dev/null || true)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+      - name: Install the compose file and its settings
+        run: |
+          cp compose.prod.yaml "$APP_DIR/compose.prod.yaml"
+          printf 'REGISTRY=%s\nIMAGE_TAG=%s\nAPP_PORT=%s\n' "$REGISTRY" "$IMAGE_TAG" "$APP_PORT" > "$APP_DIR/.env"
+      - name: Pull and start
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          docker compose -f compose.prod.yaml pull
+          docker compose -f compose.prod.yaml up -d --wait --wait-timeout 120
+      - name: Smoke test through the gateway
+        run: |
+          curl -fsS "http://127.0.0.1:$APP_PORT/api/account" > /dev/null
+          curl -fsS "http://127.0.0.1:$APP_PORT/api/tax/countries" > /dev/null
+          curl -fsS "http://127.0.0.1:$APP_PORT/" | grep -q 'id="root"'
+      - name: Roll back if the new version did not come up
+        if: ${{ failure() && steps.previous.outputs.tag && steps.previous.outputs.tag != env.IMAGE_TAG }}
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          PREVIOUS_TAG: ${{ steps.previous.outputs.tag }}
+        run: |
+          echo "The new version did not come up; going back to $PREVIOUS_TAG"
+          docker compose -f compose.prod.yaml logs --tail 80 || true
+          sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$PREVIOUS_TAG/" .env
+          docker compose -f compose.prod.yaml up -d --wait --wait-timeout 120
+      - name: Remove images nothing uses any more
+        if: ${{ success() }}
+        run: |
+          docker image prune -af --filter "until=72h"
+          docker builder prune -f --filter "until=72h"
