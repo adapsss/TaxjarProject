@@ -1,41 +1,103 @@
-import type { ReactNode } from 'react'
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useStore } from '../state/store'
+import { DemoSheet } from './DemoSheet'
 import { NoticeToast, TaxToast, WorkQuestionDialog } from './Overlays'
-import { MobileNav, Sidebar } from './Sidebar'
+import { ActivityIcon, HomeIcon, JarIcon, SettingsIcon } from './ui'
 
-/**
- * The frame around every app screen: sidebar on screens 768px and wider (it widens at 1280px),
- * a top bar and bottom tabs on phones, the content column, the prototype label,
- * and the two live overlays (toast, work question). The route table in App.tsx is frozen,
- * so each screen file wraps itself in this instead of App.tsx owning a layout route.
- */
+const DemoCtx = createContext<() => void>(() => {})
+export const useDemoSheet = () => useContext(DemoCtx)
+
+const TABS = [
+  { to: '/', label: 'Home', icon: HomeIcon, end: true },
+  { to: '/tax-jar', label: 'Tax Jar', icon: JarIcon },
+  { to: '/activity', label: 'Payments', icon: ActivityIcon },
+  { to: '/onboarding', label: 'Settings', icon: SettingsIcon },
+]
+
+/** The iOS-looking device frame, status bar, tab bar and the app's global overlays. */
 export function AppShell({ children }: { children: ReactNode }) {
+  const { profile } = useStore()
+  const location = useLocation()
+  const viewport = useRef<HTMLElement>(null)
+  const [demoOpen, setDemoOpen] = useState(false)
+  const onboarding = location.pathname === '/onboarding' && !profile.enabled
+  const tabs = !onboarding && location.pathname !== '/tax-jar/pay'
+
+  useEffect(() => {
+    viewport.current?.scrollTo({ top: 0 })
+  }, [location.pathname])
+
+  const screenStyle = { '--tab-offset': tabs ? '90px' : '12px' } as CSSProperties
+
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
-      <Sidebar />
-      <MobileNav />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <ConnectionBanner />
-        <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 pt-6 pb-28 md:px-6 md:pt-9 md:pb-16 xl:px-10">{children}</main>
-        <footer className="mb-16 border-t border-line px-4 py-3 text-center text-[11.5px] text-muted md:mb-0">
-          Hackathon prototype · not affiliated with Wise · synthetic data only
-        </footer>
+    <DemoCtx.Provider value={() => setDemoOpen(true)}>
+      <div className="device-stage">
+        <div className="device">
+          <div className="device-screen" style={screenStyle}>
+            <span className="dynamic-island" aria-hidden="true" />
+            <StatusBar />
+            <main ref={viewport} className="app-viewport">
+              {children}
+            </main>
+            {tabs && <TabBar />}
+            <TaxToast />
+            <WorkQuestionDialog />
+            <NoticeToast />
+            <DemoSheet open={demoOpen} onClose={() => setDemoOpen(false)} />
+          </div>
+        </div>
+        <p className="device-caption">Hackathon prototype · Wise-inspired UI · not affiliated with Wise · synthetic data only</p>
       </div>
-      <TaxToast />
-      <NoticeToast />
-      <WorkQuestionDialog />
+    </DemoCtx.Provider>
+  )
+}
+
+function StatusBar() {
+  return (
+    <div className="status-bar" aria-hidden="true">
+      <span className="w-[60px] text-left">9:41</span>
+      <span className="flex items-center gap-1.5">
+        <svg viewBox="0 0 18 12" className="h-3 w-[18px]" fill="currentColor">
+          <rect x="0" y="8" width="3" height="4" rx="0.8" />
+          <rect x="4.5" y="6" width="3" height="6" rx="0.8" />
+          <rect x="9" y="3.5" width="3" height="8.5" rx="0.8" />
+          <rect x="13.5" y="1" width="3" height="11" rx="0.8" />
+        </svg>
+        <svg viewBox="0 0 16 12" className="h-3 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <path d="M1.5 4.2a9.5 9.5 0 0 1 13 0M4.2 7a5.6 5.6 0 0 1 7.6 0M7 9.8a1.7 1.7 0 0 1 2 0" />
+        </svg>
+        <svg viewBox="0 0 25 12" className="h-3 w-[25px]" fill="none">
+          <rect x="0.7" y="0.7" width="21" height="10.6" rx="3" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+          <rect x="2.3" y="2.3" width="17.8" height="7.4" rx="1.8" fill="currentColor" />
+          <path d="M23.2 4v4c1.2-.3 1.7-.9 1.7-2s-.5-1.7-1.7-2Z" fill="currentColor" opacity="0.55" />
+        </svg>
+      </span>
     </div>
   )
 }
 
-/** Live updates are down: say so instead of letting the screen silently go stale. */
-function ConnectionBanner() {
-  const { connected, screen } = useStore()
-  if (connected || screen !== 'ready') return null
+function TabBar() {
   return (
-    <div role="alert" className="sticky top-0 z-30 flex items-center justify-center gap-2.5 bg-amber-soft px-4 py-2.5 text-[14px] font-semibold text-amber-ink">
-      <span className="size-2 animate-pulse rounded-full bg-amber" />
-      Connection lost. Reconnecting… New payments will appear once we’re back.
-    </div>
+    <nav className="tab-bar" aria-label="Main">
+      {TABS.map(({ to, label, icon: Icon, end }) => (
+        <NavLink
+          key={to}
+          to={to}
+          end={end}
+          className={({ isActive }) =>
+            `press flex w-[72px] flex-col items-center gap-1 rounded-2xl py-1 ${isActive ? 'text-forest' : 'text-[#87887f]'}`
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <Icon className={`size-[25px] ${isActive ? 'stroke-[2.1]' : 'stroke-[1.8]'}`} />
+              <span className={`text-[11px] tracking-[-0.01em] ${isActive ? 'font-semibold' : 'font-medium'}`}>{label}</span>
+            </>
+          )}
+        </NavLink>
+      ))}
+      <span className="home-indicator" aria-hidden="true" />
+    </nav>
   )
 }

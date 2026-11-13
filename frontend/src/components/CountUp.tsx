@@ -9,10 +9,8 @@ export function CountUp({ value, currency, className = '' }: { value: number; cu
   useEffect(() => {
     const start = from.current
     if (start === value) return
-    // Only money arriving is celebrated; drops (undo, pay, state switch), and anyone who asked for
-    // reduced motion, get the new value straight away.
-    const reduce = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (value < start || reduce) {
+    // Only money arriving is celebrated; drops (undo, pay, state switch) snap straight to the new value.
+    if (value < start) {
       from.current = value
       setShown(value)
       return

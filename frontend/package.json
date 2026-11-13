@@ -22,6 +22,7 @@
     "@transferwise/neptune-tokens": "^8.27.0",
     "@wise/art": "^2.33.0",
     "@wise/components-theming": "^1.10.3",
+    "flag-icons": "^7.6.0",
     "motion": "^12.43.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
