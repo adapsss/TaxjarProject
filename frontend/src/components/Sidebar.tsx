@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { formatMoney } from '../lib/money'
-import { scenarios } from '../state/scenarios'
+import { useScenarios } from '../state/scenarios'
 import { useStore, type PresetChoice } from '../state/store'
 import { JarIcon, Spinner } from './ui'
 
@@ -85,6 +85,7 @@ export function Sidebar() {
 /** Stage helpers, visibly not part of the product. Hide them for a clean screen; the simulator tab does the same job. */
 function DemoControls({ onHide }: { onHide: () => void }) {
   const { simulate, busy, preset, setPreset, failNext, setFailNext } = useStore()
+  const { scenarios } = useScenarios()
   return (
     <div className="rounded-2xl border border-dashed border-forest/25 bg-[#20271b] p-3.5 text-white">
       <div className="mb-2.5 flex items-center justify-between">

@@ -8,8 +8,6 @@ export default defineConfig({
   server: {
     // The backend runs on :8000; the app always calls same-origin /api (REST and the event stream).
     proxy: { '/api': 'http://localhost:8000' },
-    // Lets the app import ../demo/scenarios.json.
-    fs: { allow: ['..'] },
   },
   test: {
     environment: 'jsdom',

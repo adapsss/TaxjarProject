@@ -33,6 +33,8 @@ const send = (label) => sim.getByRole('button', { name: label }).click()
 await sim.goto(BASE + '/simulator')
 await sim.getByRole('button', { name: /Fresh start/ }).click()
 await expectText(sim.locator('header'), /Tax Jar is not set up/, 'simulator: backend reset, Tax Jar off')
+await sim.getByRole('button', { name: /Client pays \$1,500 \(Acme Inc\.\)/ }).waitFor({ timeout: 5000 })
+console.log('ok  simulator lists the scenarios from the API')
 await app.goto(BASE + '/')
 await expectText(panel(), /Set money aside for taxes automatically/, 'Home offers setup before onboarding')
 

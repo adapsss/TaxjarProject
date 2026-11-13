@@ -20,6 +20,7 @@ export type SimulateIncoming = Schemas['SimulateIncoming']
 export type TaxSummary = Schemas['TaxSummary']
 export type MonthTotal = Schemas['MonthTotal']
 export type PayResult = Schemas['PayResult']
+export type DemoScenario = Schemas['DemoScenario']
 
 /** Every failed call throws this. `code` is the backend's error code, e.g. "tax_jar_not_empty". */
 export class ApiError extends Error {
@@ -82,4 +83,5 @@ export const answerTransaction = (id: string, isIncome: boolean) =>
 export const undoTransaction = (id: string) => request<Transaction>('POST', `${tx(id)}/undo`)
 export const getTaxSummary = () => request<TaxSummary>('GET', '/tax/summary')
 export const payTax = () => request<PayResult>('POST', '/tax/pay')
+export const getDemoScenarios = () => request<DemoScenario[]>('GET', '/demo/scenarios')
 export const resetDemo = () => request<Account>('POST', '/demo/reset')
