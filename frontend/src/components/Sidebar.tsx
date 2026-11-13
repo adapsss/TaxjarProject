@@ -42,7 +42,7 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="sticky top-0 flex h-screen w-[212px] shrink-0 flex-col border-r border-line bg-white px-3 pt-6 pb-4 xl:w-[248px] xl:px-4">
+    <aside className="sticky top-0 hidden h-screen w-[212px] md:flex shrink-0 flex-col border-r border-line bg-white px-3 pt-6 pb-4 xl:w-[248px] xl:px-4">
       <div className="mb-8 flex items-center gap-2.5 px-2">
         <span className="grid size-9 place-items-center rounded-xl bg-lime text-forest">
           <JarIcon className="size-5" />
@@ -134,5 +134,47 @@ function DemoControls({ onHide }: { onHide: () => void }) {
         Open simulator in a new tab ↗
       </a>
     </div>
+  )
+}
+
+/** Phones: the wordmark on top and the same three places as tabs at the bottom, in thumb reach. */
+export function MobileNav() {
+  return (
+    <>
+      <header className="sticky top-0 z-30 flex items-center gap-2.5 border-b border-line bg-white/95 px-4 py-3 backdrop-blur md:hidden">
+        <span className="grid size-8 place-items-center rounded-lg bg-lime text-forest">
+          <JarIcon className="size-[18px]" />
+        </span>
+        <span className="text-[17px] font-extrabold tracking-tight text-forest">Tax Jar</span>
+        <a href="/simulator" target="_blank" rel="noreferrer" className="ml-auto rounded-full bg-canvas px-3 py-1.5 text-[12px] font-semibold text-muted">
+          Simulator ↗
+        </a>
+      </header>
+      <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+        {NAV.map((n) => (
+          <NavLink
+            key={n.to}
+            to={n.to}
+            end={n.to === '/'}
+            className={({ isActive }) =>
+              `flex flex-col items-center gap-1 py-2.5 text-[12px] font-semibold ${isActive ? 'text-forest' : 'text-muted'}`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <span className={`grid h-7 w-12 place-items-center rounded-full ${isActive ? 'bg-lime-soft' : ''}`}>
+                  {n.jar ? (
+                    <JarIcon className="size-5" />
+                  ) : (
+                    <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={n.icon} /></svg>
+                  )}
+                </span>
+                {n.label === 'Tax settings' ? 'Settings' : n.label}
+              </>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+    </>
   )
 }

@@ -1,12 +1,23 @@
 const SYMBOL: Record<string, string> = { EUR: '€', USD: '$', GBP: '£' }
 
-/** 27600 EUR → "€276", 27650 → "€276.50". `sign` adds "+" to positives; negatives use a real minus. */
+/** ISO 4217 minor-unit digits, as the backend uses them: JPY 0, EUR 2, KWD 3. */
+export function exponent(currency: string): number {
+  try {
+    return new Intl.NumberFormat('en', { style: 'currency', currency }).resolvedOptions().maximumFractionDigits ?? 2
+  } catch {
+    return 2 // not an ISO code
+  }
+}
+
+/** 27600 EUR → "€276", 27650 → "€276.50", 100000 JPY → "JPY 100,000". `sign` adds "+" to positives; negatives use a real minus. */
 export function formatMoney(minor: number, currency: string, opts: { sign?: boolean; cents?: boolean } = {}): string {
   const abs = Math.abs(minor)
-  const whole = abs % 100 === 0 && !opts.cents
-  const n = (abs / 100).toLocaleString('en-US', {
-    minimumFractionDigits: whole ? 0 : 2,
-    maximumFractionDigits: whole ? 0 : 2,
+  const digits = exponent(currency)
+  const unit = 10 ** digits
+  const whole = abs % unit === 0 && !opts.cents
+  const n = (abs / unit).toLocaleString('en-US', {
+    minimumFractionDigits: whole ? 0 : digits,
+    maximumFractionDigits: whole ? 0 : digits,
   })
   const prefix = minor < 0 ? '−' : opts.sign && minor > 0 ? '+' : ''
   return `${prefix}${SYMBOL[currency] ?? currency + ' '}${n}`

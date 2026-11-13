@@ -20,8 +20,11 @@ export function parseEvent(type: string, data: string): AppEvent | null {
   return transaction && typeof transaction.id === 'string' ? { type: type as TxEventType, transaction } : null
 }
 
-/** Opens the app's one EventSource. `onOpen` runs on every (re)connect. Returns unsubscribe. */
-export function subscribe(onEvent: (e: AppEvent) => void, onOpen?: () => void): () => void {
+/**
+ * Opens the app's one EventSource. `onOpen` runs on every (re)connect; `onDrop` when the
+ * connection is lost (the browser keeps retrying on its own). Returns unsubscribe.
+ */
+export function subscribe(onEvent: (e: AppEvent) => void, onOpen?: () => void, onDrop?: () => void): () => void {
   const source = new EventSource(EVENTS_URL)
   for (const type of [...TX_TYPES, 'demo.reset']) {
     source.addEventListener(type, (m) => {
@@ -30,5 +33,6 @@ export function subscribe(onEvent: (e: AppEvent) => void, onOpen?: () => void): 
     })
   }
   if (onOpen) source.addEventListener('open', onOpen)
+  if (onDrop) source.addEventListener('error', onDrop)
   return () => source.close()
 }

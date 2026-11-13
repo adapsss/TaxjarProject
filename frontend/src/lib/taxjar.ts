@@ -4,8 +4,13 @@ import type { Country, TaxPart, TaxProfile, TaxSummary, Transaction } from '../a
 
 export const DISCLAIMER = 'An estimate for setting money aside, not tax advice.'
 export const TAX_AUTHORITY = 'Tax authority (demo)'
-/** The backend only keeps balances and the jar in these (app/fx.py). */
+/** Offered for the jar everywhere; the backend supports every engine country's currency too (app/fx.py). */
 export const TAX_CURRENCIES = ['EUR', 'USD', 'GBP']
+
+/** The tax-currency choices for a country: its own currency first, then the three common ones. */
+export function currencyChoices(countryCurrency: string | null | undefined, current?: string): string[] {
+  return [...new Set([countryCurrency, ...TAX_CURRENCIES, current].filter((c): c is string => !!c))]
+}
 
 export interface MonthBar {
   month: string // YYYY-MM

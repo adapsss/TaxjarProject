@@ -19,7 +19,7 @@ for (const [name, p] of [['app', app], ['simulator', sim]]) {
   p.on('console', (m) => m.type() === 'error' && errors.push(`${name}: ${m.text()}`))
 }
 
-const panel = () => app.locator('.sticky.top-8')
+const panel = () => app.getByRole('region', { name: 'Tax Jar summary' })
 async function expectText(locator, re, what) {
   await locator.filter({ hasText: re }).first().waitFor({ timeout: 5000 }).catch(() => {
     throw new Error(`Expected ${what} to match ${re}`)
@@ -58,6 +58,10 @@ await shot('1c-onboarding-rate')
 await app.getByRole('button', { name: /Start setting money aside/ }).click()
 await app.waitForURL(BASE + '/')
 await expectText(panel(), /€0/, 'empty Tax Jar after setup')
+// Six seed payments from clients arrived before the jar existed: the app offers to catch up on them.
+await expectText(app.locator('section[aria-labelledby="catch-up-title"]'), /Clients paid you €5,554[\s\S]*6 payments[\s\S]*€1,110\.80/, 'catch-up offer for earlier income')
+await shot('1d-catch-up-offer')
+await app.getByRole('button', { name: 'Not now' }).click() // the golden path keeps its round numbers; catch-up is tested at the end
 
 // 2. Client payment from the simulator tab → toast in the app tab
 await send(/Client pays \$1,500/)
@@ -161,6 +165,10 @@ await app.getByRole('button', { name: 'Dismiss' }).click()
 await app.locator('main button', { hasText: 'Acme Inc.' }).first().click()
 await app.waitForURL(/\/transactions\//)
 await expectText(app.locator('aside').last(), /Of which[\s\S]*Income tax[\s\S]*€110\.40[\s\S]*Social tax[\s\S]*€165\.60/, 'detail shows the tax split')
+// The drawer is modal: focus starts inside it and Tab stays inside it.
+for (let i = 0; i < 6; i++) await app.keyboard.press('Tab')
+if (!(await app.evaluate(() => !!document.activeElement?.closest('[role="dialog"]')))) throw new Error('Focus escaped the drawer')
+console.log('ok  focus stays inside the detail drawer')
 await app.keyboard.press('Escape')
 await app.waitForURL(BASE + '/')
 console.log('ok  Escape closes the detail drawer')
@@ -184,6 +192,52 @@ const picker = await app.locator('#demo-state').inputValue()
 if (picker !== 'live') throw new Error(`Expected the demo-state picker to read live after setup, got ${picker}`)
 console.log('ok  picker reads Live after setup')
 await expectText(app.locator('main button'), /Harbourline Ltd[\s\S]*Income/, 'past income tagged Income')
+
+// Catch-up: from the simulator's "Set up" (onboarded, empty jar), take the offer.
+await sim.getByRole('button', { name: /^Set up/ }).click()
+await app.goto(BASE + '/')
+await expectText(app.locator('section[aria-labelledby="catch-up-title"]'), /€1,110\.80/, 'catch-up offered after a reset')
+await app.getByRole('button', { name: /Set aside €1,110\.80/ }).click()
+await expectText(app.getByRole('status'), /€1,110\.80 set aside for earlier income[\s\S]*6 client payments/, 'one summary toast for the catch-up')
+await app.waitForTimeout(1200)
+await expectText(panel(), /€1,110\.80/, 'panel shows the caught-up total')
+if (await app.locator('section[aria-labelledby="catch-up-title"]').count()) throw new Error('The offer must go away once taken')
+await shot('9-caught-up')
+
+// Keyboard only: a Tax Jar row opens with Enter.
+await app.goto(BASE + '/tax-jar')
+await app.getByRole('row', { name: /Talvik Media OÜ/ }).focus()
+await app.keyboard.press('Enter')
+await app.waitForURL(/\/transactions\//)
+console.log('ok  a Tax Jar row opens from the keyboard')
+await app.keyboard.press('Escape')
+
+// A phone: bottom tabs instead of the sidebar, nothing wider than the screen.
+const phone = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+for (const path of ['/', '/tax-jar', '/onboarding', '/tax-jar/pay', '/simulator']) {
+  await phone.goto(BASE + path)
+  await phone.waitForTimeout(1800) // data loaded and laid out
+  const overflow = await phone.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
+  if (overflow > 1) throw new Error(`${path} is ${overflow}px wider than a phone screen`)
+  await phone.screenshot({ path: `${OUT}phone${path.replaceAll('/', '-') || '-home'}.png`, fullPage: true })
+}
+await phone.goto(BASE + '/')
+await phone.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Tax Jar' }).click()
+await phone.waitForURL(BASE + '/tax-jar')
+console.log('ok  phone: every screen fits 390px and the bottom tabs work')
+await phone.close()
+
+// The live connection drops: the app says so, then recovers by itself (EventSource retries).
+const offline = await ctx.newPage()
+let block = true
+await offline.route('**/api/events', (route) => (block ? route.abort() : route.continue()))
+await offline.goto(BASE + '/')
+await expectText(offline.getByRole('alert'), /Connection lost\. Reconnecting/, 'banner when the live connection is down')
+await offline.screenshot({ path: `${OUT}golden-10-offline.png` })
+block = false
+await offline.getByRole('alert').filter({ hasText: 'Connection lost' }).waitFor({ state: 'detached', timeout: 15000 })
+console.log('ok  banner goes away once the connection is back')
+await offline.close()
 
 await browser.close()
 if (errors.length) {

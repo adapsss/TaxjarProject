@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { Transaction } from '../api/client'
 import { formatDate, formatMoney, formatRate, partsLine } from '../lib/money'
 import { useEscape } from '../lib/useEscape'
+import { useFocusTrap } from '../lib/useFocusTrap'
 import { tagFor, whyLine } from '../lib/why'
 import { useStore } from '../state/store'
 import { Avatar, Button, CloseIcon, InfoIcon, JarIcon, Tag } from './ui'
@@ -29,8 +30,8 @@ function ToastCard({ tx }: { tx: Transaction }) {
   const r = tx.reservation
   if (!r) return null
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-8 z-40 flex justify-center pl-[212px] xl:pl-[248px]">
-      <div role="status" className="pointer-events-auto w-[540px] animate-rise overflow-hidden rounded-2xl bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]">
+    <div className="pointer-events-none fixed inset-x-0 bottom-20 z-40 flex justify-center px-4 md:bottom-8 md:pl-[212px] xl:pl-[248px]">
+      <div role="status" className="pointer-events-auto w-full max-w-[540px] animate-rise overflow-hidden rounded-2xl bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]">
         <div className="flex items-start gap-3.5 p-4 pr-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-lime text-forest">
             <JarIcon className="size-5" />
@@ -66,6 +67,38 @@ function ToastCard({ tx }: { tx: Transaction }) {
   )
 }
 
+/** A one-off message, e.g. "€1,110.80 set aside for earlier income". */
+export function NoticeToast() {
+  const { notice, dismissNotice, toast } = useStore()
+  if (!notice || toast) return null
+  return <NoticeCard key={notice.key} title={notice.title} detail={notice.detail} onDone={dismissNotice} />
+}
+
+function NoticeCard({ title, detail, onDone }: { title: string; detail: string; onDone: () => void }) {
+  useEffect(() => {
+    const id = setTimeout(onDone, TOAST_MS)
+    return () => clearTimeout(id)
+  }, [onDone])
+  return (
+    <div className="pointer-events-none fixed inset-x-0 bottom-20 z-40 flex justify-center px-4 md:bottom-8 md:pl-[212px] xl:pl-[248px]">
+      <div role="status" className="pointer-events-auto w-full max-w-[540px] animate-rise overflow-hidden rounded-2xl bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]">
+        <div className="flex items-start gap-3.5 p-4 pr-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-lime text-forest">
+            <JarIcon className="size-5" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[16px] font-bold">{title}</p>
+            <p className="mt-0.5 text-[13px] text-white/70">{detail}</p>
+          </div>
+          <button onClick={onDone} aria-label="Dismiss" className="grid size-8 cursor-pointer place-items-center rounded-full text-white/50 hover:bg-white/10 hover:text-white">
+            <CloseIcon className="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /** "Is this payment for work?" for the classifier's middle band (0.4–0.8). */
 export function WorkQuestionDialog() {
   const { question, transactions } = useStore()
@@ -85,18 +118,19 @@ function QuestionCard({ tx }: { tx: Transaction }) {
   const go = (yes: boolean) => answer(tx.id, yes).catch((e: Error) => setError(e.message))
   const inFlight = busy?.startsWith(`answer:${tx.id}`)
 
+  // Docked, not modal: the rest of the app stays usable, and "Decide later" leaves the payment in the feed with a tag.
   return (
-    <div className="fixed inset-0 z-50 grid animate-fade place-items-center bg-forest/40 backdrop-blur-[2px]">
-      <div ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="q-title" className="w-[480px] outline-none animate-rise rounded-3xl bg-white p-7 shadow-2xl">
+    <div className="pointer-events-none fixed inset-x-3 bottom-20 z-50 flex justify-end md:inset-x-auto md:top-6 md:right-6 md:bottom-auto">
+      <div ref={dialog} tabIndex={-1} role="dialog" aria-modal="false" aria-labelledby="q-title" className="pointer-events-auto w-full animate-slide-in rounded-3xl border-2 border-amber bg-white p-6 shadow-[0_24px_60px_-16px_rgba(16,40,8,0.45)] outline-none md:w-[420px]">
         <div className="flex items-center gap-3">
-          <Avatar who={tx.counterparty} size={48} />
+          <Avatar who={tx.counterparty} size={44} />
           <div className="min-w-0">
             <p className="truncate font-semibold">{tx.counterparty.name}</p>
             <p className="truncate text-sm text-muted">{tx.reference || 'No reference'}</p>
           </div>
           <span className="num ml-auto text-[22px] font-extrabold">{formatMoney(tx.amount, tx.currency, { sign: true })}</span>
         </div>
-        <h2 id="q-title" className="mt-6 text-[26px] leading-tight font-extrabold tracking-tight">
+        <h2 id="q-title" className="mt-5 text-[24px] leading-tight font-extrabold tracking-tight">
           Is this payment for work?
         </h2>
         <p className="mt-2 text-[15px] leading-relaxed text-muted">
@@ -105,7 +139,7 @@ function QuestionCard({ tx }: { tx: Transaction }) {
           {tx.counterparty.name.split(' ')[0]} next time.
         </p>
         {error && <p className="mt-4 rounded-xl bg-danger-soft px-3.5 py-2.5 text-sm text-danger">{error}</p>}
-        <div className="mt-7 flex gap-2.5">
+        <div className="mt-6 flex gap-2.5">
           <Button variant="secondary" size="lg" className="flex-1" loading={busy === `answer:${tx.id}:false`} disabled={inFlight} onClick={() => go(false)}>
             No, it’s personal
           </Button>
@@ -113,7 +147,7 @@ function QuestionCard({ tx }: { tx: Transaction }) {
             Yes, it’s for work
           </Button>
         </div>
-        <button onClick={closeQuestion} className="mx-auto mt-4 block cursor-pointer text-sm font-semibold text-muted hover:text-ink">
+        <button onClick={closeQuestion} className="mx-auto mt-3 block cursor-pointer text-sm font-semibold text-muted hover:text-ink">
           Decide later
         </button>
       </div>
@@ -125,13 +159,15 @@ function QuestionCard({ tx }: { tx: Transaction }) {
 export function TransactionDrawer({ id, onClose: close }: { id: string; onClose: () => void }) {
   const { transactions, profile, screen, undo, busy, openQuestion } = useStore()
   const [error, setError] = useState<string | null>(null)
+  const panel = useRef<HTMLElement>(null)
   useEscape(close)
+  useFocusTrap(panel)
   const tx = transactions.find((t) => t.id === id)
   if (!tx) {
     if (screen !== 'ready') return null
     return (
       <div className="fixed inset-0 z-50 flex animate-fade justify-end bg-forest/30" onClick={close}>
-        <aside onClick={(e) => e.stopPropagation()} className="flex h-full w-[460px] flex-col items-center justify-center bg-white px-10 text-center shadow-2xl">
+        <aside onClick={(e) => e.stopPropagation()} className="flex h-full w-full flex-col items-center justify-center bg-white px-10 md:w-[460px] text-center shadow-2xl">
           <p className="text-[20px] font-bold">We can’t find that payment</p>
           <p className="mt-1.5 text-[15px] text-muted">It may have been removed when the demo was reset.</p>
           <Button variant="secondary" className="mt-6" onClick={close}>
@@ -148,7 +184,7 @@ export function TransactionDrawer({ id, onClose: close }: { id: string; onClose:
 
   return (
     <div className="fixed inset-0 z-50 flex animate-fade justify-end bg-forest/30" onClick={close}>
-      <aside onClick={(e) => e.stopPropagation()} className="flex h-full w-[460px] animate-slide-in flex-col overflow-y-auto bg-white shadow-2xl">
+      <aside ref={panel} tabIndex={-1} role="dialog" aria-modal="true" aria-label={`Payment ${tx.direction === 'in' ? 'from' : 'to'} ${tx.counterparty.name}`} onClick={(e) => e.stopPropagation()} className="flex h-full w-full animate-slide-in flex-col overflow-y-auto bg-white shadow-2xl outline-none md:w-[460px]">
         <div className="flex items-center justify-between px-7 pt-6">
           <span className="text-sm font-semibold text-muted">{tx.direction === 'in' ? 'Payment received' : 'Payment sent'}</span>
           <button onClick={close} aria-label="Close" className="grid size-9 cursor-pointer place-items-center rounded-full hover:bg-canvas">
@@ -253,5 +289,5 @@ export function StatusPill({ status }: { status: 'reserved' | 'undone' | 'paid' 
     paid: ['Paid', 'bg-forest text-white'],
     undone: ['Undone', 'bg-black/[0.07] text-muted'],
   }[status]
-  return <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-bold ${s[1]}`}>{s[0]}</span>
+  return <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-bold whitespace-nowrap ${s[1]}`}>{s[0]}</span>
 }

@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react'
 import type { Transaction } from '../api/client'
 import { Button, Card, JarIcon, Spinner } from '../components/ui'
-import { formatMoney, symbol } from '../lib/money'
-import { TAX_CURRENCIES } from '../lib/taxjar'
+import { exponent, formatMoney, symbol } from '../lib/money'
+import { currencyChoices } from '../lib/taxjar'
 import { scenarios } from '../state/scenarios'
 import { useStore, type PresetChoice } from '../state/store'
 
@@ -46,8 +46,8 @@ export default function Simulator() {
       {
         senderName: form.senderName,
         senderKind: form.senderKind || null,
-        // Major units in the form, minor units on the wire.
-        amount: Math.round(Number(form.amount) * 100),
+        // Major units in the form, minor units on the wire (none for JPY, three for KWD).
+        amount: Math.round(Number(form.amount) * 10 ** exponent(form.currency)),
         currency: form.currency,
         reference: form.reference,
       },
@@ -64,9 +64,9 @@ export default function Simulator() {
   const field = 'h-11 w-full rounded-xl border-2 border-line bg-white px-3.5 text-[15px] outline-none focus:border-forest'
 
   return (
-    <div className="min-h-screen bg-[#161b13] px-8 py-10 text-white">
+    <div className="min-h-screen bg-[#161b13] px-4 py-8 text-white md:px-8 md:py-10">
       <div className="mx-auto max-w-[1040px]">
-        <header className="flex items-end justify-between gap-6">
+        <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
           <div>
             <p className="flex items-center gap-2 text-[12px] font-bold tracking-[0.12em] text-lime uppercase">
               <JarIcon className="size-4" /> Demo tool · not part of the app
@@ -76,7 +76,7 @@ export default function Simulator() {
               Each button makes money arrive in the account. Keep the app open in another tab and watch it react.
             </p>
           </div>
-          <div className="shrink-0 text-right text-[13px]">
+          <div className="shrink-0 text-[13px] md:text-right">
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-semibold ${screen === 'error' ? 'bg-danger text-white' : profile.enabled ? 'bg-lime text-forest' : 'bg-white/10 text-white/80'}`}>
               <span className="size-2 rounded-full bg-current" />
               {screen === 'error' ? 'Backend not reachable' : screen === 'loading' ? 'Connecting…' : profile.enabled ? 'Tax Jar is on' : 'Tax Jar is not set up'}
@@ -84,7 +84,7 @@ export default function Simulator() {
           </div>
         </header>
 
-        <div className="mt-8 grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] items-start gap-6">
+        <div className="mt-8 grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
           <section>
             <h2 className="mb-3 text-[13px] font-bold tracking-[0.08em] text-white/50 uppercase">Demo payments</h2>
             <div className="space-y-2">
@@ -133,7 +133,7 @@ export default function Simulator() {
                   <label className="block text-[13px] font-semibold text-muted">
                     Currency
                     <select value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })} className={`mt-1 ${field}`}>
-                      {TAX_CURRENCIES.map((c) => <option key={c}>{c}</option>)}
+                      {currencyChoices(null, profile.taxCurrency).concat(['JPY', 'PLN', 'SEK'].filter((c) => c !== profile.taxCurrency)).map((c) => <option key={c}>{c}</option>)}
                     </select>
                   </label>
                 </div>

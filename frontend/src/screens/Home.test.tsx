@@ -23,6 +23,7 @@ function stubApi(enabled: boolean) {
     '/api/tax-profile': { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled },
     '/api/tax/summary': enabled ? summary : { ...summary, totalReserved: 0, estimatedDue: 0 },
     '/api/tax/countries': [{ code: 'EE', name: 'Estonia', regimes: [] }],
+    '/api/tax/catch-up': { since: '2026-01-01', count: enabled ? 2 : 0, income: 330000, reserved: 66000, taxCurrency: 'EUR' },
   }
   vi.stubGlobal('fetch', vi.fn(async (url: string) => new Response(JSON.stringify(routes[url]))))
 }
@@ -61,4 +62,11 @@ it('offers setup instead of the jar before onboarding', async () => {
   renderHome()
   expect(await screen.findByRole('button', { name: 'Set up in 3 steps' })).toBeTruthy()
   expect(screen.queryByText('€276 for tax')).toBeNull()
+})
+
+it('offers to catch up on income from before the Tax Jar', async () => {
+  stubApi(true)
+  renderHome()
+  expect(await screen.findByRole('heading', { name: 'Catch up on 2026 so far?' })).toBeTruthy()
+  expect(screen.getByRole('button', { name: 'Set aside €660' })).toBeTruthy()
 })

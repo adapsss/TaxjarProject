@@ -4,8 +4,9 @@
 // from the simulator tab (or curl) shows up here too.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import * as api from '../api/client'
-import type { Account, Country, SimulateIncoming, TaxProfile, TaxSummary, Transaction } from '../api/client'
+import type { Account, CatchUp, Country, SimulateIncoming, TaxProfile, TaxSummary, Transaction } from '../api/client'
 import { subscribe } from '../api/events'
+import { formatMoney } from '../lib/money'
 import { buildSummary, type Summary } from '../lib/taxjar'
 import { scenarios, toPayment } from './scenarios'
 
@@ -47,6 +48,15 @@ interface Store extends Data {
   toast: Toast | null
   question: string | null
   flash: { key: number; amount: number } | null
+  /** Earlier client income with no tax set aside (it predates the Tax Jar); null while none. */
+  catchUpOffer: CatchUp | null
+  /** False while the live event stream is down; the browser keeps reconnecting by itself. */
+  connected: boolean
+  /** A one-off message toast, e.g. after catching up. */
+  notice: { key: number; title: string; detail: string } | null
+  catchUp: () => Promise<void>
+  dismissCatchUp: () => void
+  dismissNotice: () => void
   /** Label of the request in flight, e.g. "undo:<id>"; buttons disable themselves on it. */
   busy: string | null
   failNext: boolean
@@ -77,6 +87,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<Toast | null>(null)
   const [question, setQuestion] = useState<string | null>(null)
   const [flash, setFlash] = useState<Store['flash']>(null)
+  const [catchUpOffer, setCatchUpOffer] = useState<CatchUp | null>(null)
+  const [catchUpDismissed, setCatchUpDismissed] = useState(false)
+  const [notice, setNotice] = useState<Store['notice']>(null)
+  const [connected, setConnected] = useState(true)
   const [busy, setBusy] = useState<string | null>(null)
   const [failNext, setFailNext] = useState(false)
   const failRef = useRef(false)
@@ -97,15 +111,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   /** Re-read everything the screens show. Only the newest of overlapping refreshes is applied. */
   const refresh = useCallback(async () => {
     const seq = ++refreshSeq.current
-    const [profile, account, transactions, summary] = await Promise.all([
+    const [profile, account, transactions, summary, offer] = await Promise.all([
       api.getTaxProfile(),
       api.getAccount(),
       api.getTransactions(),
       api.getTaxSummary(),
+      api.getCatchUp(),
     ])
     if (seq !== refreshSeq.current) return
     setData({ profile, account, transactions })
     setTaxSummary(summary)
+    setCatchUpOffer(offer.count > 0 ? offer : null)
   }, [])
 
   /** Fetch countries and everything else; resolves to the screen state to show. */
@@ -127,6 +143,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   // First load: the screen already starts as 'loading'.
   useEffect(() => {
     let live = true
+    // The state is set when the fetch resolves, not synchronously in the effect.
+    // eslint-disable-next-line react/set-state-in-effect
     void fetchAll().then((next) => live && setScreen(next))
     return () => {
       live = false
@@ -152,6 +170,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       subscribe(
         (e) => {
           if (e.type === 'demo.reset') {
+            setCatchUpDismissed(false)
+            setNotice(null)
             setToast(null)
             setQuestion(null)
             setFlash(null)
@@ -169,7 +189,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             setToast((t) => (t?.txId === e.transaction.id ? null : t))
           }
         },
-        () => refresh().catch(ignore), // catch up on anything missed while disconnected
+        () => {
+          setConnected(true)
+          refresh().catch(ignore) // catch up on anything missed while disconnected
+        },
+        () => setConnected(false),
       ),
     [refresh, upsert, showReserved],
   )
@@ -242,6 +266,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const pay = useCallback(async () => (await call('pay', api.payTax)).paidAmount, [call])
 
+  const catchUp = useCallback(async () => {
+    // One summary toast instead of one per payment.
+    quietRef.current = true
+    try {
+      const done = await call('catch-up', api.catchUp)
+      keyRef.current += 1
+      setFlash({ key: keyRef.current, amount: done.reserved })
+      setNotice({
+        key: keyRef.current,
+        title: `${formatMoney(done.reserved, done.taxCurrency)} set aside for earlier income`,
+        detail: `${done.count} client payment${done.count === 1 ? '' : 's'} from before your Tax Jar, now covered.`,
+      })
+    } finally {
+      // The last reservation events may still be on their way over the stream.
+      setTimeout(() => (quietRef.current = false), 600)
+    }
+  }, [call])
+
   const saveProfile = useCallback(
     async (p: TaxProfile) => {
       await call('profile', () => api.putTaxProfile({ ...p, enabled: true }))
@@ -257,6 +299,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setToast(null)
       setQuestion(null)
       setFlash(null)
+      setNotice(null)
+      setCatchUpDismissed(false)
       if (p === 'loading' || p === 'error') {
         setScreen(p)
         return
@@ -296,6 +340,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     void load()
   }, [load])
   const dismissToast = useCallback(() => setToast(null), [])
+  const dismissNotice = useCallback(() => setNotice(null), [])
+  const dismissCatchUp = useCallback(() => setCatchUpDismissed(true), [])
   const closeQuestion = useCallback(() => setQuestion(null), [])
   const openQuestion = useCallback((id: string) => setQuestion(id), [])
 
@@ -309,6 +355,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       toast,
       question,
       flash,
+      catchUpOffer: catchUpDismissed ? null : catchUpOffer,
+      notice,
+      connected,
+      catchUp,
+      dismissCatchUp,
+      dismissNotice,
       busy,
       failNext,
       simulate,
@@ -323,7 +375,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       openQuestion,
       setFailNext,
     }),
-    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion],
+    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion, catchUpOffer, catchUpDismissed, notice, connected, catchUp, dismissCatchUp, dismissNotice],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

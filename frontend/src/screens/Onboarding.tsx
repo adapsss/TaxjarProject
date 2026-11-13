@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { AppShell } from '../components/AppShell'
 import { LoadError } from '../components/StateViews'
 import { Button, Card, CheckIcon, Disclaimer, Flag, Skeleton } from '../components/ui'
-import { formatMoney, formatRate } from '../lib/money'
-import { countryBadge, shortRegimeName, TAX_CURRENCIES } from '../lib/taxjar'
+import { exponent, formatMoney, formatRate } from '../lib/money'
+import { countryBadge, currencyChoices, shortRegimeName } from '../lib/taxjar'
 import { useStore } from '../state/store'
 
 const OTHER = '*'
@@ -63,7 +63,10 @@ function Flow() {
 
   const pickCountry = (code: string) => {
     setCountry(code)
-    const only = countries.find((x) => x.code === code)?.regimes
+    const picked = countries.find((x) => x.code === code)
+    // Suggest keeping the jar in the country's own currency, unless the jar already holds money.
+    if (picked?.currency && !lockedCurrency) setCurrency(picked.currency)
+    const only = picked?.regimes
     // A country with a single regime needs no second question.
     if (only?.length === 1) {
       setRegime(only[0].id)
@@ -83,6 +86,8 @@ function Flow() {
       (e: Error) => setError(e.message),
     )
   }
+  // "1,000" in the jar's currency: €1,000, ¥1,000, KWD 1,000.
+  const example = 1000 * 10 ** exponent(currency)
   const rateChips = [...new Set([1500, 2000, 2500, 3000, ...(r ? [r.defaultRate] : [])])].sort((a, b) => a - b)
 
   return (
@@ -210,16 +215,16 @@ function Flow() {
                 'At 0% nothing is set aside.'
               ) : (
                 <>
-                  From a {formatMoney(100_000, currency)} client payment, we’ll keep{' '}
-                  <b className="num">{formatMoney(Math.round((100_000 * rate) / 10_000), currency)}</b> for taxes.
+                  From a {formatMoney(example, currency)} client payment, we’ll keep{' '}
+                  <b className="num">{formatMoney(Math.round((example * rate) / 10_000), currency)}</b> for taxes.
                 </>
               )}
             </p>
           </Card>
 
           <p className="mt-7 mb-3 text-sm font-semibold text-muted">Keep the jar in</p>
-          <div role="radiogroup" aria-label="Tax currency" className="grid grid-cols-3 gap-2.5">
-            {TAX_CURRENCIES.map((x) => (
+          <div role="radiogroup" aria-label="Tax currency" className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2.5">
+            {currencyChoices(c?.currency, profile.taxCurrency).map((x) => (
               <button
                 key={x}
                 role="radio"

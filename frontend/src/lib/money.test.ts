@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { formatDate, formatMoney, formatRate, monthShort, partsLine } from './money'
+import { exponent, formatDate, formatMoney, formatRate, monthShort, partsLine } from './money'
 
 it('formats minor units, dropping .00 on whole amounts', () => {
   expect(formatMoney(27600, 'EUR')).toBe('€276')
@@ -30,4 +30,13 @@ it('formats rates, dates and months', () => {
 it('writes a tax split as one line', () => {
   const parts = [{ name: 'Income tax', amount: 11040 }, { name: 'Social tax', amount: 16560 }]
   expect(partsLine(parts, 'EUR')).toBe('€110.40 income tax · €165.60 social tax')
+})
+
+it('respects currencies with no or three minor units', () => {
+  expect(exponent('JPY')).toBe(0)
+  expect(exponent('KWD')).toBe(3)
+  expect(exponent('EUR')).toBe(2)
+  expect(formatMoney(100000, 'JPY')).toBe('JPY 100,000')
+  expect(formatMoney(1250, 'KWD', { cents: true })).toBe('KWD 1.250')
+  expect(formatMoney(23200, 'PLN')).toBe('PLN 232')
 })

@@ -175,6 +175,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/tax/catch-up": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Catch Up Preview
+         * @description Income that arrived before the Tax Jar, and the tax it would set aside now.
+         */
+        get: operations["catch_up_preview_api_tax_catch_up_get"];
+        put?: never;
+        /**
+         * Catch Up
+         * @description Set the tax aside for that earlier income now, in one go.
+         */
+        post: operations["catch_up_api_tax_catch_up_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/tax/summary": {
         parameters: {
             query?: never;
@@ -234,6 +258,30 @@ export interface components {
             /** Amount */
             amount: number;
         };
+        /**
+         * CatchUp
+         * @description Income received before the Tax Jar was set up, and the tax for it (preview or result).
+         */
+        CatchUp: {
+            /**
+             * Since
+             * Format: date
+             */
+            since: string;
+            /** Count */
+            count: number;
+            /** Income */
+            income: number;
+            /** Reserved */
+            reserved: number;
+            /** Taxcurrency */
+            taxCurrency: string;
+        };
+        /** CatchUpRequest */
+        CatchUpRequest: {
+            /** Since */
+            since?: string | null;
+        };
         /** Classification */
         Classification: {
             /**
@@ -264,6 +312,8 @@ export interface components {
             code: string;
             /** Name */
             name: string;
+            /** Currency */
+            currency?: string | null;
             /** Regimes */
             regimes: components["schemas"]["Regime"][];
         };
@@ -726,6 +776,71 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PayResult"];
+                };
+            };
+        };
+    };
+    catch_up_preview_api_tax_catch_up_get: {
+        parameters: {
+            query?: {
+                /** @description Defaults to 1 January this year */
+                since?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CatchUp"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    catch_up_api_tax_catch_up_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CatchUpRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CatchUp"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

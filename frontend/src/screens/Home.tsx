@@ -1,4 +1,5 @@
 import { AppShell } from '../components/AppShell'
+import { CatchUpCard } from '../components/CatchUpCard'
 import { LoadError } from '../components/StateViews'
 import { TaxJarPanel } from '../components/TaxJarPanel'
 import { TransactionRow } from '../components/TransactionRow'
@@ -31,14 +32,16 @@ export function HomeView() {
     )
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_320px] items-start gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-8">
+    <>
+    <h1 className="text-[32px] font-extrabold tracking-tight text-forest">{first ? `Hi, ${first}` : 'Hi'}</h1>
+    <p className="mt-1 text-[15px] text-muted">Here’s where your money is today.</p>
+    {/* Phones: greeting, then the Tax Jar, then the money. Wider: money left, Tax Jar right. */}
+    <div className="mt-6 grid grid-cols-1 items-start gap-6 md:mt-0 md:grid-cols-[minmax(0,1fr)_300px] lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-8">
       <div className="min-w-0">
-        <h1 className="text-[32px] font-extrabold tracking-tight text-forest">{first ? `Hi, ${first}` : 'Hi'}</h1>
-        <p className="mt-1 text-[15px] text-muted">Here’s where your money is today.</p>
 
         {screen === 'loading' ? (
           <>
-            <div className="mt-7 grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-7">
               {[0, 1, 2].map((i) => <Skeleton key={i} className="h-[104px] rounded-3xl" />)}
             </div>
             <Skeleton className="mt-9 h-6 w-40" />
@@ -46,7 +49,7 @@ export function HomeView() {
           </>
         ) : (
           <>
-            <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(168px,1fr))] gap-3">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3 md:mt-7">
               {account.balances.map((b) => (
                 <Card key={b.currency} className="p-5">
                   <div className="flex items-center gap-2 text-[13px] font-semibold text-muted">
@@ -69,7 +72,7 @@ export function HomeView() {
               </div>
             )}
 
-            <div className="mt-9 mb-3 flex items-end justify-between">
+            <div className="mt-9 mb-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
               <h2 className="text-[19px] font-bold">Latest activity</h2>
               {pending > 0 && (
                 <span className="text-[13px] font-semibold text-amber-ink">
@@ -88,9 +91,11 @@ export function HomeView() {
         )}
       </div>
 
-      <div className="sticky top-8">
+      <section aria-label="Tax Jar summary" className="order-first space-y-4 md:order-none md:sticky md:top-8 md:-mt-[68px]">
+        {screen === 'ready' && <CatchUpCard />}
         {screen === 'loading' ? <Skeleton className="h-[460px] rounded-3xl bg-forest/15" /> : <TaxJarPanel />}
-      </div>
+      </section>
     </div>
+    </>
   )
 }

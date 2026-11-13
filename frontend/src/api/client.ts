@@ -20,6 +20,7 @@ export type SimulateIncoming = Schemas['SimulateIncoming']
 export type TaxSummary = Schemas['TaxSummary']
 export type MonthTotal = Schemas['MonthTotal']
 export type PayResult = Schemas['PayResult']
+export type CatchUp = Schemas['CatchUp']
 
 /** Every failed call throws this. `code` is the backend's error code, e.g. "tax_jar_not_empty". */
 export class ApiError extends Error {
@@ -82,4 +83,8 @@ export const answerTransaction = (id: string, isIncome: boolean) =>
 export const undoTransaction = (id: string) => request<Transaction>('POST', `${tx(id)}/undo`)
 export const getTaxSummary = () => request<TaxSummary>('GET', '/tax/summary')
 export const payTax = () => request<PayResult>('POST', '/tax/pay')
+/** Income that arrived before the Tax Jar, and the tax it would set aside now (defaults to this calendar year). */
+export const getCatchUp = () => request<CatchUp>('GET', '/tax/catch-up')
+/** Set that tax aside now, in one go. */
+export const catchUp = () => request<CatchUp>('POST', '/tax/catch-up', {})
 export const resetDemo = () => request<Account>('POST', '/demo/reset')
