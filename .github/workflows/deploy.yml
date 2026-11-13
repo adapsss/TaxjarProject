@@ -52,8 +52,18 @@ jobs:
           test -n "$REGISTRY" || { echo "Set the repository variable ECR_REGISTRY"; exit 1; }
       - name: Build the backend image
         run: docker build -f docker/backend.Dockerfile -t "$BACKEND_IMAGE:$IMAGE_TAG" .
-      - name: Backend tests, inside the image that ships
-        run: docker run --rm "$BACKEND_IMAGE:$IMAGE_TAG" python -m pytest -q -p no:cacheprovider
+      - name: Backend tests, inside the image that ships, against a throwaway Postgres
+        run: |
+          net="taxjar-test-$GITHUB_RUN_ID"; db="taxjar-test-db-$GITHUB_RUN_ID"
+          docker network create "$net" > /dev/null
+          trap 'docker rm -f "$db" > /dev/null 2>&1; docker network rm "$net" > /dev/null 2>&1' EXIT
+          docker run -d --rm --name "$db" --network "$net" \
+            -e POSTGRES_USER=taxjar -e POSTGRES_PASSWORD=taxjar -e POSTGRES_DB=taxjar_test postgres:17-alpine > /dev/null
+          # pg_isready can pass before the init restart; a real query cannot.
+          for i in $(seq 1 60); do docker exec "$db" psql -U taxjar -d taxjar_test -c 'select 1' > /dev/null 2>&1 && break; sleep 1; done
+          docker run --rm --network "$net" \
+            -e TEST_DATABASE_URL="postgresql+psycopg://taxjar:taxjar@$db:5432/taxjar_test" \
+            "$BACKEND_IMAGE:$IMAGE_TAG" python -m pytest -q -p no:cacheprovider
       - name: Frontend lint and unit tests
         run: docker build -f docker/web.Dockerfile --target test .
       - name: Build the web image (type-check and production build)
@@ -99,7 +109,11 @@ jobs:
       - name: Install the compose file and its settings
         run: |
           cp compose.prod.yaml "$APP_DIR/compose.prod.yaml"
-          printf 'REGISTRY=%s\nIMAGE_TAG=%s\nAPP_PORT=%s\n' "$REGISTRY" "$IMAGE_TAG" "$APP_PORT" > "$APP_DIR/.env"
+          # The database password is made once on the server and kept: the data volume was created with it.
+          pw="$APP_DIR/.db-password"
+          [ -s "$pw" ] || (umask 077 && openssl rand -hex 24 > "$pw")
+          (umask 077 && printf 'REGISTRY=%s\nIMAGE_TAG=%s\nAPP_PORT=%s\nPOSTGRES_PASSWORD=%s\n' \
+            "$REGISTRY" "$IMAGE_TAG" "$APP_PORT" "$(cat "$pw")" > "$APP_DIR/.env")
       - name: Pull and start
         working-directory: ${{ env.APP_DIR }}
         run: |

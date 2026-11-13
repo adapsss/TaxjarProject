@@ -1,4 +1,4 @@
-# Every push and pull request: backend tests on the Python the plan requires (3.10) and a current one,
+# Every push and pull request: backend tests on Postgres with the Python the plan requires (3.10) and a current one,
 # frontend type-check, lint, unit tests and build, then the golden path end to end in a real browser.
 name: CI
 
@@ -18,6 +18,15 @@ jobs:
       fail-fast: false
       matrix:
         python: ["3.10", "3.13"]
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: taxjar
+          POSTGRES_PASSWORD: taxjar
+          POSTGRES_DB: taxjar_test
+        ports: ["5433:5432"] # the tests' default TEST_DATABASE_URL
+        options: --health-cmd "pg_isready -U taxjar -d taxjar_test" --health-interval 2s --health-timeout 3s --health-retries 30
     defaults:
       run:
         working-directory: backend
@@ -53,6 +62,17 @@ jobs:
     name: Golden path in a browser
     needs: [backend, frontend]
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: taxjar
+          POSTGRES_PASSWORD: taxjar
+          POSTGRES_DB: taxjar
+        ports: ["5433:5432"]
+        options: --health-cmd "pg_isready -U taxjar -d taxjar" --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      DATABASE_URL: postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -72,6 +92,7 @@ jobs:
           npx --prefix frontend playwright install --with-deps chromium
       - name: Start the backend and the app
         run: |
+          (cd backend && alembic upgrade head && python -m app.data_load)
           (cd backend && python -m uvicorn app.main:app --port 8000 > ../backend.log 2>&1 &)
           (cd frontend && npx vite --port 5173 --strictPort > ../frontend.log 2>&1 &)
           for url in http://localhost:8000/api/account http://localhost:5173/; do

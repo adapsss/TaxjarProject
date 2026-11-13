@@ -4,22 +4,60 @@
 #   docker compose -f compose.prod.yaml pull
 #   docker compose -f compose.prod.yaml up -d --wait
 #
-# REGISTRY and IMAGE_TAG are required, e.g.
+# REGISTRY, IMAGE_TAG and POSTGRES_PASSWORD are required, e.g.
 #   REGISTRY=123456789012.dkr.ecr.eu-north-1.amazonaws.com
 #   IMAGE_TAG=<git commit sha>
+#   POSTGRES_PASSWORD=<made once on the server by the pipeline, kept in /opt/taxjar/.db-password>
 name: taxjar
 
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
-  backend:
-    image: ${REGISTRY:?set REGISTRY}/taxjar-backend:${IMAGE_TAG:?set IMAGE_TAG}
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: taxjar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: taxjar
     volumes:
-      - backend-data:/srv/backend/data # SQLite; survives deploys and reboots
+      - db-data:/var/lib/postgresql/data # survives deploys and reboots
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taxjar -d taxjar"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
     restart: always
-    logging: &logging
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
+    logging: *logging
+
+  # One-off on every deploy: brings the schema up to date and imports the tax data into empty
+  # tables, then exits. Data already in the database is left alone (backend/app/data_load.py).
+  migrate:
+    image: ${REGISTRY:?set REGISTRY}/taxjar-backend:${IMAGE_TAG:?set IMAGE_TAG}
+    command: ["sh", "-c", "alembic upgrade head && python -m app.data_load"]
+    environment: &backend-env
+      DATABASE_URL: postgresql+psycopg://taxjar:${POSTGRES_PASSWORD}@db:5432/taxjar
+      DEMO_MODE: "true"
+      TAX_DATA_REFRESH_SECONDS: "60"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+    logging: *logging
+
+  backend:
+    image: ${REGISTRY}/taxjar-backend:${IMAGE_TAG}
+    environment: *backend-env
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: always
+    logging: *logging
 
   web:
     image: ${REGISTRY}/taxjar-web:${IMAGE_TAG}
@@ -41,4 +79,4 @@ services:
     logging: *logging
 
 volumes:
-  backend-data:
+  db-data:
