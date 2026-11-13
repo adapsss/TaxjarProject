@@ -84,7 +84,7 @@ await expectText(sim.locator('li'), /Acme Inc\.[\s\S]*€276 set aside/, 'simula
 await app.getByRole('button', { name: 'Dismiss' }).click()
 await send(/Friend sends €23/)
 await tab('Payments').click()
-await expectText(app.locator('[data-tx-id]').filter({ hasText: 'Mari Tamm' }), /Personal/, 'Mari tagged Personal')
+await expectText(app.locator('[data-tx-id]').filter({ hasText: 'Mari Tamm' }), /Personal · no tax/, 'Mari tagged "Personal · no tax"')
 await app.waitForTimeout(600)
 if (await app.getByRole('status').count()) throw new Error('Mari must not show a toast')
 await shot('3-mari-personal')
@@ -92,6 +92,8 @@ await shot('3-mari-personal')
 // 4. Unclear → question → Yes → €80
 await send(/Unclear €400/)
 await expectText(app.getByRole('dialog'), /Is this payment for work\?/, 'John question')
+await expectText(app.getByRole('dialog'), /Tax: €80 \(20%\) goes to your Tax Jar/, 'the work choice says what it does: tax set aside')
+await expectText(app.getByRole('dialog'), /No tax: the whole €400 stays yours/, 'the personal choice says what it does: no tax')
 await shot('4a-john-question')
 await app.getByRole('button', { name: /Yes, it’s for work/ }).click()
 await expectText(app.getByRole('status'), /€80 set aside for taxes/, 'John toast €80')
@@ -107,17 +109,17 @@ await tab('Tax Jar').click()
 await app.waitForURL(BASE + '/tax-jar')
 await expectText(main(), /€436/, 'Tax Jar page total €276 + €80 + €80')
 await expectText(main(), /due by 10 Dec 2026/, 'next deadline from the backend')
-await expectText(main(), /€174\.40 income tax/, 'Tax Jar page splits the total: income tax')
-await expectText(main(), /€261\.60 social tax/, 'Tax Jar page splits the total: social tax')
+await expectText(main(), /What your tax pays for[\s\S]*Income tax[\s\S]*€174\.40[\s\S]*Social tax[\s\S]*€261\.60/, 'Tax Jar page splits the total: income tax, then social tax')
 await shot('5-tax-jar')
 
 // 6. Open a payment: how it was handled, and the exact tax button
 await main().locator('button').filter({ hasText: 'Acme Inc.' }).first().click()
 await app.waitForURL(/\/transactions\//)
 await expectText(sheet(), /How Tax Jar handled it/, 'payment sheet opens')
+await expectText(sheet(), /Work income · tax set aside/, 'verdict says the payment is taxed')
 await expectText(sheet(), /Arrived[\s\S]*Recognised as work income[\s\S]*20% set aside for tax[\s\S]*In your Tax Jar/, 'sheet lists the steps')
 await sheet().getByRole('button', { name: /How is €276\.00 worked out\?/ }).click()
-await expectText(sheet().getByRole('table'), /Social tax\s*12%\s*\$180\.00\s*€165\.60[\s\S]*Income tax\s*8%\s*\$120\.00\s*€110\.40[\s\S]*Set aside\s*20%\s*\$300\.00\s*€276\.00[\s\S]*Yours to keep\s*80%\s*\$1,200\.00/, 'breakdown button shows each tax as a share of the payment')
+await expectText(sheet().getByRole('table'), /Income tax\s*8% of this payment\s*\$120\.00\s*€110\.40[\s\S]*Social tax\s*12% of this payment\s*\$180\.00\s*€165\.60[\s\S]*Set aside\s*20% of this payment\s*\$300\.00\s*€276\.00[\s\S]*Yours to keep\s*80% of this payment\s*\$1,200\.00/, 'breakdown button shows each tax as a share of the payment')
 await shot('6a-breakdown')
 // The sheet is modal: Escape closes it and returns to the Tax Jar.
 await app.keyboard.press('Escape')
@@ -126,7 +128,7 @@ console.log('ok  Escape closes the payment sheet')
 
 // 7. Undo from the sheet
 await main().locator('button').filter({ hasText: 'Acme Inc.' }).first().click()
-await sheet().getByRole('button', { name: /This wasn’t income/ }).click()
+await sheet().getByRole('button', { name: /Mark as personal instead/ }).click()
 await expectText(sheet(), /Undone/, 'sheet shows undone')
 await app.getByRole('button', { name: 'Close' }).click()
 await app.waitForURL(BASE + '/tax-jar')
@@ -150,7 +152,7 @@ await expectText(main(), /€0/, 'jar empty after paying')
 // Paid tax cannot be undone: the sheet offers no Undo and says why.
 await main().locator('button').filter({ hasText: 'John Smith' }).first().click()
 await expectText(sheet(), /Paid to the tax authority/, 'paid payment says so')
-if (await sheet().getByRole('button', { name: /This wasn’t income/ }).count()) throw new Error('Undo must not be offered after paying')
+if (await sheet().getByRole('button', { name: /Mark as personal instead/ }).count()) throw new Error('Undo must not be offered after paying')
 console.log('ok  no Undo after the tax is paid')
 await app.keyboard.press('Escape')
 
@@ -174,6 +176,52 @@ await app.waitForTimeout(1200)
 await expectText(panel(), /€1,110\.80/, 'panel shows the caught-up total')
 if (await offer.count()) throw new Error('The offer must go away once taken')
 await shot('10-caught-up')
+
+// 10b. "Are you sure?" when leaving settings while switching region
+await sim.getByRole('button', { name: /^Set up/ }).click()
+await app.goto(BASE + '/onboarding')
+await app.getByRole('button', { name: /^Estonia/ }).click() // the country card, which says "Change"
+await app.getByRole('searchbox').fill('poland')
+await app.getByRole('radio', { name: 'Poland', exact: true }).click()
+await tab('Home').click()
+const sure = app.getByRole('dialog', { name: 'Are you sure?' })
+await expectText(sure, /switching your tax region from Estonia to Poland[\s\S]*keeps using Estonia/, '"Are you sure?" names both regions')
+await shot('10b-are-you-sure')
+await sure.getByRole('button', { name: 'Keep editing' }).click()
+await expectText(app.getByRole('radio', { name: 'Poland', exact: true }).and(app.locator('[aria-checked="true"]')), /Poland/, 'Keep editing: the change is still there')
+await tab('Payments').click()
+await sure.getByRole('button', { name: 'Leave without saving' }).click()
+await app.waitForURL(BASE + '/activity')
+console.log('ok  Leave without saving goes where you were heading')
+// Nothing was saved: the jar still follows Estonia.
+const kept = await (await ctx.request.get(BASE + '/api/tax-profile')).json()
+if (kept.country !== 'EE') throw new Error('Leaving without saving must not change the region, got ' + kept.country)
+console.log('ok  nothing was saved: still Estonia')
+
+// 10c. The tax breakdown has the same shape in every country
+const API = BASE + '/api'
+const post = (path, body, method = 'POST') => ctx.request.fetch(API + path, { method, data: body }).then((r) => r.json())
+const countries = await (await ctx.request.get(API + '/tax/countries')).json()
+const shapes = {}
+for (const [cc, regimeId, cur] of [['EE', 'entrepreneur_account', 'EUR'], ['EE', 'fie', 'EUR'], ['PL', null, 'PLN'], ['BG', null, 'EUR'], ['GB', null, 'GBP'], ['JP', null, 'JPY']]) {
+  const c = countries.find((x) => x.code === cc)
+  const reg = c.regimes.find((r) => r.id === regimeId) ?? c.regimes[0]
+  await post('/demo/reset', {})
+  await post('/tax-profile', { country: cc, regime: reg.id, rate: reg.defaultRate, taxCurrency: cur, enabled: true }, 'PUT')
+  const tx = await post('/simulate/incoming', { senderName: 'Acme Inc.', amount: 150000, currency: 'USD', reference: 'INV-042' })
+  await app.goto(BASE + '/transactions/' + tx.id)
+  await sheet().getByRole('button', { name: /worked out/ }).click()
+  const table = sheet().getByRole('table')
+  await table.waitFor()
+  const head = await table.locator('thead th').count()
+  const names = (await table.locator('tbody th').allInnerTexts()).map((t) => t.split('\n')[0].trim())
+  shapes[`${cc}/${reg.id}`] = JSON.stringify({ head, names: names.slice(0, 2), rows: names.length, tail: names.slice(-2) })
+  if (cc === 'PL') await shot('10c-breakdown-poland')
+  if (cc === 'EE' && reg.id === 'entrepreneur_account') await shot('10c-breakdown-estonia')
+}
+const distinct = new Set(Object.values(shapes))
+if (distinct.size !== 1) throw new Error('The breakdown differs between countries:\n' + Object.entries(shapes).map(([k, v]) => `${k}: ${v}`).join('\n'))
+console.log('ok  the breakdown has the same rows in 6 regimes: ' + [...distinct][0])
 
 // 11. Phone checks: nothing wider than the screen, and every tap target is at least 44pt.
 for (const path of ['/', '/activity', '/tax-jar', '/onboarding', '/tax-jar/pay', '/simulator']) {

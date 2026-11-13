@@ -1,20 +1,23 @@
 import { useId, useState } from 'react'
 import type { Transaction } from '../api/client'
-import { paymentSplit } from '../lib/breakdown'
+import { paymentLines, paymentSplit } from '../lib/breakdown'
 import { formatMoney, formatRate } from '../lib/money'
-
-const TAX_COLORS = ['bg-forest', 'bg-[#4d7c2a]', 'bg-[#86b35e]']
+import { TAX_COLORS } from './taxColors'
 
 /**
- * "How is €276 worked out?": a button that opens the exact split of one payment —
- * each tax as a percentage of what arrived, in both currencies, and what stays yours.
+ * "How is €276 worked out?": a button that opens the split of one payment: each tax, what was
+ * set aside in both currencies, and what stays yours. The layout is the same in every country;
+ * only the amount cell differs ("On your return" where the law fixes no per-payment split).
  */
 export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
   const [open, setOpen] = useState(false)
   const panel = useId()
   const s = paymentSplit(tx)
   if (!s) return null
+  const lines = paymentLines(tx, rule)
   const fx = s.currency !== s.taxCurrency
+  // The bar: each tax to scale when the split is exact, one tax segment otherwise.
+  const segments = s.exact ? s.taxes.map((t) => ({ id: t.id, name: t.name, rateBp: t.rateBp })) : [{ id: 'tax', name: 'Tax', rateBp: s.total.rateBp }]
 
   return (
     <div className="rounded-[22px] bg-white ring-1 ring-line">
@@ -29,7 +32,7 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
         <span className="min-w-0 flex-1">
           <span className="block text-[15px] font-semibold">How is {formatMoney(s.total.reserved, s.taxCurrency, { cents: true })} worked out?</span>
           <span className="block text-[13px] text-muted">
-            {formatRate(s.total.rateBp)} of this payment{s.exact ? `: ${s.taxes.map((t) => `${formatRate(t.rateBp)} ${t.name.toLowerCase()}`).join(', ')}` : ''}
+            {formatRate(s.total.rateBp)} of this payment · {lines.map((l) => l.name.toLowerCase()).join(' + ')}
           </span>
         </span>
         <svg viewBox="0 0 24 24" className={`size-5 shrink-0 text-muted transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -39,9 +42,8 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
 
       {open && (
         <div id={panel} className="animate-rise px-4 pb-4">
-          {/* The whole payment as one bar: each tax and what stays yours, to scale. */}
-          <div className="flex h-3 overflow-hidden rounded-full bg-soft" role="img" aria-label={`Of ${formatMoney(s.received, s.currency)}: ${s.taxes.map((t) => `${formatRate(t.rateBp)} ${t.name}`).join(', ')}, ${formatRate(s.keep.rateBp)} yours`}>
-            {s.taxes.map((t, i) => (
+          <div className="flex h-3 overflow-hidden rounded-full bg-soft" role="img" aria-label={`Of ${formatMoney(s.received, s.currency)}: ${formatRate(s.total.rateBp)} set aside for tax, ${formatRate(s.keep.rateBp)} yours`}>
+            {segments.map((t, i) => (
               <span key={t.id} className={TAX_COLORS[i % TAX_COLORS.length]} style={{ width: `${t.rateBp / 100}%` }} />
             ))}
           </div>
@@ -51,26 +53,36 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
             <thead>
               <tr className="text-[12px] text-muted">
                 <th scope="col" className="pb-1.5 text-left font-medium">Of {formatMoney(s.received, s.currency, { cents: true })}</th>
-                <th scope="col" className="pb-1.5 text-right font-medium">Share</th>
                 <th scope="col" className="pb-1.5 text-right font-medium">{fx ? s.currency : 'Amount'}</th>
                 {fx && <th scope="col" className="pb-1.5 text-right font-medium">{s.taxCurrency}</th>}
               </tr>
             </thead>
             <tbody className="money">
-              {s.taxes.map((t, i) => (
-                <tr key={t.id} className="border-t border-line/70">
-                  <th scope="row" className="py-2.5 text-left font-medium">
-                    <span className={`mr-2 inline-block size-2.5 rounded-full align-middle ${TAX_COLORS[i % TAX_COLORS.length]}`} />
-                    {t.name}
-                  </th>
-                  <td className="py-2.5 text-right font-semibold">{formatRate(t.rateBp)}</td>
-                  <td className="py-2.5 text-right">{formatMoney(t.source, s.currency, { cents: true })}</td>
-                  {fx && <td className="py-2.5 text-right">{formatMoney(t.reserved, s.taxCurrency, { cents: true })}</td>}
-                </tr>
-              ))}
+              {lines.map((l, i) => {
+                const exact = s.taxes.find((t) => t.id === l.id)
+                return (
+                  <tr key={l.id} className="border-t border-line/70">
+                    <th scope="row" className="py-2.5 text-left font-medium">
+                      <span className={`mr-2 inline-block size-2.5 rounded-full align-middle ${TAX_COLORS[i % TAX_COLORS.length]}`} />
+                      {l.name}
+                      <span className="block pl-[18px] text-[12.5px] font-normal text-muted">{l.basis}</span>
+                    </th>
+                    {exact ? (
+                      <>
+                        <td className="py-2.5 text-right">{formatMoney(exact.source, s.currency, { cents: true })}</td>
+                        {fx && <td className="py-2.5 text-right">{formatMoney(exact.reserved, s.taxCurrency, { cents: true })}</td>}
+                      </>
+                    ) : (
+                      <td colSpan={fx ? 2 : 1} className="py-2.5 text-right font-sans text-[13px] text-muted">On your return</td>
+                    )}
+                  </tr>
+                )
+              })}
               <tr className="border-t-2 border-forest/15 font-bold">
-                <th scope="row" className="py-2.5 text-left">Set aside</th>
-                <td className="py-2.5 text-right">{formatRate(s.total.rateBp)}</td>
+                <th scope="row" className="py-2.5 text-left">
+                  Set aside
+                  <span className="block text-[12.5px] font-normal text-muted">{formatRate(s.total.rateBp)} of this payment</span>
+                </th>
                 <td className="py-2.5 text-right">{formatMoney(s.total.source, s.currency, { cents: true })}</td>
                 {fx && <td className="py-2.5 text-right">{formatMoney(s.total.reserved, s.taxCurrency, { cents: true })}</td>}
               </tr>
@@ -78,8 +90,8 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
                 <th scope="row" className="py-2.5 text-left font-medium">
                   <span className="mr-2 inline-block size-2.5 rounded-full bg-soft align-middle ring-1 ring-line" />
                   Yours to keep
+                  <span className="block pl-[18px] text-[12.5px] font-normal">{formatRate(s.keep.rateBp)} of this payment</span>
                 </th>
-                <td className="py-2.5 text-right font-semibold">{formatRate(s.keep.rateBp)}</td>
                 <td className="py-2.5 text-right">{formatMoney(s.keep.amount, s.currency, { cents: true })}</td>
                 {fx && <td />}
               </tr>
@@ -89,10 +101,8 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
           <p className="mt-3 text-[13px] leading-relaxed text-muted">
             {fx && `Converted at 1 ${s.currency} = ${tx.reservation!.fxRate} ${s.taxCurrency} when it arrived. `}
             {s.exact
-              ? rule
-                ? `The law splits it this way: ${rule}.`
-                : 'The split between taxes is fixed by law for this regime.'
-              : `${rule ? `${rule}. ` : ''}Your regime splits tax on yearly profit, so the exact amounts are worked out on your return.`}
+              ? 'The law fixes this split for your regime, so these are exact.'
+              : 'Your regime taxes yearly profit, so what each tax comes to is worked out on your return.'}
           </p>
         </div>
       )}

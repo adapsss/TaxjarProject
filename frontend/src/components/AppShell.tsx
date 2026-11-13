@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../state/store'
 import { DemoSheet } from './DemoSheet'
 import { DemoSheetContext } from './demoSheetContext'
+import { LeaveConfirm } from './LeaveConfirm'
+import { LeaveGuardContext, type LeaveGuard } from './leaveGuardContext'
 import { NoticeToast, TaxToast, WorkQuestionDialog } from './Overlays'
 import { ActivityIcon, HomeIcon, JarIcon, SettingsIcon } from './ui'
 
@@ -19,6 +21,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const location = useLocation()
   const viewport = useRef<HTMLElement>(null)
   const [demoOpen, setDemoOpen] = useState(false)
+  const nav = useNavigate()
+  const [guard, setGuard] = useState<LeaveGuard | null>(null)
+  // Where the person was heading when "Are you sure?" interrupted them.
+  const [pending, setPending] = useState<string | null>(null)
+  const request = (to: string) => (guard ? setPending(to) : nav(to))
   const onboarding = location.pathname === '/onboarding' && !profile.enabled
   const tabs = !onboarding && location.pathname !== '/tax-jar/pay'
 
@@ -34,6 +41,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <DemoSheetContext.Provider value={() => setDemoOpen(true)}>
+      <LeaveGuardContext.Provider value={{ guard, setGuard, request }}>
       <div className="device-stage">
         <div className="device">
           <div className="device-screen" style={screenStyle}>
@@ -53,10 +61,23 @@ export function AppShell({ children }: { children: ReactNode }) {
             <WorkQuestionDialog />
             <NoticeToast />
             <DemoSheet open={demoOpen} onClose={() => setDemoOpen(false)} />
+            {pending !== null && guard && (
+              <LeaveConfirm
+                body={guard.body}
+                onStay={() => setPending(null)}
+                onLeave={() => {
+                  const to = pending
+                  setPending(null)
+                  setGuard(null)
+                  nav(to)
+                }}
+              />
+            )}
           </div>
         </div>
         <p className="device-caption">Hackathon prototype · Wise-inspired UI · not affiliated with Wise · synthetic data only</p>
       </div>
+      </LeaveGuardContext.Provider>
     </DemoSheetContext.Provider>
   )
 }
@@ -86,6 +107,7 @@ function StatusBar() {
 }
 
 function TabBar() {
+  const { guard, request } = useContext(LeaveGuardContext)
   return (
     <nav className="tab-bar" aria-label="Main">
       {TABS.map(({ to, label, icon: Icon, end }) => (
@@ -93,6 +115,13 @@ function TabBar() {
           key={to}
           to={to}
           end={end}
+          onClick={(e) => {
+            // Unsaved changes on this screen: ask first, then go.
+            if (guard) {
+              e.preventDefault()
+              request(to)
+            }
+          }}
           className={({ isActive }) =>
             `press flex w-[72px] flex-col items-center gap-1 rounded-2xl py-1 ${isActive ? 'text-forest' : 'text-[#87887f]'}`
           }

@@ -88,3 +88,7 @@ export const regimeName = (countries: Country[], code: string, regime: string) =
 export function countryBadge(code: string): string {
   return code === '*' ? 'ALL' : code
 }
+
+/** The regime's taxes in words, e.g. "10% income tax + 8% social contributions"; "" when unknown. */
+export const regimeRule = (countries: Country[], country: string, regime: string): string =>
+  countries.find((c) => c.code === country)?.regimes.find((r) => r.id === regime)?.breakdownRule ?? ''

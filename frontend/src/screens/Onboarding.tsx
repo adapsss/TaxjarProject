@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useGuardedNavigate, useLeaveGuard } from '../components/leaveGuardContext'
 import {
   ArrowLeftIcon,
   Button,
@@ -37,6 +38,7 @@ function SetupFlow() {
   const [currency, setCurrency] = useState(profile.taxCurrency)
   const [error, setError] = useState<string | null>(null)
   const [query, setQuery] = useState('')
+  const [changing, setChanging] = useState(false) // opened "Change" from the settings summary
 
   const other = countries.find((x) => x.code === OTHER)
   const searching = query.trim() !== ''
@@ -72,16 +74,35 @@ function SetupFlow() {
     )
   }
 
+  // Unsaved changes: leaving asks "Are you sure?" first. Switching region gets its own wording.
+  const regionChanged = editing && country !== profile.country
+  const changed = editing
+    ? regionChanged || regime !== profile.regime || rate !== profile.rate || currency !== profile.taxCurrency
+    : country !== ''
+  const placeName = (code: string) => (code === OTHER ? 'another country' : (countries.find((x) => x.code === code)?.name ?? code))
+  useLeaveGuard(
+    !changed
+      ? null
+      : regionChanged
+        ? `You’re switching your tax region from ${placeName(profile.country)} to ${placeName(country)}. If you leave now, nothing is saved and your Tax Jar keeps using ${placeName(profile.country)}.`
+        : editing
+          ? 'You changed your tax settings but haven’t saved them. If you leave now, the changes are lost.'
+          : 'Your setup isn’t finished. If you leave now, your choices aren’t saved and your Tax Jar stays off.',
+  )
+  const leave = useGuardedNavigate()
+
+  // In settings the arrow leaves, unless you came in through "Change" and are stepping back through the choices.
+  const leaves = step === 1 || (editing && step === 3 && !changing)
   const back = () => {
-    if (step > 1) setStep(step - 1)
-    else nav(editing ? '/tax-jar' : '/')
+    if (leaves) leave(editing ? '/tax-jar' : '/')
+    else setStep(step - 1)
   }
 
   return (
     <div className="flex min-h-full flex-col px-5 pt-2">
       <header className="flex items-center justify-between">
-        <CircleButton label={step > 1 ? 'Back' : editing ? 'Back to Tax Jar' : 'Close setup'} size={40} onClick={back}>
-          {step > 1 || editing ? <ArrowLeftIcon className="size-[18px]" /> : <CloseIcon className="size-[18px]" />}
+        <CircleButton label={!leaves ? 'Back' : editing ? 'Back to Tax Jar' : 'Close setup'} size={40} onClick={back}>
+          {!leaves || editing ? <ArrowLeftIcon className="size-[18px]" /> : <CloseIcon className="size-[18px]" />}
         </CircleButton>
         {editing ? (
           <span className="flex items-center gap-1.5 rounded-full bg-lime-soft px-2.5 py-1 text-[13px] font-semibold text-lime-ink">
@@ -233,7 +254,7 @@ function SetupFlow() {
           {c && (
             <button
               type="button"
-              onClick={() => setStep(1)}
+              onClick={() => (setChanging(true), setStep(1))}
               className="press mb-4 flex w-full cursor-pointer items-center gap-3 rounded-2xl bg-white px-4 py-3 text-left"
             >
               <Flag code={c.code} size={34} />

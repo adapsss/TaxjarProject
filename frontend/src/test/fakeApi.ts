@@ -35,7 +35,10 @@ export function stubApi(enabled: boolean, transactions: unknown[] = [acme]) {
     '/api/transactions': enabled ? transactions : transactions.map((t) => ({ ...(t as object), reservation: null, reservationId: null })),
     '/api/tax-profile': { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled },
     '/api/tax/summary': enabled ? summary : { ...summary, totalReserved: 0, estimatedDue: 0 },
-    '/api/tax/countries': [{ code: 'EE', name: 'Estonia', currency: 'EUR', regimes: [{ id: 'entrepreneur_account', name: 'Entrepreneur account', defaultRate: 2000, hint: '', breakdownRule: RULE }] }],
+    '/api/tax/countries': [
+      { code: 'EE', name: 'Estonia', currency: 'EUR', regimes: [{ id: 'entrepreneur_account', name: 'Entrepreneur account', defaultRate: 2000, hint: '', breakdownRule: RULE }] },
+      { code: 'PL', name: 'Poland', currency: 'PLN', regimes: [{ id: 'scale', name: 'Sole trader', defaultRate: 3320, hint: '', breakdownRule: 'income tax from 12% to 32% + social contributions' }] },
+    ],
     '/api/tax/catch-up': { since: '2026-01-01', count: enabled ? 2 : 0, income: 330000, reserved: 66000, taxCurrency: 'EUR' },
     '/api/demo/scenarios': [
       { id: 'acme', label: 'Client pays $1,500 (Acme Inc.)', senderName: 'Acme Inc.', senderKind: null, amount: 150000, currency: 'USD', reference: 'INV-042', expect: 'income' },

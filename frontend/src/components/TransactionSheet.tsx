@@ -2,10 +2,12 @@ import { useCallback, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import type { Transaction } from '../api/client'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
+import { regimeRule } from '../lib/taxjar'
 import { tagFor } from '../lib/why'
 import { useStore } from '../state/store'
 import { TaxBreakdown } from './TaxBreakdown'
-import { Avatar, Button, CircleButton, CloseIcon, Sheet, Tag } from './ui'
+import { Avatar, Button, CircleButton, CloseIcon, Sheet } from './ui'
+import { WorkChoice } from './WorkChoice'
 
 type StepState = 'done' | 'waiting' | 'skipped'
 interface Step {
@@ -57,7 +59,7 @@ function Body({ tx }: { tx: Transaction }) {
   const signed = tx.direction === 'in' ? tx.amount : -tx.amount
   const label = tx.classification.label
   const sure = Math.round(tx.classification.confidence * 100)
-  const rule = countries.find((c) => c.code === profile.country)?.regimes.find((g) => g.id === profile.regime)?.breakdownRule
+  const rule = regimeRule(countries, profile.country, profile.regime)
   const run = (p: Promise<unknown>) => {
     setError(null)
     p.catch((e: Error) => setError(e.message))
@@ -131,8 +133,8 @@ function Body({ tx }: { tx: Transaction }) {
         </div>
       </div>
       <p className="money mt-4 text-[40px] leading-none font-extrabold tracking-[-0.05em]">{formatMoney(signed, tx.currency, { sign: true, cents: true })}</p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {tag && <Tag name={tag} />}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <Verdict tx={tx} tag={tag} />
         {tx.counterparty.isKnownClient && <span className="rounded-full bg-soft px-2.5 py-1 text-[13px] font-semibold text-muted">Known client</span>}
       </div>
 
@@ -167,26 +169,58 @@ function Body({ tx }: { tx: Transaction }) {
 
       <div className="mt-6 space-y-2.5">
         {tag === 'Needs your answer' && (
-          <>
-            <Button size="lg" className="w-full" loading={busy === `answer:${tx.id}:true`} disabled={!!busy} onClick={() => run(answer(tx.id, true))}>
-              Yes, it’s for work
-            </Button>
-            <Button size="lg" variant="secondary" className="w-full" loading={busy === `answer:${tx.id}:false`} disabled={!!busy} onClick={() => run(answer(tx.id, false))}>
-              No, it’s personal
-            </Button>
-          </>
+          <WorkChoice
+            amount={tx.amount}
+            currency={tx.currency}
+            rate={profile.rate}
+            busy={busy === `answer:${tx.id}:true` ? true : busy === `answer:${tx.id}:false` ? false : null}
+            disabled={!!busy}
+            onChoose={(yes) => run(answer(tx.id, yes))}
+          />
         )}
         {r?.status === 'reserved' && (
           <>
             <Button variant="danger" size="lg" className="w-full" loading={busy === `undo:${tx.id}`} onClick={() => run(undo(tx.id))}>
-              This wasn’t income
+              Mark as personal instead
             </Button>
-            <p className="text-center text-[13px] text-muted">
-              {formatMoney(r.sourceAmount, r.sourceCurrency, { cents: true })} goes back to your {r.sourceCurrency} balance.
+            <p className="text-center text-[13px] leading-relaxed text-muted">
+              No tax is taken from this payment: {formatMoney(r.sourceAmount, r.sourceCurrency, { cents: true })} goes back to your {r.sourceCurrency} balance.
             </p>
           </>
         )}
       </div>
     </div>
+  )
+}
+
+/**
+ * The one-glance answer to "is this taxed?", in the same two colours everywhere:
+ * green = work income, tax set aside; grey = personal, no tax. Says who decided it.
+ */
+function Verdict({ tx, tag }: { tx: Transaction; tag: ReturnType<typeof tagFor> }) {
+  if (tx.direction === 'out') return null
+  const r = tx.reservation
+  const you = tx.classification.reasons.some((x) => /^you\b/i.test(x)) || tx.classification.confidence >= 0.99
+  const by = you ? 'You decided this' : 'Decided automatically'
+  const v =
+    r?.status === 'paid'
+      ? { tone: 'bg-lime-soft text-forest', mark: '✓', title: 'Work income · tax paid', note: by }
+      : r?.status === 'reserved'
+        ? { tone: 'bg-lime-soft text-forest', mark: '✓', title: 'Work income · tax set aside', note: by }
+        : tag === 'Needs your answer'
+          ? { tone: 'bg-amber-soft text-amber-ink', mark: '?', title: 'Waiting for your answer', note: 'Work income or personal?' }
+          : tag === 'Income'
+            ? { tone: 'bg-sky/30 text-forest', mark: '✓', title: 'Work income · not taxed yet', note: 'Arrived before your Tax Jar' }
+            : r?.status === 'undone'
+              ? { tone: 'bg-soft text-ink', mark: '–', title: 'Personal · no tax taken', note: 'You took the tax back' }
+              : { tone: 'bg-soft text-ink', mark: '–', title: 'Personal · no tax taken', note: by }
+  return (
+    <span className={`flex items-center gap-2.5 rounded-2xl px-3.5 py-2 ${v.tone}`}>
+      <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center rounded-full bg-white/70 text-[14px] font-bold">{v.mark}</span>
+      <span>
+        <span className="block text-[15px] leading-tight font-bold">{v.title}</span>
+        <span className="block text-[13px] leading-tight opacity-75">{v.note}</span>
+      </span>
+    </span>
   )
 }

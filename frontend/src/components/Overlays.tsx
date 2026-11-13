@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Transaction } from '../api/client'
 import { useEscape } from '../lib/useEscape'
+import { WorkChoice } from './WorkChoice'
 import { useStore } from '../state/store'
-import { formatMoney, formatRate, partsLine } from '../lib/money'
+import { linesSummary, paymentLines } from '../lib/breakdown'
+import { formatMoney } from '../lib/money'
+import { regimeRule } from '../lib/taxjar'
 import { whyLine } from '../lib/why'
 import {
   Avatar,
@@ -25,7 +28,8 @@ export function TaxToast() {
 }
 
 function ToastCard({ tx }: { tx: Transaction }) {
-  const { undo, busy, dismissToast } = useStore()
+  const { undo, busy, dismissToast, profile, countries } = useStore()
+  const rule = regimeRule(countries, profile.country, profile.regime)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -54,9 +58,7 @@ function ToastCard({ tx }: { tx: Transaction }) {
               <p className="text-[15px] leading-snug font-bold">
                 <span className="money text-lime">{formatMoney(r.reservedAmount, r.taxCurrency)}</span> set aside for taxes
               </p>
-              {r.breakdown && r.breakdown.length > 0 && (
-                <p className="money mt-0.5 text-[13px] font-semibold text-white/80">{partsLine(r.breakdown, r.taxCurrency)}</p>
-              )}
+              <p className="money mt-0.5 text-[13px] font-semibold text-white/80">{linesSummary(paymentLines(tx, rule), r.taxCurrency)}</p>
             </div>
             <CircleButton
               label="Dismiss"
@@ -166,25 +168,19 @@ function QuestionCard({ tx }: { tx: Transaction }) {
         <h2 id="q-title" className="mt-4 text-[24px] leading-[1.06] font-extrabold tracking-[-0.04em]">
           Is this payment for work?
         </h2>
-        <p className="mt-2 text-[14px] leading-relaxed text-muted">
-          If it is, we’ll set aside {formatRate(profile.rate)} ({formatMoney(Math.round((tx.amount * profile.rate) / 10_000), tx.currency)}) for
-          taxes. We’ll remember your answer for {tx.counterparty.name.split(' ')[0]} next time.
+        <p className="mt-1.5 text-[14px] leading-relaxed text-muted">
+          Pick one. We’ll remember it for {tx.counterparty.name.split(' ')[0]} next time.
         </p>
         {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-3.5 py-2.5 text-[14px] text-danger">{error}</p>}
-        <div className="mt-5 space-y-2">
-          <Button size="lg" className="w-full" loading={busy === `answer:${tx.id}:true`} disabled={inFlight} onClick={() => go(true)}>
-            Yes, it’s for work
-          </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="w-full"
-            loading={busy === `answer:${tx.id}:false`}
-            disabled={inFlight}
-            onClick={() => go(false)}
-          >
-            No, it’s personal
-          </Button>
+        <div className="mt-4">
+          <WorkChoice
+            amount={tx.amount}
+            currency={tx.currency}
+            rate={profile.rate}
+            busy={busy === `answer:${tx.id}:true` ? true : busy === `answer:${tx.id}:false` ? false : null}
+            disabled={!!inFlight}
+            onChoose={go}
+          />
         </div>
         <button
           type="button"

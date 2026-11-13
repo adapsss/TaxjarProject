@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { CountUp } from '../components/CountUp'
 import { MonthlyBars } from '../components/MonthlyBars'
+import { TaxLines } from '../components/TaxLines'
+import { totalLines } from '../lib/breakdown'
 import { StatusPill } from '../components/Overlays'
 import { LoadError } from '../components/StateViews'
 import { countryName } from '../lib/taxjar'
@@ -34,6 +36,7 @@ export default function TaxJar() {
   const download = () => Object.assign(document.createElement('a'), { href: EXPORT_CSV_URL, download: 'tax-jar.csv' }).click()
   const active = summary.reservations.filter((t) => t.reservation!.status !== 'undone')
   const empty = summary.reservations.length === 0
+  const taxLines = totalLines(summary.breakdown, summary.breakdownRule)
   const deadline = summary.nextDeadline
 
   return (
@@ -82,20 +85,11 @@ export default function TaxJar() {
           )}
         </p>
 
-        {!empty && summary.breakdown && summary.breakdown.length > 0 && (
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            {summary.breakdown.map((part) => (
-              <span key={part.id} className="rounded-full bg-lime-soft px-3 py-1.5 text-[13px] font-semibold text-forest">
-                <span className="money">{formatMoney(part.amount, summary.currency, { cents: true })}</span> {part.name.toLowerCase()}
-              </span>
-            ))}
+        {!empty && taxLines.length > 0 && (
+          <div className="mt-4 rounded-2xl bg-canvas px-4 pt-3 text-left">
+            <h2 className="text-[12px] font-bold tracking-[0.08em] text-muted uppercase">What your tax pays for</h2>
+            <TaxLines lines={taxLines} currency={summary.currency} />
           </div>
-        )}
-        {!empty && !summary.breakdown && summary.breakdownRule && (
-          <p className="mt-4 rounded-2xl bg-canvas px-3.5 py-3 text-[13px] leading-relaxed text-muted">
-            How it’s taxed: <span className="font-semibold text-ink">{summary.breakdownRule}</span>.
-            {!summary.breakdownRule.includes('of each payment') && ' The split between taxes is worked out on your return, not per payment.'}
-          </p>
         )}
 
         <Button size="lg" className="mt-5 w-full" disabled={summary.held === 0} onClick={() => nav('/tax-jar/pay')}>

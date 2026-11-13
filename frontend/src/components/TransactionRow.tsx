@@ -42,7 +42,11 @@ export function TransactionRow({ tx, enabled, last }: { tx: Transaction; enabled
               ? `${formatMoney(r.reservedAmount, r.taxCurrency)} tax`
               : tag === 'Tax paid' && r
                 ? `${formatMoney(r.reservedAmount, r.taxCurrency)} paid`
-                : undefined}
+                : tag === 'Personal'
+                  ? 'Personal · no tax'
+                  : tag === 'Income'
+                    ? 'Not taxed yet'
+                    : undefined}
           </Tag>
         )}
       </div>

@@ -77,7 +77,11 @@ It is an iPhone-style web app (Tailwind, Wise-inspired but not Wise's own look).
 | `/tax-jar/pay` | Pay tax: pre-filled confirmation → success |
 | `/simulator` | Stage tool, for its own tab: the demo payments (from the database, `GET /api/demo/scenarios`), a custom payment, demo reset |
 
-**The tax-breakdown button.** On a payment that had tax set aside, "How is €276.00 worked out?" opens each tax as a share of what arrived, in both currencies, and what stays yours: 12% social tax ($180.00 → €165.60), 8% income tax ($120.00 → €110.40), 20% set aside, 80% yours to keep. The rows always add up to exactly what was taken (`frontend/src/lib/breakdown.ts`). For regimes taxed on yearly profit the backend sends no exact split, so it shows one "Tax" row and says the rest is worked out on the return.
+**Taxed or not, at a glance.** Every payment says which of two things happened, in the same two colours everywhere: green "Work income · tax set aside" or grey "Personal · no tax taken", plus whether you decided it or it was decided automatically. When we ask, each choice states its result in money: "Tax: €80 (20%) goes to your Tax Jar" or "No tax: the whole €400 stays yours". A taxed payment can be switched with "Mark as personal instead", which says the money goes back to your balance.
+
+**The tax-breakdown button.** On a payment that had tax set aside, "How is €276.00 worked out?" opens the same table in every country: one row per tax (income tax first, then social tax, then any funded pension), what was set aside in both currencies, and what stays yours. Where the law fixes a split per payment (Estonia's entrepreneur account) each row shows exact money: 8% income tax ($120.00 → €110.40), 12% social tax ($180.00 → €165.60). Everywhere else, the rows carry the regime's rates ("12% to 32% rates") and say "On your return", because those taxes are worked out on yearly profit. The Tax Jar page and the toast use the same lines (`frontend/src/lib/breakdown.ts`), and the rows always add up exactly to what was taken.
+
+**Leaving settings.** If you change anything in Tax settings, especially switching region, leaving by the back arrow or the tabs asks "Are you sure?" and names both regions ("You're switching your tax region from Estonia to Poland... your Tax Jar keeps using Estonia"). Closing or reloading the page asks the browser to confirm too. The phone's own back gesture can't be intercepted in the browser, so it still leaves immediately.
 
 What a freelancer gets beyond the golden path:
 
