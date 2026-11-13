@@ -41,7 +41,7 @@ def upgrade() -> None:
         "tax_country",
         sa.Column("code", sa.String, primary_key=True),
         sa.Column("name", sa.String, nullable=False),
-        sa.Column("currency", sa.String(3), nullable=False),
+        sa.Column("currency", sa.String(3), nullable=True),  # null for "*" (Other)
         sa.Column("tax_year_start_month", sa.SmallInteger, nullable=False),
         sa.Column("tax_year_start_day", sa.SmallInteger, nullable=False),
         sa.Column("inherits_from", sa.String, sa.ForeignKey("tax_country.code", deferrable=True, initially="DEFERRED"), nullable=True),
@@ -61,7 +61,7 @@ def upgrade() -> None:
         sa.Column("allowance_minor", sa.BigInteger, nullable=False),
         sa.Column("income_tax_type", sa.String, nullable=False),
         sa.Column("income_tax_rate_bp", sa.Integer, nullable=True),
-        sa.Column("income_tax_base", sa.Text, nullable=False),
+        sa.Column("income_tax_base", sa.Text, nullable=True),
         sa.Column("income_tax_brackets", JSONB, nullable=True),
         sa.Column("vat_registration_threshold_minor", sa.BigInteger, nullable=True),
         sa.Column("vat_standard_rate_bp", sa.Integer, nullable=True),

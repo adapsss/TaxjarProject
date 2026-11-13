@@ -31,7 +31,7 @@ regime = sa.Table(
     sa.Column("income_tax_type", sa.String),
     sa.Column("income_tax_rate_bp", sa.Integer),
     sa.Column("income_tax_base", sa.Text),
-    sa.Column("income_tax_brackets", JSONB),
+    sa.Column("income_tax_brackets", JSONB(none_as_null=True)),  # None is SQL NULL, not a JSON null
     sa.Column("vat_registration_threshold_minor", sa.BigInteger),
     sa.Column("vat_standard_rate_bp", sa.Integer),
     sa.Column("suggested_reserve_rate_bp", sa.Integer),
