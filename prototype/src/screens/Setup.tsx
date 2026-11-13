@@ -75,6 +75,7 @@ function SetupFlow() {
                     <span className="num rounded-full bg-canvas px-2.5 py-0.5 text-[13px] font-bold text-forest">{formatRate(g.defaultRate)}</span>
                   </span>
                   <span className="mt-1 block text-sm leading-relaxed text-muted">{g.hint}</span>
+                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-forest/80">{g.breakdownRule}</span>}
                 </span>
               </Choice>
             ))}

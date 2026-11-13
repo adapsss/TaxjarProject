@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { tagFor } from '../data/engine'
 import { useStore } from '../data/store'
-import { formatDate, formatMoney, formatRate, whyLine } from '../lib/money'
+import { formatDate, formatMoney, formatRate, partsLine, whyLine } from '../lib/money'
 import { Avatar, Button, CloseIcon, InfoIcon, JarIcon, Tag } from './ui'
 
 const TOAST_MS = 6000
@@ -33,6 +33,9 @@ export function TaxToast() {
             <p className="text-[16px] font-bold">
               <span className="num text-lime">{formatMoney(r.reservedAmount, r.taxCurrency)}</span> set aside for taxes
             </p>
+            {r.breakdown && r.breakdown.length > 0 && (
+              <p className="num mt-0.5 text-[13px] font-semibold text-white/85">{partsLine(r.breakdown, r.taxCurrency)}</p>
+            )}
             <p className="mt-0.5 text-[13px] text-white/65">{whyLine(tx.classification.reasons)}</p>
             {error && <p className="mt-1 text-[12.5px] text-[#ffb4ab]">{error}</p>}
           </div>
@@ -162,6 +165,14 @@ export function ReservationDrawer() {
               <div className="border-t border-line pt-2.5">
                 <Line k={r.status === 'undone' ? 'Returned to balance' : 'In your Tax Jar'} v={formatMoney(r.reservedAmount, r.taxCurrency, { cents: true })} strong />
               </div>
+              {r.status !== 'undone' && r.breakdown && r.breakdown.length > 0 && (
+                <div className="space-y-2 border-t border-line pt-2.5">
+                  <p className="text-[12px] font-semibold tracking-wide text-muted uppercase">Of which</p>
+                  {r.breakdown.map((part) => (
+                    <Line key={part.id} k={part.name} v={formatMoney(part.amount, r.taxCurrency, { cents: true })} />
+                  ))}
+                </div>
+              )}
             </dl>
           </div>
         )}

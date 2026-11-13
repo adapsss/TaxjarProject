@@ -3,7 +3,7 @@
 import accountFx from '../../../fixtures/account.json'
 import profileFx from '../../../fixtures/tax-profile.json'
 import transactionsFx from '../../../fixtures/transactions.json'
-import type { Account, Scenario, TaxProfile, Transaction } from './types'
+import type { Account, Scenario, TaxPart, TaxProfile, Transaction } from './types'
 
 export const DISCLAIMER = 'An estimate for setting money aside, not tax advice.'
 export const TAX_AUTHORITY = 'Tax authority (demo)'
@@ -172,6 +172,10 @@ export interface Summary {
   paid: number
   estimatedDue: number
   nextDeadline: Date | null
+  /** Exact split of `held` into its taxes; null when the regime defines none. Comes from the backend. */
+  breakdown: TaxPart[] | null
+  /** The regime's taxes in words. Comes from the backend. */
+  breakdownRule: string
   byMonth: MonthBar[]
   reservations: Transaction[]
   pending: Transaction[]
@@ -200,6 +204,8 @@ export function summary(db: DB, now = new Date()): Summary {
     paid,
     estimatedDue: held,
     nextDeadline: deadline(db.profile.regime, now),
+    breakdown: null,
+    breakdownRule: '',
     byMonth,
     reservations: db.transactions.filter((t) => t.reservation),
     pending: db.profile.enabled
