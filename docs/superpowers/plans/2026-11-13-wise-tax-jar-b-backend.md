@@ -1,4 +1,4 @@
-# Wise Tax Jar — Role B: Backend & API
+# Wise Tax Jar — Role B: Backend & API (two people)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -8,56 +8,41 @@
 
 **Spec:** `roadmap-tax-jar-en.md` (repo root).
 
-**Branch prefix:** `be/*`. Merge into `main` after every task.
+**Two people work from this file.** Task IDs (B1–B6) are unchanged, because the other role files refer to them.
 
-**You own (nobody else edits these):** `backend/app/main.py`, `models.py`, `db.py`, `fx.py`, `events.py`, `pipeline.py`, `reservations.py`, `routes/core.py`, `routes/payments.py`, `backend/tests/conftest.py` and your own test files.
+| | Backend 1: Data & API | Backend 2: Money |
+|---|---|---|
+| Tasks, in order | B2 Step 1 (tables and fixtures) → B3 → rest of B2 → B6 | B1 → B4 → B5 |
+| Owns | `backend/app/main.py`, `models.py`, `db.py`, `events.py`, `routes/core.py`, `backend/tests/conftest.py` | `backend/app/fx.py`, `pipeline.py`, `reservations.py`, `routes/payments.py` |
+| Branches | `be/api-*` | `be/money-*` |
 
-**What you wait for:**
+Each of you also owns your own test files. Merge into `main` after every task. B6 is the one task where Backend 1 edits Backend 2's files; its text says how to avoid a collision.
+
+**What Backend 1 waits for:**
 
 | Your task | Needs | Until then |
 |---|---|---|
-| B1 | S0 only | Start here while D1 lands. |
-| B2 | D1 (`demo/seed.json`), C2 (`tax_rules`) | Do B1 and B3's bus tests first. |
-| B4 | C1 (`classifier`), C2 | Both are small and start at the same time as you; if they are late, code against their Interfaces blocks in the role C file. |
-| B5, B6 | C3 Step 1 (`assert_invariants`) | Leave the `assert_invariants` line out and add it when the helper is merged. |
+| B2 | D1 (`demo/seed.json`), C2 (`tax_rules`) | Write `models.py` and B3's bus tests first. |
+| B3 | S0 only | — |
+| B6 | B4 from Backend 2; B5 for the `undo` rule; C3 Step 1 (`assert_invariants`) | Help role A connect to the real endpoints and run Checkpoint 2. |
+
+**What Backend 2 waits for:**
+
+| Your task | Needs | Until then |
+|---|---|---|
+| B1 | S0 only | Start here. |
+| B4 | B2 Step 1 and B3 from Backend 1; C1 (`classifier`), C2 | Write the B4 tests and draft `reserve` against the Interfaces blocks in B2, B3 and the role C file. |
+| B5 | C3 Step 1 (`assert_invariants`) | Leave the `assert_invariants` line out and add it when the helper is merged. |
 
 **Review Focus items that land in your tasks:** 1 (B4, B5), 2 (B4), 3 (B4), 4 (B6), 5 (B2, B4).
 
-Tasks are in the order to do them. Cut from the bottom: Could first, then Should.
+Within each section, tasks are in the order to do them. Cut from the bottom: Could first, then Should.
 
 ---
 
-### Task B1 · Must: FX
+## Backend 1: Data & API
 
-**Files:**
-- Create: `backend/app/fx.py`
-- Test: `backend/tests/test_fx.py`
-
-**Interfaces — Produces:**
-
-```python
-TO_EUR_BP = {"EUR": 10000, "USD": 9200, "GBP": 11500}
-def is_supported(currency: str) -> bool
-def rate(src: str, dst: str) -> float                    # for display; rate("USD","EUR") == 0.92
-def convert(amount: int, src: str, dst: str) -> int      # via EUR, round half up; raises UnsupportedCurrency
-class UnsupportedCurrency(ValueError)
-```
-
-- [ ] **Step 1: Write the failing tests.**
-
-```python
-def test_usd_to_eur():        # convert(30000, "USD", "EUR") == 27600
-def test_gbp_to_eur():        # convert(18000, "GBP", "EUR") == 20700
-def test_same_currency():     # convert(8000, "EUR", "EUR") == 8000
-def test_cross_via_eur():     # convert(10000, "USD", "GBP") == 8000
-def test_unsupported():       # convert(100, "JPY", "EUR") raises UnsupportedCurrency
-def test_display_rate():      # rate("USD", "EUR") == 0.92
-```
-
-- [ ] **Step 2: Run, expect FAIL. Step 3: Implement with integer maths. Step 4: Run, expect PASS.**
-- [ ] **Step 5: Commit** `feat(be): fixed-rate FX in minor units`.
-
-### Task B2 · Must: Storage, seed, read endpoints, tax profile, error format
+### Task B2 · Must · Backend 1: Storage, seed, read endpoints, tax profile, error format
 
 **Files:**
 - Create: `backend/app/models.py`, `backend/app/db.py`
@@ -93,7 +78,8 @@ def to_account(session) -> schemas.Account
 
 The database file is `backend/data/app.db` (gitignored). On startup, create tables and seed if `ProfileRow` is missing.
 
-- [ ] **Step 1: Write the failing tests.**
+- [ ] **Step 1: Hand off the tables and fixtures first.** Write `models.py`, `db.py` and the three `conftest.py` fixtures (`session`, `client`, `onboarded`), check that `pytest` still collects and the Task S0 contract tests pass, then commit `feat(be): tables, seed loading and test fixtures`, push to `main` and tell Backend 2. They cannot run their pipeline tests without this, so do it before any endpoint.
+- [ ] **Step 2: Write the failing tests.**
 
 ```python
 def test_account_matches_seed(client):       # owner "Kadri Saar"; 3 balances; jar with id "tax" has balance 0
@@ -111,12 +97,12 @@ def test_unknown_route_uses_error_format(client):      # GET /api/nope → 404, 
 def test_reset_restores_seed(client):        # change the profile, POST /api/demo/reset → profile enabled is False
 ```
 
-- [ ] **Step 2: Run, expect FAIL.**
-- [ ] **Step 3: Implement.** Register handlers for `RequestValidationError` (422, `validation_error`), `HTTPException` and a small `ApiError(status, code, message)` so every error leaves in the single format. `POST /demo/reset` calls `reset_to_seed` (the `demo.reset` event is added in Task B3).
-- [ ] **Step 4: Run, expect PASS.**
-- [ ] **Step 5: Commit** `feat(be): storage, seed, read endpoints and tax profile`.
+- [ ] **Step 3: Run, expect FAIL.**
+- [ ] **Step 4: Implement the endpoints.** Register handlers for `RequestValidationError` (422, `validation_error`), `HTTPException` and a small `ApiError(status, code, message)` so every error leaves in the single format. `POST /demo/reset` calls `reset_to_seed` (the `demo.reset` event is added in Task B3).
+- [ ] **Step 5: Run, expect PASS.**
+- [ ] **Step 6: Commit** `feat(be): read endpoints, tax profile and error format`.
 
-### Task B3 · Must: Event bus and SSE
+### Task B3 · Must · Backend 1: Event bus and SSE
 
 **Files:**
 - Create: `backend/app/events.py`
@@ -148,9 +134,66 @@ def test_reset_publishes_demo_reset(client, events):   # POST /api/demo/reset �
 - [ ] **Step 2: Run, expect FAIL.**
 - [ ] **Step 3: Implement.** The endpoint returns a `StreamingResponse` with media type `text/event-stream`, sends a `: ping` comment every 15 seconds (use `asyncio.wait_for` on the queue; `asyncio.timeout` needs 3.11), and unsubscribes when the client disconnects.
 - [ ] **Step 4: Run, expect PASS.** Then check by hand: `curl -N localhost:8000/api/events` in one terminal, `curl -X POST localhost:8000/api/demo/reset` in another, and the first prints the `demo.reset` frame.
-- [ ] **Step 5: Commit** `feat(be): event bus and SSE endpoint`.
+- [ ] **Step 5: Commit** `feat(be): event bus and SSE endpoint`, push to `main` and tell Backend 2: their pipeline publishes through `EventBus` and their tests use the `events` fixture.
 
-### Task B4 · Must: Payment pipeline, simulate and answer
+### Task B6 · Could · Backend 1: Pay tax
+
+**Files:**
+- Modify: `backend/app/reservations.py`, `backend/app/routes/payments.py`
+- Test: `backend/tests/test_pay.py`
+
+This task is done by Backend 1 in files that Backend 2 owns, so start it only after Task B4 is in `main`, add `pay_all` as a new function, and rebase onto Task B5 before changing `undo` (the `reservation_paid` rule). If B5 is not merged yet, leave `test_undo_after_paid` for last.
+
+**Interfaces — Produces:** `reservations.pay_all(session, bus) -> tuple[TransactionRow, int]` (the outgoing transaction and the amount paid)
+
+`pay_all`: sum the `reserved` reservations, set them to `paid`, set the Tax Jar to 0, and save an outgoing transaction to `Tax authority (demo)` with reference `Tax payment`, label `personal`, in the tax currency; publish `transaction.created`. `undo` on a `paid` reservation raises 409 `reservation_paid`.
+
+- [ ] **Step 1: Write the failing tests.**
+
+```python
+def test_pay_empties_the_jar(client, session, onboarded):
+    # Acme, POST /api/tax/pay → paidAmount 27600; currency "EUR"; transaction.direction "out"
+    # tax jar balance 0; USD balance unchanged by the payment; assert_invariants(session)
+def test_pay_with_empty_jar(client, onboarded):       # 409, code "nothing_to_pay"
+def test_undo_after_paid(client, onboarded):          # Review Focus 4: 409, code "reservation_paid"; jar still 0
+```
+
+- [ ] **Step 2: Run, expect FAIL. Step 3: Implement. Step 4: Run the whole suite, expect PASS.**
+- [ ] **Step 5: Commit** `feat(be): pay tax from the Tax Jar`.
+
+## Backend 2: Money
+
+### Task B1 · Must · Backend 2: FX
+
+**Files:**
+- Create: `backend/app/fx.py`
+- Test: `backend/tests/test_fx.py`
+
+**Interfaces — Produces:**
+
+```python
+TO_EUR_BP = {"EUR": 10000, "USD": 9200, "GBP": 11500}
+def is_supported(currency: str) -> bool
+def rate(src: str, dst: str) -> float                    # for display; rate("USD","EUR") == 0.92
+def convert(amount: int, src: str, dst: str) -> int      # via EUR, round half up; raises UnsupportedCurrency
+class UnsupportedCurrency(ValueError)
+```
+
+- [ ] **Step 1: Write the failing tests.**
+
+```python
+def test_usd_to_eur():        # convert(30000, "USD", "EUR") == 27600
+def test_gbp_to_eur():        # convert(18000, "GBP", "EUR") == 20700
+def test_same_currency():     # convert(8000, "EUR", "EUR") == 8000
+def test_cross_via_eur():     # convert(10000, "USD", "GBP") == 8000
+def test_unsupported():       # convert(100, "JPY", "EUR") raises UnsupportedCurrency
+def test_display_rate():      # rate("USD", "EUR") == 0.92
+```
+
+- [ ] **Step 2: Run, expect FAIL. Step 3: Implement with integer maths. Step 4: Run, expect PASS.**
+- [ ] **Step 5: Commit** `feat(be): fixed-rate FX in minor units`.
+
+### Task B4 · Must · Backend 2: Payment pipeline, simulate and answer
 
 **Files:**
 - Create: `backend/app/pipeline.py`, `backend/app/reservations.py`
@@ -175,7 +218,7 @@ Behaviour:
 - `process_incoming`: reject bad input first (see tests). Credit the balance (create the row if the currency is supported but absent), upsert the counterparty by normalised name, classify, save. If the profile is enabled and the label is `income`, call `reserve`. Commit once, then publish in this order: `transaction.created`; then `reservation.created` if a reservation was made; or `question.asked` if the profile is enabled and the label is `unknown`.
 - `answer`: if the profile is disabled, raise 409 `tax_profile_disabled`. If the transaction's label is not `unknown`, return it unchanged and publish nothing. `True` → label `income`, confidence 0.99, reasons `["you confirmed this was for work"]`, counterparty status `client`, `reserve` and, when it returns a reservation, publish `reservation.created`. `False` → label `personal`, confidence 0.99, reasons `["you said this wasn't for work"]`, counterparty status `personal`.
 
-- [ ] **Step 1: Write the failing pipeline tests** (assert deltas, not seed values).
+- [ ] **Step 1: Write the failing pipeline tests** (assert deltas, not seed values). You can write these, and draft `reserve`, as soon as Task B1 is done; they run once Backend 1 has pushed B2 Step 1 (tables and fixtures) and B3 (the bus and the `events` fixture).
 
 ```python
 def test_acme_reserves_276_eur(client, onboarded, events):
@@ -221,7 +264,7 @@ def test_bad_simulate_input(client, onboarded, body, code):    # 422, that code,
 - [ ] **Step 4: Run the whole backend suite.** Expected: all pass.
 - [ ] **Step 5: Commit** `feat(be): payment pipeline with classification, reservation and learning`, then ask role C to review it (their Task C3).
 
-### Task B5 · Should: Undo
+### Task B5 · Should · Backend 2: Undo
 
 **Files:**
 - Modify: `backend/app/reservations.py`, `backend/app/routes/payments.py`
@@ -245,26 +288,3 @@ def test_undo_does_not_forget_client(client, onboarded):     # John yes, undo, n
 
 - [ ] **Step 2: Run, expect FAIL. Step 3: Implement. Step 4: Run the whole suite, expect PASS.**
 - [ ] **Step 5: Commit** `feat(be): undo a tax reservation`.
-
-### Task B6 · Could: Pay tax
-
-**Files:**
-- Modify: `backend/app/reservations.py`, `backend/app/routes/payments.py`
-- Test: `backend/tests/test_pay.py`
-
-**Interfaces — Produces:** `reservations.pay_all(session, bus) -> tuple[TransactionRow, int]` (the outgoing transaction and the amount paid)
-
-`pay_all`: sum the `reserved` reservations, set them to `paid`, set the Tax Jar to 0, and save an outgoing transaction to `Tax authority (demo)` with reference `Tax payment`, label `personal`, in the tax currency; publish `transaction.created`. `undo` on a `paid` reservation raises 409 `reservation_paid`.
-
-- [ ] **Step 1: Write the failing tests.**
-
-```python
-def test_pay_empties_the_jar(client, session, onboarded):
-    # Acme, POST /api/tax/pay → paidAmount 27600; currency "EUR"; transaction.direction "out"
-    # tax jar balance 0; USD balance unchanged by the payment; assert_invariants(session)
-def test_pay_with_empty_jar(client, onboarded):       # 409, code "nothing_to_pay"
-def test_undo_after_paid(client, onboarded):          # Review Focus 4: 409, code "reservation_paid"; jar still 0
-```
-
-- [ ] **Step 2: Run, expect FAIL. Step 3: Implement. Step 4: Run the whole suite, expect PASS.**
-- [ ] **Step 5: Commit** `feat(be): pay tax from the Tax Jar`.

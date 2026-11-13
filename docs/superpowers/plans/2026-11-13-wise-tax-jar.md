@@ -54,7 +54,7 @@ Each role works from its own plan file, on its own branch prefix, in its own fil
 |---|---|---|
 | Tech lead, then everyone | this file | S0 |
 | A. Frontend | `2026-11-13-wise-tax-jar-a-frontend.md` | A1 shell, Home, transactions · A2 onboarding · A3 live updates, toast, sheet · A4 Tax Jar screen, undo · A5 pay screen |
-| B. Backend & API | `2026-11-13-wise-tax-jar-b-backend.md` | B1 FX · B2 storage, read API, profile · B3 events · B4 pipeline · B5 undo · B6 pay |
+| B. Backend & API (two people: Backend 1 does B2, B3, B6; Backend 2 does B1, B4, B5) | `2026-11-13-wise-tax-jar-b-backend.md` | B1 FX · B2 storage, read API, profile · B3 events · B4 pipeline · B5 undo · B6 pay |
 | C. Tax Engine | `2026-11-13-wise-tax-jar-c-engine.md` | C1 classifier · C2 tax rules · C3 invariants, pipeline review · C4 summary · C5 CSV export |
 | D. Product & Demo | `2026-11-13-wise-tax-jar-d-demo.md` | D1 seed · D2 scenarios, simulator · D3 demo readiness |
 
@@ -63,13 +63,14 @@ Each role works from its own plan file, on its own branch prefix, in its own fil
 One owner per file, so branches do not collide. Anything not listed belongs to whoever creates it in their own task.
 
 ```
-backend/app/main.py, schemas.py                      tech lead in S0; then B (main.py). schemas.py is frozen.
-backend/app/models.py, db.py, fx.py, events.py,
-            pipeline.py, reservations.py             B
-backend/app/routes/core.py, routes/payments.py       B
+backend/app/main.py, schemas.py                      tech lead in S0; then B, Backend 1 (main.py). schemas.py is frozen.
+backend/app/models.py, db.py, events.py,
+            routes/core.py                           B, Backend 1
+backend/app/fx.py, pipeline.py, reservations.py,
+            routes/payments.py                       B, Backend 2
 backend/app/routes/reports.py, summary.py            C
 backend/app/engine/                                  C
-backend/tests/conftest.py                            B
+backend/tests/conftest.py                            B, Backend 1
 backend/tests/invariants.py                          C
 frontend/src/api/client.ts, schema.d.ts              tech lead in S0; frozen with the contract
 frontend/src/screens/Simulator.tsx                   D
