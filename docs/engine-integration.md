@@ -6,13 +6,12 @@
 
 ## Запуск тестов
 
-Из каталога `backend/`:
-
 ```bash
-python3 -m pytest tests -q -p no:cacheprovider
+cd backend
+.venv/bin/pytest -q
 ```
 
-Пока S0 не в `main`, работает только такой вызов (нет `pytest.ini`). После S0 хватит обычного `pytest`.
+Скаффолд бэкенда (бэкенд-половина S0) лежит на этой же ветке: `pytest.ini`, `requirements.txt`, `app/main.py`, `app/schemas.py`, заглушки маршрутов и контрактный тест.
 
 ## Классификатор
 
@@ -117,7 +116,8 @@ from app.engine.tax_rules import load_countries, get_regime, compute_tax, next_d
 
 - У каждого режима есть `sources`, `verifiedAt`, `notes` и список `unverified` с пустыми полями.
 - `defaultRate` посчитан на предположенном доходе, арифметика записана в `hint`.
-- Дедлайн "10-е число" у `entrepreneur_account` это заглушка из общего плана, не исследованная дата.
+- Эстония сверена с первоисточниками 13.11.2026 (EMTA и текст закона в Riigi Teataja): ставка 20%, деление 22/55 и 33/55, перевод банком до 10-го числа, FIE 22% и 33%, сроки 30 апреля, 1 октября, авансы 15 сентября и 15 декабря. У таких режимов `verification` равно `official`, у остальных `secondary`.
+- Не сверено для FIE: необлагаемый минимум 8400 евро и даты авансов по социальному налогу.
 - Формы юрлиц в `legal_forms.json` записаны по памяти моделей и по внешним реестрам не сверялись.
 - Референсы с эмодзи в сценариях можно оставить, движку они безразличны.
 
@@ -130,7 +130,7 @@ from app.engine import build_summary, export_rows, to_csv, find_violations
 
 build_summary(reservations, tax_currency="EUR", country="EE", regime="entrepreneur_account", today=date.today())
 # -> dict с ключами schemas.TaxSummary: tax_currency, total_reserved, total_paid, by_month,
-#    estimated_due, next_deadline, disclaimer
+#    estimated_due, next_deadline, disclaimer, breakdown, breakdown_rule
 
 rows = export_rows(records)   # заголовок первой строкой; запись = поля резервации + payer и reference из транзакции
 to_csv(rows)                  # текст CSV для /tax/export.csv
@@ -146,7 +146,7 @@ find_violations(
 )   # -> список строк с нарушениями, пустой список значит, что деньги сходятся
 ```
 
-Что останется сделать после B2 и S0: тонкие обёртки `app/summary.py`, `routes/reports.py` и `tests/invariants.py`, которые читают строки из сессии и зовут эти функции.
+Маршруты `/tax/summary` и `/tax/export.csv` в `routes/reports.py` уже зовут эти функции, но пока на примере из `app/examples.py`. После B2 останутся `app/summary.py` и `tests/invariants.py`, которые читают строки из сессии.
 
 Суммы в CSV форматируются по валюте: два знака для EUR и USD, без дробной части для JPY, три знака для KWD.
 
@@ -161,6 +161,28 @@ history = payer_history(sender_name, past_payments)   # прошлые плат�
 
 `owner_context` сам не включает сравнение с обычным доходом, пока подтверждённых доходных платежей меньше пяти, поэтому на демо с чистой базой John Smith остаётся в зоне вопроса.
 
+## Разбивка налога
+
+Деньги делятся на налоги только там, где закон задаёт это деление для каждого платежа. Сейчас это один режим: эстонский `entrepreneur_account` (22/55 подоходный, 33/55 социальный, плюс накопительная пенсия при ставке 22, 24 или 26%). Для остальных режимов есть только правило словами.
+
+```python
+from app.engine import split_tax, describe_rule, get_regime
+
+regime = get_regime("EE", "entrepreneur_account")
+split_tax(27600, regime, rate_bp=2000)
+# [{"id": "income_tax", "name": "Income tax", "amount": 11040},
+#  {"id": "social_tax", "name": "Social tax", "amount": 16560}]
+split_tax(27600, get_regime("EE", "fie"))    # None: поплатёжной разбивки нет
+describe_rule(get_regime("EE", "fie"))       # "22% income tax on profit + 33% social tax"
+```
+
+- Части всегда сходятся с суммой до цента.
+- Если ставка в профиле не та, что задаёт закон (например 25%), `split_tax` вернёт `None`.
+- В контракте это поля `TaxReservation.breakdown`, `TaxSummary.breakdown`, `TaxSummary.breakdownRule` и `Regime.breakdownRule`. Когда `breakdown` равен `null`, фронтенд показывает `breakdownRule` без сумм.
+- В CSV колонка `breakdown` появляется только для режима с точной разбивкой: `export_rows(records, regime)`.
+
+Роли B: при создании резервации положить в ответ `split_tax(reserved_amount, regime, rate_bp)`.
+
 ## Известные ограничения
 
 - Двухбуквенные формы в имени заглавными буквами распознаются только для однозначных (`AG`, `AB`, `AS`, `OY`, `OU`, `BV`, `NV`, `KG`, `UAB`); в начале имени заглавными только `AS` и `UAB`. `CARREFOUR SA` или `ACME SE` заглавными уходят в вопрос, потому что `SA`, `SE`, `BA` бывают фамилиями.
@@ -168,12 +190,11 @@ history = payer_history(sender_name, past_payments)   # прошлые плат�
 - `KK` без точек не распознаётся, `K.K.` и `Kabushiki Kaisha` распознаются.
 - Python 3.10 проверен только разбором синтаксиса.
 
-## Что ещё не сделано в роли C
+## Что ещё не сделано
 
 | Задача | Ждёт |
 |---|---|
+| Фронтенд-половина S0 (Vite, Neptune, `client.ts`) | роль A или тех-лид |
 | C3: обёртка `tests/invariants.py` и ревью `pipeline.py` | B2, затем B4 |
-| C4: обёртка `app/summary.py` и `/tax/summary` | B2, S0 |
-| C5: маршрут `/tax/export.csv` | B4, S0 |
-| Проверка под S0 (`pytest.ini`, `schemas.Country`) | S0 в `main` |
-| Сверка налоговых данных с официальными источниками | роль D |
+| C4 и C5: `app/summary.py` читает строки из базы вместо примера | B2 |
+| Сверка налоговых данных остальных 79 стран | роль D |
