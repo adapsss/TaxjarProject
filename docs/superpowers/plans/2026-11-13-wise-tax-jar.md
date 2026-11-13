@@ -19,7 +19,7 @@
 - Synthetic data only. No real people, client names, companies or documents.
 - The disclaimer string is exactly `An estimate for setting money aside, not tax advice.` and appears on onboarding, the Tax Jar screen and the pay screen.
 - Every app screen shows the label `Hackathon prototype` at the bottom. Do not deploy the app publicly.
-- Nothing on the demo path calls the network: no external FX, no LLM, no CDN fonts or scripts.
+- Nothing on the demo path calls the network: no external FX, no LLM, no CDN fonts or scripts. This rules out `Flag`, `Illustration` and other `@wise/art` components, which load images from wise.com at runtime.
 - JSON field names are camelCase (`senderName`, `isIncome`, `taxCurrency`). Python uses snake_case with a camelCase alias generator.
 - All FastAPI route handlers are `async def`, so `EventBus.publish` runs on the event loop thread.
 - Python code must run on 3.10 (no `datetime.UTC`, no `StrEnum`).
@@ -136,7 +136,7 @@ Routes, all under `/api`, exactly as the roadmap's contract table: `GET /account
 
 SSE frame: `event: <type>\ndata: <json>\n\n`. Types: `transaction.created`, `reservation.created`, `question.asked`, `reservation.undone` with data `{ "transaction": Transaction }`; `demo.reset` with data `{}`.
 
-- [ ] **Step 1: Check the toolchain.** Run `python3 --version` (need 3.10+) and `node --version` (need 20+). Node was not on PATH when this plan was written; install it with nvm if it is missing.
+- [ ] **Step 1: Check the toolchain.** Run `python3 --version` (need 3.10+) and `node --version` (need 24; 22.22 or newer also works). Node was not on PATH when this plan was written; install it with nvm if it is missing.
 - [ ] **Step 2: Create the backend.** `python3 -m venv backend/.venv`, then `requirements.txt` with `fastapi`, `uvicorn[standard]`, `sqlmodel`, `pytest`, `httpx`, and `.venv/bin/pip install -r requirements.txt`. Add `pytest.ini` with `pythonpath = .` and `testpaths = tests`, and a `tests/conftest.py` with one fixture, `client`, that returns `TestClient(create_app())`. Write `schemas.py` as above. In `main.py` write `create_app() -> FastAPI` and a module-level `app` that includes three routers, so that roles never edit the same file: `routes/core.py` (account, transactions, tax-profile, tax/countries, demo/reset, events), `routes/payments.py` (simulate/incoming, answer, undo, tax/pay) and `routes/reports.py` (tax/summary, tax/export.csv). Every route is declared with its response model and returns one fixed, contract-shaped example payload. These stubs are the frontend's mocks until the real handlers land.
 - [ ] **Step 3: Write `backend/tests/test_contract.py`.**
 
