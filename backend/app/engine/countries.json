@@ -2081,8 +2081,83 @@
   "inheritsFrom": null,
   "regimes": [
    {
+    "id": "entrepreneur_account",
+    "name": "Entrepreneur account (ettev\u00f5tluskonto)",
+    "appliesTo": "Natural persons with small-scale own-account business income (services, crafts, short rentals, platform work) received into a special LHV Bank account; up to 40,000 EUR per calendar year; expenses cannot be deducted; no registration as FIE needed.",
+    "incomeTax": {
+     "type": "flat",
+     "rateBp": 800,
+     "base": "gross amounts received into the entrepreneur account; income tax part is 22/55 of the 20% total rate"
+    },
+    "computable": true,
+    "allowanceMinor": 0,
+    "socialContributions": [
+     {
+      "name": "Social tax part (33/55 of the 20% total rate)",
+      "rateBp": 1200,
+      "base": "gross amounts received into the entrepreneur account",
+      "floorMinor": null,
+      "capMinor": null,
+      "fixedAnnualMinor": null
+     }
+    ],
+    "vat": {
+     "registrationThresholdMinor": 4000000,
+     "standardRateBp": 2400
+    },
+    "suggestedReserveRateBp": 2000,
+    "reserveRateSource": "researched",
+    "reserveBasis": "The bank sets the tax aside from every payment you receive. No monthly tax returns.",
+    "deadlines": [
+     {
+      "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
+      "type": "monthly",
+      "day": 10
+     }
+    ],
+    "notes": "Total rate 20% of amounts received (the 40% rate no longer applies from 1 Jan 2025). Optional funded pension contribution raises the rate to 22% (2%), 24% (4%) or 26% (6%). Tax is withheld and forwarded automatically by the bank; no monthly returns. Health insurance cover requires social tax of at least 292.38 EUR/month (886 x 33%), i.e. about 2,436.50 EUR received per month, otherwise cover lapses. No basic exemption or other deductions apply to account income. A resident company payer of a service to an account holder owes additional income tax of 22/78 on the payment. Amounts above 40,000 EUR per year require registering as FIE or OU.",
+    "unverified": [],
+    "components": [
+     {
+      "id": "income_tax",
+      "name": "Income tax",
+      "shareNum": 22,
+      "shareDen": 55
+     },
+     {
+      "id": "social_tax",
+      "name": "Social tax",
+      "shareNum": 33,
+      "shareDen": 55
+     }
+    ],
+    "extraComponent": {
+     "id": "funded_pension",
+     "name": "Funded pension contribution",
+     "ratesBp": [
+      200,
+      400,
+      600
+     ]
+    },
+    "verification": "official",
+    "ruleText": null,
+    "sources": [
+     "https://emta.ee/en/private-client/taxes-and-payment/taxable-income/entrepreneur-account",
+     "https://www.riigiteataja.ee/en/eli/ee/514032023002/consolide/current"
+    ],
+    "verifiedAt": "2026-11-13",
+    "defaultRate": 2000,
+    "hint": "The bank sets the tax aside from every payment you receive. No monthly tax returns.",
+    "deadline": {
+     "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
+     "type": "monthly",
+     "day": 10
+    }
+   },
+   {
     "id": "fie",
-    "name": "Sole proprietor (FIE, fuusilisest isikust ettevotja), general regime",
+    "name": "FIE / self-employed",
     "appliesTo": "Natural person registered as FIE in the commercial register; no turnover cap; business expenses deductible against business income.",
     "incomeTax": {
      "type": "flat",
@@ -2107,7 +2182,7 @@
     },
     "suggestedReserveRateBp": 4500,
     "reserveRateSource": "researched",
-    "reserveBasis": "Derived: 33% social tax plus 22% income tax on profit above the 8,400 EUR exemption gives about 43-47% of profit at 15-24k EUR; 45% is a conservative share of gross assuming few business costs.",
+    "reserveBasis": "Tax is worked out on your yearly profit. 45% is a cautious share to set aside if you have few business costs.",
     "deadlines": [
      {
       "name": "Income tax return (forms A and E)",
@@ -2156,87 +2231,12 @@
     ],
     "verifiedAt": "2026-11-13",
     "defaultRate": 4500,
-    "hint": "Derived: 33% social tax plus 22% income tax on profit above the 8,400 EUR exemption gives about 43-47% of profit at 15-24k EUR; 45% is a conservative share of gross assuming few business costs.",
+    "hint": "Tax is worked out on your yearly profit. 45% is a cautious share to set aside if you have few business costs.",
     "deadline": {
      "name": "Income tax return (forms A and E)",
      "type": "annual",
      "day": 30,
      "month": 4
-    }
-   },
-   {
-    "id": "entrepreneur_account",
-    "name": "Entrepreneur account (ettevotluskonto), simplified business income taxation",
-    "appliesTo": "Natural persons with small-scale own-account business income (services, crafts, short rentals, platform work) received into a special LHV Bank account; up to 40,000 EUR per calendar year; expenses cannot be deducted; no registration as FIE needed.",
-    "incomeTax": {
-     "type": "flat",
-     "rateBp": 800,
-     "base": "gross amounts received into the entrepreneur account; income tax part is 22/55 of the 20% total rate"
-    },
-    "computable": true,
-    "allowanceMinor": 0,
-    "socialContributions": [
-     {
-      "name": "Social tax part (33/55 of the 20% total rate)",
-      "rateBp": 1200,
-      "base": "gross amounts received into the entrepreneur account",
-      "floorMinor": null,
-      "capMinor": null,
-      "fixedAnnualMinor": null
-     }
-    ],
-    "vat": {
-     "registrationThresholdMinor": 4000000,
-     "standardRateBp": 2400
-    },
-    "suggestedReserveRateBp": 2000,
-    "reserveRateSource": "researched",
-    "reserveBasis": "The bank withholds and forwards a flat 20% of each amount received (8% income tax plus 12% social tax); 20% of gross is the full liability for the simplified scheme.",
-    "deadlines": [
-     {
-      "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
-      "type": "monthly",
-      "day": 10
-     }
-    ],
-    "notes": "Total rate 20% of amounts received (the 40% rate no longer applies from 1 Jan 2025). Optional funded pension contribution raises the rate to 22% (2%), 24% (4%) or 26% (6%). Tax is withheld and forwarded automatically by the bank; no monthly returns. Health insurance cover requires social tax of at least 292.38 EUR/month (886 x 33%), i.e. about 2,436.50 EUR received per month, otherwise cover lapses. No basic exemption or other deductions apply to account income. A resident company payer of a service to an account holder owes additional income tax of 22/78 on the payment. Amounts above 40,000 EUR per year require registering as FIE or OU.",
-    "unverified": [],
-    "components": [
-     {
-      "id": "income_tax",
-      "name": "Income tax",
-      "shareNum": 22,
-      "shareDen": 55
-     },
-     {
-      "id": "social_tax",
-      "name": "Social tax",
-      "shareNum": 33,
-      "shareDen": 55
-     }
-    ],
-    "extraComponent": {
-     "id": "funded_pension",
-     "name": "Funded pension contribution",
-     "ratesBp": [
-      200,
-      400,
-      600
-     ]
-    },
-    "verification": "official",
-    "ruleText": null,
-    "sources": [
-     "https://emta.ee/en/private-client/taxes-and-payment/taxable-income/entrepreneur-account",
-     "https://www.riigiteataja.ee/en/eli/ee/514032023002/consolide/current"
-    ],
-    "verifiedAt": "2026-11-13",
-    "defaultRate": 2000,
-    "hint": "The bank withholds and forwards a flat 20% of each amount received (8% income tax plus 12% social tax); 20% of gross is the full liability for the simplified scheme.",
-    "deadline": {
-     "name": "Bank transfers the reserved business income tax to the Tax and Customs Board",
-     "type": "monthly",
-     "day": 10
     }
    }
   ]
