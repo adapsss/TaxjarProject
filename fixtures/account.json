@@ -1,0 +1,13 @@
+{
+  "owner": "Kadri Kask",
+  "balances": [
+    { "currency": "EUR", "amount": 421040 },
+    { "currency": "USD", "amount": 285000 },
+    { "currency": "GBP", "amount": 90000 }
+  ],
+  "jars": [
+    { "id": "jar-tax", "name": "Tax Jar", "currency": "EUR", "balance": 128400, "type": "tax" },
+    { "id": "jar-holiday", "name": "Holiday", "currency": "EUR", "balance": 64000, "type": "regular" },
+    { "id": "jar-laptop", "name": "New laptop", "currency": "EUR", "balance": 110000, "type": "regular" }
+  ]
+}

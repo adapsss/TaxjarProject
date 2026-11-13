@@ -95,3 +95,4 @@ $RECYCLE.BIN/
 # Local project files
 *.log
 *.local
+.superpowers/

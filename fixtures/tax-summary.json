@@ -1,0 +1,14 @@
+{
+  "taxCurrency": "EUR",
+  "totalReserved": 128400,
+  "totalPaid": 30000,
+  "byMonth": [
+    { "month": "2026-08", "reserved": 30000 },
+    { "month": "2026-09", "reserved": 40000 },
+    { "month": "2026-10", "reserved": 56700 },
+    { "month": "2026-11", "reserved": 31700 }
+  ],
+  "estimatedDue": 128400,
+  "nextDeadline": "2026-12-10",
+  "disclaimer": "An estimate for setting money aside, not tax advice."
+}

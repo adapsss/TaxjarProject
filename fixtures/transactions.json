@@ -1,0 +1,84 @@
+[
+  {
+    "id": "tx-kristjan", "direction": "in", "amount": 25000, "currency": "EUR",
+    "counterparty": { "name": "Kristjan Ilves", "kind": "person", "isKnownClient": false },
+    "reference": "logo", "createdAt": "2026-11-11T14:02:00Z",
+    "classification": { "label": "unknown", "confidence": 0.45, "reasons": ["work word in reference"] },
+    "reservationId": null, "reservation": null
+  },
+  {
+    "id": "tx-liis", "direction": "in", "amount": 1500, "currency": "EUR",
+    "counterparty": { "name": "Liis Kask", "kind": "person", "isKnownClient": false },
+    "reference": "coffee ☕", "createdAt": "2026-11-08T09:40:00Z",
+    "classification": { "label": "personal", "confidence": 0.0, "reasons": ["private person", "small amount"] },
+    "reservationId": null, "reservation": null
+  },
+  {
+    "id": "tx-rimi", "direction": "out", "amount": 6420, "currency": "EUR",
+    "counterparty": { "name": "Rimi", "kind": "company", "isKnownClient": false },
+    "reference": "Groceries", "createdAt": "2026-11-06T17:21:00Z",
+    "classification": { "label": "personal", "confidence": 0.0, "reasons": [] },
+    "reservationId": null, "reservation": null
+  },
+  {
+    "id": "tx-helios", "direction": "in", "amount": 158500, "currency": "EUR",
+    "counterparty": { "name": "Helios GmbH", "kind": "company", "isKnownClient": true },
+    "reference": "Rechnung 2211", "createdAt": "2026-11-04T10:15:00Z",
+    "classification": { "label": "income", "confidence": 1.0, "reasons": ["company sender", "invoice in reference"] },
+    "reservationId": "res-helios",
+    "reservation": { "id": "res-helios", "transactionId": "tx-helios", "sourceAmount": 31700, "sourceCurrency": "EUR", "rate": 2000, "fxRate": 1.0, "reservedAmount": 31700, "taxCurrency": "EUR", "status": "reserved" }
+  },
+  {
+    "id": "tx-northwind", "direction": "in", "amount": 90000, "currency": "GBP",
+    "counterparty": { "name": "Northwind Ltd", "kind": "company", "isKnownClient": true },
+    "reference": "INV-2026-18", "createdAt": "2026-10-24T08:05:00Z",
+    "classification": { "label": "income", "confidence": 1.0, "reasons": ["company sender", "invoice in reference"] },
+    "reservationId": "res-northwind",
+    "reservation": { "id": "res-northwind", "transactionId": "tx-northwind", "sourceAmount": 18000, "sourceCurrency": "GBP", "rate": 2000, "fxRate": 1.15, "reservedAmount": 20700, "taxCurrency": "EUR", "status": "reserved" }
+  },
+  {
+    "id": "tx-andres", "direction": "in", "amount": 4200, "currency": "EUR",
+    "counterparty": { "name": "Andres Mets", "kind": "person", "isKnownClient": false },
+    "reference": "concert tickets", "createdAt": "2026-10-19T19:12:00Z",
+    "classification": { "label": "personal", "confidence": 0.1, "reasons": ["private person", "small amount"] },
+    "reservationId": null, "reservation": null
+  },
+  {
+    "id": "tx-baltic", "direction": "in", "amount": 180000, "currency": "EUR",
+    "counterparty": { "name": "Baltic Pixel AS", "kind": "company", "isKnownClient": true },
+    "reference": "Invoice 0931", "createdAt": "2026-10-03T11:30:00Z",
+    "classification": { "label": "income", "confidence": 1.0, "reasons": ["company sender", "invoice in reference"] },
+    "reservationId": "res-baltic",
+    "reservation": { "id": "res-baltic", "transactionId": "tx-baltic", "sourceAmount": 36000, "sourceCurrency": "EUR", "rate": 2000, "fxRate": 1.0, "reservedAmount": 36000, "taxCurrency": "EUR", "status": "reserved" }
+  },
+  {
+    "id": "tx-nordic", "direction": "in", "amount": 200000, "currency": "EUR",
+    "counterparty": { "name": "Nordic Brands OÜ", "kind": "company", "isKnownClient": true },
+    "reference": "arve 2026-117", "createdAt": "2026-09-12T13:45:00Z",
+    "classification": { "label": "income", "confidence": 1.0, "reasons": ["company sender", "invoice in reference"] },
+    "reservationId": "res-nordic",
+    "reservation": { "id": "res-nordic", "transactionId": "tx-nordic", "sourceAmount": 40000, "sourceCurrency": "EUR", "rate": 2000, "fxRate": 1.0, "reservedAmount": 40000, "taxCurrency": "EUR", "status": "reserved" }
+  },
+  {
+    "id": "tx-taxpay-aug", "direction": "out", "amount": 30000, "currency": "EUR",
+    "counterparty": { "name": "Tax authority (demo)", "kind": "company", "isKnownClient": false },
+    "reference": "Tax payment", "createdAt": "2026-09-10T09:00:00Z",
+    "classification": { "label": "personal", "confidence": 0.0, "reasons": [] },
+    "reservationId": null, "reservation": null
+  },
+  {
+    "id": "tx-fjord", "direction": "in", "amount": 150000, "currency": "EUR",
+    "counterparty": { "name": "Fjord Media AS", "kind": "company", "isKnownClient": true },
+    "reference": "Invoice 0812", "createdAt": "2026-08-21T15:10:00Z",
+    "classification": { "label": "income", "confidence": 1.0, "reasons": ["company sender", "invoice in reference"] },
+    "reservationId": "res-fjord",
+    "reservation": { "id": "res-fjord", "transactionId": "tx-fjord", "sourceAmount": 30000, "sourceCurrency": "EUR", "rate": 2000, "fxRate": 1.0, "reservedAmount": 30000, "taxCurrency": "EUR", "status": "paid" }
+  },
+  {
+    "id": "tx-elisa", "direction": "out", "amount": 1999, "currency": "EUR",
+    "counterparty": { "name": "Elisa", "kind": "company", "isKnownClient": false },
+    "reference": "Phone bill", "createdAt": "2026-08-14T07:00:00Z",
+    "classification": { "label": "personal", "confidence": 0.0, "reasons": [] },
+    "reservationId": null, "reservation": null
+  }
+]
