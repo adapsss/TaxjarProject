@@ -17,7 +17,17 @@ grep -q 'taxjar.test' /etc/hosts || echo '127.0.0.1 taxjar.test simulator.taxjar
 docker compose up --build -d
 ```
 
-Details, settings and reset: [docker/README.md](docker/README.md). The sections below run the parts without Docker, for development.
+Compose starts Postgres, runs the migrations and the data import (the one-off `migrate` service), then the backend and the web gateway. Details, settings and reset: [docker/README.md](docker/README.md). The sections below run the parts without Docker, for development.
+
+## Data
+
+Everything lives in Postgres: the app state, all tax data (80 countries, their regimes, rates, brackets, social contributions, deadlines, sources and legal forms), the demo seed and the demo scenarios.
+
+- **The database is the source of truth.** `python -m app.data_load` imports the JSON in `backend/app/engine/` and `demo/` only into empty tables, so it is safe to run on every start. After that, change data in the database, for now with SQL. `--replace tax` (or `demo_seed`, `demo_scenarios`) overwrites a dataset from the JSON again, and is logged.
+- **Every change to tax data is recorded** in `tax_change_log` (old row, new row, time, database user) by a trigger. Constraints reject values the engine can't handle, such as a rate above 100%.
+- **Edits show up without a restart**: the backend re-reads tax data every `TAX_DATA_REFRESH_SECONDS` (60 by default).
+- **Schema changes** are Alembic migrations in `backend/migrations/` (`alembic upgrade head`).
+- The JSON files are what fills a new database (a fresh local stack, a new AWS database). skurbro's build in `backend/tools/tax_data/` still produces and checks them.
 
 ## Prerequisites
 
@@ -26,14 +36,24 @@ Details, settings and reset: [docker/README.md](docker/README.md). The sections 
 
 ## Backend
 
+The backend needs Postgres. Start only the database from Compose (it listens on `127.0.0.1:5433`), then migrate, import and run:
+
 ```bash
+docker compose up -d db
 cd backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
+export DATABASE_URL=postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar
+.venv/bin/alembic upgrade head
+.venv/bin/python -m app.data_load
 .venv/bin/uvicorn app.main:app --reload --port 8000
 ```
 
-API docs: http://localhost:8000/docs. Tests: `.venv/bin/pytest -q`.
+The backend refuses to start on a database that isn't migrated or imported, and says which step is missing. API docs: http://localhost:8000/docs.
+
+Tests run on Postgres too, in a database of their own (created once: `docker compose exec db psql -U taxjar -c "create database taxjar_test"`): `.venv/bin/pytest -q`. Set `TEST_DATABASE_URL` to use another server. Each test runs in a transaction that is rolled back.
+
+Settings (environment): `DATABASE_URL` (required), `DEMO_MODE` (default `true`; `false` removes the reset, simulator and demo-scenario routes), `TAX_DATA_REFRESH_SECONDS` (default `60`).
 
 ## Frontend
 
@@ -54,7 +74,7 @@ It is a desktop web app (sidebar layout, Tailwind, Wise-inspired but not Wise's 
 | `/onboarding` | Set up or edit the tax profile: country (searchable, 80 countries) → regime → rate and currency |
 | `/tax-jar` | Tax Jar: total set aside, by month, open questions, every reservation, CSV export |
 | `/tax-jar/pay` | Pay tax: pre-filled confirmation → success |
-| `/simulator` | Stage tool, for its own tab: the demo payments from `demo/scenarios.json`, a custom payment, demo reset |
+| `/simulator` | Stage tool, for its own tab: the demo payments (from the database, `GET /api/demo/scenarios`), a custom payment, demo reset |
 
 The toast and the "Is this payment for work?" question are driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The dark "Demo controls" box in the sidebar is a shortcut for the same thing and can be hidden.
 

@@ -102,14 +102,19 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     from app import settings
 
+    from sqlmodel import Session as AppSession  # the app's session type: db.seed_if_empty uses .exec()
+
     from app.db import seed_if_empty
+    from app.engine import data as tax_data
 
     engine = sa.create_engine(settings.database_url())
     try:
-        with Session(engine) as session:
+        with AppSession(engine) as session:
             for dataset in DATASETS:
                 outcome = import_dataset(session, dataset, replace=dataset == args.replace)
                 print(f"{dataset}: {outcome}")
+            # Seeding classifies the seed's payers, which needs the tax data just imported.
+            tax_data.install(lambda: repository.read_tax_data(session), refresh_seconds=3600)
             if seed_if_empty(session):
                 print("app state: seeded from demo_seed")
     finally:

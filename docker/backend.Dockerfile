@@ -1,5 +1,6 @@
 # Backend: FastAPI on Python 3.10, the version the plan requires.
-# Build context is the repo root (see compose.yaml): the app reads ../demo/seed.json.
+# Build context is the repo root (see compose.yaml). The same image runs the migrations and the
+# data import (the `migrate` service, which reads demo/ and app/engine/*.json) and the API.
 FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -14,8 +15,8 @@ RUN pip install -r requirements.txt
 COPY demo/ /srv/demo/
 COPY backend/ /srv/backend/
 
-# SQLite lives in data/, which compose mounts as a volume. Run as a non-root user.
-RUN useradd --create-home --uid 1000 app && mkdir -p data && chown app:app data
+# All state lives in Postgres (DATABASE_URL). Run as a non-root user.
+RUN useradd --create-home --uid 1000 app
 USER app
 
 EXPOSE 8000
