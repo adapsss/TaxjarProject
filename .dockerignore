@@ -1,0 +1,17 @@
+# Build context is the repo root; send only what the images need.
+**/.git
+**/.idea
+**/.vscode
+**/.DS_Store
+**/node_modules
+**/dist
+**/screenshots
+**/.venv
+**/__pycache__
+**/.pytest_cache
+backend/data
+prototype
+docs
+*.md
+!backend/**/*.md
+main.py

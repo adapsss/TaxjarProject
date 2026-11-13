@@ -15,6 +15,8 @@ export type PresetChoice = 'live' | 'filled' | 'empty' | 'not-set-up' | 'loading
 
 /** Tabs of this app tell each other when one of them is replaying setup payments. */
 const DEMO_CHANNEL = 'taxjar-demo'
+/** What a tab setting up a demo state tells the other tabs; `ids` are the payments it sent as setup. */
+type SetupMessage = { type: 'setup-start' } | { type: 'setup-end'; ids: string[] }
 
 /** The profile the "Empty" and "Filled" demo states switch on. */
 const DEMO_PROFILE: TaxProfile = { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled: true }
@@ -177,15 +179,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const ch = new BroadcastChannel(DEMO_CHANNEL)
     channel.current = ch
     let timer: ReturnType<typeof setTimeout> | undefined
-    ch.onmessage = (m: MessageEvent<string>) => {
+    ch.onmessage = (m: MessageEvent<SetupMessage>) => {
       clearTimeout(timer)
-      if (m.data === 'setup-start') {
+      if (m.data.type === 'setup-start') {
         remoteQuiet.current = true
         // If that tab is closed mid-setup, don't stay quiet forever.
         timer = setTimeout(() => (remoteQuiet.current = false), 8000)
-      } else if (m.data === 'setup-end') {
-        // The last setup event may still be on its way over the event stream.
-        timer = setTimeout(() => (remoteQuiet.current = false), 400)
+      } else if (m.data.type === 'setup-end') {
+        // Setup events still on their way over the event stream are known by id, so stop
+        // being quiet at once: a real payment sent right after the reset gets its toast.
+        for (const id of m.data.ids) quietTx.current.add(id)
+        remoteQuiet.current = false
       }
     }
     return () => {
@@ -260,14 +264,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         return
       }
       quietRef.current = true
-      channel.current?.postMessage('setup-start')
+      const setupIds: string[] = []
+      channel.current?.postMessage({ type: 'setup-start' } satisfies SetupMessage)
       setScreen('loading')
       try {
         await api.resetDemo()
         if (p !== 'not-set-up') await api.putTaxProfile(DEMO_PROFILE)
         if (p === 'filled') {
           for (const s of scenarios.filter((x) => FILL_WITH.includes(x.id))) {
-            quietTx.current.add((await api.simulateIncoming(toPayment(s))).id)
+            const id = (await api.simulateIncoming(toPayment(s))).id
+            quietTx.current.add(id)
+            setupIds.push(id)
           }
         }
         await refresh()
@@ -276,7 +283,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setScreen('error')
       } finally {
         quietRef.current = false
-        channel.current?.postMessage('setup-end')
+        channel.current?.postMessage({ type: 'setup-end', ids: setupIds } satisfies SetupMessage)
       }
     },
     [load, refresh],

@@ -1,0 +1,38 @@
+# Gateway: one port per app, any hostname (point the names at 127.0.0.1 in /etc/hosts).
+#
+#   :80 in the container (APP_PORT on the host, default 8080)        the live app
+#   :81 in the container (SIMULATOR_PORT on the host, default 8081)  the simulator, sends test transactions
+#
+# Both talk to the same backend, so payments sent from the simulator show up live
+# in the app over the event stream (/api/events).
+
+{
+	auto_https off
+	admin off
+}
+
+(taxjar) {
+	# The API, the event stream and the backend's API docs go to FastAPI.
+	# No `encode` here: compressing would buffer the event stream.
+	@backend path /api/* /docs /docs/* /openapi.json
+	handle @backend {
+		reverse_proxy backend:8000
+	}
+
+	# Everything else is the single-page app.
+	handle {
+		root * /srv/www
+		header /assets/* Cache-Control "public, max-age=31536000, immutable"
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+:80 {
+	import taxjar
+}
+
+:81 {
+	redir / /simulator
+	import taxjar
+}

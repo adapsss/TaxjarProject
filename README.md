@@ -8,6 +8,17 @@ Hackathon prototype (theme: Max Ease). A freelancer gets paid, the app recognise
 - Shared plan, file ownership and hand-offs: [docs/superpowers/plans/2026-11-13-wise-tax-jar.md](docs/superpowers/plans/2026-11-13-wise-tax-jar.md)
 - Your role's tasks: the `-a-frontend`, `-b-backend`, `-c-engine` and `-d-demo` files next to it
 
+## Quick start with Docker
+
+Runs everything: the app at http://taxjar.test:8080 and the simulator, which sends test transactions, at http://simulator.taxjar.test:8081. Once, add the names to `/etc/hosts`, then start:
+
+```bash
+grep -q 'taxjar.test' /etc/hosts || echo '127.0.0.1 taxjar.test simulator.taxjar.test' | sudo tee -a /etc/hosts
+docker compose up --build -d
+```
+
+Details, settings and reset: [docker/README.md](docker/README.md). The sections below run the parts without Docker, for development.
+
 ## Prerequisites
 
 - Python 3.10 or newer, with venv support (`sudo apt install python3.10-venv` on Ubuntu/WSL)
