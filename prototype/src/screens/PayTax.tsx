@@ -1,6 +1,15 @@
 import { useState, type ReactNode } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button, Card, CheckIcon, Disclaimer, JarIcon } from '../components/ui'
+import { useNavigate } from 'react-router-dom'
+import {
+  ArrowLeftIcon,
+  Button,
+  Card,
+  CheckIcon,
+  CircleButton,
+  Disclaimer,
+  JarIcon,
+  ScreenTitle,
+} from '../components/ui'
 import { TAX_AUTHORITY } from '../data/engine'
 import { useStore } from '../data/store'
 import { formatDate, formatMoney, monthShort } from '../lib/money'
@@ -15,18 +24,22 @@ export function PayTax() {
   if (paid !== null) {
     return (
       <Shell>
-        <Card className="animate-rise px-10 pt-12 pb-10 text-center">
-          <span className="mx-auto grid size-20 place-items-center rounded-full bg-lime text-forest">
-            <CheckIcon className="size-10" />
+        <Card className="animate-rise px-6 pt-10 pb-8 text-center">
+          <span className="mx-auto grid size-[76px] animate-check-pop place-items-center rounded-full bg-lime text-forest">
+            <CheckIcon className="size-9" />
           </span>
-          <p className="num mt-6 text-[44px] leading-none font-extrabold tracking-tight">{formatMoney(paid, cur, { cents: true })}</p>
-          <h1 className="mt-3 text-[22px] font-bold">paid to {TAX_AUTHORITY}</h1>
-          <p className="mx-auto mt-3 max-w-[380px] text-[15px] leading-relaxed text-muted">
+          <p className="money mt-6 text-[42px] leading-none font-extrabold tracking-[-0.05em]">{formatMoney(paid, cur, { cents: true })}</p>
+          <h1 className="mt-2 text-[18px] font-bold">paid to {TAX_AUTHORITY}</h1>
+          <p className="mx-auto mt-2 max-w-[300px] text-[13px] leading-relaxed text-muted">
             Your Tax Jar is empty now. It starts filling again with your next client payment.
           </p>
-          <div className="mt-8 flex justify-center gap-2.5">
-            <Button variant="secondary" size="lg" onClick={() => nav('/tax-jar')}>Back to Tax Jar</Button>
-            <Button size="lg" onClick={() => nav('/')}>Done</Button>
+          <div className="mt-7 space-y-2">
+            <Button size="lg" className="w-full" onClick={() => nav('/')}>
+              Done
+            </Button>
+            <Button variant="secondary" size="lg" className="w-full" onClick={() => nav('/tax-jar')}>
+              Back to Tax Jar
+            </Button>
           </div>
         </Card>
       </Shell>
@@ -36,13 +49,17 @@ export function PayTax() {
   if (!db.profile.enabled || summary.held === 0) {
     return (
       <Shell>
-        <Card className="px-10 py-12 text-center">
-          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-canvas text-forest/40">
+        <Card className="px-6 py-10 text-center">
+          <span className="mx-auto grid size-14 place-items-center rounded-full bg-canvas text-forest/35">
             <JarIcon className="size-7" />
           </span>
-          <h1 className="mt-4 text-[22px] font-bold">Nothing to pay yet</h1>
-          <p className="mt-1.5 text-[15px] text-muted">Your Tax Jar is empty. When a client pays you, the tax share lands there.</p>
-          <Button variant="secondary" className="mt-6" onClick={() => nav('/tax-jar')}>Back to Tax Jar</Button>
+          <h1 className="mt-4 text-[20px] font-extrabold tracking-[-0.03em]">Nothing to pay yet</h1>
+          <p className="mx-auto mt-1.5 max-w-[270px] text-[13px] leading-relaxed text-muted">
+            Your Tax Jar is empty. When a client pays you, the tax share lands there.
+          </p>
+          <Button variant="secondary" className="mt-6" onClick={() => nav('/tax-jar')}>
+            Back to Tax Jar
+          </Button>
         </Card>
       </Shell>
     )
@@ -57,57 +74,74 @@ export function PayTax() {
   }
 
   return (
-    <Shell>
-      <h1 className="text-[32px] font-extrabold tracking-tight text-forest">Pay tax</h1>
-      <p className="mt-1 text-[15px] text-muted">Check the details, then confirm. We’ve filled everything in for you.</p>
+    <div className="flex min-h-full flex-col px-5 pt-2">
+      <header className="flex items-center justify-between">
+        <CircleButton label="Back to Tax Jar" size={40} onClick={() => nav('/tax-jar')}>
+          <ArrowLeftIcon className="size-[18px]" />
+        </CircleButton>
+        <span className="flex items-center gap-1.5 rounded-full bg-soft px-2.5 py-1 text-[11px] font-semibold text-muted">
+          <span className="size-1.5 rounded-full bg-lime" /> Demo payment
+        </span>
+      </header>
 
-      <Card className="mt-7 overflow-hidden">
-        <div className="bg-forest px-8 py-7 text-white">
-          <p className="text-[13px] font-bold tracking-[0.1em] text-lime uppercase">You’re paying</p>
-          <p className="num mt-2 text-[52px] leading-none font-extrabold">{formatMoney(summary.held, cur, { cents: true })}</p>
-          {summary.nextDeadline && <p className="mt-3 text-sm text-white/70">Due by {formatDate(summary.nextDeadline.toISOString(), true)}</p>}
-        </div>
-        <dl className="divide-y divide-line px-8">
-          <Row k="From">
-            <span className="flex items-center gap-2"><JarIcon className="size-4 text-forest" /> Tax Jar</span>
-          </Row>
-          <Row k="To">{TAX_AUTHORITY}</Row>
-          <Row k="Reference">Tax payment</Row>
-          <Row k="Covers">{held.length} payment{held.length > 1 ? 's' : ''} from {span}</Row>
-          <Row k="Arrives">Today</Row>
-        </dl>
-        <div className="px-8 pt-2 pb-8">
-          {error && (
-            <p role="alert" className="mb-4 rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
-              <b>Payment didn’t go through.</b> {error}
-            </p>
-          )}
-          <Button size="lg" className="w-full" loading={busy === 'pay'} onClick={confirm}>
-            {busy === 'pay' ? 'Paying…' : error ? 'Try again' : `Confirm and pay ${formatMoney(summary.held, cur)}`}
-          </Button>
-          <Disclaimer className="mt-4 justify-center" />
-        </div>
-      </Card>
-    </Shell>
-  )
-}
+      <div className="mt-4 animate-rise">
+        <ScreenTitle>Pay tax</ScreenTitle>
+        <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">Check the details, then confirm. We’ve filled everything in for you.</p>
 
-function Shell({ children }: { children: ReactNode }) {
-  return (
-    <div className="mx-auto max-w-[600px]">
-      <Link to="/tax-jar" className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-muted hover:text-ink">
-        ← Tax Jar
-      </Link>
-      {children}
+        <Card className="mt-5 overflow-hidden">
+          <div className="px-5 pt-6 pb-5 text-center">
+            <span className="mx-auto grid size-11 place-items-center rounded-full bg-lime text-forest">
+              <JarIcon className="size-5" />
+            </span>
+            <p className="mt-2.5 text-[12px] font-medium text-muted">You’re paying</p>
+            <p className="money mt-1 text-[46px] leading-none font-extrabold tracking-[-0.05em]">{formatMoney(summary.held, cur, { cents: true })}</p>
+            {summary.nextDeadline && (
+              <p className="mt-2 text-[12px] text-muted">Due by {formatDate(summary.nextDeadline.toISOString(), true)}</p>
+            )}
+          </div>
+          <dl className="border-t border-line/70 px-5">
+            <Row k="From">
+              <span className="flex items-center gap-1.5">
+                <JarIcon className="size-3.5 text-forest" /> Tax Jar
+              </span>
+            </Row>
+            <Row k="To">{TAX_AUTHORITY}</Row>
+            <Row k="Reference">Tax payment</Row>
+            <Row k="Covers">
+              {held.length} payment{held.length > 1 ? 's' : ''} from {span}
+            </Row>
+            <Row k="Arrives" last>
+              Today
+            </Row>
+          </dl>
+        </Card>
+
+        {error && (
+          <p role="alert" className="mt-3 rounded-2xl bg-danger-soft px-4 py-3 text-[12.5px] leading-relaxed text-danger">
+            <b>Payment didn’t go through.</b> {error}
+          </p>
+        )}
+        <Disclaimer className="mt-4 px-1" />
+      </div>
+
+      <div className="sticky-footer mt-auto">
+        <Button size="lg" className="w-full" loading={busy === 'pay'} onClick={confirm}>
+          {busy === 'pay' ? 'Paying…' : error ? 'Try again' : `Confirm and pay ${formatMoney(summary.held, cur)}`}
+        </Button>
+      </div>
     </div>
   )
 }
 
-function Row({ k, children }: { k: string; children: ReactNode }) {
+function Shell({ children }: { children: ReactNode }) {
+  return <div className="px-5 pt-2 pb-8">{children}</div>
+}
+
+function Row({ k, children, last }: { k: string; children: ReactNode; last?: boolean }) {
   return (
-    <div className="flex items-center justify-between py-4 text-[15px]">
+    <div className={`flex items-center justify-between gap-4 py-3.5 text-[13px] ${last ? '' : 'border-b border-line/60'}`}>
       <dt className="text-muted">{k}</dt>
-      <dd className="font-semibold">{children}</dd>
+      <dd className="text-right font-semibold">{children}</dd>
     </div>
   )
 }

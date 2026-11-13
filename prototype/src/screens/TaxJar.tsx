@@ -3,8 +3,19 @@ import { CountUp } from '../components/CountUp'
 import { MonthlyBars } from '../components/MonthlyBars'
 import { StatusPill } from '../components/Overlays'
 import { LoadError } from '../components/StateViews'
-import { countryName, regimeName } from '../components/TaxJarPanel'
-import { Avatar, Button, Card, CheckIcon, Disclaimer, JarIcon, Skeleton } from '../components/ui'
+import { countryName } from '../components/TaxJarPanel'
+import {
+  Avatar,
+  Button,
+  Card,
+  CheckIcon,
+  ChevronRightIcon,
+  Disclaimer,
+  DownloadIcon,
+  Flag,
+  JarIcon,
+  Skeleton,
+} from '../components/ui'
 import { EXPORT_CSV_URL } from '../data/api'
 import { useStore } from '../data/store'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
@@ -22,197 +33,226 @@ export function TaxJar() {
 
   // The backend's export: every reservation, for an accountant.
   const download = () => Object.assign(document.createElement('a'), { href: EXPORT_CSV_URL, download: 'tax-jar.csv' }).click()
+  const active = summary.reservations.filter((t) => t.reservation!.status !== 'undone')
   const empty = summary.reservations.length === 0
   const deadline = summary.nextDeadline
 
   return (
-    <div>
-      <header className="flex items-end justify-between">
+    <div className="animate-rise px-5 pt-3 pb-8">
+      <header className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-3 text-[32px] font-extrabold tracking-tight text-forest">
-            <JarIcon className="size-8" /> Tax Jar
-          </h1>
-          <p className="mt-1.5 text-[15px] text-muted">
-            {countryName(p.country)} · {regimeName(p.country, p.regime)} · {formatRate(p.rate)} of each work payment, kept in {p.taxCurrency}
-            <Link to="/setup" className="ml-2 font-semibold text-forest underline underline-offset-2">
-              Edit
-            </Link>
+          <h1 className="text-[32px] leading-[1.06] font-extrabold tracking-[-0.04em]">Tax Jar</h1>
+          <p className="mt-1 flex items-center gap-1.5 text-[12.5px] text-muted">
+            <Flag code={p.country} size={18} />
+            {countryName(p.country)} · {formatRate(p.rate)}
           </p>
         </div>
+        <Link
+          to="/setup"
+          className="press mt-1 shrink-0 rounded-full bg-soft px-3.5 py-2 text-[12px] font-semibold text-ink hover:bg-[#e6e6de]"
+        >
+          Edit
+        </Link>
       </header>
 
-      {/* Hero */}
-      <section className="relative mt-7 overflow-hidden rounded-[28px] bg-forest px-9 py-8 text-white">
-        <div className="relative flex items-end justify-between gap-10">
-          <div>
-            <p className="text-[13px] font-bold tracking-[0.1em] text-lime uppercase">Set aside for taxes</p>
-            <div className="relative mt-3 flex items-start gap-4">
-              <CountUp value={summary.held} currency={summary.currency} className="text-[72px] leading-[0.95] font-extrabold" />
-              {flash && (
-                <span key={flash.key} className="num mt-2 animate-pop rounded-full bg-lime px-3 py-1 text-base font-bold text-forest">
-                  +{formatMoney(flash.amount, summary.currency)}
-                </span>
-              )}
-            </div>
-            <p className="mt-4 text-[15px] text-white/70">
-              {empty
-                ? 'Nothing set aside yet. Income you receive will show up here.'
-                : deadline
-                  ? <>Estimated <b className="text-white">{formatMoney(summary.estimatedDue, summary.currency)}</b> due by <b className="text-white">{formatDate(deadline.toISOString(), true)}</b></>
-                  : <>Estimated <b className="text-white">{formatMoney(summary.estimatedDue, summary.currency)}</b> to pay when your return is due</>}
-            </p>
-          </div>
-          <div className="flex shrink-0 flex-col items-stretch gap-2.5">
-            <Button size="lg" className="min-w-[200px]" disabled={summary.held === 0} onClick={() => nav('/tax-jar/pay')}>
-              Pay tax
-            </Button>
-            <Button size="lg" variant="ghost" className="text-white ring-1 ring-white/25 ring-inset hover:bg-white/10" disabled={empty} onClick={download}>
-              Export CSV for accountant
-            </Button>
-          </div>
+      <Card className="mt-5 px-5 py-6 text-center">
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-lime text-forest">
+          <JarIcon className="size-6" />
+        </span>
+        <p className="mt-2.5 text-[12.5px] font-medium text-muted">Set aside for taxes</p>
+        <div className="relative mt-1 flex items-start justify-center gap-2">
+          <CountUp value={summary.held} currency={summary.currency} className="text-[50px] leading-none font-extrabold text-ink" />
+          {flash && (
+            <span key={flash.key} className="money animate-pop mt-1 rounded-full bg-lime px-2.5 py-1 text-[12px] font-bold text-forest">
+              +{formatMoney(flash.amount, summary.currency)}
+            </span>
+          )}
         </div>
+        <p className="mx-auto mt-2 max-w-[280px] text-[12.5px] leading-relaxed text-muted">
+          {empty ? (
+            'Nothing set aside yet. Income you receive will show up here.'
+          ) : deadline ? (
+            <>
+              Estimated <b className="text-ink">{formatMoney(summary.estimatedDue, summary.currency)}</b> due by{' '}
+              <b className="text-ink">{formatDate(deadline.toISOString(), true)}</b>
+            </>
+          ) : (
+            <>
+              Estimated <b className="text-ink">{formatMoney(summary.estimatedDue, summary.currency)}</b> to pay when your return is due
+            </>
+          )}
+        </p>
+
         {!empty && summary.breakdown && summary.breakdown.length > 0 && (
-          <dl className="relative mt-6 flex flex-wrap items-baseline gap-x-8 gap-y-2 text-[14px]">
-            <dt className="text-white/55">Of which</dt>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
             {summary.breakdown.map((part) => (
-              <div key={part.id} className="flex items-baseline gap-2">
-                <dd className="num text-[17px] font-bold">{formatMoney(part.amount, summary.currency, { cents: true })}</dd>
-                <dt className="text-white/70">{part.name.toLowerCase()}</dt>
-              </div>
+              <span key={part.id} className="rounded-full bg-lime-soft px-3 py-1.5 text-[11.5px] font-semibold text-forest">
+                <span className="money">{formatMoney(part.amount, summary.currency, { cents: true })}</span> {part.name.toLowerCase()}
+              </span>
             ))}
-          </dl>
+          </div>
         )}
         {!empty && !summary.breakdown && summary.breakdownRule && (
-          <p className="relative mt-6 text-[14px] text-white/70">
-            How it’s taxed: <span className="font-semibold text-white">{summary.breakdownRule}</span>.
-            {/* A rule quoted per payment means a split exists but not for this mix of reservations, so the note would be wrong. */}
+          <p className="mt-4 rounded-2xl bg-canvas px-3.5 py-3 text-[11.5px] leading-relaxed text-muted">
+            How it’s taxed: <span className="font-semibold text-ink">{summary.breakdownRule}</span>.
             {!summary.breakdownRule.includes('of each payment') && ' The split between taxes is worked out on your return, not per payment.'}
           </p>
         )}
-        <dl className="relative mt-8 grid grid-cols-4 gap-3 border-t border-white/10 pt-6">
-          <Stat k="Paid this year" v={formatMoney(summary.paid, summary.currency)} />
-          <Stat k="Next deadline" v={deadline ? formatDate(deadline.toISOString()) : '—'} />
-          <Stat k="Payments with tax" v={String(summary.reservations.filter((t) => t.reservation!.status !== 'undone').length)} />
-          <Stat k="Rate" v={formatRate(p.rate)} />
-        </dl>
-      </section>
 
-      <div className="mt-6 grid grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] gap-6">
-        <Card className="p-7">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-[18px] font-bold">By month</h2>
-            <div className="flex gap-4 text-[12.5px] text-muted">
-              <span className="flex items-center gap-1.5"><i className="size-2.5 rounded-sm bg-lime" /> In the jar</span>
-              <span className="flex items-center gap-1.5"><i className="size-2.5 rounded-sm bg-forest/25" /> Paid</span>
-            </div>
-          </div>
-          <MonthlyBars data={summary.byMonth} currency={summary.currency} height={170} showValues />
-        </Card>
+        <Button size="lg" className="mt-5 w-full" disabled={summary.held === 0} onClick={() => nav('/tax-jar/pay')}>
+          Pay tax
+        </Button>
+        <button
+          type="button"
+          disabled={empty}
+          onClick={download}
+          className="press mx-auto mt-3 flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1 text-[12.5px] font-semibold text-forest disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <DownloadIcon className="size-4" /> Export CSV for accountant
+        </button>
+      </Card>
 
-        <Card className="flex flex-col p-7">
-          <h2 className="text-[18px] font-bold">Needs your answer</h2>
-          {summary.pending.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center py-6 text-center">
-              <span className="grid size-11 place-items-center rounded-full bg-lime-soft text-lime-ink">
-                <CheckIcon className="size-5" />
-              </span>
-              <p className="mt-3 font-semibold">All payments sorted</p>
-              <p className="mt-1 text-sm text-muted">We’ll ask when we’re not sure a payment is for work.</p>
-            </div>
-          ) : (
-            <>
-              <p className="mt-1 text-sm text-muted">We weren’t sure these were for work.</p>
-              <ul className="mt-4 space-y-2">
-                {summary.pending.map((t) => (
-                  <li key={t.id} className="flex items-center gap-3 rounded-2xl bg-amber-soft/60 px-3 py-2.5">
-                    <Avatar who={t.counterparty} size={36} />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold">{t.counterparty.name}</p>
-                      <p className="num truncate text-[12.5px] text-muted">{formatMoney(t.amount, t.currency)} · {t.reference}</p>
-                    </div>
-                    <Button size="sm" variant="secondary" onClick={() => open(t.id)}>Answer</Button>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </Card>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        <MiniStat k="Paid this year" v={formatMoney(summary.paid, summary.currency)} />
+        <MiniStat k="Next deadline" v={deadline ? formatDate(deadline.toISOString()) : '—'} />
+        <MiniStat k="With tax" v={String(active.length)} />
       </div>
 
-      <Card className="mt-6 p-2">
-        <div className="flex items-center justify-between px-5 pt-5 pb-3">
-          <h2 className="text-[18px] font-bold">What went into the jar</h2>
-          <span className="text-[13px] text-muted">Click a row for the breakdown</span>
+      <Card className="mt-4 p-5">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-[16px] font-extrabold tracking-[-0.02em]">By month</h2>
+          <div className="flex gap-3 text-[10.5px] text-muted">
+            <span className="flex items-center gap-1.5">
+              <i className="size-2 rounded-full bg-lime" /> In the jar
+            </span>
+            <span className="flex items-center gap-1.5">
+              <i className="size-2 rounded-full bg-forest/80" /> Paid
+            </span>
+          </div>
         </div>
         {empty ? (
-          <div className="px-5 pt-6 pb-12 text-center">
-            <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-canvas text-forest/40">
-              <JarIcon className="size-7" />
-            </span>
-            <p className="mt-4 font-semibold">Nothing set aside yet</p>
-            <p className="mt-1 text-sm text-muted">When a client pays you, the tax share lands here automatically.</p>
+          <div className="grid h-[132px] place-items-center rounded-2xl bg-canvas px-6 text-center">
+            <p className="text-[12.5px] leading-relaxed text-muted">
+              No chart yet. It fills up with your first client payment.
+            </p>
           </div>
         ) : (
-          <table className="w-full text-left text-[14px]">
-            <thead>
-              <tr className="text-[12px] tracking-wide text-muted uppercase">
-                <th className="px-5 py-2 font-semibold">Date</th>
-                <th className="px-5 py-2 font-semibold">From</th>
-                <th className="px-5 py-2 text-right font-semibold">Received</th>
-                <th className="px-5 py-2 text-right font-semibold">Set aside</th>
-                <th className="px-5 py-2 text-right font-semibold">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {summary.reservations.map((t) => {
-                const r = t.reservation!
-                return (
-                  <tr key={t.id} onClick={() => open(t.id)} className={`cursor-pointer border-t border-line transition-colors hover:bg-canvas ${r.status === 'undone' ? 'text-muted' : ''}`}>
-                    <td className="px-5 py-3.5 whitespace-nowrap text-muted">{formatDate(t.createdAt)}</td>
-                    <td className="px-5 py-3.5">
-                      <div className="flex items-center gap-3">
-                        <Avatar who={t.counterparty} size={34} />
-                        <div className="min-w-0">
-                          <p className="truncate font-semibold">{t.counterparty.name}</p>
-                          <p className="truncate text-[12.5px] text-muted">{t.reference}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="num px-5 py-3.5 text-right">{formatMoney(t.amount, t.currency, { cents: true })}</td>
-                    <td className={`num px-5 py-3.5 text-right font-bold ${r.status === 'undone' ? 'line-through' : ''}`}>{formatMoney(r.reservedAmount, r.taxCurrency, { cents: true })}</td>
-                    <td className="px-5 py-3.5 text-right"><StatusPill status={r.status} /></td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <MonthlyBars data={summary.byMonth} currency={summary.currency} height={132} showValues />
         )}
       </Card>
 
-      <Disclaimer className="mt-6" />
+      <Card className="mt-4 p-5">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[16px] font-extrabold tracking-[-0.02em]">Needs your answer</h2>
+          {summary.pending.length > 0 && (
+            <span className="rounded-full bg-amber-soft px-2 py-0.5 text-[11px] font-bold text-amber-ink">{summary.pending.length}</span>
+          )}
+        </div>
+        {summary.pending.length === 0 ? (
+          <div className="flex flex-col items-center py-5 text-center">
+            <span className="grid size-10 place-items-center rounded-full bg-lime-soft text-lime-ink">
+              <CheckIcon className="size-5" />
+            </span>
+            <p className="mt-2 text-[13.5px] font-semibold">All payments sorted</p>
+            <p className="mt-0.5 text-[12px] text-muted">We’ll ask when we’re not sure a payment is for work.</p>
+          </div>
+        ) : (
+          <>
+            <p className="mt-1 text-[12.5px] text-muted">We weren’t sure these were for work.</p>
+            <ul className="mt-3 space-y-2">
+              {summary.pending.map((t) => (
+                <li key={t.id} className="flex items-center gap-3 rounded-2xl bg-amber-soft/55 px-3 py-2.5">
+                  <Avatar who={t.counterparty} size={36} />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-semibold">{t.counterparty.name}</p>
+                    <p className="money truncate text-[11.5px] text-muted">
+                      {formatMoney(t.amount, t.currency)} · {t.reference}
+                    </p>
+                  </div>
+                  <Button size="sm" variant="secondary" className="h-8 px-3 text-[12px]" onClick={() => open(t.id)}>
+                    Answer
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </Card>
+
+      <div className="mt-6 flex items-end justify-between">
+        <h2 className="text-[19px] font-extrabold tracking-[-0.025em]">What went in</h2>
+        <span className="text-[11.5px] text-muted">Tap for the breakdown</span>
+      </div>
+      <Card className="mt-3 overflow-hidden">
+        {empty ? (
+          <div className="px-5 pt-7 pb-9 text-center">
+            <span className="mx-auto grid size-12 place-items-center rounded-full bg-canvas text-forest/35">
+              <JarIcon className="size-6" />
+            </span>
+            <p className="mt-3 text-[14px] font-semibold">Nothing set aside yet</p>
+            <p className="mt-1 text-[12.5px] text-muted">When a client pays you, the tax share lands here automatically.</p>
+          </div>
+        ) : (
+          summary.reservations.map((t, i, all) => {
+            const r = t.reservation!
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => open(t.id)}
+                className={`press flex w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-left hover:bg-canvas ${
+                  i < all.length - 1 ? 'border-b border-line/70' : ''
+                } ${r.status === 'undone' ? 'opacity-60' : ''}`}
+              >
+                <Avatar who={t.counterparty} size={42} />
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-2">
+                    <span className="truncate text-[13.5px] font-semibold">{t.counterparty.name}</span>
+                    <StatusPill status={r.status} />
+                  </span>
+                  <span className="mt-0.5 block truncate text-[11.5px] text-muted">
+                    {formatDate(t.createdAt)} · {t.reference}
+                  </span>
+                </span>
+                <span className="shrink-0 text-right">
+                  <span className={`money block text-[13.5px] font-bold ${r.status === 'undone' ? 'line-through' : ''}`}>
+                    {formatMoney(r.reservedAmount, r.taxCurrency, { cents: true })}
+                  </span>
+                  <span className="money mt-0.5 block text-[10.5px] text-muted">{formatMoney(t.amount, t.currency)} in</span>
+                </span>
+                <ChevronRightIcon className="size-3.5 shrink-0 text-muted" />
+              </button>
+            )
+          })
+        )}
+      </Card>
+
+      <Disclaimer className="mt-5 px-1" />
     </div>
   )
 }
 
-function Stat({ k, v }: { k: string; v: string }) {
+function MiniStat({ k, v }: { k: string; v: string }) {
   return (
-    <div>
-      <dt className="text-[12.5px] text-white/55">{k}</dt>
-      <dd className="num mt-1 text-[20px] font-bold">{v}</dd>
+    <div className="rounded-[18px] bg-white px-3 py-3">
+      <p className="text-[10px] leading-tight text-muted">{k}</p>
+      <p className="money mt-1 text-[13.5px] font-bold">{v}</p>
     </div>
   )
 }
 
 function Loading() {
   return (
-    <div>
-      <Skeleton className="h-9 w-48" />
-      <Skeleton className="mt-3 h-5 w-96" />
-      <Skeleton className="mt-7 h-[290px] rounded-[28px] bg-forest/15" />
-      <div className="mt-6 grid grid-cols-[1.7fr_1fr] gap-6">
-        <Skeleton className="h-[280px] rounded-3xl" />
-        <Skeleton className="h-[280px] rounded-3xl" />
+    <div className="px-5 pt-3">
+      <Skeleton className="h-9 w-40" />
+      <Skeleton className="mt-2 h-4 w-52" />
+      <Skeleton className="mt-5 h-[330px] rounded-[24px]" />
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {[0, 1, 2].map((i) => (
+          <Skeleton key={i} className="h-[62px] rounded-[18px]" />
+        ))}
       </div>
+      <Skeleton className="mt-4 h-[230px] rounded-[24px]" />
     </div>
   )
 }
@@ -225,27 +265,32 @@ function NotSetUp() {
     ['You pay when it’s due', 'One tap sends it to the tax authority, or export it for your accountant.'],
   ]
   return (
-    <div className="mx-auto max-w-[760px] pt-6 text-center">
-      <span className="mx-auto grid size-20 place-items-center rounded-[26px] bg-lime text-forest">
-        <JarIcon className="size-10" />
-      </span>
-      <h1 className="mt-6 text-[38px] leading-tight font-extrabold tracking-tight text-forest">Never be surprised by a tax bill</h1>
-      <p className="mx-auto mt-3 max-w-[520px] text-[17px] leading-relaxed text-muted">
-        Your Tax Jar isn’t set up yet. It takes three taps, and payments from friends are never touched.
-      </p>
-      <ol className="mt-10 grid grid-cols-3 gap-4 text-left">
+    <div className="animate-rise px-5 pt-3 pb-8">
+      <div className="overflow-hidden rounded-[28px] bg-lime p-5 text-forest">
+        <span className="grid size-12 place-items-center rounded-full bg-forest text-lime">
+          <JarIcon className="size-6" />
+        </span>
+        <h1 className="mt-5 text-[30px] leading-[1.04] font-extrabold tracking-[-0.04em]">Never be surprised by a tax bill</h1>
+        <p className="mt-2 text-[13.5px] leading-relaxed text-forest/70">
+          Your Tax Jar isn’t set up yet. It takes three taps, and payments from friends are never touched.
+        </p>
+        <Button variant="dark" size="lg" className="mt-5 w-full" onClick={() => nav('/setup')}>
+          Set up my Tax Jar
+        </Button>
+      </div>
+
+      <div className="mt-4 overflow-hidden rounded-[24px] bg-white">
         {steps.map(([t, d], i) => (
-          <li key={t} className="rounded-3xl border border-line bg-white p-5">
-            <span className="grid size-8 place-items-center rounded-full bg-forest text-sm font-bold text-lime">{i + 1}</span>
-            <p className="mt-4 font-bold">{t}</p>
-            <p className="mt-1 text-sm leading-relaxed text-muted">{d}</p>
-          </li>
+          <div key={t} className={`flex gap-3.5 px-4 py-4 ${i < steps.length - 1 ? 'border-b border-line/70' : ''}`}>
+            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-lime text-[11px] font-bold text-forest">{i + 1}</span>
+            <div>
+              <p className="text-[13.5px] font-semibold">{t}</p>
+              <p className="mt-0.5 text-[12px] leading-relaxed text-muted">{d}</p>
+            </div>
+          </div>
         ))}
-      </ol>
-      <Button size="lg" className="mt-10 min-w-[240px]" onClick={() => nav('/setup')}>
-        Set up my Tax Jar
-      </Button>
-      <Disclaimer className="mt-5 justify-center" />
+      </div>
+      <Disclaimer className="mt-5 px-1" />
     </div>
   )
 }

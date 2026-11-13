@@ -1,12 +1,12 @@
 import type { MonthBar } from '../data/engine'
 import { formatMoney, monthShort } from '../lib/money'
 
-/** Plain flex bars (no chart library): held in lime, already paid in a muted tone. */
+/** Plain flex bars (no chart library), rounded the way the Wise app draws charts. */
 export function MonthlyBars({
   data,
   currency,
   dark,
-  height = 120,
+  height = 132,
   showValues,
 }: {
   data: MonthBar[]
@@ -19,27 +19,25 @@ export function MonthlyBars({
   const last = data.length - 1
   return (
     <div>
-      <div className="flex items-end gap-2" style={{ height }}>
+      <div className="flex items-end gap-2.5" style={{ height }}>
         {data.map((d, i) => {
           const total = d.held + d.paid
           return (
             <div key={d.month} className="group flex h-full flex-1 flex-col items-center justify-end gap-1.5">
               {showValues && (
-                <span className={`num text-[11px] font-semibold ${total ? (dark ? 'text-white/80' : 'text-ink/70') : 'opacity-0'}`}>
+                <span className={`money text-[10px] font-semibold ${total ? (dark ? 'text-forest/70' : 'text-ink/55') : 'opacity-0'}`}>
                   {formatMoney(total, currency)}
                 </span>
               )}
               <div
-                className="flex w-full flex-col justify-end overflow-hidden rounded-lg transition-[height] duration-700 ease-out"
-                style={{ height: `${Math.max(total ? 6 : 3, (total / max) * 100)}%` }}
+                className={`flex w-full max-w-[34px] flex-col justify-end overflow-hidden rounded-full ${dark ? 'bg-forest/10' : 'bg-[#efefe8]'}`}
+                style={{ height: `${Math.max(total ? 8 : 4, (total / max) * 100)}%` }}
                 title={`${monthShort(d.month)}: ${formatMoney(d.held, currency)} set aside, ${formatMoney(d.paid, currency)} paid`}
               >
-                {total === 0 ? (
-                  <div className={`h-full w-full ${dark ? 'bg-white/10' : 'bg-black/[0.06]'}`} />
-                ) : (
+                {total === 0 ? null : (
                   <>
-                    <div className={`${i === last ? 'bg-lime' : dark ? 'bg-lime/75' : 'bg-lime'}`} style={{ height: `${(d.held / total) * 100}%` }} />
-                    <div className={dark ? 'bg-white/25' : 'bg-forest/25'} style={{ height: `${(d.paid / total) * 100}%` }} />
+                    <div className={`${i === last ? 'bg-lime' : dark ? 'bg-forest/70' : 'bg-[#c9c9bf]'}`} style={{ height: `${(d.held / total) * 100}%` }} />
+                    <div className={dark ? 'bg-forest' : 'bg-forest/80'} style={{ height: `${(d.paid / total) * 100}%` }} />
                   </>
                 )}
               </div>
@@ -47,11 +45,13 @@ export function MonthlyBars({
           )
         })}
       </div>
-      <div className="mt-2 flex gap-2">
+      <div className="mt-2.5 flex gap-2.5">
         {data.map((d, i) => (
           <span
             key={d.month}
-            className={`flex-1 text-center text-[11px] ${i === last ? 'font-bold' : ''} ${dark ? (i === last ? 'text-white' : 'text-white/55') : i === last ? 'text-ink' : 'text-muted'}`}
+            className={`flex-1 text-center text-[10.5px] ${i === last ? 'font-bold' : 'font-medium'} ${
+              dark ? (i === last ? 'text-forest' : 'text-forest/55') : i === last ? 'text-ink' : 'text-muted'
+            }`}
           >
             {monthShort(d.month)}
           </span>
