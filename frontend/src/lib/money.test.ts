@@ -1,0 +1,28 @@
+import { expect, it } from 'vitest'
+import { formatDate, formatMoney, formatRate, monthShort } from './money'
+
+it('formats minor units, dropping .00 on whole amounts', () => {
+  expect(formatMoney(27600, 'EUR')).toBe('€276')
+  expect(formatMoney(27650, 'EUR')).toBe('€276.50')
+  expect(formatMoney(150000, 'USD')).toBe('$1,500')
+  expect(formatMoney(2300, 'EUR')).toBe('€23')
+  expect(formatMoney(90000, 'GBP')).toBe('£900')
+})
+
+it('can force cents and show a sign', () => {
+  expect(formatMoney(27600, 'EUR', { cents: true })).toBe('€276.00')
+  expect(formatMoney(40000, 'EUR', { sign: true })).toBe('+€400')
+  expect(formatMoney(-6420, 'EUR', { sign: true, cents: true })).toBe('−€64.20')
+  expect(formatMoney(0, 'EUR', { sign: true })).toBe('€0')
+})
+
+it('falls back to the currency code when it has no symbol', () => {
+  expect(formatMoney(1000, 'SEK')).toBe('SEK 10')
+})
+
+it('formats rates, dates and months', () => {
+  expect(formatRate(2000)).toBe('20%')
+  expect(formatRate(2250)).toBe('22.5%')
+  expect(formatDate('2026-12-10T00:00:00', true)).toBe('10 Dec 2026')
+  expect(monthShort('2026-08')).toBe('Aug')
+})

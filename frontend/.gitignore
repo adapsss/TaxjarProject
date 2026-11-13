@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright output (regenerate with npm run shots / npm run golden)
+screenshots/

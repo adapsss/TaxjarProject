@@ -1,0 +1,77 @@
+// Read models for the Tax Jar screens: totals and the deadline come from GET /tax/summary,
+// the per-month split (still in the jar vs already paid) and the lists come from the transactions.
+import type { Country, TaxProfile, TaxSummary, Transaction } from '../api/client'
+
+export const DISCLAIMER = 'An estimate for setting money aside, not tax advice.'
+export const TAX_AUTHORITY = 'Tax authority (demo)'
+/** The backend only keeps balances and the jar in these (app/fx.py). */
+export const TAX_CURRENCIES = ['EUR', 'USD', 'GBP']
+
+export interface MonthBar {
+  month: string // YYYY-MM
+  held: number
+  paid: number
+}
+
+export interface Summary {
+  currency: string
+  held: number
+  paid: number
+  estimatedDue: number
+  nextDeadline: Date | null
+  byMonth: MonthBar[]
+  /** Every transaction that has (or had) a reservation, newest first. */
+  reservations: Transaction[]
+  /** Incoming payments still waiting for "Is this payment for work?". */
+  pending: Transaction[]
+}
+
+export function buildSummary(profile: TaxProfile, transactions: Transaction[], server: TaxSummary | null, now = new Date()): Summary {
+  const currency = server?.taxCurrency ?? profile.taxCurrency
+  // Like the backend, only reservations in the current tax currency add up.
+  const counted = transactions.filter((t) => t.reservation && t.reservation.status !== 'undone' && t.reservation.taxCurrency === currency)
+  const sum = (status: 'reserved' | 'paid') =>
+    counted.filter((t) => t.reservation!.status === status).reduce((s, t) => s + t.reservation!.reservedAmount, 0)
+
+  const byMonth: MonthBar[] = []
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    byMonth.push({ month: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`, held: 0, paid: 0 })
+  }
+  for (const t of counted) {
+    const bar = byMonth.find((b) => t.createdAt.startsWith(b.month))
+    if (!bar) continue
+    if (t.reservation!.status === 'paid') bar.paid += t.reservation!.reservedAmount
+    else bar.held += t.reservation!.reservedAmount
+  }
+
+  return {
+    currency,
+    held: server ? server.totalReserved : sum('reserved'),
+    paid: server ? server.totalPaid : sum('paid'),
+    estimatedDue: server ? server.estimatedDue : sum('reserved'),
+    // "2026-12-10" as a local date, so it never shifts a day across time zones.
+    nextDeadline: server?.nextDeadline ? new Date(`${server.nextDeadline}T00:00:00`) : null,
+    byMonth,
+    reservations: transactions.filter((t) => t.reservation),
+    pending: profile.enabled ? transactions.filter((t) => t.direction === 'in' && t.classification.label === 'unknown') : [],
+  }
+}
+
+// ---------- countries and regimes (80 countries plus "*" = Other, from the tax engine) ----------
+
+export const countryName = (countries: Country[], code: string) => countries.find((c) => c.code === code)?.name ?? code
+
+/** "Entrepreneur account (ettevotluskonto), simplified business income taxation" → "Entrepreneur account". */
+export const shortRegimeName = (name: string) => name.split(/\s*[(,]/)[0].trim() || name
+
+export const regimeName = (countries: Country[], code: string, regime: string) => {
+  const found = countries.find((c) => c.code === code)?.regimes.find((r) => r.id === regime)
+  return found ? shortRegimeName(found.name) : regime
+}
+
+/** Emoji flag from an ISO code; a globe for "*" (Other). Font-based, so it works offline. */
+export function flagEmoji(code: string): string {
+  if (!/^[A-Z]{2}$/.test(code)) return '🌍'
+  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65))
+}

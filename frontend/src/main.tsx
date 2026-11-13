@@ -1,24 +1,20 @@
-import '@transferwise/neptune-css/dist/css/neptune.css'
-import '@transferwise/components/build/main.css'
+// Inter is bundled (no CDN): the demo must work with no network.
+import '@fontsource-variable/inter'
 import './index.css'
 
-import { Provider } from '@transferwise/components'
-import en from '@transferwise/components/build/i18n/en.json'
-import { ThemeProvider } from '@wise/components-theming'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './App.tsx'
+import { StoreProvider } from './state/store.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider theme="personal">
-      <Provider i18n={{ locale: 'en', messages: en }}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <StoreProvider>
+        <App />
+      </StoreProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
