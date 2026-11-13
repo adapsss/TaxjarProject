@@ -80,8 +80,26 @@ export function TaxJarView() {
             </Button>
           </div>
         </div>
+        {!empty && summary.breakdown && summary.breakdown.length > 0 && (
+          <dl className="relative mt-6 flex flex-wrap items-baseline gap-x-8 gap-y-2 text-[14px]">
+            <dt className="text-white/55">Of which</dt>
+            {summary.breakdown.map((part) => (
+              <div key={part.id} className="flex items-baseline gap-2">
+                <dd className="num text-[17px] font-bold">{formatMoney(part.amount, summary.currency, { cents: true })}</dd>
+                <dt className="text-white/70">{part.name.toLowerCase()}</dt>
+              </div>
+            ))}
+          </dl>
+        )}
+        {!empty && !summary.breakdown && summary.breakdownRule && (
+          <p className="relative mt-6 text-[14px] text-white/70">
+            How it’s taxed: <span className="font-semibold text-white">{summary.breakdownRule}</span>.
+            {/* A rule quoted per payment means a split exists but not for this mix of reservations, so the note would be wrong. */}
+            {!summary.breakdownRule.includes('of each payment') && ' The split between taxes is worked out on your return, not per payment.'}
+          </p>
+        )}
         <dl className="relative mt-8 grid grid-cols-4 gap-3 border-t border-white/10 pt-6">
-          <Stat k="Paid this year" v={formatMoney(summary.paid, summary.currency)} />
+          <Stat k="Tax paid so far" v={formatMoney(summary.paid, summary.currency)} />
           <Stat k="Next deadline" v={deadline ? formatDate(deadline.toISOString()) : '—'} />
           <Stat k="Payments with tax" v={String(summary.reservations.filter((t) => t.reservation!.status !== 'undone').length)} />
           <Stat k="Rate" v={formatRate(p.rate)} />

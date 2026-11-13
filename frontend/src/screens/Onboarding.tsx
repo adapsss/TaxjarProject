@@ -50,12 +50,15 @@ function Flow() {
   const lockedCurrency = editing && summary.held > 0 ? profile.taxCurrency : null
 
   const shown = useMemo(() => {
-    const q = query.trim().toLowerCase()
+    const q = fold(query.trim())
     const named = countries.filter((x) => x.code !== OTHER)
-    if (q) return named.filter((x) => x.name.toLowerCase().includes(q) || x.code.toLowerCase() === q)
+    // The chosen country stays in the list even when the search no longer matches it.
+    if (q) return named.filter((x) => x.code === country || fold(x.name).includes(q) || x.code.toLowerCase() === q)
     // No search yet: the profile's country first (the seed suggests one), then A–Z.
-    return [...named].sort((a, b) => Number(b.code === profile.country) - Number(a.code === profile.country))
-  }, [countries, query, profile.country])
+    return [...named].sort(
+      (a, b) => Number(b.code === profile.country) - Number(a.code === profile.country) || a.name.localeCompare(b.name),
+    )
+  }, [countries, query, profile.country, country])
   const other = countries.find((x) => x.code === OTHER)
 
   const pickCountry = (code: string) => {
@@ -113,15 +116,19 @@ function Flow() {
                 </span>
               </Choice>
             ))}
-            {shown.length === 0 && <p className="px-2 py-6 text-center text-[15px] text-muted">No country matches “{query.trim()}”. Pick “Another country” below and set your own rate.</p>}
+            {shown.length === 0 && (
+              <p role="status" className="rounded-2xl bg-canvas px-5 py-6 text-center text-[15px] text-muted">
+                No country matches “{query.trim()}”. You can still set your own rate below.
+              </p>
+            )}
           </div>
           {other && (
-            <div className="mt-2">
-              <Choice checked={country === OTHER} onClick={() => pickCountry(OTHER)} label="Another country" compact>
+            <div className="mt-3 border-t border-line pt-3">
+              <Choice checked={country === OTHER} onClick={() => pickCountry(OTHER)} label="Somewhere else" compact>
                 <span className="text-[24px] leading-none">{flagEmoji(OTHER)}</span>
                 <span className="flex-1">
-                  <span className="block font-semibold">Another country</span>
-                  <span className="block text-[13px] text-muted">Set your own percentage</span>
+                  <span className="block font-semibold">Somewhere else</span>
+                  <span className="block text-[13px] text-muted">Set your own rate. No country rules or deadlines.</span>
                 </span>
               </Choice>
             </div>
@@ -145,6 +152,7 @@ function Flow() {
                   </span>
                   {g.name !== shortRegimeName(g.name) && <span className="mt-0.5 block text-[13px] text-muted">{g.name}</span>}
                   <span className="mt-1.5 block text-[13.5px] leading-relaxed text-ink/75">{g.hint}</span>
+                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-forest/80">{g.breakdownRule}</span>}
                 </span>
               </Choice>
             ))}
@@ -159,7 +167,7 @@ function Flow() {
       {step === 3 && (
         <Step
           title={editing ? 'Tax settings' : 'How much should we set aside?'}
-          sub={c && r ? `${c.code === OTHER ? 'Another country' : c.name} · ${shortRegimeName(r.name)}. We suggest ${formatRate(r.defaultRate)}, but it’s your call.` : undefined}
+          sub={c && r ? `${c.code === OTHER ? 'Somewhere else' : c.name} · ${shortRegimeName(r.name)}. We suggest ${formatRate(r.defaultRate)}, but it’s your call.` : undefined}
         >
           {editing && (
             <button onClick={() => setStep(1)} className="-mt-3 mb-5 block cursor-pointer text-sm font-semibold text-forest underline underline-offset-2">
@@ -247,6 +255,9 @@ function Flow() {
     </>
   )
 }
+
+/** Case- and accent-insensitive text for matching: "Réunion" matches "reunion". */
+const fold = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 function Progress({ step }: { step: number }) {
   return (

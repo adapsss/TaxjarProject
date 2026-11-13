@@ -3,36 +3,23 @@
 // API, and the toast and the work question come from the live event stream, so a payment sent
 // from the simulator tab (or curl) shows up here too.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import demoScenarios from '../../../demo/scenarios.json'
 import * as api from '../api/client'
 import type { Account, Country, SimulateIncoming, TaxProfile, TaxSummary, Transaction } from '../api/client'
 import { subscribe } from '../api/events'
 import { buildSummary, type Summary } from '../lib/taxjar'
-
-export interface Scenario extends SimulateIncoming {
-  id: string
-  label: string
-  expect: 'income' | 'personal' | 'unknown'
-}
-/** Role D's demo payments (demo/scenarios.json). The first three are the golden path. */
-export const scenarios = demoScenarios as Scenario[]
+import { scenarios, toPayment } from './scenarios'
 
 export type ScreenState = 'ready' | 'loading' | 'error'
 /** 'live' shows the backend as it is; filled / empty / not-set-up reset it to that state; loading / error only fake a screen state. */
 export type PresetChoice = 'live' | 'filled' | 'empty' | 'not-set-up' | 'loading' | 'error'
 
+/** Tabs of this app tell each other when one of them is replaying setup payments. */
+const DEMO_CHANNEL = 'taxjar-demo'
+
 /** The profile the "Empty" and "Filled" demo states switch on. */
 const DEMO_PROFILE: TaxProfile = { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled: true }
 /** Income payments that fill the jar for the "Filled" state. */
 const FILL_WITH = ['nordwind', 'pihlakas', 'brightside']
-
-export const toPayment = (s: SimulateIncoming): SimulateIncoming => ({
-  senderName: s.senderName,
-  senderKind: s.senderKind ?? null,
-  amount: s.amount,
-  currency: s.currency,
-  reference: s.reference ?? '',
-})
 
 interface Data {
   profile: TaxProfile
@@ -96,8 +83,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   // While the demo controls set up a state, its payments must not pop toasts or questions.
   const quietRef = useRef(false)
   const quietTx = useRef(new Set<string>())
-  // Another tab (the simulator) reset the demo: the payments it replays right after are setup, not news.
-  const quietUntil = useRef(0)
+  // Another tab (the simulator) is setting up a demo state: the payments it replays are setup, not news.
+  // It says so over a BroadcastChannel, so a real payment sent right after a reset still gets its toast.
+  const remoteQuiet = useRef(false)
+  const channel = useRef<BroadcastChannel | null>(null)
 
   useEffect(() => {
     failRef.current = failNext
@@ -117,20 +106,30 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setTaxSummary(summary)
   }, [])
 
-  const load = useCallback(async () => {
-    setScreen('loading')
+  /** Fetch countries and everything else; resolves to the screen state to show. */
+  const fetchAll = useCallback(async (): Promise<ScreenState> => {
     try {
       const [list] = await Promise.all([api.getCountries(), refresh()])
       setCountries(list)
-      setScreen('ready')
+      return 'ready'
     } catch {
-      setScreen('error')
+      return 'error'
     }
   }, [refresh])
 
+  const load = useCallback(async () => {
+    setScreen('loading')
+    setScreen(await fetchAll())
+  }, [fetchAll])
+
+  // First load: the screen already starts as 'loading'.
   useEffect(() => {
-    void load()
-  }, [load])
+    let live = true
+    void fetchAll().then((next) => live && setScreen(next))
+    return () => {
+      live = false
+    }
+  }, [fetchAll])
 
   /** Put an event's transaction on screen at once; the refresh that follows fills in balances and totals. */
   const upsert = useCallback((tx: Transaction) => {
@@ -151,7 +150,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       subscribe(
         (e) => {
           if (e.type === 'demo.reset') {
-            quietUntil.current = Date.now() + 2500
             setToast(null)
             setQuestion(null)
             setFlash(null)
@@ -160,7 +158,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           }
           upsert(e.transaction)
           refresh().catch(ignore)
-          if (quietRef.current || quietTx.current.has(e.transaction.id) || Date.now() < quietUntil.current) return
+          if (quietRef.current || quietTx.current.has(e.transaction.id) || remoteQuiet.current) return
           if (e.type === 'reservation.created' && e.transaction.reservation) {
             showReserved(e.transaction.id, e.transaction.reservation.reservedAmount)
           } else if (e.type === 'question.asked') {
@@ -173,6 +171,29 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       ),
     [refresh, upsert, showReserved],
   )
+
+  useEffect(() => {
+    if (typeof BroadcastChannel === 'undefined') return
+    const ch = new BroadcastChannel(DEMO_CHANNEL)
+    channel.current = ch
+    let timer: ReturnType<typeof setTimeout> | undefined
+    ch.onmessage = (m: MessageEvent<string>) => {
+      clearTimeout(timer)
+      if (m.data === 'setup-start') {
+        remoteQuiet.current = true
+        // If that tab is closed mid-setup, don't stay quiet forever.
+        timer = setTimeout(() => (remoteQuiet.current = false), 8000)
+      } else if (m.data === 'setup-end') {
+        // The last setup event may still be on its way over the event stream.
+        timer = setTimeout(() => (remoteQuiet.current = false), 400)
+      }
+    }
+    return () => {
+      clearTimeout(timer)
+      ch.close()
+      channel.current = null
+    }
+  }, [])
 
   /** Run an API action with a busy label and the "Next action fails" demo switch, then refresh. */
   const call = useCallback(
@@ -239,6 +260,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         return
       }
       quietRef.current = true
+      channel.current?.postMessage('setup-start')
       setScreen('loading')
       try {
         await api.resetDemo()
@@ -254,10 +276,19 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setScreen('error')
       } finally {
         quietRef.current = false
+        channel.current?.postMessage('setup-end')
       }
     },
     [load, refresh],
   )
+
+  const retry = useCallback(() => {
+    setPresetState('live')
+    void load()
+  }, [load])
+  const dismissToast = useCallback(() => setToast(null), [])
+  const closeQuestion = useCallback(() => setQuestion(null), [])
+  const openQuestion = useCallback((id: string) => setQuestion(id), [])
 
   const value = useMemo<Store>(
     () => ({
@@ -277,16 +308,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       pay,
       saveProfile,
       setPreset,
-      retry: () => {
-        setPresetState('live')
-        void load()
-      },
-      dismissToast: () => setToast(null),
-      closeQuestion: () => setQuestion(null),
-      openQuestion: (id) => setQuestion(id),
+      retry,
+      dismissToast,
+      closeQuestion,
+      openQuestion,
       setFailNext,
     }),
-    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, pay, saveProfile, setPreset, load],
+    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

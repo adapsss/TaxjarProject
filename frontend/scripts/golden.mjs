@@ -98,6 +98,7 @@ await app.getByRole('link', { name: 'Tax Jar' }).first().click()
 await app.waitForURL(BASE + '/tax-jar')
 await expectText(app.locator('main'), /€436/, 'Tax Jar page total €276 + €80 + €80')
 await expectText(app.locator('main'), /due by 10 Dec 2026/, 'next deadline from the backend')
+await expectText(app.locator('main'), /Of which\s*€174\.40\s*income tax\s*€261\.60\s*social tax/, 'Tax Jar page splits the total into its taxes')
 await shot('5-tax-jar')
 
 // 6. Undo from the transaction detail route
@@ -131,13 +132,38 @@ await expectText(app.locator('main'), /paid to Tax authority \(demo\)/, 'payment
 await shot('7b-paid')
 await app.getByRole('button', { name: 'Back to Tax Jar' }).click()
 await expectText(app.locator('main'), /€0/, 'jar empty after paying')
-await expectText(app.locator('main'), /Paid this year\s*€160/, 'paid total shows €160')
+await expectText(app.locator('main'), /Tax paid so far\s*€160/, 'paid total shows €160')
 
 // Paid tax cannot be undone (backend answers 409 reservation_paid; the UI offers no button).
 await app.getByRole('row', { name: /John Smith/ }).first().click()
 await expectText(app.locator('aside').last(), /already been paid/, 'paid reservation is locked')
 if (await app.getByRole('button', { name: /This wasn’t income/ }).count()) throw new Error('Undo must not be offered after paying')
 console.log('ok  no Undo after the tax is paid')
+
+// Resetting from the simulator tab: its setup payments stay silent in the app tab,
+// but a real payment sent straight after the reset still gets its toast.
+await app.goto(BASE + '/')
+await sim.getByRole('button', { name: /^Filled/ }).click()
+await expectText(panel(), /€775/, 'Filled state arrives in the app tab')
+if (await app.getByRole('status').count()) throw new Error('Setup payments must not show a toast')
+await send(/Client pays \$1,500/)
+await expectText(app.getByRole('status'), /€276 set aside for taxes/, 'a payment right after a reset still shows its toast')
+await expectText(app.getByRole('status'), /€110\.40 income tax · €165\.60 social tax/, 'toast shows the tax split')
+await shot('8-toast-with-split')
+
+// Keyboard: Escape closes the detail drawer and the work question.
+await app.getByRole('button', { name: 'Dismiss' }).click()
+await app.locator('main button', { hasText: 'Acme Inc.' }).first().click()
+await app.waitForURL(/\/transactions\//)
+await expectText(app.locator('aside').last(), /Of which[\s\S]*Income tax[\s\S]*€110\.40[\s\S]*Social tax[\s\S]*€165\.60/, 'detail shows the tax split')
+await app.keyboard.press('Escape')
+await app.waitForURL(BASE + '/')
+console.log('ok  Escape closes the detail drawer')
+await send(/Unclear €400/)
+await expectText(app.getByRole('dialog'), /Is this payment for work\?/, 'question for a new unclear payment')
+await app.keyboard.press('Escape')
+await app.getByRole('dialog').waitFor({ state: 'detached' })
+await expectText(app.locator('main'), /1 payment needs your answer/, 'Escape postpones the question and Home still flags it')
 
 await browser.close()
 if (errors.length) {

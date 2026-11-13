@@ -313,6 +313,11 @@ export interface components {
             defaultRate: number;
             /** Hint */
             hint: string;
+            /**
+             * Breakdownrule
+             * @default
+             */
+            breakdownRule: string;
         };
         /** SimulateIncoming */
         SimulateIncoming: {
@@ -329,6 +334,18 @@ export interface components {
              * @default
              */
             reference: string;
+        };
+        /**
+         * TaxPart
+         * @description One tax inside a reserved amount, e.g. income tax or social tax.
+         */
+        TaxPart: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** Amount */
+            amount: number;
         };
         /** TaxProfile */
         TaxProfile: {
@@ -366,6 +383,8 @@ export interface components {
              * @enum {string}
              */
             status: "reserved" | "undone" | "paid";
+            /** Breakdown */
+            breakdown?: components["schemas"]["TaxPart"][] | null;
         };
         /** TaxSummary */
         TaxSummary: {
@@ -383,6 +402,13 @@ export interface components {
             nextDeadline: string | null;
             /** Disclaimer */
             disclaimer: string;
+            /** Breakdown */
+            breakdown?: components["schemas"]["TaxPart"][] | null;
+            /**
+             * Breakdownrule
+             * @default
+             */
+            breakdownRule: string;
         };
         /** Transaction */
         Transaction: {

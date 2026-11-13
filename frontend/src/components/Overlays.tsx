@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
-import { formatDate, formatMoney, formatRate } from '../lib/money'
+import { useEffect, useRef, useState } from 'react'
+import type { Transaction } from '../api/client'
+import { formatDate, formatMoney, formatRate, partsLine } from '../lib/money'
+import { useEscape } from '../lib/useEscape'
 import { tagFor, whyLine } from '../lib/why'
 import { useStore } from '../state/store'
 import { Avatar, Button, CloseIcon, InfoIcon, JarIcon, Tag } from './ui'
@@ -8,22 +10,27 @@ const TOAST_MS = 6000
 
 /** "€276 set aside for taxes" + why + Undo. */
 export function TaxToast() {
-  const { toast, transactions, undo, busy, dismissToast } = useStore()
-  const [error, setError] = useState<string | null>(null)
+  const { toast, transactions } = useStore()
   const tx = toast ? transactions.find((t) => t.id === toast.txId) : null
+  if (!toast || !tx?.reservation) return null
+  // Keyed per toast, so a new reservation restarts the timer and clears any old error.
+  return <ToastCard key={toast.key} tx={tx} />
+}
+
+function ToastCard({ tx }: { tx: Transaction }) {
+  const { undo, busy, dismissToast } = useStore()
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    setError(null)
-    if (!toast) return
     const id = setTimeout(dismissToast, TOAST_MS)
     return () => clearTimeout(id)
-  }, [toast, dismissToast])
+  }, [dismissToast])
 
-  if (!toast || !tx?.reservation) return null
   const r = tx.reservation
+  if (!r) return null
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-8 z-40 flex justify-center pl-[248px]">
-      <div key={toast.key} role="status" className="pointer-events-auto w-[540px] animate-rise overflow-hidden rounded-2xl bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]">
+    <div className="pointer-events-none fixed inset-x-0 bottom-8 z-40 flex justify-center pl-[212px] xl:pl-[248px]">
+      <div role="status" className="pointer-events-auto w-[540px] animate-rise overflow-hidden rounded-2xl bg-forest text-white shadow-[0_18px_50px_-12px_rgba(16,40,8,0.55)]">
         <div className="flex items-start gap-3.5 p-4 pr-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-lime text-forest">
             <JarIcon className="size-5" />
@@ -32,6 +39,9 @@ export function TaxToast() {
             <p className="text-[16px] font-bold">
               <span className="num text-lime">{formatMoney(r.reservedAmount, r.taxCurrency)}</span> set aside for taxes
             </p>
+            {r.breakdown && r.breakdown.length > 0 && (
+              <p className="num mt-0.5 text-[13px] font-semibold text-white/85">{partsLine(r.breakdown, r.taxCurrency)}</p>
+            )}
             <p className="mt-0.5 text-[13px] text-white/65">{whyLine(tx.classification.reasons)}</p>
             {error && <p className="mt-1 text-[12.5px] text-[#ffb4ab]">{error}</p>}
           </div>
@@ -58,18 +68,26 @@ export function TaxToast() {
 
 /** "Is this payment for work?" for the classifier's middle band (0.4–0.8). */
 export function WorkQuestionDialog() {
-  const { question, transactions, profile, answer, busy, closeQuestion } = useStore()
-  const [error, setError] = useState<string | null>(null)
-  useEffect(() => setError(null), [question])
+  const { question, transactions } = useStore()
   const tx = question ? transactions.find((t) => t.id === question) : null
   if (!tx) return null
+  return <QuestionCard key={tx.id} tx={tx} />
+}
+
+function QuestionCard({ tx }: { tx: Transaction }) {
+  const { profile, answer, busy, closeQuestion } = useStore()
+  const [error, setError] = useState<string | null>(null)
+  const dialog = useRef<HTMLDivElement>(null)
+  useEscape(closeQuestion)
+  // Move keyboard focus into the dialog, so Tab reaches Yes / No first and a screen reader announces it.
+  useEffect(() => dialog.current?.focus(), [])
 
   const go = (yes: boolean) => answer(tx.id, yes).catch((e: Error) => setError(e.message))
   const inFlight = busy?.startsWith(`answer:${tx.id}`)
 
   return (
     <div className="fixed inset-0 z-50 grid animate-fade place-items-center bg-forest/40 backdrop-blur-[2px]">
-      <div role="dialog" aria-modal="true" aria-labelledby="q-title" className="w-[480px] animate-rise rounded-3xl bg-white p-7 shadow-2xl">
+      <div ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="q-title" className="w-[480px] outline-none animate-rise rounded-3xl bg-white p-7 shadow-2xl">
         <div className="flex items-center gap-3">
           <Avatar who={tx.counterparty} size={48} />
           <div className="min-w-0">
@@ -107,7 +125,7 @@ export function WorkQuestionDialog() {
 export function TransactionDrawer({ id, onClose: close }: { id: string; onClose: () => void }) {
   const { transactions, profile, screen, undo, busy, openQuestion } = useStore()
   const [error, setError] = useState<string | null>(null)
-  useEffect(() => setError(null), [id])
+  useEscape(close)
   const tx = transactions.find((t) => t.id === id)
   if (!tx) {
     if (screen !== 'ready') return null
@@ -171,6 +189,14 @@ export function TransactionDrawer({ id, onClose: close }: { id: string; onClose:
               <div className="border-t border-line pt-2.5">
                 <Line k={r.status === 'undone' ? 'Returned to balance' : 'In your Tax Jar'} v={formatMoney(r.reservedAmount, r.taxCurrency, { cents: true })} strong />
               </div>
+              {r.status !== 'undone' && r.breakdown && r.breakdown.length > 0 && (
+                <div className="space-y-2 border-t border-line pt-2.5">
+                  <p className="text-[12px] font-semibold tracking-wide text-muted uppercase">Of which</p>
+                  {r.breakdown.map((part) => (
+                    <Line key={part.id} k={part.name} v={formatMoney(part.amount, r.taxCurrency, { cents: true })} />
+                  ))}
+                </div>
+              )}
             </dl>
           </div>
         )}

@@ -3,7 +3,8 @@ import type { Transaction } from '../api/client'
 import { Button, Card, JarIcon, Spinner } from '../components/ui'
 import { formatMoney, symbol } from '../lib/money'
 import { TAX_CURRENCIES } from '../lib/taxjar'
-import { scenarios, useStore, type PresetChoice } from '../state/store'
+import { scenarios } from '../state/scenarios'
+import { useStore, type PresetChoice } from '../state/store'
 
 type Kind = 'company' | 'person' | 'unknown' | ''
 

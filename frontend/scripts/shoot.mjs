@@ -39,7 +39,9 @@ const SHOTS = {
 
 const filter = process.argv[2] ?? ''
 const browser = await chromium.launch()
-const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })
+// VIEWPORT=1024x768 npm run shots   checks a small projector.
+const [width, height] = (process.env.VIEWPORT ?? '1440x900').split('x').map(Number)
+const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 })
 const errors = []
 for (const [name, s] of Object.entries(SHOTS)) {
   if (!name.includes(filter)) continue

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { formatMoney } from '../lib/money'
-import { scenarios, useStore, type PresetChoice } from '../state/store'
+import { scenarios } from '../state/scenarios'
+import { useStore, type PresetChoice } from '../state/store'
 import { JarIcon, Spinner } from './ui'
 
 const NAV = [
   { to: '/', label: 'Home', icon: 'M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z' },
   { to: '/tax-jar', label: 'Tax Jar', jar: true },
-  { to: '/payments', label: 'Payments', icon: 'M5 8h13m-3-3 3 3-3 3M19 16H6m3-3-3 3 3 3', soon: true },
   { to: '/onboarding', label: 'Tax settings', icon: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7.4-3a7.4 7.4 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-2-1.2L14.5 3h-5l-.4 2.6a7.5 7.5 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6a7.4 7.4 0 0 0 0 2.4l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 2 1.2l.4 2.6h5l.4-2.6a7.5 7.5 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2Z' },
 ]
 
@@ -42,7 +42,7 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="sticky top-0 flex h-screen w-[248px] shrink-0 flex-col border-r border-line bg-white px-4 pt-6 pb-4">
+    <aside className="sticky top-0 flex h-screen w-[212px] shrink-0 flex-col border-r border-line bg-white px-3 pt-6 pb-4 xl:w-[248px] xl:px-4">
       <div className="mb-8 flex items-center gap-2.5 px-2">
         <span className="grid size-9 place-items-center rounded-xl bg-lime text-forest">
           <JarIcon className="size-5" />
@@ -50,13 +50,7 @@ export function Sidebar() {
         <span className="text-[19px] font-extrabold tracking-tight text-forest">Tax Jar</span>
       </div>
       <nav className="flex flex-col gap-0.5">
-        {NAV.map((n) =>
-          n.soon ? (
-            <span key={n.to} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium text-muted/70">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={n.icon} /></svg>
-              {n.label}
-            </span>
-          ) : (
+        {NAV.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
@@ -74,8 +68,7 @@ export function Sidebar() {
               )}
               {n.label}
             </NavLink>
-          ),
-        )}
+        ))}
       </nav>
       <div className="flex-1" />
       {hidden ? (

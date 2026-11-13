@@ -31,7 +31,7 @@ export function HomeView() {
     )
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_360px] items-start gap-8">
+    <div className="grid grid-cols-[minmax(0,1fr)_320px] items-start gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-8">
       <div className="min-w-0">
         <h1 className="text-[32px] font-extrabold tracking-tight text-forest">{first ? `Hi, ${first}` : 'Hi'}</h1>
         <p className="mt-1 text-[15px] text-muted">Here’s where your money is today.</p>
@@ -46,7 +46,7 @@ export function HomeView() {
           </>
         ) : (
           <>
-            <div className="mt-7 grid grid-cols-3 gap-3">
+            <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(168px,1fr))] gap-3">
               {account.balances.map((b) => (
                 <Card key={b.currency} className="p-5">
                   <div className="flex items-center gap-2 text-[13px] font-semibold text-muted">

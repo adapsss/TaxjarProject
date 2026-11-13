@@ -17,6 +17,11 @@ export const symbol = (currency: string) => SYMBOL[currency] ?? currency
 /** 2000 → "20%" */
 export const formatRate = (bp: number) => `${+(bp / 100).toFixed(2)}%`
 
+/** [{Income tax, 11040}, {Social tax, 16560}] → "€110.40 income tax · €165.60 social tax" */
+export function partsLine(parts: { name: string; amount: number }[], currency: string): string {
+  return parts.map((p) => `${formatMoney(p.amount, currency, { cents: true })} ${p.name.toLowerCase()}`).join(' · ')
+}
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 export function formatDate(iso: string, withYear = false): string {

@@ -14,7 +14,7 @@ const acme = {
   reservationId: 'r1',
   reservation: { id: 'r1', transactionId: 't1', sourceAmount: 30000, sourceCurrency: 'USD', rate: 2000, fxRate: 0.92, reservedAmount: 27600, taxCurrency: 'EUR', status: 'reserved' },
 }
-const summary = { taxCurrency: 'EUR', totalReserved: 27600, totalPaid: 0, byMonth: [], estimatedDue: 27600, nextDeadline: '2026-12-10', disclaimer: '' }
+const summary = { taxCurrency: 'EUR', totalReserved: 27600, totalPaid: 0, byMonth: [], estimatedDue: 27600, nextDeadline: '2026-12-10', disclaimer: '', breakdown: null, breakdownRule: '' }
 
 function stubApi(enabled: boolean) {
   const routes: Record<string, unknown> = {

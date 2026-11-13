@@ -35,12 +35,21 @@ it('splits each month into money still in the jar and money already paid', () =>
 it('prefers the backend totals and reads the deadline as a local date', () => {
   const s = buildSummary(profile, [], {
     taxCurrency: 'EUR', totalReserved: 35600, totalPaid: 100, byMonth: [], estimatedDue: 35600,
-    nextDeadline: '2026-12-10', disclaimer: '',
+    nextDeadline: '2026-12-10', disclaimer: '', breakdownRule: '20% of each payment: 8% income tax, 12% social tax',
+    breakdown: [{ id: 'income_tax', name: 'Income tax', amount: 14240 }, { id: 'social_tax', name: 'Social tax', amount: 21360 }],
   }, NOW)
   expect(s.held).toBe(35600)
   expect(s.paid).toBe(100)
   expect(s.nextDeadline?.getDate()).toBe(10)
   expect(s.nextDeadline?.getMonth()).toBe(11)
+  expect(s.breakdown?.map((p) => p.amount)).toEqual([14240, 21360])
+  expect(s.breakdownRule).toContain('8% income tax')
+})
+
+it('has no tax split without the backend summary', () => {
+  const s = buildSummary(profile, [], null, NOW)
+  expect(s.breakdown).toBeNull()
+  expect(s.breakdownRule).toBe('')
 })
 
 it('lists open questions only while the Tax Jar is set up', () => {
@@ -53,7 +62,7 @@ it('shortens the engine’s long regime names', () => {
   expect(shortRegimeName('Entrepreneur account (ettevotluskonto), simplified business income taxation')).toBe('Entrepreneur account')
   expect(shortRegimeName('Sole proprietor (FIE, fuusilisest isikust ettevotja), general regime')).toBe('Sole proprietor')
   expect(shortRegimeName('Custom')).toBe('Custom')
-  const countries = [{ code: 'EE', name: 'Estonia', regimes: [{ id: 'fie', name: 'Sole proprietor (FIE), general regime', defaultRate: 4500, hint: '' }] }]
+  const countries = [{ code: 'EE', name: 'Estonia', regimes: [{ id: 'fie', name: 'Sole proprietor (FIE), general regime', defaultRate: 4500, hint: '', breakdownRule: '' }] }]
   expect(regimeName(countries, 'EE', 'fie')).toBe('Sole proprietor')
   expect(regimeName(countries, 'EE', 'nope')).toBe('nope')
 })

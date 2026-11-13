@@ -60,7 +60,7 @@ export function TaxJarPanel() {
           <dd className="mt-0.5 font-bold">{summary.nextDeadline ? formatDate(summary.nextDeadline.toISOString()) : '—'}</dd>
         </div>
         <div className="rounded-2xl bg-white/[0.07] px-3.5 py-3">
-          <dt className="text-[12px] text-white/55">Paid this year</dt>
+          <dt className="text-[12px] text-white/55">Tax paid so far</dt>
           <dd className="num mt-0.5 font-bold">{formatMoney(summary.paid, summary.currency)}</dd>
         </div>
       </dl>

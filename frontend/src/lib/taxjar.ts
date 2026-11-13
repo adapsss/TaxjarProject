@@ -1,6 +1,6 @@
 // Read models for the Tax Jar screens: totals and the deadline come from GET /tax/summary,
 // the per-month split (still in the jar vs already paid) and the lists come from the transactions.
-import type { Country, TaxProfile, TaxSummary, Transaction } from '../api/client'
+import type { Country, TaxPart, TaxProfile, TaxSummary, Transaction } from '../api/client'
 
 export const DISCLAIMER = 'An estimate for setting money aside, not tax advice.'
 export const TAX_AUTHORITY = 'Tax authority (demo)'
@@ -19,6 +19,10 @@ export interface Summary {
   paid: number
   estimatedDue: number
   nextDeadline: Date | null
+  /** Exact split of `held` into its taxes (income tax, social tax, ...); null when the regime defines none. */
+  breakdown: TaxPart[] | null
+  /** The regime's taxes in words, e.g. "20% of each payment: 8% income tax, 12% social tax". */
+  breakdownRule: string
   byMonth: MonthBar[]
   /** Every transaction that has (or had) a reservation, newest first. */
   reservations: Transaction[]
@@ -52,6 +56,8 @@ export function buildSummary(profile: TaxProfile, transactions: Transaction[], s
     estimatedDue: server ? server.estimatedDue : sum('reserved'),
     // "2026-12-10" as a local date, so it never shifts a day across time zones.
     nextDeadline: server?.nextDeadline ? new Date(`${server.nextDeadline}T00:00:00`) : null,
+    breakdown: server?.breakdown ?? null,
+    breakdownRule: server?.breakdownRule ?? '',
     byMonth,
     reservations: transactions.filter((t) => t.reservation),
     pending: profile.enabled ? transactions.filter((t) => t.direction === 'in' && t.classification.label === 'unknown') : [],

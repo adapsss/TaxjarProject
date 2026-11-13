@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import type { Transaction } from '../api/client'
 import { formatMoney, relativeDay } from '../lib/money'
@@ -10,7 +11,8 @@ export function TransactionRow({ tx, enabled }: { tx: Transaction; enabled: bool
   const nav = useNavigate()
   const { pathname } = useLocation()
   const tag = tagFor(tx, enabled)
-  const fresh = Date.now() - new Date(tx.createdAt).getTime() < FRESH_MS
+  // Decided once, when the row first appears: only a payment that just arrived animates in.
+  const [fresh] = useState(() => Date.now() - new Date(tx.createdAt).getTime() < FRESH_MS)
   const r = tx.reservation
   const signed = tx.direction === 'in' ? tx.amount : -tx.amount
 
