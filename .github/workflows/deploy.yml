@@ -1,31 +1,40 @@
-# Every push to main: test on the server, push the images to the registry, run them on the server.
+# Production deploy: only after CI went green on main (or a manual rollback to a commit of main).
 #
-# All three jobs run on the one EC2 server, which is registered as a self-hosted runner
-# with the label `taxjar`. The server only needs Docker and the AWS CLI: tests run inside
-# the images that are about to ship. Access to the registry comes from the server's IAM
-# role, so the repository holds no AWS keys. Setup: docs/deploy.md.
+# Triggers:
+#   - workflow_run: the CI workflow finished on a push to main of this repository and succeeded.
+#     The commit that CI tested (workflow_run.head_sha) is the one that is built and shipped.
+#   - workflow_dispatch: a rollback. Only from main, only with the sha of a commit that is on main.
+# There is no push trigger: a push alone never deploys.
+#
+# The jobs: gate (checks the trigger and the image tag), test, publish, deploy. test, publish and deploy
+# run on the one EC2 server, which is registered as a self-hosted runner with the label `taxjar`.
+# The server only needs Docker and the AWS CLI: tests run inside the images that are about to ship.
+# Access to the registry comes from the server's IAM role, so the repository holds no AWS keys.
+# Setup: docs/deploy.md. The `production` environment must allow deployments from main only.
 #
 # Repository variables (Settings > Secrets and variables > Actions > Variables):
 #   AWS_REGION     e.g. eu-north-1
 #   ECR_REGISTRY   e.g. 123456789012.dkr.ecr.eu-north-1.amazonaws.com
 #   APP_PORT       optional, default 80
 #
-# Run it by hand (Actions > Deploy > Run workflow) with a commit sha to roll back to that image.
+# Roll back by hand (Actions > Deploy > Run workflow, branch main) with the commit sha of an image in the registry.
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
     inputs:
       image_tag:
-        description: "Commit sha of an image already in the registry (rollback). Empty: build this commit."
-        required: false
-        default: ""
+        description: "Rollback: the full 40-character commit sha of a commit on main whose image is already in the registry."
+        required: true
 
-# One deploy at a time, and never cancel one half way.
+# One deploy at a time, and never cancel one half way. A run that will do nothing (red CI, a pull request
+# from a fork, a branch other than main) gets a group of its own, so it cannot push a real deploy out of the queue.
 concurrency:
-  group: deploy-production
+  group: ${{ ((github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main') || (github.event_name == 'workflow_run' && (github.event.workflow_run.conclusion != 'success' || github.event.workflow_run.event != 'push' || github.event.workflow_run.head_repository.full_name != github.repository || github.event.workflow_run.head_branch != 'main'))) && format('deploy-ignored-{0}', github.run_id) || 'deploy-production' }}
   cancel-in-progress: false
 
 permissions:
@@ -34,18 +43,74 @@ permissions:
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   REGISTRY: ${{ vars.ECR_REGISTRY }}
-  IMAGE_TAG: ${{ inputs.image_tag || github.sha }}
   BACKEND_IMAGE: ${{ vars.ECR_REGISTRY }}/taxjar-backend
   WEB_IMAGE: ${{ vars.ECR_REGISTRY }}/taxjar-web
 
 jobs:
-  test:
-    name: Test on the server
-    if: ${{ !inputs.image_tag }}
-    runs-on: [self-hosted, taxjar]
-    timeout-minutes: 30
+  gate:
+    name: Check what may be deployed
+    # Everything below depends on this job, so a run that does not pass here does nothing at all.
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+        (github.event_name == 'workflow_run' &&
+         github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.event == 'push' &&
+         github.event.workflow_run.head_branch == 'main' &&
+         github.event.workflow_run.head_repository.full_name == github.repository)
+      }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      tag: ${{ steps.validate.outputs.tag }}
+      mode: ${{ steps.validate.outputs.mode }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the whole history of main, for the ancestor check
+          persist-credentials: false
+      - name: Validate the image tag
+        id: validate
+        # Values reach the script as environment variables, never pasted into it.
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          CI_SHA: ${{ github.event.workflow_run.head_sha }}
+          INPUT_TAG: ${{ inputs.image_tag }}
+        run: |
+          set -eu
+          case "$EVENT_NAME" in
+            workflow_run) tag="$CI_SHA"; mode=build ;;
+            workflow_dispatch)
+              [ "$REF" = refs/heads/main ] || { echo "Run this workflow from main only."; exit 1; }
+              tag="$INPUT_TAG"; mode=rollback ;;
+            *) echo "Unexpected event $EVENT_NAME"; exit 1 ;;
+          esac
+          # Exactly 40 lowercase hex characters: no newline, no shell code, nothing that could reach .env.
+          # In a bash regex, $ matches only at the very end of the string, so a trailing newline fails too.
+          [[ "$tag" =~ ^[0-9a-f]{40}$ ]] || { echo "The image tag must be a full 40-character lowercase hex commit sha."; exit 1; }
+          # fetch-depth: 0 above already fetched every branch, so origin/main is here without any credentials.
+          git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null || { echo "origin/main is missing from the checkout."; exit 1; }
+          git cat-file -e "$tag^{commit}" 2>/dev/null || { echo "$tag is not a commit of this repository."; exit 1; }
+          git merge-base --is-ancestor "$tag" refs/remotes/origin/main \
+            || { echo "$tag is not on main; only commits of main can be deployed."; exit 1; }
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+  test:
+    name: Test on the server
+    needs: gate
+    if: ${{ needs.gate.outputs.mode == 'build' }}
+    runs-on: [self-hosted, taxjar]
+    timeout-minutes: 30
+    outputs:
+      tag: ${{ needs.gate.outputs.tag }}
+    env:
+      IMAGE_TAG: ${{ needs.gate.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.gate.outputs.tag }} # the commit CI tested, not whatever main is now
       - name: Check the configuration
         run: |
           test -n "$AWS_REGION" || { echo "Set the repository variable AWS_REGION"; exit 1; }
@@ -60,7 +125,7 @@ jobs:
           docker run -d --rm --name "$db" --network "$net" \
             -e POSTGRES_USER=taxjar -e POSTGRES_PASSWORD=taxjar -e POSTGRES_DB=taxjar_test postgres:17-alpine > /dev/null
           # pg_isready can pass before the init restart; a real query cannot.
-          for i in $(seq 1 60); do docker exec "$db" psql -U taxjar -d taxjar_test -c 'select 1' > /dev/null 2>&1 && break; sleep 1; done
+          for _ in $(seq 1 60); do docker exec "$db" psql -U taxjar -d taxjar_test -c 'select 1' > /dev/null 2>&1 && break; sleep 1; done
           docker run --rm --network "$net" \
             -e TEST_DATABASE_URL="postgresql+psycopg://taxjar:taxjar@$db:5432/taxjar_test" \
             "$BACKEND_IMAGE:$IMAGE_TAG" python -m pytest -q -p no:cacheprovider
@@ -71,9 +136,11 @@ jobs:
 
   publish:
     name: Push to the registry
-    needs: test
+    needs: test # a failed, cancelled or skipped test means nothing is pushed
     runs-on: [self-hosted, taxjar]
     timeout-minutes: 15
+    env:
+      IMAGE_TAG: ${{ needs.test.outputs.tag }}
     steps:
       - name: Log in to the registry
         run: aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
@@ -87,24 +154,41 @@ jobs:
 
   deploy:
     name: Run on the server
-    needs: publish
-    # Also runs for a rollback, where test and publish are skipped.
-    if: ${{ always() && (needs.publish.result == 'success' || (inputs.image_tag && needs.publish.result == 'skipped')) }}
+    needs: [gate, publish]
+    # Two ways in: publish succeeded (CI was green on main), or a rollback validated by the gate, where
+    # test and publish are skipped on purpose. A failed or cancelled publish, or a skipped one in a normal
+    # run (test failed), does not get through.
+    if: >-
+      ${{
+        !cancelled() &&
+        needs.gate.result == 'success' &&
+        (needs.publish.result == 'success' ||
+         (needs.gate.outputs.mode == 'rollback' && needs.publish.result == 'skipped'))
+      }}
     runs-on: [self-hosted, taxjar]
     timeout-minutes: 15
     environment: production
     env:
       APP_DIR: /opt/taxjar
       APP_PORT: ${{ vars.APP_PORT || '80' }}
+      IMAGE_TAG: ${{ needs.gate.outputs.tag }}
     steps:
+      - name: Check the image tag once more, before anything is written
+        run: |
+          [[ "$IMAGE_TAG" =~ ^[0-9a-f]{40}$ ]] \
+            || { echo "Refusing to deploy: the image tag is not a 40-character commit sha."; exit 1; }
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.gate.outputs.tag }} # the compose file must match the images
       - name: Log in to the registry
         run: aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
       - name: Remember the running version, for the automatic rollback
         id: previous
         run: |
           mkdir -p "$APP_DIR"
-          tag=$(sed -n 's/^IMAGE_TAG=//p' "$APP_DIR/.env" 2>/dev/null || true)
+          tag=$(sed -n 's/^IMAGE_TAG=//p' "$APP_DIR/.env" 2>/dev/null | head -n 1 || true)
+          # Only a full commit sha may become the rollback target; anything else is ignored.
+          [[ "$tag" =~ ^[0-9a-f]{40}$ ]] || tag=""
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
       - name: Install the compose file and its settings
         run: |
