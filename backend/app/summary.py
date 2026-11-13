@@ -29,6 +29,7 @@ CSV_HEADER = [
     "reserved_amount",
     "tax_currency",
     "status",
+    "tax_breakdown",
 ]
 
 
@@ -107,6 +108,13 @@ def fx_text(rate: float) -> str:
     return f"{rate:.4f}".rstrip("0").rstrip(".")
 
 
+def breakdown_text(reservation) -> str:
+    """"Income tax 110.40; Social tax 165.60", or "" when the regime defines no exact split."""
+    if not reservation.breakdown:
+        return ""
+    return "; ".join(f"{part.name} {format_minor(part.amount, reservation.tax_currency)}" for part in reservation.breakdown)
+
+
 def export_rows(session: Session) -> List[List[str]]:
     """Header first, then every reservation (undone and paid too), oldest first."""
     rows = [list(CSV_HEADER)]
@@ -125,6 +133,7 @@ def export_rows(session: Session) -> List[List[str]]:
                 format_minor(reservation.reserved_amount, reservation.tax_currency),
                 reservation.tax_currency,
                 reservation.status,
+                breakdown_text(db.to_reservation(reservation)),
             ]
         )
     return rows

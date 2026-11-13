@@ -89,3 +89,9 @@ def test_reset_restores_seed(client):
     assert response.status_code == 200
     assert response.json()["owner"] == "Kadri Saar"
     assert client.get("/api/tax-profile").json()["enabled"] is False
+
+
+def test_estonian_names_keep_their_accents(client):
+    countries = {c["code"]: c for c in client.get("/api/tax/countries").json()}
+    names = " | ".join(r["name"] for r in countries["EE"]["regimes"])
+    assert "ettevõtluskonto" in names
