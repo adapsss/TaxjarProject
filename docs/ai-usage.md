@@ -5,3 +5,4 @@ The organisers ask us to disclose where and how AI was used. Add one line per pi
 | Who | Tool | What for |
 |---|---|---|
 | nisabu | Claude Code | Turning the roadmap into the implementation plans in `docs/superpowers/plans/`; the scaffold and frozen contract (Task S0); the FX module (Task B1) |
+| germanritt | Claude Code | The backend behind the frozen contract: tables, seed loading, read API, tax profile and error format (B2), event bus and SSE (B3), payment pipeline, undo and tax payment (B4–B6), with first versions of the classifier, tax rules, summary, CSV export and demo data for roles C and D to review |

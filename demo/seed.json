@@ -1,0 +1,37 @@
+{
+  "owner": "Kadri Saar",
+  "profile": {
+    "country": "EE",
+    "regime": "entrepreneur_account",
+    "rate": 2000,
+    "taxCurrency": "EUR",
+    "enabled": false
+  },
+  "balances": [
+    {"currency": "EUR", "amount": 245000},
+    {"currency": "USD", "amount": 32000},
+    {"currency": "GBP", "amount": 15000}
+  ],
+  "jars": [
+    {"id": "holiday", "name": "Holiday", "currency": "EUR", "balance": 60000, "type": "regular"},
+    {"id": "laptop", "name": "New laptop", "currency": "EUR", "balance": 35000, "type": "regular"},
+    {"id": "tax", "name": "Tax Jar", "currency": "EUR", "balance": 0, "type": "tax"}
+  ],
+  "transactions": [
+    {"direction": "in",  "amount": 180000, "currency": "EUR", "senderName": "Kuusiku Studio OÜ",   "senderKind": "company", "reference": "arve 2026-31",        "createdAt": "2026-08-14T09:12:00Z", "label": "income"},
+    {"direction": "out", "amount": 72000,  "currency": "EUR", "senderName": "Lille Apartments OÜ", "senderKind": "company", "reference": "Rent August",         "createdAt": "2026-08-01T08:00:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 1800,   "currency": "EUR", "senderName": "Mari Tamm",           "senderKind": "person",  "reference": "coffee ☕",           "createdAt": "2026-08-22T16:40:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 95000,  "currency": "USD", "senderName": "Northbeam LLC",       "senderKind": "company", "reference": "INV-031",             "createdAt": "2026-09-03T14:05:00Z", "label": "income"},
+    {"direction": "out", "amount": 4599,   "currency": "EUR", "senderName": "Corner Grocery",      "senderKind": "company", "reference": "groceries",           "createdAt": "2026-09-09T18:22:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 42000,  "currency": "GBP", "senderName": "Harbourline Ltd",     "senderKind": "company", "reference": "logo design",         "createdAt": "2026-09-18T11:30:00Z", "label": "income"},
+    {"direction": "in",  "amount": 2500,   "currency": "EUR", "senderName": "Liis Kask",           "senderKind": "person",  "reference": "dinner split",        "createdAt": "2026-09-27T21:15:00Z", "label": "personal"},
+    {"direction": "out", "amount": 72000,  "currency": "EUR", "senderName": "Lille Apartments OÜ", "senderKind": "company", "reference": "Rent October",        "createdAt": "2026-10-01T08:00:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 150000, "currency": "EUR", "senderName": "Talvik Media OÜ",     "senderKind": "company", "reference": "invoice 2026-09",     "createdAt": "2026-10-06T10:00:00Z", "label": "income"},
+    {"direction": "in",  "amount": 60000,  "currency": "USD", "senderName": "Northbeam LLC",       "senderKind": "company", "reference": "INV-038",             "createdAt": "2026-10-15T13:45:00Z", "label": "income"},
+    {"direction": "out", "amount": 1299,   "currency": "EUR", "senderName": "Cinema Club",         "senderKind": "company", "reference": "monthly subscription", "createdAt": "2026-10-20T07:00:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 5000,   "currency": "EUR", "senderName": "Kristjan Mägi",       "senderKind": "person",  "reference": "birthday 🎂",         "createdAt": "2026-10-25T19:10:00Z", "label": "personal"},
+    {"direction": "out", "amount": 72000,  "currency": "EUR", "senderName": "Lille Apartments OÜ", "senderKind": "company", "reference": "Rent November",       "createdAt": "2026-11-01T08:00:00Z", "label": "personal"},
+    {"direction": "in",  "amount": 30000,  "currency": "GBP", "senderName": "Harbourline Ltd",     "senderKind": "company", "reference": "website updates",     "createdAt": "2026-11-02T15:20:00Z", "label": "income"},
+    {"direction": "in",  "amount": 3500,   "currency": "EUR", "senderName": "Siim Org",            "senderKind": "person",  "reference": "concert tickets",     "createdAt": "2026-11-09T20:00:00Z", "label": "personal"}
+  ]
+}

@@ -28,7 +28,22 @@ def test_json_is_camel_case(client):
     assert "taxCurrency" in client.get("/api/tax-profile").json()
 
 
+ONBOARDED = {"country": "EE", "regime": "entrepreneur_account", "rate": 2000, "taxCurrency": "EUR", "enabled": True}
+ACME = {"senderName": "Acme Inc.", "amount": 150000, "currency": "USD", "reference": "INV-042"}
+JOHN = {"senderName": "John Smith", "amount": 40000, "currency": "EUR", "reference": "website"}
+
+
+def _payments(client):
+    """The real handlers need real ids (the stubs had tx-acme / tx-john): onboard,
+    then one reserved payment (Acme) and one that asks a question (John)."""
+    client.put("/api/tax-profile", json=ONBOARDED)
+    acme = client.post("/api/simulate/incoming", json=ACME).json()
+    john = client.post("/api/simulate/incoming", json=JOHN).json()
+    return acme, john
+
+
 def test_stub_transactions_cover_every_state(client):
+    _payments(client)
     txs = client.get("/api/transactions").json()
     labels = {t["classification"]["label"] for t in txs}
     assert labels == {"income", "personal", "unknown"}
@@ -38,17 +53,20 @@ def test_stub_transactions_cover_every_state(client):
 
 
 def test_requests_accept_camel_case(client):
+    _, john = _payments(client)
     body = {"senderName": "Acme Inc.", "amount": 150000, "currency": "USD", "reference": "INV-042"}
     assert client.post("/api/simulate/incoming", json=body).status_code == 200
-    assert client.post("/api/transactions/tx-john/answer", json={"isIncome": True}).status_code == 200
+    assert client.post(f"/api/transactions/{john['id']}/answer", json={"isIncome": True}).status_code == 200
     profile = client.get("/api/tax-profile").json()
     assert client.put("/api/tax-profile", json=profile).status_code == 200
 
 
 def test_every_json_stub_answers(client):
+    acme, john = _payments(client)
     for path in ["/api/account", "/api/transactions", "/api/tax-profile", "/api/tax/countries", "/api/tax/summary"]:
         assert client.get(path).status_code == 200, path
-    assert client.post("/api/transactions/tx-acme/undo").status_code == 200
+    assert client.post(f"/api/transactions/{acme['id']}/undo").status_code == 200
+    client.post(f"/api/transactions/{john['id']}/answer", json={"isIncome": True})  # leaves tax to pay
     assert client.post("/api/tax/pay").status_code == 200
     assert client.post("/api/demo/reset").status_code == 200
 
