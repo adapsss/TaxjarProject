@@ -3,7 +3,6 @@
 A failure here is a money bug in the pipeline: fix the pipeline, not this helper.
 """
 
-import json
 from collections import Counter, defaultdict
 
 from sqlmodel import select
@@ -18,7 +17,7 @@ def _seed_key(direction, amount, currency, created_at):
 
 def assert_invariants(session) -> None:
     session.expire_all()
-    seed = json.loads(db.SEED_PATH.read_text(encoding="utf-8"))
+    seed = db.load_seed(session)
     reservations = session.exec(select(ReservationRow)).all()
     balances = session.exec(select(BalanceRow)).all()
     jars = session.exec(select(JarRow)).all()

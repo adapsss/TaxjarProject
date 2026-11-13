@@ -3,7 +3,7 @@ import type { Transaction } from '../api/client'
 import { Button, Card, JarIcon, Spinner } from '../components/ui'
 import { exponent, formatMoney, symbol } from '../lib/money'
 import { currencyChoices } from '../lib/taxjar'
-import { scenarios } from '../state/scenarios'
+import { useScenarios } from '../state/scenarios'
 import { useStore, type PresetChoice } from '../state/store'
 
 type Kind = 'company' | 'person' | 'unknown' | ''
@@ -28,6 +28,7 @@ const outcome = (tx: Transaction, enabled: boolean) => {
  */
 export default function Simulator() {
   const { simulate, setPreset, busy, profile, screen } = useStore()
+  const { scenarios, error: scenariosError } = useScenarios()
   const [sent, setSent] = useState<Sent[]>([])
   const [form, setForm] = useState({ senderName: '', senderKind: '' as Kind, amount: '', currency: 'EUR', reference: '' })
   const [resetting, setResetting] = useState<PresetChoice | null>(null)
@@ -88,6 +89,7 @@ export default function Simulator() {
           <section>
             <h2 className="mb-3 text-[13px] font-bold tracking-[0.08em] text-white/50 uppercase">Demo payments</h2>
             <div className="space-y-2">
+              {scenariosError && <p role="alert" className="text-sm text-white/70">Demo payments could not be loaded: {scenariosError}</p>}
               {scenarios.map((s, i) => (
                 <button
                   key={s.id}

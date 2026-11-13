@@ -8,7 +8,7 @@ import type { Account, CatchUp, Country, SimulateIncoming, TaxProfile, TaxSummar
 import { subscribe } from '../api/events'
 import { formatMoney } from '../lib/money'
 import { buildSummary, type Summary } from '../lib/taxjar'
-import { scenarios, toPayment } from './scenarios'
+import { loadScenarios, toPayment } from './scenarios'
 
 export type ScreenState = 'ready' | 'loading' | 'error'
 /** 'live' shows the backend as it is; filled / empty / not-set-up reset it to that state; loading / error only fake a screen state. */
@@ -317,6 +317,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         await api.resetDemo()
         if (p !== 'not-set-up') await api.putTaxProfile(DEMO_PROFILE)
         if (p === 'filled') {
+          const scenarios = await loadScenarios()
           for (const s of scenarios.filter((x) => FILL_WITH.includes(x.id))) {
             const id = (await api.simulateIncoming(toPayment(s))).id
             quietTx.current.add(id)

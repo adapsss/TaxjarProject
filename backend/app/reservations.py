@@ -32,14 +32,19 @@ REASON_UNDONE = "you said this wasn't income"
 
 
 def get_transaction(session: Session, tx_id: str) -> TransactionRow:
-    tx = session.get(TransactionRow, tx_id)
+    """The transaction, locked until the caller commits: two answers or undos for it run one after the other.
+
+    Rows are always locked in the same order (transaction, balance, Tax Jar), so concurrent requests
+    wait for each other instead of deadlocking.
+    """
+    tx = session.get(TransactionRow, tx_id, with_for_update=True, populate_existing=True)
     if tx is None:
         raise ApiError(404, "transaction_not_found", f"There is no transaction {tx_id}.")
     return tx
 
 
 def _tax_jar(session: Session, tax_currency: str) -> JarRow:
-    jar = session.get(JarRow, TAX_JAR_ID)
+    jar = session.get(JarRow, TAX_JAR_ID, with_for_update=True, populate_existing=True)
     if jar.currency != tax_currency:
         # The profile and the jar drifted apart; only an empty jar may follow the profile.
         if jar.balance != 0:
@@ -57,7 +62,7 @@ def reserve(session: Session, tx: TransactionRow, profile: ProfileRow) -> Option
     if existing is not None:
         return existing
 
-    balance = session.get(BalanceRow, tx.currency)
+    balance = session.get(BalanceRow, tx.currency, with_for_update=True, populate_existing=True)
     available = balance.amount if balance is not None else 0
     source = min(compute_tax(tx.amount, profile.rate_bp), available)
     if source <= 0:
@@ -90,8 +95,11 @@ def undo(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
 
     The payer's remembered status does not change. A second undo moves nothing.
     """
+    db.lock_account(session)
     tx = get_transaction(session, tx_id)
-    reservation = session.get(ReservationRow, tx.reservation_id) if tx.reservation_id else None
+    reservation = (
+        session.get(ReservationRow, tx.reservation_id, populate_existing=True) if tx.reservation_id else None
+    )
     if reservation is None:
         raise ApiError(409, "no_reservation", "Nothing was set aside for this payment.")
     if reservation.status == "paid":
@@ -99,10 +107,10 @@ def undo(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
     if reservation.status == "undone":
         return tx
 
-    balance = session.get(BalanceRow, reservation.source_currency)
+    balance = session.get(BalanceRow, reservation.source_currency, with_for_update=True, populate_existing=True)
     if balance is None:
         balance = BalanceRow(currency=reservation.source_currency, amount=0)
-    jar = session.get(JarRow, TAX_JAR_ID)
+    jar = session.get(JarRow, TAX_JAR_ID, with_for_update=True, populate_existing=True)
     balance.amount += reservation.source_amount
     jar.balance -= reservation.reserved_amount
     reservation.status = "undone"
@@ -118,13 +126,14 @@ def undo(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
 
 def pay_all(session: Session, bus: EventBus) -> Tuple[TransactionRow, int]:
     """Pay everything reserved to the tax authority: the Tax Jar goes to 0. Returns (outgoing tx, amount)."""
+    db.lock_account(session)  # before reading what is reserved: a second payer then sees it already paid
     profile = db.get_profile(session)
     reserved = session.exec(select(ReservationRow).where(ReservationRow.status == "reserved")).all()
     total = sum(r.reserved_amount for r in reserved)
     if total <= 0:
         raise ApiError(409, "nothing_to_pay", "The Tax Jar is empty.")
 
-    jar = session.get(JarRow, TAX_JAR_ID)
+    jar = session.get(JarRow, TAX_JAR_ID, with_for_update=True, populate_existing=True)
     for reservation in reserved:
         reservation.status = "paid"
         session.add(reservation)

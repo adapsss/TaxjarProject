@@ -7,13 +7,12 @@ frontend sees is built in one place.
 
 import json
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Iterator, Optional
 
-from sqlalchemy import Engine, literal_column
-from sqlmodel import Session, SQLModel, create_engine, delete, select
+from sqlalchemy import Engine, text
+from sqlmodel import Session, create_engine, delete, select
 
-from app import schemas
+from app import schemas, settings
 from app.engine.breakdown import split_tax
 from app.engine.classifier import infer_kind, normalize_name
 from app.engine.tax_rules import get_regime
@@ -27,9 +26,6 @@ from app.models import (
     TransactionRow,
 )
 
-BACKEND_DIR = Path(__file__).resolve().parent.parent
-DB_PATH = BACKEND_DIR / "data" / "app.db"  # gitignored (*.db)
-SEED_PATH = BACKEND_DIR.parent / "demo" / "seed.json"  # written by role D (Task D1)
 
 # Children before parents, so a reset never leaves a dangling reference.
 _TABLES_IN_DELETE_ORDER = (ReservationRow, TransactionRow, CounterpartyRow, JarRow, BalanceRow, ProfileRow)
@@ -40,30 +36,24 @@ _engine: Optional[Engine] = None
 def get_engine() -> Engine:
     global _engine
     if _engine is None:
-        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-        # FastAPI runs the sync get_session dependency in a worker thread and the
-        # async handler on the event loop thread, so SQLite must allow both.
-        _engine = create_engine(f"sqlite:///{DB_PATH}", connect_args={"check_same_thread": False})
+        # pool_pre_ping: a connection dropped by the database (restart, idle timeout) is replaced, not served.
+        _engine = create_engine(settings.database_url(), pool_pre_ping=True)
     return _engine
 
 
 def init_db(engine: Optional[Engine] = None) -> None:
-    """Create the tables, and load the seed if there is no profile yet. Called on startup."""
+    """Load the seed if there is no profile yet. Called on startup. The schema comes from Alembic only."""
     engine = engine or get_engine()
-    SQLModel.metadata.create_all(engine)
-    _add_missing_columns(engine)
     with Session(engine) as session:
-        if session.get(ProfileRow, PROFILE_ID) is None:
-            reset_to_seed(session)
+        seed_if_empty(session)
 
 
-def _add_missing_columns(engine: Engine) -> None:
-    """create_all never alters a table, so a database from before these columns existed gets them here."""
-    with engine.begin() as connection:
-        existing = {row[1] for row in connection.exec_driver_sql("PRAGMA table_info(reservationrow)")}
-        for column in ("country", "regime"):
-            if column not in existing:
-                connection.exec_driver_sql(f"ALTER TABLE reservationrow ADD COLUMN {column} VARCHAR")
+def seed_if_empty(session: Session) -> bool:
+    """Load the seed into an empty database; a restart must not wipe the demo state. True if it seeded."""
+    if session.get(ProfileRow, PROFILE_ID) is not None:
+        return False
+    reset_to_seed(session)
+    return True
 
 
 def get_session() -> Iterator[Session]:
@@ -72,9 +62,31 @@ def get_session() -> Iterator[Session]:
         yield session
 
 
+ACCOUNT_LOCK = 7_251_001  # pg_advisory_xact_lock key for the one demo account
+
+
+def lock_account(session: Session) -> None:
+    """Hold the account's lock until this transaction ends.
+
+    Every operation that moves money, changes the tax profile or resets the demo takes it first,
+    so requests from several backend processes run one after the other instead of interleaving:
+    no double tax payment, no reset deadlocking with a payment. Row locks stay as a second line.
+    """
+    session.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": ACCOUNT_LOCK})
+
+
+def load_seed(session: Session) -> dict:
+    """The demo seed "Fresh start" restores, as stored in the database (imported from demo/seed.json)."""
+    row = session.execute(text("SELECT data FROM demo_seed WHERE id = 1")).first()
+    if row is None:
+        raise RuntimeError("Demo seed is missing: run python -m app.data_load")
+    return row[0]
+
+
 def reset_to_seed(session: Session) -> None:
-    """Delete every row and reload demo/seed.json. Commits."""
-    seed = json.loads(SEED_PATH.read_text(encoding="utf-8"))
+    """Delete every row and reload the demo seed stored in the database. Commits."""
+    lock_account(session)
+    seed = load_seed(session)
 
     for table in _TABLES_IN_DELETE_ORDER:
         session.exec(delete(table))
@@ -222,9 +234,8 @@ def to_profile(row: ProfileRow) -> schemas.TaxProfile:
 
 def to_account(session: Session) -> schemas.Account:
     profile = get_profile(session)
-    in_seed_order = literal_column("rowid")
-    balances = session.exec(select(BalanceRow).order_by(in_seed_order)).all()
-    jars = session.exec(select(JarRow).order_by(in_seed_order)).all()
+    balances = session.exec(select(BalanceRow).order_by(BalanceRow.seq)).all()
+    jars = session.exec(select(JarRow).order_by(JarRow.seq)).all()
     return schemas.Account.model_validate(
         {
             "owner": profile.owner_name,

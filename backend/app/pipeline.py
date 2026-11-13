@@ -79,9 +79,11 @@ def process_incoming(
         raise ApiError(422, "unsupported_currency", f"{currency or 'That currency'} is not a supported currency.")
     reference = reference or ""
 
+    db.lock_account(session)
     profile = db.get_profile(session)
 
-    balance = session.get(BalanceRow, currency)
+    # Locked until commit: concurrent payments in one currency must not overwrite each other's credit.
+    balance = session.get(BalanceRow, currency, with_for_update=True, populate_existing=True)
     if balance is None:
         balance = BalanceRow(currency=currency, amount=0)
     balance.amount += amount
@@ -135,6 +137,7 @@ def process_incoming(
 
 def answer(session: Session, bus: EventBus, tx_id: str, is_income: bool) -> TransactionRow:
     """Apply the user's answer and remember it for the payer. A second answer changes nothing."""
+    db.lock_account(session)
     tx = get_transaction(session, tx_id)
     profile = db.get_profile(session)
     if not profile.enabled:

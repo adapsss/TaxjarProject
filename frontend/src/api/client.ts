@@ -21,6 +21,7 @@ export type TaxSummary = Schemas['TaxSummary']
 export type MonthTotal = Schemas['MonthTotal']
 export type PayResult = Schemas['PayResult']
 export type CatchUp = Schemas['CatchUp']
+export type DemoScenario = Schemas['DemoScenario']
 
 /** Every failed call throws this. `code` is the backend's error code, e.g. "tax_jar_not_empty". */
 export class ApiError extends Error {
@@ -87,4 +88,5 @@ export const payTax = () => request<PayResult>('POST', '/tax/pay')
 export const getCatchUp = () => request<CatchUp>('GET', '/tax/catch-up')
 /** Set that tax aside now, in one go. */
 export const catchUp = () => request<CatchUp>('POST', '/tax/catch-up', {})
+export const getDemoScenarios = () => request<DemoScenario[]>('GET', '/demo/scenarios')
 export const resetDemo = () => request<Account>('POST', '/demo/reset')

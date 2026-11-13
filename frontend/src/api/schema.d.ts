@@ -73,6 +73,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/demo/scenarios": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Demo Scenarios */
+        get: operations["demo_scenarios_api_demo_scenarios_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/demo/reset": {
         parameters: {
             query?: never;
@@ -316,6 +333,28 @@ export interface components {
             currency?: string | null;
             /** Regimes */
             regimes: components["schemas"]["Regime"][];
+        };
+        /** DemoScenario */
+        DemoScenario: {
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /** Sendername */
+            senderName: string;
+            /** Senderkind */
+            senderKind?: ("company" | "person" | "unknown") | null;
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /** Reference */
+            reference: string;
+            /**
+             * Expect
+             * @enum {string}
+             */
+            expect: "income" | "personal" | "unknown";
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -617,6 +656,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Country"][];
+                };
+            };
+        };
+    };
+    demo_scenarios_api_demo_scenarios_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DemoScenario"][];
                 };
             };
         };

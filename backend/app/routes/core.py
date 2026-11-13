@@ -5,7 +5,6 @@ exactly those of Task S0, so the generated frontend types stay the same.
 """
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
-from sqlalchemy import literal_column
 from sqlmodel import Session, select
 
 from app import db, fx
@@ -14,6 +13,8 @@ from app.engine import tax_rules
 from app.errors import ApiError
 from app.events import EventBus, get_bus, sse_response
 from app.models import TAX_JAR_ID, JarRow, TransactionRow
+from app.routes.guards import require_demo_mode
+from app.taxdata import tables as t
 
 router = APIRouter()
 
@@ -27,7 +28,7 @@ async def get_account(session: Session = Depends(db.get_session)):
 
 @router.get("/transactions", response_model=list[s.Transaction])
 async def list_transactions(session: Session = Depends(db.get_session)):
-    newest_first = (TransactionRow.created_at.desc(), literal_column("rowid").desc())
+    newest_first = (TransactionRow.created_at.desc(), TransactionRow.seq.desc())
     rows = session.exec(select(TransactionRow).order_by(*newest_first)).all()
     return [db.to_transaction(session, row) for row in rows]
 
@@ -39,6 +40,7 @@ async def get_tax_profile(session: Session = Depends(db.get_session)):
 
 @router.put("/tax-profile", response_model=s.TaxProfile)
 async def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.get_session)):
+    db.lock_account(session)  # the Tax Jar check below must not race a reservation
     if not 0 <= profile.rate <= MAX_RATE_BP:
         raise ApiError(422, "validation_error", "rate must be between 0 and 10000 basis points (0% to 100%).")
     if tax_rules.get_regime(profile.country, profile.regime) is None:
@@ -74,7 +76,19 @@ async def list_countries():
     return tax_rules.load_countries()
 
 
-@router.post("/demo/reset", response_model=s.Account)
+@router.get("/demo/scenarios", response_model=list[s.DemoScenario], dependencies=[Depends(require_demo_mode)])
+async def demo_scenarios(session: Session = Depends(db.get_session)):
+    rows = session.execute(select(t.demo_scenario).order_by(t.demo_scenario.c.position)).mappings()
+    return [
+        s.DemoScenario.model_validate(
+            {"id": r["id"], "label": r["label"], "senderName": r["sender_name"], "senderKind": r["sender_kind"],
+             "amount": r["amount"], "currency": r["currency"], "reference": r["reference"], "expect": r["expect"]}
+        )
+        for r in rows
+    ]
+
+
+@router.post("/demo/reset", response_model=s.Account, dependencies=[Depends(require_demo_mode)])
 async def reset_demo(session: Session = Depends(db.get_session), bus: EventBus = Depends(get_bus)):
     db.reset_to_seed(session)
     bus.publish("demo.reset", {})

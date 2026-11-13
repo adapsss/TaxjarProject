@@ -5,12 +5,49 @@
 name: taxjar
 
 services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-taxjar}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-taxjar}
+      POSTGRES_DB: ${POSTGRES_DB:-taxjar}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${DB_PORT:-5433}:5432" # local tools and the test suite only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taxjar} -d ${POSTGRES_DB:-taxjar}"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  # One-off: brings the schema up to date and imports the JSON into empty tables, then exits.
+  # Safe on every start: data already in the database is left alone (see backend/app/data_load.py).
+  migrate:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    command: ["sh", "-c", "alembic upgrade head && python -m app.data_load"]
+    environment: &backend-env
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-taxjar}:${POSTGRES_PASSWORD:-taxjar}@db:5432/${POSTGRES_DB:-taxjar}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      TAX_DATA_REFRESH_SECONDS: ${TAX_DATA_REFRESH_SECONDS:-60}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
   backend:
     build:
       context: .
       dockerfile: docker/backend.Dockerfile
-    volumes:
-      - backend-data:/srv/backend/data # SQLite; `docker compose down -v` starts from the seed again
+    environment: *backend-env
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     restart: unless-stopped
 
   web:
@@ -28,4 +65,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  backend-data:
+  db-data: # Postgres; `docker compose down -v` starts from the JSON import and the seed again

@@ -12,11 +12,12 @@ from sqlmodel import Session
 from app import db, pipeline, reservations
 from app import schemas as s
 from app.events import EventBus, get_bus
+from app.routes.guards import require_demo_mode
 
 router = APIRouter()
 
 
-@router.post("/simulate/incoming", response_model=s.Transaction)
+@router.post("/simulate/incoming", response_model=s.Transaction, dependencies=[Depends(require_demo_mode)])
 async def simulate_incoming(
     body: s.SimulateIncoming,
     session: Session = Depends(db.get_session),

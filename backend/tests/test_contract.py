@@ -13,6 +13,7 @@ CONTRACT_PATHS = {
     "/api/tax/pay": {"post"},
     "/api/tax/export.csv": {"get"},
     "/api/demo/reset": {"post"},
+    "/api/demo/scenarios": {"get"},
     "/api/events": {"get"},
 }
 

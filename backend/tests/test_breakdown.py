@@ -1,8 +1,30 @@
 from app.engine import describe_rule, get_regime, split_tax
 from helpers import ACME, JOHN, answer, simulate, undo
 
-ACCOUNT = get_regime("EE", "entrepreneur_account")
-FIE = get_regime("EE", "fie")
+class _Regime(dict):
+    """Looks a regime up on first use: tax data comes from the database, which is ready only once tests run."""
+
+    def __init__(self, country, regime):
+        super().__init__()
+        self._key = (country, regime)
+
+    def _load(self):
+        if not dict.__len__(self):
+            self.update(get_regime(*self._key))
+        return self
+
+    def __getitem__(self, k):
+        return dict.__getitem__(self._load(), k)
+
+    def get(self, k, default=None):
+        return dict.get(self._load(), k, default)
+
+    def __bool__(self):
+        return True
+
+
+ACCOUNT = _Regime("EE", "entrepreneur_account")
+FIE = _Regime("EE", "fie")
 
 
 def amounts(parts):
@@ -150,23 +172,3 @@ def test_split_survives_switching_away_from_the_exact_regime(client, onboarded):
     again = next(t for t in client.get("/api/transactions").json() if t["id"] == acme["id"])
     assert amounts(again["reservation"]["breakdown"]) == {"income_tax": 11040, "social_tax": 16560}
     assert client.get("/api/tax/summary").json()["breakdown"] is None
-
-
-def test_old_database_gets_the_new_columns(tmp_path):
-    from sqlmodel import create_engine
-
-    from app import db
-
-    engine = create_engine(f"sqlite:///{tmp_path / 'old.db'}")
-    with engine.begin() as connection:
-        connection.exec_driver_sql(
-            "CREATE TABLE reservationrow (id VARCHAR PRIMARY KEY, transaction_id VARCHAR, source_amount INTEGER, "
-            "source_currency VARCHAR, rate_bp INTEGER, fx_rate FLOAT, reserved_amount INTEGER, tax_currency VARCHAR, "
-            "status VARCHAR, created_at DATETIME)"
-        )
-    db._add_missing_columns(engine)
-    db._add_missing_columns(engine)
-    with engine.begin() as connection:
-        columns = {row[1] for row in connection.exec_driver_sql("PRAGMA table_info(reservationrow)")}
-    assert {"country", "regime"} <= columns
-    engine.dispose()
