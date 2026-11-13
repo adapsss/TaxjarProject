@@ -1,0 +1,77 @@
+# Build the backend and web images and push them to ECR (eu-west-1) for the Kubernetes deployment (Argo CD).
+#
+# Runs after the CI workflow succeeds on a push to main, for exactly the commit CI tested, or by hand on main.
+# Both images get the same tag, dev-<run number>; Argo CD Image Updater picks up the newest dev-N.
+#
+# Needs one repository variable (Settings → Secrets and variables → Actions → Variables):
+#   AWS_ROLE_ARN   the IAM role infra created for this repo, trusted via GitHub OIDC for refs/heads/main only
+name: images
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: images-main
+  cancel-in-progress: false # never abandon a push half way
+
+env:
+  AWS_REGION: eu-west-1
+  TAG: dev-${{ github.run_number }}
+
+jobs:
+  push:
+    # Only a green CI run for a push to main of this repository, or a manual run started on main.
+    if: >-
+      ${{
+        (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+        (github.event_name == 'workflow_run' &&
+         github.event.workflow_run.conclusion == 'success' &&
+         github.event.workflow_run.event == 'push' &&
+         github.event.workflow_run.head_branch == 'main' &&
+         github.event.workflow_run.head_repository.full_name == github.repository)
+      }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # GitHub OIDC → the infra role; no AWS keys stored in the repo
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - repository: goyslop-backend
+            dockerfile: docker/backend.Dockerfile
+          - repository: goyslop-web
+            dockerfile: docker/web.Dockerfile
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The commit CI tested; a manual run builds the tip of main.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - name: Check the role is configured
+        if: ${{ vars.AWS_ROLE_ARN == '' }}
+        run: |
+          echo "::error::Set the repository variable AWS_ROLE_ARN to the role infra created for this repo."
+          exit 1
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: . # both Dockerfiles expect the repo root
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ steps.ecr.outputs.registry }}/${{ matrix.repository }}:${{ env.TAG }}
+          cache-from: type=gha,scope=${{ matrix.repository }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.repository }}
+          provenance: false # plain image manifests for ECR and Image Updater
