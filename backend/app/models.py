@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
+from sqlalchemy import BigInteger, Column, DateTime, Identity
 from sqlmodel import Field, SQLModel
 
 TAX_JAR_ID = "tax"
@@ -20,6 +21,22 @@ PROFILE_ID = 1
 
 def new_id() -> str:
     return str(uuid.uuid4())
+
+
+def money(default=None):
+    """A BIGINT money column: amounts in minor units can exceed 32 bits."""
+    if default is None:
+        return Field(sa_column=Column(BigInteger, nullable=False))
+    return Field(default=default, sa_column=Column(BigInteger, nullable=False, default=default))
+
+
+def seq():
+    """Insertion order, filled by Postgres. Lists that must keep the order rows were added in sort by it."""
+    return Field(default=None, sa_column=Column(BigInteger, Identity(always=True), nullable=False))
+
+
+def timestamp(index: bool = False):
+    return Field(default_factory=lambda: utcnow(), sa_column=Column(DateTime(timezone=True), nullable=False, index=index))
 
 
 def utcnow() -> datetime:
@@ -41,7 +58,8 @@ class ProfileRow(SQLModel, table=True):
 
 class BalanceRow(SQLModel, table=True):
     currency: str = Field(primary_key=True)
-    amount: int = 0
+    amount: int = money(0)
+    seq: Optional[int] = seq()
 
 
 class JarRow(SQLModel, table=True):
@@ -50,8 +68,9 @@ class JarRow(SQLModel, table=True):
     id: str = Field(primary_key=True)
     name: str
     currency: str
-    balance: int = 0
+    balance: int = money(0)
     type: str = "regular"  # "tax" | "regular"
+    seq: Optional[int] = seq()
 
 
 class CounterpartyRow(SQLModel, table=True):
@@ -69,15 +88,16 @@ class CounterpartyRow(SQLModel, table=True):
 class TransactionRow(SQLModel, table=True):
     id: str = Field(default_factory=new_id, primary_key=True)
     direction: str  # "in" | "out"
-    amount: int
+    amount: int = money()
     currency: str
     counterparty_key: str = Field(foreign_key="counterpartyrow.key", index=True)
     reference: str = ""
-    created_at: datetime = Field(default_factory=utcnow, index=True)
+    created_at: datetime = timestamp(index=True)
     label: str  # "income" | "personal" | "unknown"
     confidence: float
     reasons_json: str = "[]"  # json.dumps(list[str])
     reservation_id: Optional[str] = None
+    seq: Optional[int] = seq()
 
 
 class ReservationRow(SQLModel, table=True):
@@ -85,14 +105,15 @@ class ReservationRow(SQLModel, table=True):
 
     id: str = Field(default_factory=new_id, primary_key=True)
     transaction_id: str = Field(foreign_key="transactionrow.id", unique=True)
-    source_amount: int  # taken from the balance the payment arrived in
+    source_amount: int = money()  # taken from the balance the payment arrived in
     source_currency: str
     rate_bp: int
     fx_rate: float  # display only; the money maths uses fx.convert
-    reserved_amount: int  # added to the Tax Jar, in tax_currency
+    reserved_amount: int = money()  # added to the Tax Jar, in tax_currency
     tax_currency: str
     status: str = "reserved"  # "reserved" | "undone" | "paid"
-    created_at: datetime = Field(default_factory=utcnow, index=True)
+    created_at: datetime = timestamp(index=True)
     # The regime the tax was reserved under: the tax breakdown must not follow later profile changes.
     country: Optional[str] = None
     regime: Optional[str] = None
+    seq: Optional[int] = seq()

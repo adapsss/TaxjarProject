@@ -9,7 +9,7 @@ from app.routes import core, payments, reports
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()  # create tables; seed backend/data/app.db on first run
+    init_db()  # seed an empty database; the schema comes from `alembic upgrade head`
     yield
 
 

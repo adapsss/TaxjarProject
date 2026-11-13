@@ -7,7 +7,6 @@ from datetime import date
 from decimal import Decimal
 from typing import List, Optional
 
-from sqlalchemy import literal_column
 from sqlmodel import Session, select
 
 from app import db, schemas
@@ -34,7 +33,7 @@ CSV_HEADER = [
 
 
 def _reservations_oldest_first(session: Session) -> List[ReservationRow]:
-    order = (ReservationRow.created_at, literal_column("rowid"))
+    order = (ReservationRow.created_at, ReservationRow.seq)
     return list(session.exec(select(ReservationRow).order_by(*order)).all())
 
 

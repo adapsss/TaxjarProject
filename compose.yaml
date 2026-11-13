@@ -5,6 +5,23 @@
 name: taxjar
 
 services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-taxjar}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-taxjar}
+      POSTGRES_DB: ${POSTGRES_DB:-taxjar}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${DB_PORT:-5433}:5432" # local tools and the test suite only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taxjar} -d ${POSTGRES_DB:-taxjar}"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
   backend:
     build:
       context: .
@@ -27,3 +44,4 @@ services:
 
 volumes:
   backend-data:
+  db-data:

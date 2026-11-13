@@ -81,7 +81,8 @@ def process_incoming(
 
     profile = db.get_profile(session)
 
-    balance = session.get(BalanceRow, currency)
+    # Locked until commit: concurrent payments in one currency must not overwrite each other's credit.
+    balance = session.get(BalanceRow, currency, with_for_update=True, populate_existing=True)
     if balance is None:
         balance = BalanceRow(currency=currency, amount=0)
     balance.amount += amount

@@ -150,23 +150,3 @@ def test_split_survives_switching_away_from_the_exact_regime(client, onboarded):
     again = next(t for t in client.get("/api/transactions").json() if t["id"] == acme["id"])
     assert amounts(again["reservation"]["breakdown"]) == {"income_tax": 11040, "social_tax": 16560}
     assert client.get("/api/tax/summary").json()["breakdown"] is None
-
-
-def test_old_database_gets_the_new_columns(tmp_path):
-    from sqlmodel import create_engine
-
-    from app import db
-
-    engine = create_engine(f"sqlite:///{tmp_path / 'old.db'}")
-    with engine.begin() as connection:
-        connection.exec_driver_sql(
-            "CREATE TABLE reservationrow (id VARCHAR PRIMARY KEY, transaction_id VARCHAR, source_amount INTEGER, "
-            "source_currency VARCHAR, rate_bp INTEGER, fx_rate FLOAT, reserved_amount INTEGER, tax_currency VARCHAR, "
-            "status VARCHAR, created_at DATETIME)"
-        )
-    db._add_missing_columns(engine)
-    db._add_missing_columns(engine)
-    with engine.begin() as connection:
-        columns = {row[1] for row in connection.exec_driver_sql("PRAGMA table_info(reservationrow)")}
-    assert {"country", "regime"} <= columns
-    engine.dispose()

@@ -5,7 +5,6 @@ exactly those of Task S0, so the generated frontend types stay the same.
 """
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
-from sqlalchemy import literal_column
 from sqlmodel import Session, select
 
 from app import db, fx
@@ -27,7 +26,7 @@ async def get_account(session: Session = Depends(db.get_session)):
 
 @router.get("/transactions", response_model=list[s.Transaction])
 async def list_transactions(session: Session = Depends(db.get_session)):
-    newest_first = (TransactionRow.created_at.desc(), literal_column("rowid").desc())
+    newest_first = (TransactionRow.created_at.desc(), TransactionRow.seq.desc())
     rows = session.exec(select(TransactionRow).order_by(*newest_first)).all()
     return [db.to_transaction(session, row) for row in rows]
 

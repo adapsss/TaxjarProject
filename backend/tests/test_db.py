@@ -129,15 +129,14 @@ def test_as_utc():
     assert db.as_utc(datetime(2026, 11, 13, 9, 0)).tzinfo == timezone.utc
 
 
-def test_init_db_seeds_only_an_empty_database(tmp_path):
-    from sqlmodel import Session, create_engine
+def test_seed_if_empty_seeds_only_an_empty_database(session):
+    from sqlmodel import delete
 
-    engine = create_engine(f"sqlite:///{tmp_path / 'app.db'}")
-    db.init_db(engine)
-    with Session(engine) as session:
-        session.get(BalanceRow, "EUR").amount = 1
-        session.commit()
-    db.init_db(engine)  # a restart must not wipe the demo state
-    with Session(engine) as session:
-        assert session.get(BalanceRow, "EUR").amount == 1
-    engine.dispose()
+    for table in (ReservationRow, TransactionRow, CounterpartyRow, JarRow, BalanceRow, ProfileRow):
+        session.exec(delete(table))
+    session.commit()
+    assert db.seed_if_empty(session) is True
+    session.get(BalanceRow, "EUR").amount = 1
+    session.commit()
+    assert db.seed_if_empty(session) is False  # a restart must not wipe the demo state
+    assert session.get(BalanceRow, "EUR").amount == 1
