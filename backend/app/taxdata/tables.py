@@ -113,3 +113,22 @@ change_log = sa.Table(
 
 # Children before parents: the order a full replace deletes in.
 DATA_TABLES_CHILDREN_FIRST = (source, deadline, extra_part, part, social_contribution, regime, country)
+
+demo_seed = sa.Table(
+    "demo_seed", metadata,
+    sa.Column("id", sa.SmallInteger, primary_key=True),
+    sa.Column("data", JSONB),
+)
+
+demo_scenario = sa.Table(
+    "demo_scenario", metadata,
+    sa.Column("id", sa.String, primary_key=True),
+    sa.Column("position", sa.Integer),
+    sa.Column("label", sa.String),
+    sa.Column("sender_name", sa.String),
+    sa.Column("sender_kind", sa.String),
+    sa.Column("amount", sa.BigInteger),
+    sa.Column("currency", sa.String),
+    sa.Column("reference", sa.String),
+    sa.Column("expect", sa.String),
+)

@@ -56,7 +56,8 @@ def pg_engine():
     except OperationalError as exc:
         pytest.exit(f"Start Postgres: docker compose up -d db (DB_PORT=5433). {exc.orig}", returncode=2)
     with Session(engine) as session:
-        data_load.import_dataset(session, "tax")
+        for dataset in data_load.DATASETS:
+            data_load.import_dataset(session, dataset)
     yield engine
     engine.dispose()
 

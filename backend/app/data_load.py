@@ -20,11 +20,15 @@ from app.taxdata import tables as t
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 ENGINE_DIR = BACKEND_DIR / "app" / "engine"
-DATASETS = ("tax",)
+DATASETS = ("tax", "demo_seed", "demo_scenarios")
+DEMO_DIR = BACKEND_DIR.parent / "demo"
 
 FILES = {
     "tax": (ENGINE_DIR / "countries.json", ENGINE_DIR / "legal_forms.json"),
+    "demo_seed": (DEMO_DIR / "seed.json",),
+    "demo_scenarios": (DEMO_DIR / "scenarios.json",),
 }
+DEMO_TABLES = {"demo_seed": t.demo_seed, "demo_scenarios": t.demo_scenario}
 
 
 def _checksum(paths) -> str:
@@ -37,7 +41,8 @@ def _checksum(paths) -> str:
 def _present(session: Session, dataset: str) -> bool:
     if dataset == "tax":
         return repository.has_tax_data(session)
-    raise ValueError(dataset)
+    table = DEMO_TABLES[dataset]
+    return session.execute(sa.select(sa.func.count()).select_from(table)).scalar_one() > 0
 
 
 def _write(session: Session, dataset: str) -> int:
@@ -46,14 +51,26 @@ def _write(session: Session, dataset: str) -> int:
         countries = json.loads(countries_file.read_text(encoding="utf-8"))
         forms = json.loads(forms_file.read_text(encoding="utf-8"))["forms"]
         return repository.write_tax_data(session, countries, forms)
-    raise ValueError(dataset)
+    (path,) = FILES[dataset]
+    content = json.loads(path.read_text(encoding="utf-8"))
+    if dataset == "demo_seed":
+        session.execute(t.demo_seed.insert().values(id=1, data=content))
+        return 1
+    rows = [
+        {"id": s["id"], "position": i, "label": s["label"], "sender_name": s["senderName"],
+         "sender_kind": s.get("senderKind"), "amount": s["amount"], "currency": s["currency"],
+         "reference": s["reference"], "expect": s["expect"]}
+        for i, s in enumerate(content)
+    ]
+    session.execute(t.demo_scenario.insert(), rows)
+    return len(rows)
 
 
 def _delete(session: Session, dataset: str) -> None:
     if dataset == "tax":
         repository.delete_tax_data(session)
         return
-    raise ValueError(dataset)
+    session.execute(DEMO_TABLES[dataset].delete())
 
 
 def import_dataset(session: Session, dataset: str, replace: bool = False) -> str:
@@ -85,12 +102,16 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     from app import settings
 
+    from app.db import seed_if_empty
+
     engine = sa.create_engine(settings.database_url())
     try:
         with Session(engine) as session:
             for dataset in DATASETS:
                 outcome = import_dataset(session, dataset, replace=dataset == args.replace)
                 print(f"{dataset}: {outcome}")
+            if seed_if_empty(session):
+                print("app state: seeded from demo_seed")
     finally:
         engine.dispose()
     return 0

@@ -114,6 +114,17 @@ class SimulateIncoming(ApiModel):
     reference: str = ""
 
 
+class DemoScenario(ApiModel):
+    id: str
+    label: str
+    sender_name: str
+    sender_kind: Optional[Kind] = None
+    amount: int
+    currency: str
+    reference: str
+    expect: Label
+
+
 class Answer(ApiModel):
     is_income: bool
 

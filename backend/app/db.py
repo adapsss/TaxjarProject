@@ -7,10 +7,9 @@ frontend sees is built in one place.
 
 import json
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Iterator, Optional
 
-from sqlalchemy import Engine
+from sqlalchemy import Engine, text
 from sqlmodel import Session, create_engine, delete, select
 
 from app import schemas, settings
@@ -27,8 +26,6 @@ from app.models import (
     TransactionRow,
 )
 
-BACKEND_DIR = Path(__file__).resolve().parent.parent
-SEED_PATH = BACKEND_DIR.parent / "demo" / "seed.json"  # written by role D (Task D1)
 
 # Children before parents, so a reset never leaves a dangling reference.
 _TABLES_IN_DELETE_ORDER = (ReservationRow, TransactionRow, CounterpartyRow, JarRow, BalanceRow, ProfileRow)
@@ -65,9 +62,17 @@ def get_session() -> Iterator[Session]:
         yield session
 
 
+def load_seed(session: Session) -> dict:
+    """The demo seed "Fresh start" restores, as stored in the database (imported from demo/seed.json)."""
+    row = session.execute(text("SELECT data FROM demo_seed WHERE id = 1")).first()
+    if row is None:
+        raise RuntimeError("Demo seed is missing: run python -m app.data_load")
+    return row[0]
+
+
 def reset_to_seed(session: Session) -> None:
-    """Delete every row and reload demo/seed.json. Commits."""
-    seed = json.loads(SEED_PATH.read_text(encoding="utf-8"))
+    """Delete every row and reload the demo seed stored in the database. Commits."""
+    seed = load_seed(session)
 
     for table in _TABLES_IN_DELETE_ORDER:
         session.exec(delete(table))

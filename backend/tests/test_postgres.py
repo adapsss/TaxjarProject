@@ -31,7 +31,8 @@ def test_money_columns_are_bigint(session):
         text(
             "select table_name, column_name, data_type from information_schema.columns "
             "where table_schema = 'public' and column_name in "
-            "('amount', 'balance', 'source_amount', 'reserved_amount')"
+            "('amount', 'balance', 'source_amount', 'reserved_amount') "
+            "and table_name in ('balancerow', 'jarrow', 'transactionrow', 'reservationrow')"
         )
     ).all()
     assert len(rows) == 5, rows  # balance amount, jar balance, transaction amount, two reservation amounts
