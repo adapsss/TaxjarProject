@@ -1,0 +1,4266 @@
+{
+ "forms": [
+  {
+   "token": "(Pty) Limited",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "(Pty) Ltd",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "(RF)",
+   "caseSensitive": true,
+   "name": "Ring-fenced company",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "a. s.",
+   "caseSensitive": true,
+   "name": "akciov\u00e1 spolo\u010dnos\u0165",
+   "countries": [
+    "SK"
+   ]
+  },
+  {
+   "token": "A.E.",
+   "caseSensitive": true,
+   "name": "Anonymi Etairia (Latin spelling)",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "A.m.b.a.",
+   "caseSensitive": false,
+   "name": "Andelsselskab med begraenset ansvar",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "a.s",
+   "caseSensitive": true,
+   "name": "akciov\u00e1 spole\u010dnost",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "a.s.",
+   "caseSensitive": true,
+   "name": "akciov\u00e1 spole\u010dnost",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "A/S",
+   "caseSensitive": true,
+   "name": "Aktieselskab",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "AB",
+   "caseSensitive": true,
+   "name": "Akcine bendrove",
+   "countries": [
+    "LT",
+    "SE"
+   ]
+  },
+  {
+   "token": "AB (publ)",
+   "caseSensitive": true,
+   "name": "Publikt aktiebolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "Ab Oy",
+   "caseSensitive": true,
+   "name": "Aktiebolag / Osakeyhtio",
+   "countries": [
+    "FI"
+   ]
+  },
+  {
+   "token": "AD",
+   "caseSensitive": true,
+   "name": "Aktsionerno druzhestvo",
+   "countries": [
+    "BG",
+    "MK"
+   ]
+  },
+  {
+   "token": "AG",
+   "caseSensitive": true,
+   "name": "Aktiengesellschaft",
+   "countries": [
+    "AT",
+    "DE",
+    "LI",
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "AG & Co. KG",
+   "caseSensitive": false,
+   "name": "AG & Co. Kommanditgesellschaft",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "Aktiebolag",
+   "caseSensitive": false,
+   "name": "Aktiebolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "Aktsiaselts",
+   "caseSensitive": false,
+   "name": "Aktsiaselts",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "amba",
+   "caseSensitive": false,
+   "name": "Andelsselskab med begraenset ansvar",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "ANS",
+   "caseSensitive": true,
+   "name": "Ansvarlig selskap",
+   "countries": [
+    "NO"
+   ]
+  },
+  {
+   "token": "Anstalt",
+   "caseSensitive": false,
+   "name": "Anstalt",
+   "countries": [
+    "LI"
+   ]
+  },
+  {
+   "token": "ApS",
+   "caseSensitive": false,
+   "name": "Anpartsselskab",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "AS",
+   "caseSensitive": true,
+   "name": "Aktsiaselts",
+   "countries": [
+    "EE",
+    "LV",
+    "NO"
+   ]
+  },
+  {
+   "token": "ASA",
+   "caseSensitive": true,
+   "name": "Allmennaksjeselskap",
+   "countries": [
+    "NO"
+   ]
+  },
+  {
+   "token": "ASBL",
+   "caseSensitive": true,
+   "name": "Association sans but lucratif",
+   "countries": [
+    "BE",
+    "LU"
+   ]
+  },
+  {
+   "token": "B.A.",
+   "caseSensitive": true,
+   "name": "Beperkte Aansprakelijkheid",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "B.M.",
+   "caseSensitive": true,
+   "name": "Be'Eravon Mugbal (Ltd), Latin transliteration",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "B.S.C.",
+   "caseSensitive": false,
+   "name": "Bahraini Shareholding Company",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "B.S.C. (c)",
+   "caseSensitive": false,
+   "name": "Bahraini Shareholding Company (closed)",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "B.V.",
+   "caseSensitive": true,
+   "name": "Besloten Vennootschap",
+   "countries": [
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "BA",
+   "caseSensitive": true,
+   "name": "Selskap med begrenset ansvar",
+   "countries": [
+    "NO"
+   ]
+  },
+  {
+   "token": "Berhad",
+   "caseSensitive": false,
+   "name": "Public limited company",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "Bhd",
+   "caseSensitive": false,
+   "name": "Berhad",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "Bhd.",
+   "caseSensitive": false,
+   "name": "Berhad",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "BSC",
+   "caseSensitive": true,
+   "name": "Bahraini Shareholding Company",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "BSC (c)",
+   "caseSensitive": false,
+   "name": "Bahraini Shareholding Company (closed)",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "BV",
+   "caseSensitive": true,
+   "name": "Besloten Vennootschap",
+   "countries": [
+    "BE",
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "BVBA",
+   "caseSensitive": true,
+   "name": "Besloten Vennootschap met Beperkte Aansprakelijkheid",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "C.R.L.",
+   "caseSensitive": true,
+   "name": "Cooperativa de Responsabilidade Limitada",
+   "countries": [
+    "PT"
+   ]
+  },
+  {
+   "token": "C.V.",
+   "caseSensitive": true,
+   "name": "Commanditaire vennootschap",
+   "countries": [
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "CC",
+   "caseSensitive": true,
+   "name": "Close Corporation",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "CCC",
+   "caseSensitive": true,
+   "name": "Cwmni Cyfyngedig Cyhoeddus (Welsh public limited company)",
+   "countries": [
+    "GB"
+   ]
+  },
+  {
+   "token": "CGA",
+   "caseSensitive": true,
+   "name": "Cuideachta Ghniomhaiochta Ainmnithe",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "CIC",
+   "caseSensitive": true,
+   "name": "Community interest company",
+   "countries": [
+    "GB"
+   ]
+  },
+  {
+   "token": "CIO",
+   "caseSensitive": true,
+   "name": "Charitable incorporated organisation",
+   "countries": [
+    "GB"
+   ]
+  },
+  {
+   "token": "CLG",
+   "caseSensitive": true,
+   "name": "Company Limited by Guarantee",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "Co-op",
+   "caseSensitive": false,
+   "name": "Co-operative",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Co-operative",
+   "caseSensitive": false,
+   "name": "Co-operative company",
+   "countries": [
+    "NZ",
+    "SG"
+   ]
+  },
+  {
+   "token": "Co-operative Limited",
+   "caseSensitive": false,
+   "name": "Co-operative",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Co-operative Society",
+   "caseSensitive": false,
+   "name": "Co-operative society",
+   "countries": [
+    "IN"
+   ]
+  },
+  {
+   "token": "Co-operative Society Limited",
+   "caseSensitive": false,
+   "name": "Co-operative society",
+   "countries": [
+    "MT"
+   ]
+  },
+  {
+   "token": "Co. Ltd",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "CN",
+    "SA",
+    "TH"
+   ]
+  },
+  {
+   "token": "Co. Ltd.",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "PH",
+    "SA"
+   ]
+  },
+  {
+   "token": "Co., Ltd",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "Co., Ltd.",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "CN",
+    "HK",
+    "JP",
+    "PH",
+    "KR",
+    "TW",
+    "TH"
+   ]
+  },
+  {
+   "token": "Co.,Ltd.",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "CN",
+    "KR",
+    "TW"
+   ]
+  },
+  {
+   "token": "Commanditaire Vennootschap",
+   "caseSensitive": false,
+   "name": "Commanditaire Vennootschap",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "CommV",
+   "caseSensitive": false,
+   "name": "Commanditaire Vennootschap",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "Companhia",
+   "caseSensitive": false,
+   "name": "Companhia",
+   "countries": [
+    "BR"
+   ]
+  },
+  {
+   "token": "Company Limited",
+   "caseSensitive": false,
+   "name": "Company Limited",
+   "countries": [
+    "HK",
+    "TH"
+   ]
+  },
+  {
+   "token": "Coop.",
+   "caseSensitive": false,
+   "name": "Cooperative",
+   "countries": [
+    "PH"
+   ]
+  },
+  {
+   "token": "Coop. Ltda.",
+   "caseSensitive": false,
+   "name": "Cooperativa Limitada",
+   "countries": [
+    "AR"
+   ]
+  },
+  {
+   "token": "Cooperatie",
+   "caseSensitive": false,
+   "name": "Cooperatie",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "Cooperativa",
+   "caseSensitive": false,
+   "name": "Cooperativa",
+   "countries": [
+    "BR",
+    "CO",
+    "CR",
+    "UY"
+   ]
+  },
+  {
+   "token": "Cooperative",
+   "caseSensitive": false,
+   "name": "Cooperative",
+   "countries": [
+    "PH"
+   ]
+  },
+  {
+   "token": "Corp",
+   "caseSensitive": false,
+   "name": "Corporation",
+   "countries": [
+    "CA",
+    "KY",
+    "GU",
+    "PH",
+    "US"
+   ]
+  },
+  {
+   "token": "Corp.",
+   "caseSensitive": false,
+   "name": "Corporation",
+   "countries": [
+    "PH",
+    "TW"
+   ]
+  },
+  {
+   "token": "Corporation",
+   "caseSensitive": false,
+   "name": "Corporation",
+   "countries": [
+    "CA",
+    "PH",
+    "US"
+   ]
+  },
+  {
+   "token": "Corporation Limited",
+   "caseSensitive": false,
+   "name": "Corporation Limited",
+   "countries": [
+    "HK"
+   ]
+  },
+  {
+   "token": "Co\u00f6peratie",
+   "caseSensitive": false,
+   "name": "Cooperatie",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "CPT",
+   "caseSensitive": true,
+   "name": "Cuideachta Phoblach Teoranta",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "CRL",
+   "caseSensitive": true,
+   "name": "Cooperativa de Responsabilidade Limitada",
+   "countries": [
+    "PT"
+   ]
+  },
+  {
+   "token": "CTR",
+   "caseSensitive": true,
+   "name": "Cuideachta faoi Theorainn Rathaiochta",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "CV",
+   "caseSensitive": true,
+   "name": "Cooperatieve Vennootschap",
+   "countries": [
+    "BE",
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "CVBA",
+   "caseSensitive": true,
+   "name": "Cooperatieve Vennootschap met Beperkte Aansprakelijkheid",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "Cyfyngedig",
+   "caseSensitive": false,
+   "name": "Cyfyngedig (Welsh limited)",
+   "countries": [
+    "GB"
+   ]
+  },
+  {
+   "token": "d.d.",
+   "caseSensitive": true,
+   "name": "dioni\u010dko dru\u0161tvo",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "d.n.o.",
+   "caseSensitive": false,
+   "name": "javno trgova\u010dko dru\u0161tvo",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "d.o.o",
+   "caseSensitive": false,
+   "name": "dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "d.o.o.",
+   "caseSensitive": false,
+   "name": "dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "DA",
+   "caseSensitive": true,
+   "name": "Selskap med delt ansvar",
+   "countries": [
+    "NO"
+   ]
+  },
+  {
+   "token": "DAC",
+   "caseSensitive": true,
+   "name": "Designated Activity Company",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "DOO",
+   "caseSensitive": true,
+   "name": "Dru\u0161tvo so ograni\u010dena odgovornost",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "DOOEL",
+   "caseSensitive": true,
+   "name": "Dru\u0161tvo so ograni\u010dena odgovornost, edno\u010dlen",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "druzstvo",
+   "caseSensitive": false,
+   "name": "dru\u017estvo (cooperative)",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "dru\u017estvo",
+   "caseSensitive": false,
+   "name": "dru\u017estvo (cooperative)",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "E.I.R.L.",
+   "caseSensitive": false,
+   "name": "Empresa Individual de Responsabilidad Limitada",
+   "countries": [
+    "CL",
+    "PE"
+   ]
+  },
+  {
+   "token": "E.P.E.",
+   "caseSensitive": false,
+   "name": "Etairia Periorismenis Efthynis (Latin spelling)",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "E.U.",
+   "caseSensitive": true,
+   "name": "Empresa Unipersonal",
+   "countries": [
+    "CO"
+   ]
+  },
+  {
+   "token": "e.V.",
+   "caseSensitive": true,
+   "name": "eingetragener Verein",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "EAD",
+   "caseSensitive": true,
+   "name": "Ednolichno aktsionerno druzhestvo",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "eG",
+   "caseSensitive": true,
+   "name": "eingetragene Genossenschaft",
+   "countries": [
+    "AT",
+    "DE"
+   ]
+  },
+  {
+   "token": "eGen",
+   "caseSensitive": true,
+   "name": "eingetragene Genossenschaft",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "Egyesulet",
+   "caseSensitive": false,
+   "name": "egyes\u00fclet (association)",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "Egyes\u00fclet",
+   "caseSensitive": false,
+   "name": "egyes\u00fclet (association)",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "ehf",
+   "caseSensitive": true,
+   "name": "Einkahlutafelag",
+   "countries": [
+    "IS"
+   ]
+  },
+  {
+   "token": "ehf.",
+   "caseSensitive": true,
+   "name": "Einkahlutafelag",
+   "countries": [
+    "IS"
+   ]
+  },
+  {
+   "token": "EIRELI",
+   "caseSensitive": true,
+   "name": "Empresa Individual de Responsabilidade Limitada",
+   "countries": [
+    "BR"
+   ]
+  },
+  {
+   "token": "EIRL",
+   "caseSensitive": true,
+   "name": "Empresa Individual de Responsabilidad Limitada",
+   "countries": [
+    "CL",
+    "CR",
+    "PE"
+   ]
+  },
+  {
+   "token": "ek for",
+   "caseSensitive": false,
+   "name": "Ekonomisk forening",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "ek f\u00f6r",
+   "caseSensitive": false,
+   "name": "Ekonomisk forening",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "ek. for.",
+   "caseSensitive": false,
+   "name": "Ekonomisk forening",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "ek. f\u00f6r.",
+   "caseSensitive": false,
+   "name": "Ekonomisk forening",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "ELP",
+   "caseSensitive": true,
+   "name": "Exempted Limited Partnership",
+   "countries": [
+    "KY"
+   ]
+  },
+  {
+   "token": "en commandite",
+   "caseSensitive": false,
+   "name": "Partnership en commandite",
+   "countries": [
+    "MT"
+   ]
+  },
+  {
+   "token": "EOOD",
+   "caseSensitive": true,
+   "name": "Ednolichno druzhestvo s ogranichena otgovornost",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "EPP",
+   "caseSensitive": true,
+   "name": "Empresa de Pequeno Porte",
+   "countries": [
+    "BR"
+   ]
+  },
+  {
+   "token": "ESAL",
+   "caseSensitive": true,
+   "name": "Entidad sin Animo de Lucro",
+   "countries": [
+    "CO"
+   ]
+  },
+  {
+   "token": "EURL",
+   "caseSensitive": true,
+   "name": "Entreprise unipersonnelle a responsabilite limitee",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "F.m.b.A.",
+   "caseSensitive": false,
+   "name": "Forening med begraenset ansvar",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "FlexKapG",
+   "caseSensitive": true,
+   "name": "Flexible Kapitalgesellschaft",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "fmba",
+   "caseSensitive": false,
+   "name": "Forening med begraenset ansvar",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "Foundation",
+   "caseSensitive": false,
+   "name": "Non-stock foundation",
+   "countries": [
+    "PH"
+   ]
+  },
+  {
+   "token": "Foundation Company",
+   "caseSensitive": false,
+   "name": "Foundation Company",
+   "countries": [
+    "KY"
+   ]
+  },
+  {
+   "token": "GbR",
+   "caseSensitive": false,
+   "name": "Gesellschaft buergerlichen Rechts",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "Genossenschaft",
+   "caseSensitive": false,
+   "name": "Genossenschaft",
+   "countries": [
+    "LI",
+    "CH"
+   ]
+  },
+  {
+   "token": "Ges.m.b.H.",
+   "caseSensitive": false,
+   "name": "Gesellschaft mit beschraenkter Haftung",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "GesbR",
+   "caseSensitive": true,
+   "name": "Gesellschaft buergerlichen Rechts",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "gGmbH",
+   "caseSensitive": false,
+   "name": "gemeinnuetzige GmbH",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "GIE",
+   "caseSensitive": true,
+   "name": "Groupement d'interet economique",
+   "countries": [
+    "FR",
+    "LU",
+    "MC"
+   ]
+  },
+  {
+   "token": "GmbH",
+   "caseSensitive": false,
+   "name": "Gesellschaft mit beschraenkter Haftung",
+   "countries": [
+    "AT",
+    "DE",
+    "LI",
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "GmbH & Co KG",
+   "caseSensitive": false,
+   "name": "GmbH & Co Kommanditgesellschaft",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "GmbH & Co. KG",
+   "caseSensitive": false,
+   "name": "GmbH & Co. Kommanditgesellschaft",
+   "countries": [
+    "DE",
+    "LI"
+   ]
+  },
+  {
+   "token": "Handelsbolag",
+   "caseSensitive": false,
+   "name": "Handelsbolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "HB",
+   "caseSensitive": true,
+   "name": "Handelsbolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "I.K.E.",
+   "caseSensitive": false,
+   "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "I/S",
+   "caseSensitive": true,
+   "name": "Interessentskab",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "ICAV",
+   "caseSensitive": true,
+   "name": "Irish Collective Asset-management Vehicle",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "ICC",
+   "caseSensitive": true,
+   "name": "Incorporated cell company",
+   "countries": [
+    "GG",
+    "IM",
+    "JE"
+   ]
+  },
+  {
+   "token": "IKE",
+   "caseSensitive": true,
+   "name": "Idiotiki Kefalaiouchiki Etairia (Latin spelling)",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "ILP",
+   "caseSensitive": true,
+   "name": "Incorporated limited partnership",
+   "countries": [
+    "JE"
+   ]
+  },
+  {
+   "token": "Inc",
+   "caseSensitive": false,
+   "name": "Incorporated",
+   "countries": [
+    "CA",
+    "KY",
+    "GU",
+    "PH",
+    "ZA",
+    "US"
+   ]
+  },
+  {
+   "token": "Inc.",
+   "caseSensitive": false,
+   "name": "Incorporated",
+   "countries": [
+    "CA",
+    "GU",
+    "NZ",
+    "PH",
+    "KR",
+    "TW",
+    "US"
+   ]
+  },
+  {
+   "token": "Incorporated",
+   "caseSensitive": false,
+   "name": "Incorporated",
+   "countries": [
+    "CA",
+    "NZ",
+    "PH",
+    "ZA",
+    "US"
+   ]
+  },
+  {
+   "token": "Incorporee",
+   "caseSensitive": false,
+   "name": "Incorpor\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "Incorpor\u00e9e",
+   "caseSensitive": false,
+   "name": "Incorpor\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "IVS",
+   "caseSensitive": true,
+   "name": "Iv\u00e6rks\u00e6tterselskab (abolished, still in use)",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "IVZW",
+   "caseSensitive": true,
+   "name": "Internationale vereniging zonder winstoogmerk",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "j.d.o.o",
+   "caseSensitive": false,
+   "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
+   "countries": [
+    "HR"
+   ]
+  },
+  {
+   "token": "j.d.o.o.",
+   "caseSensitive": false,
+   "name": "jednostavno dru\u0161tvo s ograni\u010denom odgovorno\u0161\u0107u",
+   "countries": [
+    "HR"
+   ]
+  },
+  {
+   "token": "JSC",
+   "caseSensitive": true,
+   "name": "Joint Stock Company",
+   "countries": [
+    "GE",
+    "SA"
+   ]
+  },
+  {
+   "token": "JTD",
+   "caseSensitive": true,
+   "name": "Javno trgovsko dru\u0161tvo",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "k.d.",
+   "caseSensitive": true,
+   "name": "komanditno dru\u0161tvo",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "k.d.d.",
+   "caseSensitive": false,
+   "name": "komanditna delni\u0161ka dru\u017eba",
+   "countries": [
+    "SI"
+   ]
+  },
+  {
+   "token": "K.K.",
+   "caseSensitive": true,
+   "name": "Kabushiki Kaisha",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "k.s.",
+   "caseSensitive": true,
+   "name": "komanditn\u00ed spole\u010dnost",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "K.S.C.",
+   "caseSensitive": false,
+   "name": "Kuwaiti Shareholding Company",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "K.S.C.C.",
+   "caseSensitive": false,
+   "name": "Kuwaiti Shareholding Company Closed",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "K.S.C.P.",
+   "caseSensitive": false,
+   "name": "Kuwaiti Shareholding Company Public",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "K/S",
+   "caseSensitive": true,
+   "name": "Kommanditselskab",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "KB",
+   "caseSensitive": true,
+   "name": "Kommanditbolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "KD",
+   "caseSensitive": true,
+   "name": "Komanditno druzhestvo",
+   "countries": [
+    "BG",
+    "MK"
+   ]
+  },
+  {
+   "token": "Kft",
+   "caseSensitive": false,
+   "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "Kft.",
+   "caseSensitive": false,
+   "name": "korl\u00e1tolt felel\u0151ss\u00e9g\u0171 t\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "KG",
+   "caseSensitive": true,
+   "name": "Kommanditgesellschaft",
+   "countries": [
+    "AT",
+    "DE",
+    "LI",
+    "CH"
+   ]
+  },
+  {
+   "token": "KGaA",
+   "caseSensitive": true,
+   "name": "Kommanditgesellschaft auf Aktien",
+   "countries": [
+    "DE",
+    "LI"
+   ]
+  },
+  {
+   "token": "Kollektivgesellschaft",
+   "caseSensitive": false,
+   "name": "Kollektivgesellschaft",
+   "countries": [
+    "LI",
+    "CH"
+   ]
+  },
+  {
+   "token": "Kommanditbolag",
+   "caseSensitive": false,
+   "name": "Kommanditbolag",
+   "countries": [
+    "SE"
+   ]
+  },
+  {
+   "token": "Kooperatine bendrove",
+   "caseSensitive": false,
+   "name": "Kooperatine bendrove",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "Kooperatin\u0117 bendrov\u0117",
+   "caseSensitive": false,
+   "name": "Kooperatine bendrove",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "Kooperativa sabiedriba",
+   "caseSensitive": false,
+   "name": "Kooperativa sabiedriba",
+   "countries": [
+    "LV"
+   ]
+  },
+  {
+   "token": "Koperasi",
+   "caseSensitive": false,
+   "name": "Co-operative",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "KS",
+   "caseSensitive": true,
+   "name": "Komanditsabiedriba",
+   "countries": [
+    "LV",
+    "NO"
+   ]
+  },
+  {
+   "token": "KSC",
+   "caseSensitive": true,
+   "name": "Kuwaiti Shareholding Company",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "KSCC",
+   "caseSensitive": true,
+   "name": "Kuwaiti Shareholding Company Closed",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "KSCP",
+   "caseSensitive": true,
+   "name": "Kuwaiti Shareholding Company Public",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "KUB",
+   "caseSensitive": true,
+   "name": "Komanditine ukine bendrija",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "K\u016aB",
+   "caseSensitive": true,
+   "name": "Komanditine ukine bendrija",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "L.L.C.",
+   "caseSensitive": false,
+   "name": "Limited Liability Company",
+   "countries": [
+    "GU",
+    "US"
+   ]
+  },
+  {
+   "token": "Lda",
+   "caseSensitive": false,
+   "name": "Limitada",
+   "countries": [
+    "MO",
+    "PT"
+   ]
+  },
+  {
+   "token": "Lda.",
+   "caseSensitive": false,
+   "name": "Limitada",
+   "countries": [
+    "MO",
+    "PT"
+   ]
+  },
+  {
+   "token": "Limitada",
+   "caseSensitive": false,
+   "name": "Sociedad de Responsabilidad Limitada",
+   "countries": [
+    "CL",
+    "CR",
+    "MO",
+    "PT"
+   ]
+  },
+  {
+   "token": "Limited",
+   "caseSensitive": false,
+   "name": "Public company limited by shares",
+   "countries": [
+    "AU",
+    "CA",
+    "KY",
+    "CY",
+    "GI",
+    "GG",
+    "HK",
+    "IN",
+    "IE",
+    "IM",
+    "JE",
+    "MO",
+    "MT",
+    "NZ",
+    "SG",
+    "ZA",
+    "GB"
+   ]
+  },
+  {
+   "token": "Limited Partnership",
+   "caseSensitive": false,
+   "name": "Limited Partnership",
+   "countries": [
+    "HK",
+    "NZ"
+   ]
+  },
+  {
+   "token": "Limitee",
+   "caseSensitive": false,
+   "name": "Limit\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "Limit\u00e9e",
+   "caseSensitive": false,
+   "name": "Limit\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "LLC",
+   "caseSensitive": false,
+   "name": "Limited Liability Company",
+   "countries": [
+    "KY",
+    "GE",
+    "GU",
+    "QA",
+    "SA",
+    "US"
+   ]
+  },
+  {
+   "token": "LLP",
+   "caseSensitive": false,
+   "name": "Limited Liability Partnership",
+   "countries": [
+    "CA",
+    "CY",
+    "GI",
+    "GU",
+    "GG",
+    "HK",
+    "IN",
+    "IM",
+    "JE",
+    "MY",
+    "MT",
+    "PH",
+    "SG",
+    "GB",
+    "US"
+   ]
+  },
+  {
+   "token": "LP",
+   "caseSensitive": true,
+   "name": "Limited Partnership",
+   "countries": [
+    "CA",
+    "KY",
+    "GI",
+    "GU",
+    "GG",
+    "IM",
+    "JE",
+    "NZ",
+    "SG",
+    "GB",
+    "US"
+   ]
+  },
+  {
+   "token": "Ltd",
+   "caseSensitive": false,
+   "name": "Limited",
+   "countries": [
+    "AU",
+    "CA",
+    "KY",
+    "CY",
+    "GI",
+    "GU",
+    "GG",
+    "HK",
+    "IN",
+    "IE",
+    "IM",
+    "IL",
+    "JE",
+    "MO",
+    "MT",
+    "NZ",
+    "SA",
+    "SG",
+    "SX",
+    "ZA",
+    "GB",
+    "US"
+   ]
+  },
+  {
+   "token": "Ltd.",
+   "caseSensitive": false,
+   "name": "Limited",
+   "countries": [
+    "AU",
+    "KY",
+    "CN",
+    "HK",
+    "IN",
+    "IL",
+    "MO",
+    "NZ",
+    "PH",
+    "SA",
+    "SG",
+    "TW",
+    "TH"
+   ]
+  },
+  {
+   "token": "Ltd. Co.",
+   "caseSensitive": false,
+   "name": "Limited Company",
+   "countries": [
+    "PH"
+   ]
+  },
+  {
+   "token": "Ltda",
+   "caseSensitive": false,
+   "name": "Sociedade Limitada",
+   "countries": [
+    "BR",
+    "CL",
+    "CO",
+    "CR",
+    "UY"
+   ]
+  },
+  {
+   "token": "Ltda.",
+   "caseSensitive": false,
+   "name": "Sociedade Limitada",
+   "countries": [
+    "BR",
+    "CL",
+    "CO"
+   ]
+  },
+  {
+   "token": "Ltee",
+   "caseSensitive": false,
+   "name": "Limit\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "Lt\u00e9e",
+   "caseSensitive": false,
+   "name": "Limit\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "Maatschap",
+   "caseSensitive": false,
+   "name": "Maatschap",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "MB",
+   "caseSensitive": true,
+   "name": "Mazoji bendrija",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "mbH",
+   "caseSensitive": true,
+   "name": "mit beschraenkter Haftung (suffix)",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "ME",
+   "caseSensitive": true,
+   "name": "Microempresa",
+   "countries": [
+    "BR"
+   ]
+  },
+  {
+   "token": "MTU",
+   "caseSensitive": true,
+   "name": "Mittetulundusuhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "MT\u00dc",
+   "caseSensitive": true,
+   "name": "Mittetulundusuhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "n.o.",
+   "caseSensitive": true,
+   "name": "neziskov\u00e1 organiz\u00e1cia",
+   "countries": [
+    "SK"
+   ]
+  },
+  {
+   "token": "N.V.",
+   "caseSensitive": true,
+   "name": "Naamloze Vennootschap",
+   "countries": [
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "NL",
+   "caseSensitive": true,
+   "name": "No Liability company",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "NPC",
+   "caseSensitive": true,
+   "name": "Non-Profit Company",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "NUF",
+   "caseSensitive": true,
+   "name": "Norskregistrert utenlandsk foretak",
+   "countries": [
+    "NO"
+   ]
+  },
+  {
+   "token": "NV",
+   "caseSensitive": true,
+   "name": "Naamloze Vennootschap",
+   "countries": [
+    "BE",
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "Nyrt",
+   "caseSensitive": false,
+   "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "Nyrt.",
+   "caseSensitive": false,
+   "name": "nyilv\u00e1nosan m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "O.E.",
+   "caseSensitive": true,
+   "name": "Omorrythmi Etairia (Latin spelling)",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "o.p.s.",
+   "caseSensitive": false,
+   "name": "obecn\u011b prosp\u011b\u0161n\u00e1 spole\u010dnost",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "o.z.",
+   "caseSensitive": true,
+   "name": "ob\u010dianske zdru\u017eenie",
+   "countries": [
+    "SK"
+   ]
+  },
+  {
+   "token": "OG",
+   "caseSensitive": true,
+   "name": "Offene Gesellschaft",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "OHG",
+   "caseSensitive": true,
+   "name": "Offene Handelsgesellschaft",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "OOD",
+   "caseSensitive": true,
+   "name": "Druzhestvo s ogranichena otgovornost",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "OPC",
+   "caseSensitive": true,
+   "name": "One Person Company",
+   "countries": [
+    "IN",
+    "PH"
+   ]
+  },
+  {
+   "token": "Osauhing",
+   "caseSensitive": false,
+   "name": "Osauhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "Osa\u00fching",
+   "caseSensitive": false,
+   "name": "Osauhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "Osuuskunta",
+   "caseSensitive": false,
+   "name": "Osuuskunta",
+   "countries": [
+    "FI"
+   ]
+  },
+  {
+   "token": "OU",
+   "caseSensitive": true,
+   "name": "Osauhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "Oy",
+   "caseSensitive": true,
+   "name": "Osakeyhtio",
+   "countries": [
+    "FI"
+   ]
+  },
+  {
+   "token": "Oy Ab",
+   "caseSensitive": true,
+   "name": "Osakeyhtio / Aktiebolag",
+   "countries": [
+    "FI"
+   ]
+  },
+  {
+   "token": "Oyj",
+   "caseSensitive": false,
+   "name": "Julkinen osakeyhtio",
+   "countries": [
+    "FI"
+   ]
+  },
+  {
+   "token": "O\u00dc",
+   "caseSensitive": true,
+   "name": "Osauhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "p.l.c.",
+   "caseSensitive": false,
+   "name": "Public limited company",
+   "countries": [
+    "MT"
+   ]
+  },
+  {
+   "token": "P.S.A.",
+   "caseSensitive": true,
+   "name": "prosta sp\u00f3\u0142ka akcyjna",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "P/S",
+   "caseSensitive": true,
+   "name": "Partnerselskab",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "PartG",
+   "caseSensitive": true,
+   "name": "Partnerschaftsgesellschaft",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "PartG mbB",
+   "caseSensitive": false,
+   "name": "Partnerschaftsgesellschaft mit beschraenkter Berufshaftung",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "PC",
+   "caseSensitive": true,
+   "name": "Professional Corporation",
+   "countries": [
+    "US"
+   ]
+  },
+  {
+   "token": "PCC",
+   "caseSensitive": true,
+   "name": "Protected cell company",
+   "countries": [
+    "GG",
+    "IM",
+    "JE"
+   ]
+  },
+  {
+   "token": "PCL",
+   "caseSensitive": true,
+   "name": "Public Company Limited",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "Perkongsian Liabiliti Terhad",
+   "caseSensitive": false,
+   "name": "Limited liability partnership",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "PLC",
+   "caseSensitive": false,
+   "name": "Public limited company",
+   "countries": [
+    "CY",
+    "GI",
+    "GG",
+    "IE",
+    "IM",
+    "JE",
+    "MT",
+    "TH",
+    "GB"
+   ]
+  },
+  {
+   "token": "PLLC",
+   "caseSensitive": true,
+   "name": "Professional Limited Liability Company",
+   "countries": [
+    "US"
+   ]
+  },
+  {
+   "token": "PLT",
+   "caseSensitive": true,
+   "name": "Perkongsian Liabiliti Terhad (LLP)",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "Private Limited",
+   "caseSensitive": false,
+   "name": "Private Limited company",
+   "countries": [
+    "IN",
+    "SG"
+   ]
+  },
+  {
+   "token": "Privatstiftung",
+   "caseSensitive": false,
+   "name": "Privatstiftung",
+   "countries": [
+    "AT"
+   ]
+  },
+  {
+   "token": "Proprietary Limited",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "PS",
+   "caseSensitive": true,
+   "name": "Pilnsabiedriba",
+   "countries": [
+    "LV"
+   ]
+  },
+  {
+   "token": "Pte Limited",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "SG"
+   ]
+  },
+  {
+   "token": "Pte Ltd",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "SG"
+   ]
+  },
+  {
+   "token": "Pte. Limited",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "SG"
+   ]
+  },
+  {
+   "token": "Pte. Ltd",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "SG"
+   ]
+  },
+  {
+   "token": "Pte. Ltd.",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "SG"
+   ]
+  },
+  {
+   "token": "Pty Limited",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Pty Ltd",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "AU",
+    "ZA"
+   ]
+  },
+  {
+   "token": "Pty. Limited",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Pty. Ltd",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Pty. Ltd.",
+   "caseSensitive": false,
+   "name": "Proprietary Limited",
+   "countries": [
+    "AU"
+   ]
+  },
+  {
+   "token": "Public Company Limited",
+   "caseSensitive": false,
+   "name": "Public limited company",
+   "countries": [
+    "CY",
+    "TH"
+   ]
+  },
+  {
+   "token": "Pvt Ltd",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "IN"
+   ]
+  },
+  {
+   "token": "Pvt. Limited",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "IN"
+   ]
+  },
+  {
+   "token": "Pvt. Ltd",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "IN"
+   ]
+  },
+  {
+   "token": "Pvt. Ltd.",
+   "caseSensitive": false,
+   "name": "Private Limited",
+   "countries": [
+    "IN"
+   ]
+  },
+  {
+   "token": "Q.P.C.",
+   "caseSensitive": false,
+   "name": "Qatari Private Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "Q.P.S.C.",
+   "caseSensitive": false,
+   "name": "Qatari Public Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "Q.S.C.",
+   "caseSensitive": false,
+   "name": "Qatari Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "QPC",
+   "caseSensitive": true,
+   "name": "Qatari Private Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "QPSC",
+   "caseSensitive": true,
+   "name": "Qatari Public Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "QSC",
+   "caseSensitive": true,
+   "name": "Qatari Shareholding Company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "R.A.",
+   "caseSensitive": true,
+   "name": "regie autonom\u0103",
+   "countries": [
+    "RO"
+   ]
+  },
+  {
+   "token": "S. en C.",
+   "caseSensitive": false,
+   "name": "Sociedad en Comandita",
+   "countries": [
+    "CO"
+   ]
+  },
+  {
+   "token": "s. r. o.",
+   "caseSensitive": false,
+   "name": "spolo\u010dnos\u0165 s ru\u010den\u00edm obmedzen\u00fdm",
+   "countries": [
+    "SK"
+   ]
+  },
+  {
+   "token": "S.a r.l.",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "S.a r.l.-S",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee simplifiee",
+   "countries": [
+    "LU"
+   ]
+  },
+  {
+   "token": "S.A.",
+   "caseSensitive": true,
+   "name": "Societat Anonima",
+   "countries": [
+    "AD",
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "CR",
+    "GR",
+    "LU",
+    "MO",
+    "PE",
+    "PL",
+    "PT",
+    "RO",
+    "ES",
+    "CH",
+    "UY"
+   ]
+  },
+  {
+   "token": "S.A.A.",
+   "caseSensitive": false,
+   "name": "Sociedad Anonima Abierta",
+   "countries": [
+    "PE"
+   ]
+  },
+  {
+   "token": "S.A.C.",
+   "caseSensitive": false,
+   "name": "Sociedad Anonima Cerrada",
+   "countries": [
+    "PE"
+   ]
+  },
+  {
+   "token": "S.A.M.",
+   "caseSensitive": false,
+   "name": "Societe anonyme monegasque",
+   "countries": [
+    "MC"
+   ]
+  },
+  {
+   "token": "S.a.p.A.",
+   "caseSensitive": false,
+   "name": "Societa in accomandita per azioni",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "S.A.R.L.",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "FR",
+    "MC"
+   ]
+  },
+  {
+   "token": "S.A.S.",
+   "caseSensitive": false,
+   "name": "Sociedad por Acciones Simplificada",
+   "countries": [
+    "AR",
+    "CO",
+    "FR",
+    "IT",
+    "UY"
+   ]
+  },
+  {
+   "token": "S.A.U.",
+   "caseSensitive": false,
+   "name": "Societat Anonima Unipersonal",
+   "countries": [
+    "AD",
+    "AR"
+   ]
+  },
+  {
+   "token": "S.A.U.",
+   "caseSensitive": true,
+   "name": "Sociedad Anonima Unipersonal",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.C.",
+   "caseSensitive": true,
+   "name": "Societat Civil",
+   "countries": [
+    "AD",
+    "AR",
+    "CL",
+    "LU",
+    "MC",
+    "RO",
+    "ES",
+    "UY"
+   ]
+  },
+  {
+   "token": "S.c.a r.l.",
+   "caseSensitive": false,
+   "name": "Societa cooperativa a responsabilita limitata",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "S.C.A.",
+   "caseSensitive": false,
+   "name": "Sociedad en Comandita por Acciones",
+   "countries": [
+    "AR",
+    "CO",
+    "LU",
+    "RO"
+   ]
+  },
+  {
+   "token": "S.C.I.",
+   "caseSensitive": false,
+   "name": "Societe civile immobiliere",
+   "countries": [
+    "MC"
+   ]
+  },
+  {
+   "token": "S.C.R.L.",
+   "caseSensitive": false,
+   "name": "Sociedad Civil de Responsabilidad Limitada",
+   "countries": [
+    "PE"
+   ]
+  },
+  {
+   "token": "S.C.S.",
+   "caseSensitive": false,
+   "name": "Societe en commandite simple",
+   "countries": [
+    "MC",
+    "RO"
+   ]
+  },
+  {
+   "token": "S.C.Sp.",
+   "caseSensitive": false,
+   "name": "Societe en commandite speciale",
+   "countries": [
+    "LU"
+   ]
+  },
+  {
+   "token": "S.Com.",
+   "caseSensitive": false,
+   "name": "Sociedad Comanditaria",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.Coop.",
+   "caseSensitive": false,
+   "name": "Sociedad Cooperativa",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.e.c.s.",
+   "caseSensitive": false,
+   "name": "Societe en commandite simple",
+   "countries": [
+    "LU"
+   ]
+  },
+  {
+   "token": "S.E.N.C.",
+   "caseSensitive": false,
+   "name": "Soci\u00e9t\u00e9 en nom collectif",
+   "countries": [
+    "CA",
+    "LU"
+   ]
+  },
+  {
+   "token": "S.K.A.",
+   "caseSensitive": true,
+   "name": "sp\u00f3\u0142ka komandytowo-akcyjna",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "S.L.",
+   "caseSensitive": true,
+   "name": "Societat Limitada",
+   "countries": [
+    "AD",
+    "ES"
+   ]
+  },
+  {
+   "token": "S.L.L.",
+   "caseSensitive": true,
+   "name": "Sociedad Limitada Laboral",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.L.N.E.",
+   "caseSensitive": true,
+   "name": "Sociedad Limitada Nueva Empresa",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.L.U.",
+   "caseSensitive": false,
+   "name": "Societat Limitada Unipersonal",
+   "countries": [
+    "AD"
+   ]
+  },
+  {
+   "token": "S.L.U.",
+   "caseSensitive": true,
+   "name": "Sociedad Limitada Unipersonal",
+   "countries": [
+    "ES"
+   ]
+  },
+  {
+   "token": "S.m.b.a.",
+   "caseSensitive": false,
+   "name": "Selskab med begraenset ansvar",
+   "countries": [
+    "DK"
+   ]
+  },
+  {
+   "token": "S.n.c.",
+   "caseSensitive": false,
+   "name": "Societa in nome collettivo",
+   "countries": [
+    "IT",
+    "MC",
+    "RO"
+   ]
+  },
+  {
+   "token": "s.p.",
+   "caseSensitive": true,
+   "name": "st\u00e1tn\u00ed podnik",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "S.p.A.",
+   "caseSensitive": false,
+   "name": "Societa per azioni",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "S.P.C.",
+   "caseSensitive": false,
+   "name": "Single Person Company",
+   "countries": [
+    "BH",
+    "KW",
+    "QA"
+   ]
+  },
+  {
+   "token": "S.R.L",
+   "caseSensitive": false,
+   "name": "societate cu r\u0103spundere limitat\u0103",
+   "countries": [
+    "RO"
+   ]
+  },
+  {
+   "token": "S.R.L.",
+   "caseSensitive": false,
+   "name": "Societat de Responsabilitat Limitada",
+   "countries": [
+    "AD",
+    "AR",
+    "CR",
+    "IT",
+    "PE",
+    "RO",
+    "UY"
+   ]
+  },
+  {
+   "token": "S.R.L.-D",
+   "caseSensitive": false,
+   "name": "SRL debutant",
+   "countries": [
+    "RO"
+   ]
+  },
+  {
+   "token": "S.r.l.s.",
+   "caseSensitive": false,
+   "name": "Societa a responsabilita limitata semplificata",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "s.r.o",
+   "caseSensitive": false,
+   "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "s.r.o.",
+   "caseSensitive": false,
+   "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "S.S.",
+   "caseSensitive": true,
+   "name": "Societa semplice",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "S.\u00e0 r.l.",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "S/A",
+   "caseSensitive": true,
+   "name": "Sociedade Anonima",
+   "countries": [
+    "BR"
+   ]
+  },
+  {
+   "token": "SA",
+   "caseSensitive": true,
+   "name": "Societat Anonima",
+   "countries": [
+    "AD",
+    "AR",
+    "BE",
+    "BR",
+    "CL",
+    "CO",
+    "CR",
+    "EE",
+    "FR",
+    "LU",
+    "MO",
+    "NO",
+    "PE",
+    "PL",
+    "PT",
+    "RO",
+    "ES",
+    "CH",
+    "UY"
+   ]
+  },
+  {
+   "token": "SAA",
+   "caseSensitive": true,
+   "name": "Sociedad Anonima Abierta",
+   "countries": [
+    "PE"
+   ]
+  },
+  {
+   "token": "SAC",
+   "caseSensitive": true,
+   "name": "Sociedad Anonima Cerrada",
+   "countries": [
+    "PE"
+   ]
+  },
+  {
+   "token": "Sagl",
+   "caseSensitive": false,
+   "name": "Societa a garanzia limitata",
+   "countries": [
+    "CH"
+   ]
+  },
+  {
+   "token": "SAM",
+   "caseSensitive": true,
+   "name": "Societe anonyme monegasque",
+   "countries": [
+    "MC"
+   ]
+  },
+  {
+   "token": "SARL",
+   "caseSensitive": true,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "FR",
+    "MC"
+   ]
+  },
+  {
+   "token": "Sarl",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "SAS",
+   "caseSensitive": true,
+   "name": "Sociedad por Acciones Simplificada",
+   "countries": [
+    "AR",
+    "CO",
+    "FR",
+    "UY"
+   ]
+  },
+  {
+   "token": "SASU",
+   "caseSensitive": true,
+   "name": "Societe par actions simplifiee unipersonnelle",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SAU",
+   "caseSensitive": true,
+   "name": "Societat Anonima Unipersonal",
+   "countries": [
+    "AD",
+    "AR"
+   ]
+  },
+  {
+   "token": "SC",
+   "caseSensitive": true,
+   "name": "Societe Cooperative",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "SCA",
+   "caseSensitive": true,
+   "name": "Societe en commandite par actions",
+   "countries": [
+    "FR",
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "SCI",
+   "caseSensitive": true,
+   "name": "Societe civile immobiliere",
+   "countries": [
+    "FR",
+    "MC"
+   ]
+  },
+  {
+   "token": "SCIO",
+   "caseSensitive": true,
+   "name": "Scottish charitable incorporated organisation",
+   "countries": [
+    "GB"
+   ]
+  },
+  {
+   "token": "SCM",
+   "caseSensitive": true,
+   "name": "Societe civile de moyens",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SCmA",
+   "caseSensitive": true,
+   "name": "Societe en commandite par actions",
+   "countries": [
+    "CH"
+   ]
+  },
+  {
+   "token": "SComm",
+   "caseSensitive": false,
+   "name": "Societe en commandite",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "SCOP",
+   "caseSensitive": true,
+   "name": "Societe cooperative et participative",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SCP",
+   "caseSensitive": true,
+   "name": "Societe civile professionnelle",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SCRL",
+   "caseSensitive": true,
+   "name": "Societe cooperative a responsabilite limitee",
+   "countries": [
+    "BE",
+    "PE"
+   ]
+  },
+  {
+   "token": "SCS",
+   "caseSensitive": true,
+   "name": "Societe en commandite simple",
+   "countries": [
+    "FR",
+    "MC",
+    "RO"
+   ]
+  },
+  {
+   "token": "SCSp",
+   "caseSensitive": true,
+   "name": "Societe en commandite speciale",
+   "countries": [
+    "LU"
+   ]
+  },
+  {
+   "token": "SD",
+   "caseSensitive": true,
+   "name": "Sabiratelno druzhestvo",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "Sdn Bhd",
+   "caseSensitive": false,
+   "name": "Sendirian Berhad (private limited)",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "Sdn. Bhd.",
+   "caseSensitive": false,
+   "name": "Sendirian Berhad",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "Sdn.Bhd.",
+   "caseSensitive": false,
+   "name": "Sendirian Berhad",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "SE",
+   "caseSensitive": true,
+   "name": "Societas Europaea",
+   "countries": [
+    "AT",
+    "BE",
+    "HR",
+    "CY",
+    "CZ",
+    "DK",
+    "FR",
+    "DE",
+    "LV",
+    "LI",
+    "LU",
+    "MT",
+    "NL",
+    "SK",
+    "SI",
+    "CH"
+   ]
+  },
+  {
+   "token": "SEL",
+   "caseSensitive": true,
+   "name": "Societe d'exercice liberal",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SELARL",
+   "caseSensitive": true,
+   "name": "Societe d'exercice liberal a responsabilite limitee",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SELAS",
+   "caseSensitive": true,
+   "name": "Societe d'exercice liberal par actions simplifiee",
+   "countries": [
+    "FR"
+   ]
+  },
+  {
+   "token": "SENCRL",
+   "caseSensitive": true,
+   "name": "Soci\u00e9t\u00e9 en nom collectif \u00e0 responsabilit\u00e9 limit\u00e9e",
+   "countries": [
+    "CA"
+   ]
+  },
+  {
+   "token": "Sendirian Berhad",
+   "caseSensitive": false,
+   "name": "Private limited company",
+   "countries": [
+    "MY"
+   ]
+  },
+  {
+   "token": "SGPS",
+   "caseSensitive": true,
+   "name": "Sociedade Gestora de Participacoes Sociais",
+   "countries": [
+    "PT"
+   ]
+  },
+  {
+   "token": "SIA",
+   "caseSensitive": true,
+   "name": "Sabiedriba ar ierobezotu atbildibu",
+   "countries": [
+    "LV"
+   ]
+  },
+  {
+   "token": "SJSC",
+   "caseSensitive": true,
+   "name": "Simplified Joint Stock Company",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "SL",
+   "caseSensitive": true,
+   "name": "Societat Limitada",
+   "countries": [
+    "AD",
+    "ES"
+   ]
+  },
+  {
+   "token": "SLP",
+   "caseSensitive": true,
+   "name": "Separate limited partnership",
+   "countries": [
+    "JE"
+   ]
+  },
+  {
+   "token": "SLU",
+   "caseSensitive": true,
+   "name": "Societat Limitada Unipersonal",
+   "countries": [
+    "AD",
+    "ES"
+   ]
+  },
+  {
+   "token": "SNC",
+   "caseSensitive": false,
+   "name": "Societe en nom collectif",
+   "countries": [
+    "FR",
+    "IT",
+    "MC",
+    "RO",
+    "CH"
+   ]
+  },
+  {
+   "token": "SOC Ltd",
+   "caseSensitive": false,
+   "name": "State-owned company",
+   "countries": [
+    "ZA"
+   ]
+  },
+  {
+   "token": "Soc. Coop.",
+   "caseSensitive": false,
+   "name": "Societa cooperativa",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "Sociedad Anonima",
+   "caseSensitive": false,
+   "name": "Sociedad Anonima",
+   "countries": [
+    "CR"
+   ]
+  },
+  {
+   "token": "Sociedade Anonima",
+   "caseSensitive": false,
+   "name": "Joint stock company",
+   "countries": [
+    "MO"
+   ]
+  },
+  {
+   "token": "Sociedade An\u00f3nima",
+   "caseSensitive": false,
+   "name": "Joint stock company",
+   "countries": [
+    "MO"
+   ]
+  },
+  {
+   "token": "Societat Col\u00b7lectiva",
+   "caseSensitive": false,
+   "name": "Societat Col\u00b7lectiva",
+   "countries": [
+    "AD"
+   ]
+  },
+  {
+   "token": "sp. j.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka jawna",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp. k.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka komandytowa",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp. p.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka partnerska",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp. z o. o.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp. z o.o.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp. z o.o. sp. k.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105 sp\u00f3\u0142ka komandytowa",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp.j.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka jawna",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp.k.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka komandytowa",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "sp.z o.o.",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "SpA",
+   "caseSensitive": false,
+   "name": "Sociedad por Acciones",
+   "countries": [
+    "CL",
+    "IT"
+   ]
+  },
+  {
+   "token": "SPC",
+   "caseSensitive": true,
+   "name": "Single Person Company",
+   "countries": [
+    "BH",
+    "KY"
+   ]
+  },
+  {
+   "token": "spol. s r.o.",
+   "caseSensitive": false,
+   "name": "spole\u010dnost s ru\u010den\u00edm omezen\u00fdm",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "SPRL",
+   "caseSensitive": true,
+   "name": "Societe privee a responsabilite limitee",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "sp\u00f3\u0142dzielnia",
+   "caseSensitive": false,
+   "name": "sp\u00f3\u0142dzielnia (cooperative)",
+   "countries": [
+    "PL"
+   ]
+  },
+  {
+   "token": "SRL",
+   "caseSensitive": false,
+   "name": "Societat de Responsabilitat Limitada",
+   "countries": [
+    "AD",
+    "AR",
+    "BE",
+    "CR",
+    "IT",
+    "PE",
+    "RO",
+    "UY"
+   ]
+  },
+  {
+   "token": "SRL-D",
+   "caseSensitive": true,
+   "name": "SRL debutant",
+   "countries": [
+    "RO"
+   ]
+  },
+  {
+   "token": "Srls",
+   "caseSensitive": false,
+   "name": "Societa a responsabilita limitata semplificata",
+   "countries": [
+    "IT"
+   ]
+  },
+  {
+   "token": "Stichting",
+   "caseSensitive": false,
+   "name": "Stichting",
+   "countries": [
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "Stiftung",
+   "caseSensitive": false,
+   "name": "Stiftung",
+   "countries": [
+    "LI"
+   ]
+  },
+  {
+   "token": "Szovetkezet",
+   "caseSensitive": false,
+   "name": "sz\u00f6vetkezet (cooperative)",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "Sz\u00f6vetkezet",
+   "caseSensitive": false,
+   "name": "sz\u00f6vetkezet (cooperative)",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "S\u00e0rl",
+   "caseSensitive": false,
+   "name": "Societe a responsabilite limitee",
+   "countries": [
+    "LU",
+    "CH"
+   ]
+  },
+  {
+   "token": "Teoranta",
+   "caseSensitive": false,
+   "name": "Teoranta",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "Treuunternehmen",
+   "caseSensitive": false,
+   "name": "Treuunternehmen",
+   "countries": [
+    "LI"
+   ]
+  },
+  {
+   "token": "Trust reg.",
+   "caseSensitive": false,
+   "name": "Trust registered",
+   "countries": [
+    "LI"
+   ]
+  },
+  {
+   "token": "TU",
+   "caseSensitive": true,
+   "name": "Taisuhing / Tulundusuhistu",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "TUB",
+   "caseSensitive": true,
+   "name": "Tikroji ukine bendrija",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "TUH",
+   "caseSensitive": true,
+   "name": "Tulundusuhistu",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "T\u00dc",
+   "caseSensitive": true,
+   "name": "Taisuhing / Tulundusuhistu",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "T\u00dcH",
+   "caseSensitive": true,
+   "name": "Tulundusuhistu",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "T\u016aB",
+   "caseSensitive": true,
+   "name": "Tikroji ukine bendrija",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "U.A.",
+   "caseSensitive": true,
+   "name": "Uitgesloten Aansprakelijkheid",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "UAB",
+   "caseSensitive": true,
+   "name": "Uzdaroji akcine bendrove",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "UC",
+   "caseSensitive": true,
+   "name": "Unlimited Company",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "UG (haftungsbeschraenkt)",
+   "caseSensitive": false,
+   "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "UG (haftungsbeschrankt)",
+   "caseSensitive": false,
+   "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "UG (haftungsbeschr\u00e4nkt)",
+   "caseSensitive": false,
+   "name": "Unternehmergesellschaft (haftungsbeschraenkt)",
+   "countries": [
+    "DE"
+   ]
+  },
+  {
+   "token": "Unipessoal",
+   "caseSensitive": false,
+   "name": "Sociedade unipessoal por quotas (single-member)",
+   "countries": [
+    "MO",
+    "PT"
+   ]
+  },
+  {
+   "token": "Unlimited",
+   "caseSensitive": false,
+   "name": "Unlimited company",
+   "countries": [
+    "AU",
+    "HK"
+   ]
+  },
+  {
+   "token": "Unlimited Company",
+   "caseSensitive": false,
+   "name": "Unlimited Company",
+   "countries": [
+    "IE"
+   ]
+  },
+  {
+   "token": "UU",
+   "caseSensitive": true,
+   "name": "Usaldusuhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "U\u00dc",
+   "caseSensitive": true,
+   "name": "Usaldusuhing",
+   "countries": [
+    "EE"
+   ]
+  },
+  {
+   "token": "V.O.F.",
+   "caseSensitive": false,
+   "name": "Vennootschap onder firma",
+   "countries": [
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "v.o.s.",
+   "caseSensitive": false,
+   "name": "ve\u0159ejn\u00e1 obchodn\u00ed spole\u010dnost",
+   "countries": [
+    "CZ",
+    "SK"
+   ]
+  },
+  {
+   "token": "Verein",
+   "caseSensitive": false,
+   "name": "Verein",
+   "countries": [
+    "LI"
+   ]
+  },
+  {
+   "token": "Vereniging",
+   "caseSensitive": false,
+   "name": "Vereniging",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "VOF",
+   "caseSensitive": true,
+   "name": "Vennootschap onder Firma",
+   "countries": [
+    "BE",
+    "NL",
+    "SX"
+   ]
+  },
+  {
+   "token": "VsI",
+   "caseSensitive": true,
+   "name": "Viesoji istaiga",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "VZW",
+   "caseSensitive": true,
+   "name": "Vereniging zonder winstoogmerk",
+   "countries": [
+    "BE"
+   ]
+  },
+  {
+   "token": "V\u0161\u012e",
+   "caseSensitive": true,
+   "name": "Viesoji istaiga",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "W.A.",
+   "caseSensitive": true,
+   "name": "Wederzijdse Aansprakelijkheid",
+   "countries": [
+    "NL"
+   ]
+  },
+  {
+   "token": "W.L.L.",
+   "caseSensitive": false,
+   "name": "With Limited Liability",
+   "countries": [
+    "BH",
+    "KW",
+    "QA"
+   ]
+  },
+  {
+   "token": "WLL",
+   "caseSensitive": true,
+   "name": "With Limited Liability",
+   "countries": [
+    "BH",
+    "KW",
+    "QA"
+   ]
+  },
+  {
+   "token": "z.o.o.",
+   "caseSensitive": false,
+   "name": "zadruga z omejeno odgovornostjo",
+   "countries": [
+    "SI"
+   ]
+  },
+  {
+   "token": "z.s.",
+   "caseSensitive": true,
+   "name": "zapsan\u00fd spolek",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "z.u.",
+   "caseSensitive": false,
+   "name": "zapsan\u00fd \u00fastav",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "z.\u00fa.",
+   "caseSensitive": false,
+   "name": "zapsan\u00fd \u00fastav",
+   "countries": [
+    "CZ"
+   ]
+  },
+  {
+   "token": "zadruga",
+   "caseSensitive": false,
+   "name": "zadruga (cooperative)",
+   "countries": [
+    "HR",
+    "SI"
+   ]
+  },
+  {
+   "token": "Zrt",
+   "caseSensitive": false,
+   "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "Zrt.",
+   "caseSensitive": false,
+   "name": "z\u00e1rtk\u00f6r\u0171en m\u0171k\u00f6d\u0151 r\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+   "countries": [
+    "HU"
+   ]
+  },
+  {
+   "token": "ZUB",
+   "caseSensitive": true,
+   "name": "Zemes ukio bendrove",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "\u017d\u016aB",
+   "caseSensitive": true,
+   "name": "Zemes ukio bendrove",
+   "countries": [
+    "LT"
+   ]
+  },
+  {
+   "token": "\u0391.\u0395.",
+   "caseSensitive": false,
+   "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0391\u0395",
+   "caseSensitive": true,
+   "name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0394\u03b7\u03bc\u03cc\u03c3\u03b9\u03b1 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u039b\u03c4\u03b4",
+   "caseSensitive": false,
+   "name": "Public company limited",
+   "countries": [
+    "CY"
+   ]
+  },
+  {
+   "token": "\u0395.\u0395.",
+   "caseSensitive": false,
+   "name": "\u0395\u03c4\u03b5\u03c1\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0395.\u03a0.\u0395.",
+   "caseSensitive": false,
+   "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0395\u03a0\u0395",
+   "caseSensitive": true,
+   "name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0399.\u039a.\u0395.",
+   "caseSensitive": false,
+   "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0399\u039a\u0395",
+   "caseSensitive": true,
+   "name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u039b\u03b9\u03bc\u03b9\u03c4\u03b5\u03b4",
+   "caseSensitive": false,
+   "name": "Limited in Greek script",
+   "countries": [
+    "CY"
+   ]
+  },
+  {
+   "token": "\u039b\u03c4\u03b4",
+   "caseSensitive": false,
+   "name": "Ltd in Greek script",
+   "countries": [
+    "CY"
+   ]
+  },
+  {
+   "token": "\u039c.\u039f.\u0395.",
+   "caseSensitive": false,
+   "name": "\u039c\u03bf\u03bd\u03bf\u03c0\u03c1\u03cc\u03c3\u03c9\u03c0\u03b7 \u039f.\u0395.",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u039f.\u0395.",
+   "caseSensitive": false,
+   "name": "\u039f\u03bc\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+   "countries": [
+    "GR"
+   ]
+  },
+  {
+   "token": "\u0410\u0414",
+   "caseSensitive": true,
+   "name": "Aktsionerno druzhestvo (joint-stock company)",
+   "countries": [
+    "BG",
+    "MK"
+   ]
+  },
+  {
+   "token": "\u0414\u041e\u041e",
+   "caseSensitive": true,
+   "name": "Dru\u0161tvo so ograni\u010dena odgovornost (LLC)",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "\u0414\u041e\u041e\u0415\u041b",
+   "caseSensitive": true,
+   "name": "Drustvo so ogranicena odgovornost, ednocleno (single-member LLC)",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "\u0415\u0410\u0414",
+   "caseSensitive": true,
+   "name": "Ednolichno aktsionerno druzhestvo (single-member JSC)",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "\u0415\u041e\u041e\u0414",
+   "caseSensitive": true,
+   "name": "Ednolichno druzhestvo s ogranichena otgovornost (single-member LLC)",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "\u041a\u0414",
+   "caseSensitive": true,
+   "name": "Komanditno druzhestvo (limited partnership)",
+   "countries": [
+    "BG",
+    "MK"
+   ]
+  },
+  {
+   "token": "\u041a\u0414\u0410",
+   "caseSensitive": true,
+   "name": "Komanditno druzhestvo s aktsii",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "\u041a\u041a\u0414",
+   "caseSensitive": true,
+   "name": "Komanditno dru\u0161tvo so akcii",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "\u041e\u041e\u0414",
+   "caseSensitive": true,
+   "name": "Druzhestvo s ogranichena otgovornost (LLC)",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "\u0421\u0414",
+   "caseSensitive": true,
+   "name": "Sabiratelno druzhestvo (general partnership)",
+   "countries": [
+    "BG"
+   ]
+  },
+  {
+   "token": "\u0408\u0422\u0414",
+   "caseSensitive": true,
+   "name": "Javno trgovsko dru\u0161tvo (general partnership)",
+   "countries": [
+    "MK"
+   ]
+  },
+  {
+   "token": "\u05d0\u05d2\u05d5\u05d3\u05d4 \u05e9\u05d9\u05ea\u05d5\u05e4\u05d9\u05ea",
+   "caseSensitive": false,
+   "name": "Cooperative society",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05d1\u05e2\"\u05de",
+   "caseSensitive": false,
+   "name": "Limited liability company (ASCII quote)",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05d1\u05e2\u05de",
+   "caseSensitive": false,
+   "name": "Limited liability company (no quote)",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05d1\u05e2\u05f4\u05de",
+   "caseSensitive": false,
+   "name": "Limited liability company (gershayim)",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05d7\u05dc\"\u05e6",
+   "caseSensitive": false,
+   "name": "Public benefit company",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05e2\u05de\u05d5\u05ea\u05d4",
+   "caseSensitive": false,
+   "name": "Non-profit association (Amuta)",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea",
+   "caseSensitive": false,
+   "name": "Partnership",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u05e9\u05d5\u05ea\u05e4\u05d5\u05ea \u05de\u05d5\u05d2\u05d1\u05dc\u05ea",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "IL"
+   ]
+  },
+  {
+   "token": "\u0630.\u0645.\u0645",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "KW",
+    "QA",
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634.\u0630.\u0645.\u0645",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "BH",
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0628",
+   "caseSensitive": false,
+   "name": "Bahraini shareholding company",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0628 (\u0645)",
+   "caseSensitive": false,
+   "name": "Bahraini shareholding company (closed)",
+   "countries": [
+    "BH"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0642",
+   "caseSensitive": false,
+   "name": "Qatari shareholding company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0642.\u062e",
+   "caseSensitive": false,
+   "name": "Qatari private shareholding company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0642.\u0639",
+   "caseSensitive": false,
+   "name": "Qatari public shareholding company",
+   "countries": [
+    "QA"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0643",
+   "caseSensitive": false,
+   "name": "Kuwaiti shareholding company",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0643.\u0639",
+   "caseSensitive": false,
+   "name": "Public Kuwaiti shareholding company",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0643.\u0643",
+   "caseSensitive": false,
+   "name": "Closed Kuwaiti shareholding company (alt)",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "\u0634.\u0645.\u0643.\u0645",
+   "caseSensitive": false,
+   "name": "Closed Kuwaiti shareholding company",
+   "countries": [
+    "KW"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629",
+   "caseSensitive": false,
+   "name": "Company",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u062a\u0648\u0635\u064a\u0629 \u0627\u0644\u0628\u0633\u064a\u0637\u0629",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0627\u0644\u0634\u062e\u0635 \u0627\u0644\u0648\u0627\u062d\u062f",
+   "caseSensitive": false,
+   "name": "Single person company",
+   "countries": [
+    "BH",
+    "KW"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u062a\u0636\u0627\u0645\u0646",
+   "caseSensitive": false,
+   "name": "General partnership",
+   "countries": [
+    "BH",
+    "KW",
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0624\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0630\u0627\u062a \u0645\u0633\u0626\u0648\u0644\u064a\u0629 \u0645\u062d\u062f\u0648\u062f\u0629",
+   "caseSensitive": false,
+   "name": "Limited liability company (alt spelling)",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629",
+   "caseSensitive": false,
+   "name": "Joint stock company",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0634\u0631\u0643\u0629 \u0645\u0633\u0627\u0647\u0645\u0629 \u0645\u0642\u0641\u0644\u0629",
+   "caseSensitive": false,
+   "name": "Closed joint stock company",
+   "countries": [
+    "SA"
+   ]
+  },
+  {
+   "token": "\u0e08\u0e33\u0e01\u0e31\u0e14",
+   "caseSensitive": false,
+   "name": "Limited",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e08\u0e33\u0e01\u0e31\u0e14 (\u0e21\u0e2b\u0e32\u0e0a\u0e19)",
+   "caseSensitive": false,
+   "name": "Public company limited",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e1a\u0e08\u0e01.",
+   "caseSensitive": false,
+   "name": "Company limited (abbrev.)",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e1a\u0e21\u0e08.",
+   "caseSensitive": false,
+   "name": "Public company limited (abbrev.)",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17",
+   "caseSensitive": false,
+   "name": "Company",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e2b\u0e08\u0e01.",
+   "caseSensitive": false,
+   "name": "Limited partnership (abbrev.)",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u0e2b\u0e49\u0e32\u0e07\u0e2b\u0e38\u0e49\u0e19\u0e2a\u0e48\u0e27\u0e19\u0e2a\u0e32\u0e21\u0e31\u0e0d\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25",
+   "caseSensitive": false,
+   "name": "Registered ordinary partnership",
+   "countries": [
+    "TH"
+   ]
+  },
+  {
+   "token": "\u10d0\u10d0\u10d8\u10de",
+   "caseSensitive": true,
+   "name": "arasamtavrobo aramomgebiani iuridiuli piri (non-profit)",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10d9\u10dd\u10dd\u10de\u10d4\u10e0\u10d0\u10e2\u10d8\u10d5\u10d8",
+   "caseSensitive": true,
+   "name": "kooperativi (cooperative)",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10e1.\u10e1.",
+   "caseSensitive": true,
+   "name": "sakaktsio sazogadoeba",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10e1\u10e1",
+   "caseSensitive": true,
+   "name": "sakaktsio sazogadoeba (joint-stock company)",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10e1\u10e1\u10d8\u10de",
+   "caseSensitive": true,
+   "name": "sakhelmtsifo sajaro samartlis iuridiuli piri",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10e8.\u10de.\u10e1.",
+   "caseSensitive": true,
+   "name": "shezghudulia pasukhismgeblobis sazogadoeba",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u10e8\u10de\u10e1",
+   "caseSensitive": true,
+   "name": "shezghudulia pasukhismgeblobis sazogadoeba (LLC)",
+   "countries": [
+    "GE"
+   ]
+  },
+  {
+   "token": "\u4e00\u4eba\u6709\u9650\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Single-member limited company",
+   "countries": [
+    "MO"
+   ]
+  },
+  {
+   "token": "\u4e00\u822c\u793e\u56e3\u6cd5\u4eba",
+   "caseSensitive": false,
+   "name": "General incorporated association",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u5169\u5408\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Limited partnership company",
+   "countries": [
+    "TW"
+   ]
+  },
+  {
+   "token": "\u5408\u4f19\u4f01\u4e1a",
+   "caseSensitive": false,
+   "name": "Partnership enterprise",
+   "countries": [
+    "CN"
+   ]
+  },
+  {
+   "token": "\u5408\u4f5c\u793e",
+   "caseSensitive": false,
+   "name": "Cooperative",
+   "countries": [
+    "CN"
+   ]
+  },
+  {
+   "token": "\u5408\u540c\u4f1a\u793e",
+   "caseSensitive": false,
+   "name": "Godo Kaisha (LLC)",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u5408\u540d\u4f1a\u793e",
+   "caseSensitive": false,
+   "name": "Gomei Kaisha",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u5408\u8cc7\u4f1a\u793e",
+   "caseSensitive": false,
+   "name": "Goshi Kaisha",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u4f1a\u793e",
+   "caseSensitive": false,
+   "name": "Yugen Kaisha",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Limited company",
+   "countries": [
+    "CN",
+    "HK",
+    "MO",
+    "TW"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u5408\u4f19",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "CN"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u5408\u5925",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "TW"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u8cac\u4efb\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Limited liability company (traditional)",
+   "countries": [
+    "CN"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u8cac\u4efb\u5408\u5925",
+   "caseSensitive": false,
+   "name": "Limited liability partnership",
+   "countries": [
+    "HK"
+   ]
+  },
+  {
+   "token": "\u6709\u9650\u8d23\u4efb\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "CN"
+   ]
+  },
+  {
+   "token": "\u682a\u5f0f\u4f1a\u793e",
+   "caseSensitive": false,
+   "name": "Kabushiki Kaisha",
+   "countries": [
+    "JP"
+   ]
+  },
+  {
+   "token": "\u7121\u9650\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Unlimited company",
+   "countries": [
+    "TW"
+   ]
+  },
+  {
+   "token": "\u80a1\u4efd\u5169\u5408\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Partnership limited by shares",
+   "countries": [
+    "TW"
+   ]
+  },
+  {
+   "token": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+   "caseSensitive": false,
+   "name": "Joint stock company",
+   "countries": [
+    "CN",
+    "MO",
+    "TW"
+   ]
+  },
+  {
+   "token": "\uc720\ud55c\ucc45\uc784\ud68c\uc0ac",
+   "caseSensitive": false,
+   "name": "Limited liability company",
+   "countries": [
+    "KR"
+   ]
+  },
+  {
+   "token": "\uc720\ud55c\ud68c\uc0ac",
+   "caseSensitive": false,
+   "name": "Yuhan Hoesa (limited company)",
+   "countries": [
+    "KR"
+   ]
+  },
+  {
+   "token": "\uc8fc\uc2dd\ud68c\uc0ac",
+   "caseSensitive": false,
+   "name": "Jusik Hoesa (stock company)",
+   "countries": [
+    "KR"
+   ]
+  },
+  {
+   "token": "\ud569\uba85\ud68c\uc0ac",
+   "caseSensitive": false,
+   "name": "General partnership",
+   "countries": [
+    "KR"
+   ]
+  },
+  {
+   "token": "\ud569\uc790\ud68c\uc0ac",
+   "caseSensitive": false,
+   "name": "Limited partnership",
+   "countries": [
+    "KR"
+   ]
+  }
+ ]
+}
