@@ -70,8 +70,8 @@ result.reasons      # список строк для строки "Why"
 
 | Отправитель | Сумма | Референс | Метка | Score |
 |---|---|---|---|---|
-| Acme Inc. | 150000 | INV-042 | income | 97 |
-| Nordwind GmbH | 220000 | Rechnung 2026-118 | income | 97 |
+| Acme Inc. | 150000 | INV-042 | income | 96 |
+| Nordwind GmbH | 220000 | Rechnung 2026-118 | income | 96 |
 | Brightside Ltd | 90000 | consulting March | income | 86 |
 | Pihlakas Disain OÜ | 64000 | arve 77 | income | 86 |
 | John Smith | 40000 | website | unknown | 49 |
@@ -121,19 +121,59 @@ from app.engine.tax_rules import load_countries, get_regime, compute_tax, next_d
 - Формы юрлиц в `legal_forms.json` записаны по памяти моделей и по внешним реестрам не сверялись.
 - Референсы с эмодзи в сценариях можно оставить, движку они безразличны.
 
+## Сводка, экспорт и инварианты
+
+Ядра задач C3, C4 и C5 уже написаны и покрыты тестами. Они не знают про базу: принимают обычные объекты или словари с полями строки резервации, поэтому `ReservationRow` из плана B подходит как есть.
+
+```python
+from app.engine import build_summary, export_rows, to_csv, find_violations
+
+build_summary(reservations, tax_currency="EUR", country="EE", regime="entrepreneur_account", today=date.today())
+# -> dict с ключами schemas.TaxSummary: tax_currency, total_reserved, total_paid, by_month,
+#    estimated_due, next_deadline, disclaimer
+
+rows = export_rows(records)   # заголовок первой строкой; запись = поля резервации + payer и reference из транзакции
+to_csv(rows)                  # текст CSV для /tax/export.csv
+
+find_violations(
+    balances={"EUR": ..., "USD": ...},
+    jar_balances={"tax": ..., "holiday": ...},
+    tax_jar_id="tax",
+    reservations=reservations,
+    opening_balances=seed_balances,      # балансы из demo/seed.json
+    incoming=[("USD", 150000)],          # входящие, которых нет в seed
+    outgoing=[],
+)   # -> список строк с нарушениями, пустой список значит, что деньги сходятся
+```
+
+Что останется сделать после B2 и S0: тонкие обёртки `app/summary.py`, `routes/reports.py` и `tests/invariants.py`, которые читают строки из сессии и зовут эти функции.
+
+Суммы в CSV форматируются по валюте: два знака для EUR и USD, без дробной части для JPY, три знака для KWD.
+
+### Контекст для классификатора
+
+```python
+from app.engine import owner_context, payer_history
+
+owner = owner_context("EUR", income_amounts)          # медиана дохода; None, пока платежей меньше пяти
+history = payer_history(sender_name, past_payments)   # прошлые платежи того же плательщика
+```
+
+`owner_context` сам не включает сравнение с обычным доходом, пока подтверждённых доходных платежей меньше пяти, поэтому на демо с чистой базой John Smith остаётся в зоне вопроса.
+
 ## Известные ограничения
 
-- В имени, набранном заглавными буквами, двухбуквенные формы (`SIEMENS AG`, `AS TALLINNA VESI`) не распознаются. Такой платёж уходит в вопрос.
-- Коды вида `COVID-19`, `MH370`, `ISO-9001` в референсе считаются номером документа.
-- `KK` и `Kabushiki Kaisha` не распознаются, только `K.K.` и запись иероглифами.
+- Двухбуквенные формы в имени заглавными буквами распознаются только для однозначных (`AG`, `AB`, `AS`, `OY`, `OU`, `BV`, `NV`, `KG`, `UAB`); в начале имени заглавными только `AS` и `UAB`. `CARREFOUR SA` или `ACME SE` заглавными уходят в вопрос, потому что `SA`, `SE`, `BA` бывают фамилиями.
+- Коды вида `COVID-19`, `MH370`, `ISO-9001` в референсе считаются номером документа. Один такой признак у неизвестного частного лица автоматического резерва не даёт, только вопрос.
+- `KK` без точек не распознаётся, `K.K.` и `Kabushiki Kaisha` распознаются.
 - Python 3.10 проверен только разбором синтаксиса.
 
 ## Что ещё не сделано в роли C
 
 | Задача | Ждёт |
 |---|---|
-| C3: `assert_invariants` и ревью `pipeline.py` | B2, затем B4 |
-| C4: `build_summary` и `/tax/summary` | B2, B4, один тест ждёт B5 |
-| C5: CSV-экспорт | B4 |
+| C3: обёртка `tests/invariants.py` и ревью `pipeline.py` | B2, затем B4 |
+| C4: обёртка `app/summary.py` и `/tax/summary` | B2, S0 |
+| C5: маршрут `/tax/export.csv` | B4, S0 |
 | Проверка под S0 (`pytest.ini`, `schemas.Country`) | S0 в `main` |
 | Сверка налоговых данных с официальными источниками | роль D |

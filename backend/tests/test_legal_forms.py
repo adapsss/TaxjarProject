@@ -15,7 +15,8 @@ PEOPLE = [
     "John Smith", "Astrid Laanemets", "Sia Kask", "Alas Tamm", "ASTRID LAANE", "Incze Peter", "Mari Tamm",
     "Teo Cruz", "Ali Teo", "Aminah bt Rahim", "Nur Aisyah Bt. Ahmad", "Cia Lopez", "Ana Cia", "Pty Smith",
     "Ky Nguyen", "Nguyen Van Ky", "Ay Yilmaz", "Hamid Ay", "Ab Rahman", "Peter Sas", "Ng Bt", "K. D. Lane",
-    "MAMADOU BA", "JOAO DA SILVA", "MARIA DA SILVA", "SA YONG", "KIM SE", "HANS AG", "JOSE ME",
+    "MAMADOU BA", "JOAO DA SILVA", "MARIA DA SILVA", "SA YONG", "KIM SE", "JOSE ME", "MARIA SA", "WONG SAM", "JIN SAM", "ABU SAC", "MARIA SAS",
+    "AB DE VILLIERS", "OU YANG XIU",
     "Maria A. S.", "Anna B. A. Smith", "John S. A. Smith", "J. S. A. Brook", "Rita S. S. Singh",
 ]
 
@@ -25,7 +26,9 @@ def test_person_names(name):
     assert not has_legal_form(name)
 
 
-@pytest.mark.parametrize("name", ["AS Kaselaane Vesi", "SIA Bralis Koks", "UAB Gintaro Namai", "Pohjanmeri Oyj", "Koivula Oy", "ACME GMBH", "Modry Mlyn a.s.", "Zeleny Dvur s.r.o.", "Rossomare S.p.A.", "Colline Srl", "Nordhavn ApS", "Nordhavn A/S", "Zeleny Dvur s.r.o", "Kowalski Sp. z o.o.", "Pizza Kiosk OU", "Acme Ltd (UK)"])
+@pytest.mark.parametrize("name", ["AS Kaselaane Vesi", "SIA Bralis Koks", "UAB Gintaro Namai", "Pohjanmeri Oyj", "Koivula Oy", "ACME GMBH", "Modry Mlyn a.s.", "Zeleny Dvur s.r.o.", "Rossomare S.p.A.", "Colline Srl", "Nordhavn ApS", "Nordhavn A/S", "Zeleny Dvur s.r.o", "Kowalski Sp. z o.o.", "Pizza Kiosk OU", "Acme Ltd (UK)",
+     "NORDWIND AG", "KASEMETS AB", "KOIVULA OY", "AS KASELAANE VESI", "UAB GINTARO NAMAI", "PIZZA KIOSK O\u00dc", "Sakura Kabushiki Kaisha",
+     "Kowalski Sp z o.o."])
 def test_leading_and_upper_case_designators(name):
     assert has_legal_form(name)
 
