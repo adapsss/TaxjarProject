@@ -1,7 +1,7 @@
 # Gateway: one port per app, any hostname (point the names at 127.0.0.1 in /etc/hosts).
 #
 #   :80 in the container (APP_PORT on the host, default 8080)        the live app
-#   :81 in the container (SIMULATOR_PORT on the host, default 8081)  the simulator, sends test transactions
+#   :81 in the container (SIMULATOR_PORT on the host, default 8081)  a shortcut: redirects to the simulator on the app's port
 #
 # Both talk to the same backend, so payments sent from the simulator show up live
 # in the app over the event stream (/api/events).
@@ -33,6 +33,7 @@
 }
 
 :81 {
-	redir / /simulator
-	import taxjar
+	# The simulator lives on the app's own origin, so the two tabs can talk to each other
+	# (the app keeps the simulator's demo-setup payments quiet). This port is a shortcut to it.
+	redir http://{host}:{$APP_PORT:8080}/simulator
 }

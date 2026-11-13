@@ -5,7 +5,7 @@ One command runs the backend (Python 3.10), the frontend build and a gateway (Ca
 | URL | What |
 |---|---|
 | http://taxjar.test:8080 | The live app |
-| http://simulator.taxjar.test:8081 | The simulator: sends test transactions to the app |
+| http://simulator.taxjar.test:8081 | Shortcut to the simulator, which sends test transactions to the app. It redirects to http://taxjar.test:8080/simulator: on the app's own origin the two tabs can talk, so the simulator's demo-setup payments stay quiet in the app |
 | http://taxjar.test:8080/docs | The backend's API docs |
 
 Payments sent from the simulator show up live in the app (toast, work question) over the event stream.
@@ -33,12 +33,6 @@ The simulator's **Fresh start** button also resets the data without restarting a
 ## Settings
 
 Copy `.env.example` to `.env` to change the host ports: `APP_PORT` (default 8080) and `SIMULATOR_PORT` (default 8081).
-
-## Known quirk
-
-The app and the simulator are on different ports, so the browser treats them as different origins.
-When the simulator sets up the **Filled** state, it cannot tell the app tab to keep those setup payments quiet,
-so the app shows a toast for them. Opening the simulator on the app's own port (http://taxjar.test:8080/simulator) avoids it.
 
 ## What runs
 

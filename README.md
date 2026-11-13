@@ -45,7 +45,7 @@ npm run dev
 
 App: http://localhost:5173. It calls `/api`, which Vite proxies to the backend on port 8000, so start the backend first. Tests: `npm test`. Type-check and build: `npm run build`.
 
-It is a desktop web app (sidebar layout, Tailwind, Wise-inspired but not Wise's own look), not the phone-width frame the first plan described. Screens, on the frozen routes:
+It is a web app (Tailwind, Wise-inspired but not Wise's own look): a sidebar on screens 768px and wider (it fits a 1024px projector), a top bar and bottom tabs on phones. Screens, on the frozen routes:
 
 | Route | Screen |
 |---|---|
@@ -56,12 +56,20 @@ It is a desktop web app (sidebar layout, Tailwind, Wise-inspired but not Wise's 
 | `/tax-jar/pay` | Pay tax: pre-filled confirmation → success |
 | `/simulator` | Stage tool, for its own tab: the demo payments from `demo/scenarios.json`, a custom payment, demo reset |
 
+What a freelancer gets beyond the golden path:
+
+- **Catch-up after setup.** Client income that arrived before the Tax Jar existed is offered in one card ("Clients paid you €5,554 before your Tax Jar existed. Set aside €1,110.80?"), backed by `GET/POST /api/tax/catch-up`.
+- **Any country's currency.** The jar can be kept in the currency of any of the 80 countries (fixed, offline rates in `backend/app/fx.py`, with each currency's own minor units: none for JPY, three for KWD).
+- **Nothing blocks the screen.** "Is this payment for work?" is a card docked at the corner; "Decide later" leaves the payment tagged in the feed.
+- **Honest when offline.** If the live connection drops, a banner says so and goes away when it recovers.
+- **Keyboard and motion.** Escape closes the payment detail and the question, the detail keeps focus inside it, Tax Jar rows open with Enter, and "reduce motion" turns the animations off.
+
 The toast and the "Is this payment for work?" question are driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The dark "Demo controls" box in the sidebar is a shortcut for the same thing and can be hidden.
 
 End-to-end checks in a real browser (once: `npx playwright install chromium`; both servers must be running; they reset the backend's demo data):
 
 ```bash
-npm run golden   # the golden path with assertions, payments sent from a second tab
+npm run golden   # the golden path with assertions, payments sent from a second tab, plus catch-up, keyboard, phone width and a dropped connection
 npm run shots    # every screen and state → frontend/screenshots/
 ```
 
@@ -70,6 +78,10 @@ npm run shots    # every screen and state → frontend/screenshots/
 `npm install` prints peer-dependency warnings from Neptune's 3D illustration packages. They are expected and do not affect the app.
 
 Do not use `Flag`, `Illustration` or other `@wise/art` components: they load images from wise.com at runtime, and the demo must work with no network.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push and pull request: the backend tests on Python 3.10 (what the plan requires) and 3.13, the frontend's lint, unit tests and build, then the golden path in a real browser against a running backend. Screenshots and logs are kept as a build artifact.
 
 ## The API contract
 

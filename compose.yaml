@@ -1,6 +1,6 @@
 # Whole demo in Docker:  docker compose up --build -d
 #   http://taxjar.test:8080             the live app
-#   http://simulator.taxjar.test:8081   the simulator, sends test transactions to it
+#   http://simulator.taxjar.test:8081   shortcut: redirects to the simulator on the app port
 # Both names point at 127.0.0.1 in /etc/hosts (see docker/README.md).
 name: taxjar
 
@@ -19,7 +19,9 @@ services:
       dockerfile: docker/web.Dockerfile
     ports:
       - "${APP_PORT:-8080}:80" # the live app
-      - "${SIMULATOR_PORT:-8081}:81" # the simulator
+      - "${SIMULATOR_PORT:-8081}:81" # shortcut to the simulator
+    environment:
+      APP_PORT: ${APP_PORT:-8080} # the simulator shortcut on SIMULATOR_PORT redirects here
     depends_on:
       backend:
         condition: service_healthy
