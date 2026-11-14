@@ -451,6 +451,7 @@ button {
 
   .device {
     width: 100%;
+    height: 100vh;
     height: 100dvh;
     border: 0;
     border-radius: 0;
@@ -461,10 +462,11 @@ button {
     border-radius: 0;
   }
 
-  /* A real phone draws its own status bar and home indicator: keep only the safe-area space. */
+  /* A real phone draws its own status bar and home indicator: keep only the safe-area space (the Dynamic Island),
+     and let the screen's own colour fill everything above and around it. */
   .status-bar {
     display: block;
-    height: env(safe-area-inset-top);
+    height: env(safe-area-inset-top, 0px);
     padding: 0;
   }
 
@@ -483,6 +485,14 @@ button {
 
   .app-viewport {
     padding-top: 10px;
+  }
+
+  /* Home Screen app on a light theme: the status bar's clock and battery are drawn in white over the app,
+     so the strip behind them is brand green rather than white. */
+  @media (display-mode: standalone) and (prefers-color-scheme: light) {
+    .status-bar {
+      background: var(--color-forest);
+    }
   }
 
   .tab-bar {

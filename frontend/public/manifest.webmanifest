@@ -1,0 +1,11 @@
+{
+  "name": "Wise Tax Jar",
+  "short_name": "Tax Jar",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121511",
+  "theme_color": "#121511",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
