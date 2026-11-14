@@ -7,12 +7,14 @@ frontend sees is built in one place.
 
 import json
 from datetime import datetime, timezone
-from typing import Iterator, Optional
+from typing import Iterator, List, Optional, Sequence
 
-from sqlalchemy import Engine, text
+from fastapi import Depends
+from sqlalchemy import Connection, Engine, text
 from sqlmodel import Session, create_engine, delete, select
 
 from app import schemas, settings
+from app.limits import POOL_CONNECTIONS
 from app.engine.breakdown import split_tax
 from app.engine.classifier import infer_kind, normalize_name
 from app.engine.tax_rules import get_regime
@@ -32,12 +34,20 @@ _TABLES_IN_DELETE_ORDER = (ReservationRow, TransactionRow, CounterpartyRow, JarR
 
 _engine: Optional[Engine] = None
 
+# How many connections the app may need at once follows from how many requests it admits: app/limits.py.
+POOL_SIZE = 10
+POOL_OVERFLOW = POOL_CONNECTIONS - POOL_SIZE
+
 
 def get_engine() -> Engine:
     global _engine
     if _engine is None:
         # pool_pre_ping: a connection dropped by the database (restart, idle timeout) is replaced, not served.
-        _engine = create_engine(settings.database_url(), pool_pre_ping=True)
+        # Up to POOL_CONNECTIONS: one per request the app works on at once (app/limits.py admits no
+        # more), plus the health check and the tax-data reader.
+        _engine = create_engine(
+            settings.database_url(), pool_pre_ping=True, pool_size=POOL_SIZE, max_overflow=POOL_OVERFLOW
+        )
     return _engine
 
 
@@ -60,6 +70,24 @@ def get_session() -> Iterator[Session]:
     """FastAPI dependency: one session per request."""
     with Session(get_engine()) as session:
         yield session
+
+
+def get_read_session(session: Session = Depends(get_session)) -> Session:
+    """FastAPI dependency for routes that only read: every statement sees the same snapshot.
+
+    A response is built from several statements (payments, then their payers and reservations).
+    Postgres' default gives each statement a newer snapshot, so a reset or a payment committed in
+    between could delete a payer under a payment already read. Handlers run in parallel worker
+    threads, so that does happen. REPEATABLE READ pins the snapshot at the first statement, and a
+    read-only transaction at that level never fails with a serialization error.
+    """
+    bind = session.get_bind()
+    # A session handed a connection that is already inside a transaction (the tests' rolled-back one)
+    # keeps it; the level can only be chosen where a transaction starts.
+    borrowed = isinstance(bind, Connection) and bind.in_transaction()
+    if not borrowed and not session.in_transaction():
+        session.connection(execution_options={"isolation_level": "REPEATABLE READ", "postgresql_readonly": True})
+    return session
 
 
 ACCOUNT_LOCK = 7_251_001  # pg_advisory_xact_lock key for the one demo account
@@ -181,9 +209,31 @@ def to_reservation(row: ReservationRow) -> schemas.TaxReservation:
 
 def to_transaction(session: Session, row: TransactionRow) -> schemas.Transaction:
     counterparty = session.get(CounterpartyRow, row.counterparty_key)
+    reservation = session.get(ReservationRow, row.reservation_id) if row.reservation_id else None
+    return _transaction(row, counterparty, reservation)
+
+
+def to_transactions(session: Session, rows: Sequence[TransactionRow]) -> List[schemas.Transaction]:
+    """Many transactions with two lookups in total (payers, reservations), not two per row."""
+    keys = {row.counterparty_key for row in rows}
+    ids = {row.reservation_id for row in rows if row.reservation_id}
+    counterparties = (
+        {c.key: c for c in session.exec(select(CounterpartyRow).where(CounterpartyRow.key.in_(keys)))} if keys else {}
+    )
+    reservations = (
+        {r.id: r for r in session.exec(select(ReservationRow).where(ReservationRow.id.in_(ids)))} if ids else {}
+    )
+    return [
+        _transaction(row, counterparties.get(row.counterparty_key), reservations.get(row.reservation_id))
+        for row in rows
+    ]
+
+
+def _transaction(
+    row: TransactionRow, counterparty: Optional[CounterpartyRow], reservation: Optional[ReservationRow]
+) -> schemas.Transaction:
     if counterparty is None:
         raise LookupError(f"transaction {row.id} points at missing counterparty {row.counterparty_key!r}")
-    reservation = session.get(ReservationRow, row.reservation_id) if row.reservation_id else None
     return schemas.Transaction.model_validate(
         {
             "id": row.id,

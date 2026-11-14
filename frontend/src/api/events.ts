@@ -2,7 +2,8 @@
 import { EVENTS_URL, type Transaction } from './client'
 
 export type TxEventType = 'transaction.created' | 'reservation.created' | 'question.asked' | 'reservation.undone'
-export type AppEvent = { type: TxEventType; transaction: Transaction } | { type: 'demo.reset' }
+/** 'resync': this tab fell behind and the server dropped events for it, so everything must be read again. */
+export type AppEvent = { type: TxEventType; transaction: Transaction } | { type: 'demo.reset' } | { type: 'resync' }
 
 const TX_TYPES: readonly string[] = ['transaction.created', 'reservation.created', 'question.asked', 'reservation.undone']
 
@@ -15,6 +16,7 @@ export function parseEvent(type: string, data: string): AppEvent | null {
     return null
   }
   if (type === 'demo.reset') return { type: 'demo.reset' }
+  if (type === 'resync') return { type: 'resync' }
   if (!TX_TYPES.includes(type)) return null
   const transaction = (body as { transaction?: Transaction } | null)?.transaction
   return transaction && typeof transaction.id === 'string' ? { type: type as TxEventType, transaction } : null
@@ -26,7 +28,7 @@ export function parseEvent(type: string, data: string): AppEvent | null {
  */
 export function subscribe(onEvent: (e: AppEvent) => void, onOpen?: () => void, onDrop?: () => void): () => void {
   const source = new EventSource(EVENTS_URL)
-  for (const type of [...TX_TYPES, 'demo.reset']) {
+  for (const type of [...TX_TYPES, 'demo.reset', 'resync']) {
     source.addEventListener(type, (m) => {
       const event = parseEvent(type, (m as MessageEvent<string>).data)
       if (event) onEvent(event)

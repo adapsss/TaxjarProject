@@ -44,6 +44,7 @@ cd backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 export DATABASE_URL=postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar
+export DEMO_MODE=true   # the simulator and Fresh start; off unless set
 .venv/bin/alembic upgrade head
 .venv/bin/python -m app.data_load
 .venv/bin/uvicorn app.main:app --reload --port 8000
@@ -53,7 +54,7 @@ The backend refuses to start on a database that isn't migrated or imported, and 
 
 Tests run on Postgres too, in a database of their own (created once: `docker compose exec db psql -U taxjar -c "create database taxjar_test"`): `.venv/bin/pytest -q`. Set `TEST_DATABASE_URL` to use another server. Each test runs in a transaction that is rolled back.
 
-Settings (environment): `DATABASE_URL` (required), `DEMO_MODE` (default `true`; `false` removes the reset, simulator and demo-scenario routes), `TAX_DATA_REFRESH_SECONDS` (default `60`).
+Settings come from the environment only; the full list with defaults is in [docs/deploy.md](docs/deploy.md#runtime-configuration) (`DATABASE_URL`, `DEMO_MODE`, `TAX_DATA_REFRESH_SECONDS`, `LOG_LEVEL`, `BACKEND_UPSTREAM`).
 
 ## Frontend
 

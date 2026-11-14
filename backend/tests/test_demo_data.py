@@ -51,3 +51,11 @@ def test_demo_datasets_import_once(session):
     assert data_load.import_dataset(session, "demo_scenarios") == "imported"
     assert data_load.import_dataset(session, "demo_seed") == "already present"
     assert data_load.import_dataset(session, "demo_scenarios") == "already present"
+
+
+def test_demo_routes_are_off_unless_asked_for(client, monkeypatch):
+    monkeypatch.delenv("DEMO_MODE")
+    assert client.post("/api/demo/reset").status_code == 404
+    assert client.post("/api/simulate/incoming", json={"senderName": "Acme Inc.", "amount": 150000, "currency": "USD"}).status_code == 404
+    assert client.get("/api/demo/scenarios").status_code == 404
+    assert client.get("/api/account").status_code == 200

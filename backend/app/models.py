@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import BigInteger, Column, DateTime, Identity
+from sqlalchemy import BigInteger, CheckConstraint, Column, DateTime, Identity
 from sqlmodel import Field, SQLModel
 
 TAX_JAR_ID = "tax"
@@ -39,6 +39,11 @@ def timestamp(index: bool = False):
     return Field(default_factory=lambda: utcnow(), sa_column=Column(DateTime(timezone=True), nullable=False, index=index))
 
 
+def checks(**conditions: str) -> tuple:
+    """Table CHECK constraints, name=condition. Kept equal to migration 0005 (tests/test_app_state_checks.py compares)."""
+    return tuple(CheckConstraint(condition, name=name) for name, condition in conditions.items())
+
+
 def utcnow() -> datetime:
     """Current time, timezone-aware UTC. Use it for every timestamp you store."""
     return datetime.now(timezone.utc)
@@ -46,6 +51,8 @@ def utcnow() -> datetime:
 
 class ProfileRow(SQLModel, table=True):
     """The single tax profile, always id 1. Disabled until onboarding."""
+
+    __table_args__ = checks(profile_rate_range="rate_bp BETWEEN 0 AND 10000")
 
     id: int = Field(default=PROFILE_ID, primary_key=True)
     owner_name: str
@@ -57,6 +64,8 @@ class ProfileRow(SQLModel, table=True):
 
 
 class BalanceRow(SQLModel, table=True):
+    __table_args__ = checks(balance_not_negative="amount >= 0")
+
     currency: str = Field(primary_key=True)
     amount: int = money(0)
     seq: Optional[int] = seq()
@@ -64,6 +73,8 @@ class BalanceRow(SQLModel, table=True):
 
 class JarRow(SQLModel, table=True):
     """A Jar. The Tax Jar has id "tax" (TAX_JAR_ID) and type "tax"."""
+
+    __table_args__ = checks(jar_not_negative="balance >= 0", jar_type_known="type IN ('tax', 'regular')")
 
     id: str = Field(primary_key=True)
     name: str
@@ -79,6 +90,11 @@ class CounterpartyRow(SQLModel, table=True):
     status is what the user taught us: "client", "personal", or None (never asked).
     """
 
+    __table_args__ = checks(
+        counterparty_kind_known="kind IN ('company', 'person', 'unknown')",
+        counterparty_status_known="status IS NULL OR status IN ('client', 'personal')",
+    )
+
     key: str = Field(primary_key=True)
     name: str
     kind: str = "unknown"  # "company" | "person" | "unknown"
@@ -86,6 +102,13 @@ class CounterpartyRow(SQLModel, table=True):
 
 
 class TransactionRow(SQLModel, table=True):
+    __table_args__ = checks(
+        transaction_amount_positive="amount > 0",
+        transaction_direction_known="direction IN ('in', 'out')",
+        transaction_label_known="label IN ('income', 'personal', 'unknown')",
+        transaction_confidence_range="confidence BETWEEN 0 AND 1",
+    )
+
     id: str = Field(default_factory=new_id, primary_key=True)
     direction: str  # "in" | "out"
     amount: int = money()
@@ -102,6 +125,14 @@ class TransactionRow(SQLModel, table=True):
 
 class ReservationRow(SQLModel, table=True):
     """Tax set aside for one transaction. At most one per transaction."""
+
+    __table_args__ = checks(
+        reservation_source_positive="source_amount > 0",
+        reservation_reserved_not_negative="reserved_amount >= 0",
+        reservation_rate_range="rate_bp BETWEEN 0 AND 10000",
+        reservation_fx_positive="fx_rate > 0",
+        reservation_status_known="status IN ('reserved', 'undone', 'paid')",
+    )
 
     id: str = Field(default_factory=new_id, primary_key=True)
     transaction_id: str = Field(foreign_key="transactionrow.id", unique=True)

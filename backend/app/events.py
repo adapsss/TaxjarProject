@@ -5,16 +5,22 @@ Event types and data (frozen contract):
         data {"transaction": <Transaction JSON>}
     demo.reset
         data {}
+    resync
+        data {}  the subscriber fell behind and lost events: re-read everything
 
-Publish only from `async def` route handlers, after the database commit. asyncio
-queues are not thread-safe, so publish must run on the event loop thread.
+Publish after the database commit. Route handlers are plain `def` and run in worker threads,
+while asyncio queues belong to the event loop; publish() hands each event over to the loop the
+subscriber is read on, so it may be called from any thread.
+
+The bus lives in one process. With several backend processes a client only hears the events of
+the process its stream is connected to: run one replica until the bus moves to a shared channel.
 """
 
 import asyncio
 import json
 import logging
 from datetime import date, datetime
-from typing import Any, AsyncIterator, List
+from typing import Any, AsyncIterator, List, Optional, Tuple
 
 from fastapi import Request
 from fastapi.responses import StreamingResponse
@@ -26,9 +32,31 @@ PING_SECONDS = 15.0
 QUEUE_SIZE = 256  # per subscriber; a tab that stops reading loses events instead of growing memory
 
 
+RESYNC = "resync"
+
+
+def _running_loop() -> Optional[asyncio.AbstractEventLoop]:
+    try:
+        return asyncio.get_running_loop()
+    except RuntimeError:
+        return None
+
+
+def _deliver(queue: asyncio.Queue, type: str, data: dict) -> None:
+    """Runs on the thread that reads `queue`. A full queue is emptied and replaced by one "resync"."""
+    try:
+        queue.put_nowait((type, data))
+    except asyncio.QueueFull:
+        logger.warning("SSE subscriber is not reading; dropped its queue at %s and asked it to resync", type)
+        while not queue.empty():
+            queue.get_nowait()
+        queue.put_nowait((RESYNC, {}))
+
+
 class EventBus:
     def __init__(self) -> None:
-        self._subscribers: List[asyncio.Queue] = []
+        # Each queue with the loop it is read on (None: subscribed outside a loop, e.g. in a test).
+        self._subscribers: List[Tuple[asyncio.Queue, Optional[asyncio.AbstractEventLoop]]] = []
 
     @property
     def subscriber_count(self) -> int:
@@ -36,22 +64,23 @@ class EventBus:
 
     def subscribe(self) -> asyncio.Queue:
         queue: asyncio.Queue = asyncio.Queue(maxsize=QUEUE_SIZE)
-        self._subscribers.append(queue)
+        self._subscribers.append((queue, _running_loop()))
         return queue
 
     def unsubscribe(self, queue: asyncio.Queue) -> None:
-        try:
-            self._subscribers.remove(queue)
-        except ValueError:
-            pass
+        self._subscribers = [entry for entry in self._subscribers if entry[0] is not queue]
 
     def publish(self, type: str, data: dict) -> None:
-        """Hand (type, data) to every subscriber. Never blocks, never raises."""
-        for queue in list(self._subscribers):
+        """Hand (type, data) to every subscriber, from any thread. Never blocks, never raises."""
+        here = _running_loop()
+        for queue, loop in list(self._subscribers):
+            if loop is None or loop is here:
+                _deliver(queue, type, data)
+                continue
             try:
-                queue.put_nowait((type, data))
-            except asyncio.QueueFull:
-                logger.warning("SSE subscriber is not reading; dropped %s", type)
+                loop.call_soon_threadsafe(_deliver, queue, type, data)
+            except RuntimeError:  # that loop is closed: its stream is gone
+                self.unsubscribe(queue)
 
 
 _bus = EventBus()

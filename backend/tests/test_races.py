@@ -120,3 +120,101 @@ def test_fresh_start_racing_payments_never_fails(live):
         with Session(live) as s:
             assert_invariants(s)
             assert s.exec(select(ReservationRow)).all() is not None
+
+
+def test_catching_up_twice_at_once_reserves_once(live):
+    """Two catch-ups from two processes: the second waits for the account, then finds nothing left."""
+    from datetime import datetime, timezone
+
+    since = datetime(2000, 1, 1, tzinfo=timezone.utc)
+
+    def catch_up():
+        with Session(live) as s:
+            return reservations.catch_up(s, BUS, since)["count"]
+
+    errors, results = _together(live, [catch_up, catch_up])
+    assert errors == []
+    assert sorted(results)[0] == 0 and sorted(results)[1] > 0, results
+    with Session(live) as s:
+        reserved = s.exec(select(ReservationRow)).all()
+        assert len(reserved) == sorted(results)[1]
+        assert len({r.transaction_id for r in reserved}) == len(reserved)
+        assert_invariants(s)
+
+
+def test_catch_up_racing_a_currency_change_keeps_jar_and_profile_together(live):
+    """A profile change that lands while a catch-up runs must not leave the jar in the old currency."""
+    from datetime import datetime, timezone
+
+    from fastapi.testclient import TestClient
+
+    from app.events import get_bus
+    from app.main import create_app
+
+    app = create_app()
+    app.dependency_overrides[get_bus] = lambda: BUS
+
+    def live_session():
+        with Session(live) as s:
+            yield s
+
+    app.dependency_overrides[db.get_session] = live_session
+    client = TestClient(app)
+    since = datetime(2000, 1, 1, tzinfo=timezone.utc)
+
+    def catch_up():
+        with Session(live) as s:
+            return reservations.catch_up(s, BUS, since)["count"]
+
+    def to_usd():
+        body = {"country": "EE", "regime": "entrepreneur_account", "rate": 2000, "taxCurrency": "USD", "enabled": True}
+        return client.put("/api/tax-profile", json=body).status_code
+
+    for _ in range(4):
+        errors, results = _together(live, [catch_up, to_usd])
+        assert errors == [], errors
+        with Session(live) as s:
+            jar, profile = s.get(JarRow, TAX_JAR_ID), s.get(ProfileRow, PROFILE_ID)
+            assert jar.currency == profile.tax_currency, results
+            assert_invariants(s)
+            db.reset_to_seed(s)
+            p = s.get(ProfileRow, PROFILE_ID)
+            p.country, p.regime, p.rate_bp, p.tax_currency, p.enabled = "EE", "entrepreneur_account", 2000, "EUR", True
+            s.add(p)
+            s.commit()
+
+
+
+def _read_transactions_around_a_reset(live, session):
+    """Read the payments, let another connection reset the demo, then read their payers."""
+    newest_first = (TransactionRow.created_at.desc(), TransactionRow.seq.desc())
+    rows = session.exec(select(TransactionRow).order_by(*newest_first)).all()
+    with Session(live) as other:
+        db.reset_to_seed(other)  # commits: "Fresh Client Ltd" and its payment are gone
+    return db.to_transactions(session, rows)
+
+
+def test_a_read_sees_one_snapshot_even_when_a_reset_commits_in_the_middle(live):
+    """Handlers run in parallel threads, so a reset can commit between two statements of one read."""
+    _pay(live, "Fresh Client Ltd")
+    with Session(live) as s:
+        listed = _read_transactions_around_a_reset(live, db.get_read_session(s))
+    assert "Fresh Client Ltd" in {t.counterparty.name for t in listed}  # the moment the read began
+
+
+def test_without_a_snapshot_that_read_fails(live):
+    """The reason get_read_session exists: a plain session loses the payer under the payment."""
+    _pay(live, "Fresh Client Ltd")
+    with Session(live) as s, pytest.raises(LookupError):
+        _read_transactions_around_a_reset(live, s)
+
+
+def test_read_routes_use_the_snapshot_session():
+    import inspect
+
+    from app.routes import core, payments, reports
+
+    for handler in (core.get_account, core.list_transactions, reports.tax_summary, reports.export_csv,
+                    payments.catch_up_preview):
+        session = inspect.signature(handler).parameters["session"].default
+        assert session.dependency is db.get_read_session, handler.__name__

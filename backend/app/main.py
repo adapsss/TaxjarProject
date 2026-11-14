@@ -1,17 +1,23 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+import anyio.to_thread
 from fastapi import FastAPI
 
 from app import settings
+from app.logging_setup import configure_logging
 from app.db import get_engine, init_db
+from app.limits import WORKER_THREADS, InFlightLimitMiddleware
 from app.engine import data as tax_data
 from app.errors import register_error_handlers
+from app.request_log import RequestLogMiddleware
 from app.routes import core, payments, reports
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Handlers run in worker threads: enough for every request admitted at once (see app/limits.py).
+    anyio.to_thread.current_default_thread_limiter().total_tokens = WORKER_THREADS
     check_database(get_engine())
     install_tax_data()
     init_db()  # seed an empty database; the schema comes from `alembic upgrade head`
@@ -56,6 +62,7 @@ def install_tax_data() -> None:
 
 
 def create_app() -> FastAPI:
+    configure_logging()
     app = FastAPI(title="Wise Tax Jar (hackathon prototype)", version="0.1.0", lifespan=lifespan)
     # Every error leaves as {"error": {"code", "message"}}.
     register_error_handlers(app)
@@ -63,6 +70,10 @@ def create_app() -> FastAPI:
     app.include_router(core.router, prefix="/api")
     app.include_router(payments.router, prefix="/api")
     app.include_router(reports.router, prefix="/api")
+    app.add_middleware(InFlightLimitMiddleware)
+    # Added last, so it wraps the limiter: the logged time includes the wait for a slot, and every
+    # response (also a 500 after a crash) carries X-Request-ID.
+    app.add_middleware(RequestLogMiddleware)
     return app
 
 

@@ -7,8 +7,8 @@
 # Image Updater orders tags by the image's `created` time (newest-build strategy): keep the real build time.
 # Do not set SOURCE_DATE_EPOCH or reproducible-build timestamp rewriting here. Never re-push an existing dev-N.
 #
-# AWS access: GitHub OIDC into the role infra created (nisabu/goyslop-infra). The ARN is not a secret: the role
-# trusts only repo:adapsss/goyslop:ref:refs/heads/main. A repository variable AWS_ROLE_ARN, if set, overrides it.
+# AWS access: GitHub OIDC into the role infra created (nisabu/goyslop-infra); the role trusts only
+# repo:adapsss/goyslop:ref:refs/heads/main. Every environment-specific value is in the env block below.
 name: images
 
 on:
@@ -25,9 +25,15 @@ concurrency:
   group: images-main
   cancel-in-progress: false # never abandon a push half way
 
+# All environment-specific values. Repository variables win; the literals are temporary fallbacks.
+# TODO: drop the fallbacks once a repo admin sets the repository variables AWS_ROLE_ARN and AWS_REGION
+#       (Settings → Secrets and variables → Actions → Variables). Nobody on the team can open Settings yet.
 env:
-  AWS_REGION: eu-west-1
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-1' }}
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID || '331725468486' }}
   AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::331725468486:role/goyslop-dev-github-ci' }}
+  BACKEND_REPOSITORY: goyslop-backend
+  WEB_REPOSITORY: goyslop-web
   TAG: dev-${{ github.run_number }}
 
 jobs:
@@ -50,32 +56,33 @@ jobs:
       fail-fast: true
       max-parallel: 1 # backend first, then web
       matrix:
-        include:
-          - repository: goyslop-backend
-            dockerfile: docker/backend.Dockerfile
-          - repository: goyslop-web
-            dockerfile: docker/web.Dockerfile
+        image: [backend, web] # docker/<image>.Dockerfile, pushed in this order
     steps:
       - id: commit
         name: The commit CI tested (a manual run builds the tip of main)
         run: echo "sha=${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: ${{ steps.commit.outputs.sha }}
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
       - id: ecr
-        uses: aws-actions/amazon-ecr-login@v2
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/build-push-action@v6
+        uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # v2.1.7
+        with:
+          registries: ${{ env.AWS_ACCOUNT_ID }}
+      - id: target
+        name: Which ECR repository this image goes to
+        run: echo "repository=${{ matrix.image == 'backend' && env.BACKEND_REPOSITORY || env.WEB_REPOSITORY }}" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: . # both Dockerfiles expect the repo root
-          file: ${{ matrix.dockerfile }}
+          file: docker/${{ matrix.image }}.Dockerfile
           push: true
-          tags: ${{ steps.ecr.outputs.registry }}/${{ matrix.repository }}:${{ env.TAG }}
+          tags: ${{ steps.ecr.outputs.registry }}/${{ steps.target.outputs.repository }}:${{ env.TAG }}
           labels: org.opencontainers.image.revision=${{ steps.commit.outputs.sha }}
-          cache-from: type=gha,scope=${{ matrix.repository }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.repository }}
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}
           provenance: false # plain image manifests for ECR and Image Updater

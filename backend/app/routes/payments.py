@@ -18,7 +18,7 @@ router = APIRouter()
 
 
 @router.post("/simulate/incoming", response_model=s.Transaction, dependencies=[Depends(require_demo_mode)])
-async def simulate_incoming(
+def simulate_incoming(
     body: s.SimulateIncoming,
     session: Session = Depends(db.get_session),
     bus: EventBus = Depends(get_bus),
@@ -36,7 +36,7 @@ async def simulate_incoming(
 
 
 @router.post("/transactions/{id}/answer", response_model=s.Transaction)
-async def answer_transaction(
+def answer_transaction(
     id: str,
     body: s.Answer,
     session: Session = Depends(db.get_session),
@@ -58,7 +58,7 @@ async def mark_income(
 
 
 @router.post("/transactions/{id}/undo", response_model=s.Transaction)
-async def undo_transaction(
+def undo_transaction(
     id: str,
     session: Session = Depends(db.get_session),
     bus: EventBus = Depends(get_bus),
@@ -68,7 +68,7 @@ async def undo_transaction(
 
 
 @router.post("/tax/pay", response_model=s.PayResult)
-async def pay_tax(session: Session = Depends(db.get_session), bus: EventBus = Depends(get_bus)):
+def pay_tax(session: Session = Depends(db.get_session), bus: EventBus = Depends(get_bus)):
     row, paid = reservations.pay_all(session, bus)
     return s.PayResult.model_validate(
         {"transaction": db.to_transaction(session, row), "paidAmount": paid, "currency": row.currency}
@@ -81,16 +81,16 @@ def _since(day: Optional[date]) -> datetime:
 
 
 @router.get("/tax/catch-up", response_model=s.CatchUp)
-async def catch_up_preview(
+def catch_up_preview(
     since: Optional[date] = Query(None, description="Defaults to 1 January this year"),
-    session: Session = Depends(db.get_session),
+    session: Session = Depends(db.get_read_session),
 ):
     """Income that arrived before the Tax Jar, and the tax it would set aside now."""
     return s.CatchUp.model_validate(reservations.catch_up_preview(session, _since(since)))
 
 
 @router.post("/tax/catch-up", response_model=s.CatchUp)
-async def catch_up(
+def catch_up(
     body: s.CatchUpRequest,
     session: Session = Depends(db.get_session),
     bus: EventBus = Depends(get_bus),

@@ -12,6 +12,10 @@ it('parses demo.reset, which has no transaction', () => {
   expect(parseEvent('demo.reset', '{}')).toEqual({ type: 'demo.reset' })
 })
 
+it('parses resync, sent when this tab fell behind', () => {
+  expect(parseEvent('resync', '{}')).toEqual({ type: 'resync' })
+})
+
 it('returns null for unknown types, bad JSON and frames without a transaction', () => {
   expect(parseEvent('something.else', JSON.stringify({ transaction }))).toBeNull()
   expect(parseEvent('reservation.created', '{not json')).toBeNull()

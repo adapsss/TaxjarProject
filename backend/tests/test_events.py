@@ -41,12 +41,14 @@ def test_publish_with_no_subscribers_is_fine():
     EventBus().publish("demo.reset", {})
 
 
-def test_full_queue_drops_instead_of_raising():
+def test_full_queue_is_replaced_by_one_resync_instead_of_raising():
     bus = EventBus()
     queue = bus.subscribe()
-    for _ in range(queue.maxsize + 5):
+    for _ in range(queue.maxsize + 1):
         bus.publish("demo.reset", {})
-    assert queue.full()
+    # The events the subscriber cannot have are gone; it is told to read everything again.
+    assert queue.get_nowait() == ("resync", {})
+    assert queue.empty()
 
 
 def test_format_sse():

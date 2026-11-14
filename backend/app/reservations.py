@@ -37,7 +37,9 @@ def get_transaction(session: Session, tx_id: str) -> TransactionRow:
     Rows are always locked in the same order (transaction, balance, Tax Jar), so concurrent requests
     wait for each other instead of deadlocking.
     """
-    tx = session.get(TransactionRow, tx_id, with_for_update=True, populate_existing=True)
+    # Ids are UUIDs; text that could not be one (a NUL byte fails in the database) is simply not found.
+    plausible = len(tx_id) <= 64 and tx_id.isascii() and tx_id.isprintable()
+    tx = session.get(TransactionRow, tx_id, with_for_update=True, populate_existing=True) if plausible else None
     if tx is None:
         raise ApiError(404, "transaction_not_found", f"There is no transaction {tx_id}.")
     return tx
@@ -199,6 +201,9 @@ def catch_up_preview(session: Session, since: datetime) -> dict:
 
 def catch_up(session: Session, bus: EventBus, since: datetime) -> dict:
     """Set tax aside for every earlier income payment at once. Commits once; a second call moves nothing."""
+    # Before reading the profile and the candidates: a profile change or a second catch-up in another
+    # process then runs before or after this one, never in between.
+    db.lock_account(session)
     profile = db.get_profile(session)
     if not profile.enabled:
         raise ApiError(409, "tax_profile_disabled", "Set up the Tax Jar first.")

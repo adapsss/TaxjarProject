@@ -2,9 +2,16 @@
 
 Owner: role B, Backend 1. Route declarations (paths, function names, models) are
 exactly those of Task S0, so the generated frontend types stay the same.
+
+Handlers are plain `def`: they talk to the database with blocking calls, so FastAPI runs them in
+worker threads and a slow query or a held account lock never stalls the event loop (and with it
+every open event stream). Only the event stream itself is `async`.
 """
-from fastapi import APIRouter, Depends, Request
+import logging
+
+from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import StreamingResponse
+from sqlalchemy import text
 from sqlmodel import Session, select
 
 from app import db, fx
@@ -16,30 +23,53 @@ from app.models import TAX_JAR_ID, JarRow, TransactionRow
 from app.routes.guards import require_demo_mode
 from app.taxdata import tables as t
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 MAX_RATE_BP = 10000
+# GET /transactions is capped: the response must not grow with the account's whole history.
+DEFAULT_TRANSACTIONS = 500
+MAX_TRANSACTIONS = 2000
+
+
+@router.get("/healthz", responses={503: {"description": "The database does not answer"}})
+def healthz():
+    """Cheap liveness and readiness check: the process runs and the database answers. No demo data is read.
+
+    A plain `def`, so FastAPI runs it in a worker thread: a slow database cannot block the event loop
+    (and with it the live event stream). It publishes no events, so it needs no loop thread.
+    """
+    try:
+        with db.get_engine().connect() as connection:
+            connection.execute(text("SELECT 1"))
+    except Exception:  # noqa: BLE001 - any failure means not ready; details stay in the logs
+        logger.warning("health check: database does not answer", exc_info=True)
+        raise ApiError(503, "database_unavailable", "The database does not answer.")
+    return {"status": "ok"}
 
 
 @router.get("/account", response_model=s.Account)
-async def get_account(session: Session = Depends(db.get_session)):
+def get_account(session: Session = Depends(db.get_read_session)):
     return db.to_account(session)
 
 
 @router.get("/transactions", response_model=list[s.Transaction])
-async def list_transactions(session: Session = Depends(db.get_session)):
+def list_transactions(
+    limit: int = Query(DEFAULT_TRANSACTIONS, ge=1, le=MAX_TRANSACTIONS, description="Newest first; at most this many"),
+    session: Session = Depends(db.get_read_session),
+):
     newest_first = (TransactionRow.created_at.desc(), TransactionRow.seq.desc())
-    rows = session.exec(select(TransactionRow).order_by(*newest_first)).all()
-    return [db.to_transaction(session, row) for row in rows]
+    rows = session.exec(select(TransactionRow).order_by(*newest_first).limit(limit)).all()
+    return db.to_transactions(session, rows)
 
 
 @router.get("/tax-profile", response_model=s.TaxProfile)
-async def get_tax_profile(session: Session = Depends(db.get_session)):
+def get_tax_profile(session: Session = Depends(db.get_session)):
     return db.to_profile(db.get_profile(session))
 
 
 @router.put("/tax-profile", response_model=s.TaxProfile)
-async def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.get_session)):
+def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.get_session)):
     db.lock_account(session)  # the Tax Jar check below must not race a reservation
     if not 0 <= profile.rate <= MAX_RATE_BP:
         raise ApiError(422, "validation_error", "rate must be between 0 and 10000 basis points (0% to 100%).")
@@ -72,12 +102,12 @@ async def put_tax_profile(profile: s.TaxProfile, session: Session = Depends(db.g
 
 
 @router.get("/tax/countries", response_model=list[s.Country])
-async def list_countries():
+def list_countries():
     return tax_rules.load_countries()
 
 
 @router.get("/demo/scenarios", response_model=list[s.DemoScenario], dependencies=[Depends(require_demo_mode)])
-async def demo_scenarios(session: Session = Depends(db.get_session)):
+def demo_scenarios(session: Session = Depends(db.get_session)):
     rows = session.execute(select(t.demo_scenario).order_by(t.demo_scenario.c.position)).mappings()
     return [
         s.DemoScenario.model_validate(
@@ -89,7 +119,7 @@ async def demo_scenarios(session: Session = Depends(db.get_session)):
 
 
 @router.post("/demo/reset", response_model=s.Account, dependencies=[Depends(require_demo_mode)])
-async def reset_demo(session: Session = Depends(db.get_session), bus: EventBus = Depends(get_bus)):
+def reset_demo(session: Session = Depends(db.get_session), bus: EventBus = Depends(get_bus)):
     db.reset_to_seed(session)
     bus.publish("demo.reset", {})
     return db.to_account(session)

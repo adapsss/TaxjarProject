@@ -2,6 +2,7 @@
 talk to the tech lead before touching the test."""
 
 CONTRACT_PATHS = {
+    "/api/healthz": {"get"},
     "/api/account": {"get"},
     "/api/transactions": {"get"},
     "/api/tax-profile": {"get", "put"},

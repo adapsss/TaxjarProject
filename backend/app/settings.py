@@ -12,8 +12,17 @@ def database_url() -> str:
 
 
 def demo_mode() -> bool:
-    """Reset, simulator and demo scenarios are served only in demo mode (default on)."""
-    return os.environ.get("DEMO_MODE", "true").strip().lower() not in ("0", "false", "no", "off")
+    """Reset, simulator and demo scenarios are served only in demo mode.
+
+    Off unless DEMO_MODE says yes: these routes wipe the account and credit money without any login,
+    so a deployment that forgets the variable must not expose them.
+    """
+    return os.environ.get("DEMO_MODE", "").strip().lower() in ("1", "true", "yes", "on")
+
+
+def log_level() -> str:
+    """Log level for app/logging_setup.py (default INFO)."""
+    return os.environ.get("LOG_LEVEL", "INFO")
 
 
 def tax_data_refresh_seconds() -> int:

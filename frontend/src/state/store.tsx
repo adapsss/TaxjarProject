@@ -74,6 +74,15 @@ interface Store extends Data {
 
 const Ctx = createContext<Store | null>(null)
 
+/** How often a refresh triggered by a live event is retried after it failed. */
+const EVENT_REFRESH_RETRIES = 3
+/** After this long without an answer, an event refresh counts as failed. */
+const EVENT_REFRESH_TIMEOUT_MS = 15000
+
+/** The list with this payment in it: replaced in place when already there, else added as the newest. */
+const withPayment = (list: Transaction[], tx: Transaction) =>
+  list.some((t) => t.id === tx.id) ? list.map((t) => (t.id === tx.id ? tx : t)) : [tx, ...list]
+
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
 const ignore = () => {}
 
@@ -94,6 +103,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const failRef = useRef(false)
   const keyRef = useRef(0)
   const refreshSeq = useRef(0)
+  const appliedSeq = useRef(0)
+  // Refreshes numbered up to this started before the newest demo reset: their data is from before it.
+  const staleUpTo = useRef(0)
+  // Payments that arrived as live events, each with the number of the newest refresh started by then:
+  // a refresh numbered at most that read the backend before the event, so the payment is kept on top of it.
+  const eventPayments = useRef<{ after: number; tx: Transaction }[]>([])
+  // Refreshes asked for by live events: at most one runs and one waits, however many events arrive.
+  const eventRefresh = useRef({ running: false, again: false })
+  const mounted = useRef(true)
   // While the demo controls set up a state, its payments must not pop toasts.
   const quietRef = useRef(false)
   const quietTx = useRef(new Set<string>())
@@ -106,7 +124,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     failRef.current = failNext
   }, [failNext])
 
-  /** Re-read everything the screens show. Only the newest of overlapping refreshes is applied. */
+  /**
+   * Re-read everything the screens show. Of overlapping refreshes a result is applied only if it is
+   * newer than what is on screen: a late answer never overwrites a fresher one, and a newer refresh
+   * that failed does not throw away an older one that worked. A payment that arrived as a live event
+   * after the refresh started stays on screen on top of the refresh's (older) list.
+   */
   const refresh = useCallback(async () => {
     const seq = ++refreshSeq.current
     const [profile, account, transactions, summary, offer] = await Promise.all([
@@ -116,11 +139,56 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       api.getTaxSummary(),
       api.getCatchUp(),
     ])
-    if (seq !== refreshSeq.current) return
-    setData({ profile, account, transactions })
+    if (seq < appliedSeq.current) return
+    // Data from before a reset is dropped, unless nothing was ever shown: the first load must not end empty.
+    if (seq <= staleUpTo.current && appliedSeq.current !== 0) return
+    appliedSeq.current = seq
+    eventPayments.current = eventPayments.current.filter((e) => e.after >= seq)
+    setData({ profile, account, transactions: eventPayments.current.reduce((list, e) => withPayment(list, e.tx), transactions) })
     setTaxSummary(summary)
     setCatchUpOffer(offer.count > 0 ? offer : null)
   }, [])
+
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+    }
+  }, [])
+
+  /**
+   * Refresh because a live event said something changed. Events come in bursts (a catch-up sends one
+   * per payment), so while one refresh runs, any number of further events add up to a single refresh
+   * after it. A refresh that fails is tried again a few times, so the screen does not stay stale.
+   */
+  const refreshSoon = useCallback(() => {
+    const state = eventRefresh.current
+    if (state.running) {
+      state.again = true
+      return
+    }
+    state.running = true
+    const run = (attempt: number) => {
+      state.again = false
+      // A request that never answers must not stop live refreshes for good.
+      const gaveUp = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('refresh timed out')), EVENT_REFRESH_TIMEOUT_MS))
+      void Promise.race([refresh(), gaveUp]).then(
+        () => true,
+        () => false,
+      ).then((ok) => {
+        if (!mounted.current) {
+          state.running = false
+        } else if (state.again) {
+          run(0)
+        } else if (!ok && attempt < EVENT_REFRESH_RETRIES) {
+          setTimeout(() => (mounted.current ? run(attempt + 1) : (state.running = false)), 1000 * (attempt + 1))
+        } else {
+          state.running = false
+        }
+      })
+    }
+    run(0)
+  }, [refresh])
 
   /** Fetch countries and everything else; resolves to the screen state to show. */
   const fetchAll = useCallback(async (): Promise<ScreenState> => {
@@ -151,10 +219,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   /** Put an event's transaction on screen at once; the refresh that follows fills in balances and totals. */
   const upsert = useCallback((tx: Transaction) => {
-    setData((d) => {
-      const known = d.transactions.some((t) => t.id === tx.id)
-      return { ...d, transactions: known ? d.transactions.map((t) => (t.id === tx.id ? tx : t)) : [tx, ...d.transactions] }
-    })
+    eventPayments.current.push({ after: refreshSeq.current, tx })
+    setData((d) => ({ ...d, transactions: withPayment(d.transactions, tx) }))
   }, [])
 
   const showReserved = useCallback((txId: string, amount: number) => {
@@ -168,15 +234,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       subscribe(
         (e) => {
           if (e.type === 'demo.reset') {
+            // Everything read or received before the reset is history.
+            staleUpTo.current = refreshSeq.current
+            eventPayments.current = []
             setCatchUpDismissed(false)
             setNotice(null)
             setToast(null)
             setFlash(null)
-            refresh().catch(ignore)
+            refreshSoon()
+            return
+          }
+          if (e.type === 'resync') {
+            refreshSoon() // the server dropped events for this tab: read everything again
             return
           }
           upsert(e.transaction)
-          refresh().catch(ignore)
+          refreshSoon()
           if (quietRef.current || quietTx.current.has(e.transaction.id) || remoteQuiet.current) return
           if (e.type === 'reservation.created' && e.transaction.reservation) {
             showReserved(e.transaction.id, e.transaction.reservation.reservedAmount)
@@ -186,11 +259,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         },
         () => {
           setConnected(true)
-          refresh().catch(ignore) // catch up on anything missed while disconnected
+          refreshSoon() // catch up on anything missed while disconnected
         },
         () => setConnected(false),
       ),
-    [refresh, upsert, showReserved],
+    [refreshSoon, upsert, showReserved],
   )
 
   useEffect(() => {

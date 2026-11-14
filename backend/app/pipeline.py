@@ -4,6 +4,7 @@
 """
 
 import json
+import unicodedata
 from datetime import datetime, timezone
 from typing import List, Optional
 
@@ -21,6 +22,21 @@ REASON_CONFIRMED = "you confirmed this was for work"
 REASON_DENIED = "you said this wasn't for work"
 REASON_MARKED_INCOME = "you said this was for work"
 MAX_AMOUNT = 10**12  # ten billion in major units, far beyond any real payment
+MAX_NAME_LENGTH = 140  # SEPA allows 70 characters for a party name, SWIFT 4 lines of 35
+MAX_REFERENCE_LENGTH = 280  # two SEPA remittance lines
+
+
+def _clean_text(value: Optional[str], field: str, max_length: int) -> str:
+    """Trimmed text with single spaces. Rejects control characters (Postgres cannot store NUL) and
+    anything longer than a bank would send, before a row is written or a name is analysed."""
+    text = value or ""
+    # Cc: control characters. Cs: a lone surrogate, which cannot be stored as UTF-8 either.
+    if any(unicodedata.category(c) in ("Cc", "Cs") and c not in "\t\n\r" for c in text):
+        raise ApiError(422, "validation_error", f"{field} must not contain control characters.")
+    text = " ".join(text.split())
+    if len(text) > max_length:
+        raise ApiError(422, "validation_error", f"{field} must be at most {max_length} characters.")
+    return text
 
 
 def _past_payments(session: Session, key: str) -> List[dict]:
@@ -68,18 +84,18 @@ def process_incoming(
     reference: str,
 ) -> TransactionRow:
     # Reject bad input before anything is written.
-    name = (sender_name or "").strip()
-    if not name:
+    name = _clean_text(sender_name, "senderName", MAX_NAME_LENGTH)
+    if not any(c.isalnum() for c in name):  # empty, or only spaces, punctuation or invisible characters
         raise ApiError(422, "validation_error", "senderName must not be blank.")
     if isinstance(amount, bool) or not isinstance(amount, int) or amount <= 0:
         raise ApiError(422, "validation_error", "amount must be a positive whole number of cents.")
     if amount > MAX_AMOUNT:
-        # Larger values do not fit a SQLite integer once balances add up.
+        # Keeps every sum of balances far inside a 64-bit integer.
         raise ApiError(422, "validation_error", "amount is too large.")
     currency = (currency or "").strip().upper()
     if not fx.is_supported(currency):
         raise ApiError(422, "unsupported_currency", f"{currency or 'That currency'} is not a supported currency.")
-    reference = reference or ""
+    reference = _clean_text(reference, "reference", MAX_REFERENCE_LENGTH)
 
     db.lock_account(session)
     profile = db.get_profile(session)

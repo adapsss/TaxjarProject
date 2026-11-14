@@ -19,7 +19,18 @@ from . import data
 from .names import normalize_name
 
 _PUNCT = re.compile(r"[^\w\s]", re.UNICODE)
-_TRAILING_NOTE = re.compile(r"\s*\([^()]*\)\s*$")
+
+
+def _without_trailing_note(name: str) -> str:
+    """ "Acme Ltd (UK)" -> "Acme Ltd". One pass from the end: a regex here backtracked quadratically
+    on a long run of spaces inside the name."""
+    text = name.rstrip()
+    if not text.endswith(")"):
+        return name
+    opening = text.rfind("(")
+    if opening == -1 or ")" in text[opening:-1]:
+        return name
+    return text[:opening].rstrip()
 
 
 def _words(text: str) -> tuple:
@@ -64,7 +75,7 @@ def _split(raw) -> tuple:
 
 def has_legal_form(name: str) -> bool:
     """True when the name starts or ends with a legal-entity designator."""
-    name = _TRAILING_NOTE.sub("", name or "")     # "Acme Ltd (UK)" -> "Acme Ltd"
+    name = _without_trailing_note(name or "")
     plain, punctuated = _forms()
     exact = _words(name)
     folded = _words(normalize_name(name))

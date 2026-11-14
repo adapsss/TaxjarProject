@@ -37,7 +37,7 @@ Copy `.env.example` to `.env` to change them:
 - `APP_PORT` (default 8080) and `SIMULATOR_PORT` (default 8081): the host ports.
 - `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` (default `taxjar` for all three). Change the password for anything but a laptop.
 - `DB_PORT` (default 5433): Postgres on `127.0.0.1` for local tools and the backend tests. Never published on other interfaces.
-- `DEMO_MODE` (default `true`): `false` removes the reset, simulator and demo-scenario routes.
+- `DEMO_MODE` (Compose default `true`): `false` removes the reset, simulator and demo-scenario routes. The backend itself treats an unset `DEMO_MODE` as off, so only a deployment that asks for these routes serves them.
 - `TAX_DATA_REFRESH_SECONDS` (default 60): how soon a tax rate edited in the database reaches the app.
 
 ## What runs
@@ -47,13 +47,7 @@ Copy `.env.example` to `.env` to change them:
 - `backend`: `docker/backend.Dockerfile`, FastAPI on Python 3.10, reading and writing Postgres. It refuses to start if the database is not migrated or imported. Not published on the host; reach it through either port at `/api`.
 - `web`: `docker/web.Dockerfile` builds `frontend/` and serves it with Caddy (`docker/Caddyfile`), which proxies `/api` (including the event stream), `/docs` and `/openapi.json` to the backend.
 
-Run the backend tests on Python 3.10 inside the image, against a test database on the same Postgres:
-
-```bash
-docker compose exec db psql -U taxjar -c "create database taxjar_test"   # once
-docker compose run --rm --no-deps -e TEST_DATABASE_URL=postgresql+psycopg://taxjar:taxjar@db:5432/taxjar_test \
-  backend python -m pytest -q -p no:cacheprovider
-```
+The backend tests are not in the image; CI runs them (`.github/workflows/ci.yml`), and locally `cd backend && .venv/bin/pytest -q` against this Postgres (see the README).
 
 Run the frontend's golden path against the stack (needs `npm install` and `npx playwright install chromium` in `frontend/`):
 
