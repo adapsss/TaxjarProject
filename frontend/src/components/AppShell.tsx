@@ -49,7 +49,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="dynamic-island" aria-hidden="true" />
             <StatusBar />
             {!connected && screen === 'ready' && (
-              <p role="alert" className="relative z-20 flex items-center justify-center gap-2 bg-amber-soft px-4 py-2 text-[14px] font-semibold text-amber-ink">
+              <p
+                role="alert"
+                style={{ top: 'var(--status-h)' }}
+                className="absolute inset-x-0 z-40 flex items-center justify-center gap-2 bg-amber-soft px-4 py-2 text-[14px] font-semibold text-amber-ink"
+              >
                 <span className="size-2 animate-pulse rounded-full bg-amber" />
                 Connection lost. Reconnecting…
               </p>

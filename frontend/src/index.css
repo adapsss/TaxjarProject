@@ -199,14 +199,22 @@ button {
   overflow: hidden;
   border-radius: 47px;
   background: var(--color-canvas);
+  /* Height of the status bar and Dynamic Island. Content scrolls under it, so the screen is used edge to edge. */
+  --status-h: 50px;
 }
 
 .status-bar {
-  position: relative;
-  z-index: 20;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 30;
   display: flex;
-  height: 50px;
+  height: var(--status-h);
   flex-shrink: 0;
+  pointer-events: none;
+  /* A soft fade, so what scrolls beneath is never cut off by a hard line. */
+  background: linear-gradient(to bottom, var(--color-canvas) 0%, color-mix(in srgb, var(--color-canvas) 70%, transparent) 60%, transparent 100%);
   align-items: center;
   justify-content: space-between;
   padding: 8px 26px 0;
@@ -218,6 +226,7 @@ button {
 
 .dynamic-island {
   position: absolute;
+  z-index: 31;
   top: 10px;
   left: 50%;
   width: 118px;
@@ -234,6 +243,7 @@ button {
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
+  padding-top: var(--status-h);
   padding-bottom: var(--tab-clear, 0px);
 }
 
@@ -464,9 +474,12 @@ button {
 
   /* A real phone draws its own status bar and home indicator: keep only the safe-area space (the Dynamic Island),
      and let the screen's own colour fill everything above and around it. */
+  .device-screen {
+    --status-h: env(safe-area-inset-top, 0px);
+  }
+
   .status-bar {
     display: block;
-    height: env(safe-area-inset-top, 0px);
     padding: 0;
   }
 
@@ -484,14 +497,14 @@ button {
   }
 
   .app-viewport {
-    padding-top: 10px;
+    padding-top: calc(var(--status-h) + 10px);
   }
 
   /* Full-screen Home Screen app: never less than the Dynamic Island's height at the top, even if the phone
      reports no safe area, so nothing is ever drawn under the island. */
   @media (display-mode: standalone) {
-    .status-bar {
-      height: max(env(safe-area-inset-top, 0px), 54px);
+    .device-screen {
+      --status-h: max(env(safe-area-inset-top, 0px), 54px);
     }
   }
 
