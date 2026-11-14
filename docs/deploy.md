@@ -6,6 +6,8 @@ Flow: push to `main` → **CI** passes → **images** workflow builds `goyslop-b
 
 Rollback: delete the bad `dev-N` tag from both ECR repos, or push a fix.
 
+Data: RDS is the source of truth. The JSON import files in the image (`backend/app/engine/*.json`, `demo/*.json`) are bootstrap-only: the migrate step uses them only to fill empty tables, and skips filled ones without reading them. On an empty database without usable files it exits 1 with the file and the problem named, so the rollout stops and nothing is written.
+
 **A release that added a migration cannot be rolled back by its tag alone.** The backend refuses to start when the database is not at the revision its code expects (`check_database` in `backend/app/main.py`), and an older image does not know the newer revision. For such a release, either push a fix forward (preferred), or first take the schema back with the newer image, then delete the tag:
 
 ```sh
