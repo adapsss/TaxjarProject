@@ -2,13 +2,13 @@
 #
 # Runs after the CI workflow succeeds on a push to main, for exactly the commit CI tested, or by hand on main.
 # Both images get the same tag, dev-<run number>; Argo CD Image Updater picks up the newest dev-N.
-# Nothing happens in GitHub after the push: deployment, migrations and rollback are in nisabu/goyslop-infra.
+# Nothing happens in GitHub after the push: deployment, migrations and rollback are in nisabu/TaxjarProject-infra.
 #
 # Image Updater orders tags by the image's `created` time (newest-build strategy): keep the real build time.
 # Do not set SOURCE_DATE_EPOCH or reproducible-build timestamp rewriting here. Never re-push an existing dev-N.
 #
-# AWS access: GitHub OIDC into the role infra created (nisabu/goyslop-infra); the role trusts only
-# repo:adapsss/goyslop:ref:refs/heads/main. Every environment-specific value is in the env block below.
+# AWS access: GitHub OIDC into the role infra created (nisabu/TaxjarProject-infra); the role trusts only
+# repo:adapsss/TaxjarProject:ref:refs/heads/main. Every environment-specific value is in the env block below.
 name: images
 
 on:

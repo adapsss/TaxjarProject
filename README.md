@@ -114,7 +114,7 @@ Do not use `Flag`, `Illustration` or other `@wise/art` components: they load ima
 
 ## Deployment
 
-Production runs on AWS EKS, managed in the infra repo `nisabu/goyslop-infra`. After CI passes on a push to `main`, `.github/workflows/images.yml` builds both images and pushes them to ECR as `dev-<run number>`; Argo CD picks up the new tag, runs the migrations and rolls out. The app repo only builds and pushes images. Flow, rollback and URL: [docs/deploy.md](docs/deploy.md). `compose.yaml` stays for local development.
+Production runs on AWS EKS, managed in the infra repo `nisabu/TaxjarProject-infra`. After CI passes on a push to `main`, `.github/workflows/images.yml` builds both images and pushes them to ECR as `dev-<run number>`; Argo CD picks up the new tag, runs the migrations and rolls out. The app repo only builds and pushes images. Flow, rollback and URL: [docs/deploy.md](docs/deploy.md). `compose.yaml` stays for local development.
 
 ## The API contract
 
