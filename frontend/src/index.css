@@ -201,6 +201,7 @@ button {
   background: var(--color-canvas);
   /* Height of the status bar and Dynamic Island. Content scrolls under it, so the screen is used edge to edge. */
   --status-h: 50px;
+  --tab-bottom: 22px;
 }
 
 .status-bar {
@@ -254,7 +255,7 @@ button {
 .tab-bar {
   position: absolute;
   right: 12px;
-  bottom: 22px;
+  bottom: var(--tab-bottom);
   left: 12px;
   z-index: 20;
   display: flex;
@@ -459,10 +460,13 @@ button {
     background: var(--color-canvas);
   }
 
+  /* Pinned to the real screen edges, whatever the browser says 100vh is: in a Home Screen app on iOS
+     the vh units can come out shorter than the screen and leave a stripe at the bottom. */
   .device {
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    position: fixed;
+    inset: 0;
+    width: auto;
+    height: auto;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -516,8 +520,9 @@ button {
     }
   }
 
-  .tab-bar {
-    bottom: calc(10px + env(safe-area-inset-bottom));
+  /* The bar floats just above the home indicator, partly over its safe area, like the Wise app's. */
+  .device-screen {
+    --tab-bottom: calc(env(safe-area-inset-bottom, 0px) * 0.5 + 6px);
   }
 
   .device-caption {

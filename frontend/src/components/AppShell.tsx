@@ -38,7 +38,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [screenPath])
 
   // The tab bar floats over the content: the screen keeps clear of it, and toasts sit just above it.
-  const screenStyle = { '--tab-offset': tabs ? '100px' : '12px', '--tab-clear': tabs ? '104px' : '0px' } as CSSProperties
+  const screenStyle = {
+    '--tab-offset': tabs ? 'calc(var(--tab-bottom) + 78px)' : '12px',
+    '--tab-clear': tabs ? 'calc(var(--tab-bottom) + 86px)' : '0px',
+  } as CSSProperties
 
   return (
     <DemoSheetContext.Provider value={() => setDemoOpen(true)}>
