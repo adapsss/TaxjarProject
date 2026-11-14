@@ -487,6 +487,14 @@ button {
     padding-top: 10px;
   }
 
+  /* Full-screen Home Screen app: never less than the Dynamic Island's height at the top, even if the phone
+     reports no safe area, so nothing is ever drawn under the island. */
+  @media (display-mode: standalone) {
+    .status-bar {
+      height: max(env(safe-area-inset-top, 0px), 54px);
+    }
+  }
+
   /* Home Screen app on a light theme: the status bar's clock and battery are drawn in white over the app,
      so the strip behind them is brand green rather than white. */
   @media (display-mode: standalone) and (prefers-color-scheme: light) {
