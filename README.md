@@ -27,7 +27,7 @@ Everything lives in Postgres: the app state, all tax data (80 countries, their r
 - **Every change to tax data is recorded** in `tax_change_log` (old row, new row, time, database user) by a trigger. Constraints reject values the engine can't handle, such as a rate above 100%.
 - **Edits show up without a restart**: the backend re-reads tax data every `TAX_DATA_REFRESH_SECONDS` (60 by default).
 - **Schema changes** are Alembic migrations in `backend/migrations/` (`alembic upgrade head`).
-- The JSON files are what fills a new database (a fresh local stack, a new AWS database). skurbro's build in `backend/tools/tax_data/` still produces and checks them.
+- **The JSON files are bootstrap-only.** `backend/app/engine/countries.json`, `backend/app/engine/legal_forms.json`, `demo/seed.json` and `demo/scenarios.json` are read by nothing at runtime. They exist to fill an empty database: a fresh local stack, CI and the test suite, a new AWS environment. On a filled database the import skips them without opening them, so they can be missing there. Changing them does not change a running database; to push a rebuilt file into one, use `--replace`, which overwrites the edits made there. skurbro's build in `backend/tools/tax_data/` produces the two engine files from the researched sources and checks them.
 
 ## Prerequisites
 

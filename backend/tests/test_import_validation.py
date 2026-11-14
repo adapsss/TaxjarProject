@@ -149,3 +149,23 @@ def test_the_command_exits_non_zero_with_the_file_named(monkeypatch, capsys, pg_
     assert data_load.main([]) == 1
     err = capsys.readouterr().err
     assert "seed.json: the file is empty" in err and "nothing was written" in err
+
+
+def _missing_files(tmp_path):
+    return {dataset: tuple(tmp_path / f"gone-{p.name}" for p in paths) for dataset, paths in REAL.items()}
+
+
+def test_a_filled_database_needs_no_files_at_all(session, tmp_path):
+    # What every rollout on the live database does: the import files may be missing entirely.
+    assert data_load.import_all(session, files=_missing_files(tmp_path)) == {
+        "tax": "already present", "demo_seed": "already present", "demo_scenarios": "already present",
+    }
+
+
+def test_an_empty_database_without_files_fails_with_a_clear_message(session, tmp_path):
+    _empty_database(session)
+    with pytest.raises(data_load.ImportProblem) as problem:
+        data_load.import_all(session, files=_missing_files(tmp_path))
+    assert "gone-countries.json" in str(problem.value) and "cannot be read" in str(problem.value)
+    session.rollback()
+    assert tuple(_counts(session)) == (0, 0, 0, 0, 0)
