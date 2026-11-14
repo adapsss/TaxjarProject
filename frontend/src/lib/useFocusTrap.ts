@@ -11,7 +11,9 @@ export function useFocusTrap(ref: RefObject<HTMLElement | null>) {
     const panel = ref.current
     if (!panel) return
     const before = document.activeElement as HTMLElement | null
-    panel.focus()
+    // preventScroll: the panel starts off-screen (it slides up), and focusing it would otherwise scroll
+    // the screen's overflow:hidden container to bring it into view, throwing the whole UI out of place.
+    panel.focus({ preventScroll: true })
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return
       const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => el.offsetParent !== null)
@@ -29,7 +31,7 @@ export function useFocusTrap(ref: RefObject<HTMLElement | null>) {
     panel.addEventListener('keydown', onKey)
     return () => {
       panel.removeEventListener('keydown', onKey)
-      before?.focus?.()
+      before?.focus?.({ preventScroll: true })
     }
   }, [ref])
 }
