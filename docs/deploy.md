@@ -22,7 +22,7 @@ pg_dump --format=custom --file=taxjar-$(date +%F).dump "$DATABASE_URL_FOR_PSQL" 
 pg_restore --clean --if-exists --dbname="$DATABASE_URL_FOR_PSQL" taxjar-YYYY-MM-DD.dump
 ```
 
-**Load.** The backend works on at most 16 API requests at once (12 reads, 4 writes; `backend/app/limits.py`) and uses up to 22 database connections per process; further requests wait their turn instead of failing. The event stream and the health check are not counted.
+**Load.** The backend works on at most 16 API requests at once (12 reads, 4 writes; `backend/app/limits.py`) and uses up to 22 database connections per process; further requests wait their turn instead of failing. A write's body is read first and must arrive within 10 s and be at most 1 MB (else 408 or 413), so a stalled upload holds no slot. The event stream and the health check are not counted.
 
 **One backend replica.** Live updates (`GET /api/events`) come from an event bus inside the backend process. With two or more replicas a browser only hears about changes made through the replica its stream is connected to, until its next refresh. Money stays correct with any number of replicas (every write takes the account lock in Postgres); only the live updates need a single replica until the bus moves to a shared channel such as Postgres `LISTEN/NOTIFY`.
 

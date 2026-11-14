@@ -260,11 +260,14 @@ def test_writes_cannot_take_the_slots_reads_need():
 
         limited = InFlightLimitMiddleware(app, read_slots=2, write_slots=1)
 
+        async def empty_body():
+            return {"type": "http.request", "body": b"", "more_body": False}
+
         def call(method, path):
-            return asyncio.ensure_future(limited({"type": "http", "method": method, "path": path}, None, None))
+            return asyncio.ensure_future(limited({"type": "http", "method": method, "path": path}, empty_body, None))
 
         writes = [call("POST", "/api/tax/pay") for _ in range(3)]
-        await asyncio.sleep(0)
+        await asyncio.sleep(0.01)
         assert served == [("POST", "/api/tax/pay")]  # one write admitted, two wait
         await asyncio.gather(call("GET", "/api/account"), call("GET", "/api/events"), call("GET", "/api/healthz"))
         assert len(served) == 4  # reads, the stream and the health check are not behind the waiting writes
@@ -273,3 +276,58 @@ def test_writes_cannot_take_the_slots_reads_need():
         assert len(served) == 6
 
     asyncio.run(scenario())
+
+
+def test_a_write_whose_body_never_arrives_holds_no_slot():
+    """Four clients that send headers and go quiet used to take every write slot."""
+    from app.limits import InFlightLimitMiddleware
+
+    async def scenario():
+        served, answers = [], []
+
+        async def app(scope, receive, send):
+            served.append((await receive())["body"])
+
+        async def never():
+            await asyncio.Event().wait()
+
+        async def whole():
+            return {"type": "http.request", "body": b'{"ok": true}', "more_body": False}
+
+        async def send(message):
+            if message["type"] == "http.response.start":
+                answers.append(message["status"])
+
+        limited = InFlightLimitMiddleware(app, write_slots=1, body_seconds=0.2)
+        scope = {"type": "http", "method": "POST", "path": "/api/tax/pay"}
+        stuck = [asyncio.ensure_future(limited(scope, never, send)) for _ in range(4)]
+        await asyncio.sleep(0.01)
+        await asyncio.wait_for(limited(scope, whole, send), timeout=0.1)  # served at once, past the stuck ones
+        assert served == [b'{"ok": true}']
+        await asyncio.gather(*stuck)
+        assert answers == [408] * 4
+
+    asyncio.run(scenario())
+
+
+def test_an_oversized_body_is_refused_before_it_is_buffered():
+    from app import limits
+
+    async def scenario():
+        answers = []
+        chunks = iter([{"type": "http.request", "body": b"x" * 600_000, "more_body": True}] * 3)
+
+        async def receive():
+            return next(chunks)
+
+        async def send(message):
+            if message["type"] == "http.response.start":
+                answers.append(message["status"])
+
+        async def app(scope, receive, send):
+            raise AssertionError("must not reach the app")
+
+        await limits.InFlightLimitMiddleware(app)({"type": "http", "method": "POST", "path": "/api/tax/pay"}, receive, send)
+        return answers
+
+    assert asyncio.run(scenario()) == [413]

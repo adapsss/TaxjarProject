@@ -107,9 +107,30 @@ it('does not let a refresh that started before an event take that event’s paym
 
   gates[0]() // the first refresh answers: it read the backend before the second event (1 payment)
   await settle()
-  expect(screen.getByText('ready:3')).toBeTruthy() // dropped: the second payment stays on screen
+  // Its list is shown, with the second event's payment kept on top; the first event's payment is
+  // not kept, because that refresh started after it and so speaks for it.
+  expect(screen.getByText('ready:2')).toBeTruthy()
 
-  gates[1]() // the follow-up refresh, started after the second event, is the one that counts
+  gates[1]() // the follow-up refresh started after the second event, so its list is the whole truth
   await settle()
   expect(screen.getByText('ready:1')).toBeTruthy()
+})
+
+it('shows the first load even when the event stream opens before it has answered', async () => {
+  const calls = stubApi(true)
+  const emit = stubEvents()
+  const realFetch = globalThis.fetch
+  let lists = 0
+  vi.stubGlobal('fetch', async (url: string, init?: RequestInit) => {
+    if (url === '/api/transactions') {
+      lists += 1
+      if (lists === 1) await new Promise((r) => setTimeout(r, 60)) // the first load is slow
+      else return new Response('{}', { status: 503 }) // and every later refresh fails
+    }
+    return realFetch(url, init)
+  })
+  renderStore()
+  act(() => emit('open')) // the stream connects while the first load is still on its way
+  expect(await screen.findByText('ready:1')).toBeTruthy() // not "ready" with nothing in it
+  expect(listLoads(calls)).toBeGreaterThan(0)
 })
