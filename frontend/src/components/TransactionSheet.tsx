@@ -2,7 +2,8 @@ import { useCallback, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import type { Transaction } from '../api/client'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
-import { regimeRule } from '../lib/taxjar'
+import { showsBreakdown } from '../lib/breakdown'
+import { isCustomRate, regimeRule } from '../lib/taxjar'
 import { tagFor } from '../lib/why'
 import { useStore } from '../state/store'
 import { TaxBreakdown } from './TaxBreakdown'
@@ -60,6 +61,7 @@ function Body({ tx }: { tx: Transaction }) {
   const label = tx.classification.label
   const sure = Math.round(tx.classification.confidence * 100)
   const rule = regimeRule(countries, profile.country, profile.regime)
+  const showBreakdown = !!r && showsBreakdown(tx, isCustomRate(countries, profile.country, profile.regime, r.rate))
   const run = (p: Promise<unknown>) => {
     setError(null)
     p.catch((e: Error) => setError(e.message))
@@ -159,7 +161,7 @@ function Body({ tx }: { tx: Transaction }) {
         ))}
       </ol>
 
-      {r && r.status !== 'undone' && (
+      {r && r.status !== 'undone' && showBreakdown && (
         <div className="mt-6">
           <TaxBreakdown tx={tx} rule={rule} />
         </div>

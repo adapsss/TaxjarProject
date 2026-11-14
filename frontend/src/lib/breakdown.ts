@@ -141,6 +141,15 @@ export function totalLines(parts: { id: string; name: string; amount: number }[]
   return ruleLines(rule)
 }
 
+/**
+ * Whether a payment's tax breakdown is shown: yes when the backend sent an exact split (it only does for the
+ * regime's own rates), otherwise only when the rate is the regime's suggested one. A custom rate shows none.
+ */
+export function showsBreakdown(tx: Transaction, custom: boolean): boolean {
+  const parts = tx.reservation?.breakdown
+  return !!(parts && parts.length > 0) || !custom
+}
+
 /** One line of text for a toast: amounts when exact, the names and "on your return" when not. */
 export function linesSummary(lines: TaxLine[], currency: string): string {
   if (lines.length === 0) return ''

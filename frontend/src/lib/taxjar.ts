@@ -90,5 +90,16 @@ export function countryBadge(code: string): string {
 }
 
 /** The regime's taxes in words, e.g. "10% income tax + 8% social contributions"; "" when unknown. */
+/**
+ * True when the rate is not the one the chosen regime suggests, i.e. the person set their own.
+ * The law's split into taxes was worked out for the regime's own rate, so a custom rate gets no breakdown.
+ * Unknown while the countries are still loading: nothing is hidden yet.
+ */
+export const isCustomRate = (countries: Country[], country: string, regime: string, rate: number): boolean => {
+  if (countries.length === 0) return false
+  const found = countries.find((c) => c.code === country)?.regimes.find((r) => r.id === regime)
+  return !found || found.defaultRate !== rate
+}
+
 export const regimeRule = (countries: Country[], country: string, regime: string): string =>
   countries.find((c) => c.code === country)?.regimes.find((r) => r.id === regime)?.breakdownRule ?? ''

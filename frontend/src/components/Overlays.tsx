@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { Transaction } from '../api/client'
 import { useStore } from '../state/store'
-import { linesSummary, paymentLines } from '../lib/breakdown'
+import { linesSummary, paymentLines, showsBreakdown } from '../lib/breakdown'
 import { formatMoney } from '../lib/money'
-import { regimeRule } from '../lib/taxjar'
+import { isCustomRate, regimeRule } from '../lib/taxjar'
 import { whyLine } from '../lib/why'
 import {
   Button,
@@ -55,7 +55,9 @@ function ToastCard({ tx }: { tx: Transaction }) {
               <p className="text-[15px] leading-snug font-bold">
                 <span className="money text-lime">{formatMoney(r.reservedAmount, r.taxCurrency)}</span> set aside for taxes
               </p>
-              <p className="money mt-0.5 text-[13px] font-semibold text-white/80">{linesSummary(paymentLines(tx, rule), r.taxCurrency)}</p>
+              {showsBreakdown(tx, isCustomRate(countries, profile.country, profile.regime, r.rate)) && (
+                <p className="money mt-0.5 text-[13px] font-semibold text-white/80">{linesSummary(paymentLines(tx, rule), r.taxCurrency)}</p>
+              )}
             </div>
             <CircleButton
               label="Dismiss"

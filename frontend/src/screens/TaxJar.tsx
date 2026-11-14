@@ -5,7 +5,7 @@ import { TaxLines } from '../components/TaxLines'
 import { totalLines } from '../lib/breakdown'
 import { StatusPill } from '../components/Overlays'
 import { LoadError } from '../components/StateViews'
-import { countryName } from '../lib/taxjar'
+import { countryName, isCustomRate } from '../lib/taxjar'
 import {
   Avatar,
   Button,
@@ -36,7 +36,9 @@ export default function TaxJar() {
   const download = () => Object.assign(document.createElement('a'), { href: EXPORT_CSV_URL, download: 'tax-jar.csv' }).click()
   const active = summary.reservations.filter((t) => t.reservation!.status !== 'undone')
   const empty = summary.reservations.length === 0
-  const taxLines = totalLines(summary.breakdown, summary.breakdownRule)
+  // A custom rate has no law-defined split: show none, unless the backend sent an exact one.
+  const custom = isCustomRate(countries, p.country, p.regime, p.rate)
+  const taxLines = custom && !summary.breakdown?.length ? [] : totalLines(summary.breakdown, summary.breakdownRule)
   const deadline = summary.nextDeadline
 
   return (

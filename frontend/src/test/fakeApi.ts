@@ -29,11 +29,12 @@ export const john = {
 const summary = { taxCurrency: 'EUR', totalReserved: 27600, totalPaid: 0, byMonth: [], estimatedDue: 27600, nextDeadline: '2026-12-10', disclaimer: '', breakdown: null, breakdownRule: '' }
 const RULE = '20% of each payment: 8% income tax, 12% social tax'
 
-export function stubApi(enabled: boolean, transactions: unknown[] = [acme]) {
+/** `rate` is the profile's tax rate in basis points: 2000 is the regime's own, anything else is a custom rate. */
+export function stubApi(enabled: boolean, transactions: unknown[] = [acme], rate = 2000, where = { country: 'EE', regime: 'entrepreneur_account' }) {
   const routes: Record<string, unknown> = {
     '/api/account': account,
     '/api/transactions': enabled ? transactions : transactions.map((t) => ({ ...(t as object), reservation: null, reservationId: null })),
-    '/api/tax-profile': { country: 'EE', regime: 'entrepreneur_account', rate: 2000, taxCurrency: 'EUR', enabled },
+    '/api/tax-profile': { ...where, rate, taxCurrency: 'EUR', enabled },
     '/api/tax/summary': enabled ? summary : { ...summary, totalReserved: 0, estimatedDue: 0 },
     '/api/tax/countries': [
       { code: 'EE', name: 'Estonia', currency: 'EUR', regimes: [{ id: 'entrepreneur_account', name: 'Entrepreneur account', defaultRate: 2000, hint: '', breakdownRule: RULE }] },

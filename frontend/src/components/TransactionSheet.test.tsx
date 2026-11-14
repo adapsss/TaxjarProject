@@ -75,7 +75,7 @@ it('says so when the payment does not exist', async () => {
 
 it('looks the same in a country with no exact split: same rows, "On your return" for the amounts', async () => {
   const poland = { ...acme, reservation: { ...acme.reservation, rate: 3320, breakdown: null, sourceAmount: 49800, reservedAmount: 45816 } }
-  stubApi(true, [poland])
+  stubApi(true, [poland], 3320, { country: 'PL', regime: 'scale' })
   open('/transactions/t1')
   fireEvent.click(await screen.findByRole('button', { name: /worked out\?/ }))
   const rows = within(screen.getByRole('table')).getAllByRole('row').map((r) => r.textContent)
@@ -140,4 +140,27 @@ it('offers no way to mark income while the Tax Jar is off, or on a payment alrea
   const taxed = await screen.findByRole('dialog', { name: 'Payment from Acme Inc.' })
   await within(taxed).findByText('How Tax Jar handled it')
   expect(within(taxed).queryByRole('button', { name: /Mark as work income/ })).toBeNull()
+})
+
+it('a custom tax percentage shows no tax breakdown, where the law defines none for it', async () => {
+  const custom = { ...acme, reservation: { ...acme.reservation, rate: 2500, breakdown: null, sourceAmount: 37500, reservedAmount: 34500 } }
+  stubApi(true, [custom], 2500)
+  open('/transactions/t1')
+  const sheet = await screen.findByRole('dialog', { name: 'Payment from Acme Inc.' })
+  await within(sheet).findByText('In your Tax Jar')
+  expect(within(sheet).queryByRole('button', { name: /worked out\?/ })).toBeNull()
+})
+
+it('still shows the exact split for a rate the regime itself defines, such as the pension option', async () => {
+  const pension = { ...acme, reservation: { ...acme.reservation, rate: 2200, breakdown: [{ id: 'income_tax', name: 'Income tax', amount: 11040 }, { id: 'social_tax', name: 'Social tax', amount: 16560 }, { id: 'pension', name: 'Funded pension', amount: 2760 }] } }
+  stubApi(true, [pension], 2200)
+  open('/transactions/t1')
+  expect(await screen.findByRole('button', { name: /worked out\?/ })).toBeTruthy()
+})
+
+it('a non-exact regime at its own suggested rate still shows its rule lines', async () => {
+  const poland = { ...acme, reservation: { ...acme.reservation, rate: 3320, breakdown: null } }
+  stubApi(true, [poland], 3320, { country: 'PL', regime: 'scale' })
+  open('/transactions/t1')
+  expect(await screen.findByRole('button', { name: /worked out\?/ })).toBeTruthy()
 })

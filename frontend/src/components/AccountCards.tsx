@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { formatDate, formatMoney, formatRate } from '../lib/money'
-import { regimeName, regimeRule } from '../lib/taxjar'
+import { isCustomRate, regimeName, regimeRule } from '../lib/taxjar'
 import { useStore } from '../state/store'
 import { ArrowIcon, Flag, JarIcon, Skeleton } from './ui'
 
@@ -32,7 +32,9 @@ export function AccountCards({ loading, className = '' }: { loading?: boolean; c
     )
   }
 
-  const rule = regimeRule(countries, profile.country, profile.regime)
+  const rule = isCustomRate(countries, profile.country, profile.regime, profile.rate)
+    ? ''
+    : regimeRule(countries, profile.country, profile.regime)
   return (
     <div className={className}>
       <div ref={track} onScroll={onScroll} className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5">
