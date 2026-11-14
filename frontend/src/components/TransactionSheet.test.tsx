@@ -113,3 +113,31 @@ it('a payment the user marked personal says so', async () => {
   expect(await within(sheet).findByText('Personal · no tax taken')).toBeTruthy()
   expect(within(sheet).getByText('You decided this')).toBeTruthy()
 })
+
+it('a personal payment can be marked as work income, which sets its tax aside', async () => {
+  const mari = { ...john, id: 't3', counterparty: { name: 'Mari Tamm', kind: 'person', isKnownClient: false }, amount: 2300, classification: { label: 'personal', confidence: 0.9, reasons: ['sent by a person'] } }
+  const calls = stubApi(true, [acme, mari])
+  open('/transactions/t3')
+  const sheet = await screen.findByRole('dialog', { name: 'Payment from Mari Tamm' })
+  expect(within(sheet).queryByRole('button', { name: 'Mark as personal instead' })).toBeNull()
+  expect(within(sheet).getByText(/Tax: €4\.60 \(20%\) goes from your EUR balance to your Tax Jar\./)).toBeTruthy()
+
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Mark as work income instead' }))
+  await vi.waitFor(() => expect(calls.some((c) => c.url === '/api/transactions/t3/mark-income' && c.method === 'POST')).toBe(true))
+})
+
+it('offers no way to mark income while the Tax Jar is off, or on a payment already taxed', async () => {
+  const mari = { ...john, id: 't3', counterparty: { name: 'Mari Tamm', kind: 'person', isKnownClient: false }, classification: { label: 'personal', confidence: 0.9, reasons: [] } }
+  stubApi(false, [mari])
+  open('/transactions/t3')
+  const off = await screen.findByRole('dialog', { name: 'Payment from Mari Tamm' })
+  await within(off).findByText('How Tax Jar handled it')
+  expect(within(off).queryByRole('button', { name: /Mark as work income/ })).toBeNull()
+  cleanup()
+
+  stubApi(true, [acme])
+  open('/transactions/t1')
+  const taxed = await screen.findByRole('dialog', { name: 'Payment from Acme Inc.' })
+  await within(taxed).findByText('How Tax Jar handled it')
+  expect(within(taxed).queryByRole('button', { name: /Mark as work income/ })).toBeNull()
+})

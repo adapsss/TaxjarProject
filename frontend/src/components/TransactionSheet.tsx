@@ -52,7 +52,7 @@ export function TransactionSheet() {
 }
 
 function Body({ tx }: { tx: Transaction }) {
-  const { profile, countries, undo, answer, busy } = useStore()
+  const { profile, countries, undo, markIncome, answer, busy } = useStore()
   const [error, setError] = useState<string | null>(null)
   const r = tx.reservation
   const tag = tagFor(tx, profile.enabled)
@@ -177,6 +177,16 @@ function Body({ tx }: { tx: Transaction }) {
             disabled={!!busy}
             onChoose={(yes) => run(answer(tx.id, yes))}
           />
+        )}
+        {tx.direction === 'in' && label === 'personal' && profile.enabled && (
+          <>
+            <Button size="lg" className="w-full" loading={busy === `income:${tx.id}`} disabled={!!busy} onClick={() => run(markIncome(tx.id))}>
+              Mark as work income instead
+            </Button>
+            <p className="text-center text-[13px] leading-relaxed text-muted">
+              Tax: {formatMoney(Math.round((tx.amount * profile.rate) / 10_000), tx.currency, { cents: true })} ({formatRate(profile.rate)}) goes from your {tx.currency} balance to your Tax Jar.
+            </p>
+          </>
         )}
         {r?.status === 'reserved' && (
           <>

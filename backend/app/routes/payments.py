@@ -46,6 +46,17 @@ async def answer_transaction(
     return db.to_transaction(session, row)
 
 
+@router.post("/transactions/{id}/mark-income", response_model=s.Transaction)
+async def mark_income(
+    id: str,
+    session: Session = Depends(db.get_session),
+    bus: EventBus = Depends(get_bus),
+):
+    """The reverse of undo: count this payment as work income and set its tax aside."""
+    row = pipeline.mark_income(session, bus, id)
+    return db.to_transaction(session, row)
+
+
 @router.post("/transactions/{id}/undo", response_model=s.Transaction)
 async def undo_transaction(
     id: str,

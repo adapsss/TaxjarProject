@@ -9,6 +9,7 @@ CONTRACT_PATHS = {
     "/api/simulate/incoming": {"post"},
     "/api/transactions/{id}/answer": {"post"},
     "/api/transactions/{id}/undo": {"post"},
+    "/api/transactions/{id}/mark-income": {"post"},
     "/api/tax/summary": {"get"},
     "/api/tax/pay": {"post"},
     "/api/tax/export.csv": {"get"},

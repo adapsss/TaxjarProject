@@ -82,6 +82,8 @@ export const simulateIncoming = (payment: SimulateIncoming) =>
 export const answerTransaction = (id: string, isIncome: boolean) =>
   request<Transaction>('POST', `${tx(id)}/answer`, { isIncome })
 export const undoTransaction = (id: string) => request<Transaction>('POST', `${tx(id)}/undo`)
+/** The reverse of undo: count a personal payment as work income and set its tax aside. */
+export const markIncome = (id: string) => request<Transaction>('POST', `${tx(id)}/mark-income`)
 export const getTaxSummary = () => request<TaxSummary>('GET', '/tax/summary')
 export const payTax = () => request<PayResult>('POST', '/tax/pay')
 /** Income that arrived before the Tax Jar, and the tax it would set aside now (defaults to this calendar year). */

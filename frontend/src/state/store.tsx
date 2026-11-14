@@ -63,6 +63,8 @@ interface Store extends Data {
   simulate: (payment: SimulateIncoming, label?: string) => Promise<Transaction>
   answer: (txId: string, isIncome: boolean) => Promise<void>
   undo: (txId: string) => Promise<void>
+  /** Count a payment labelled personal as work income, and set its tax aside. */
+  markIncome: (txId: string) => Promise<void>
   pay: () => Promise<number>
   saveProfile: (p: TaxProfile) => Promise<void>
   setPreset: (p: PresetChoice) => Promise<void>
@@ -264,6 +266,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [call],
   )
 
+  const markIncome = useCallback(
+    async (txId: string) => {
+      // Same as answering "yes": the "reservation.created" event shows the usual toast, with its Undo.
+      await call(`income:${txId}`, () => api.markIncome(txId))
+    },
+    [call],
+  )
+
   const pay = useCallback(async () => (await call('pay', api.payTax)).paidAmount, [call])
 
   const catchUp = useCallback(async () => {
@@ -367,6 +377,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       simulate,
       answer,
       undo,
+      markIncome,
       pay,
       saveProfile,
       setPreset,
@@ -376,7 +387,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       openQuestion,
       setFailNext,
     }),
-    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion, catchUpOffer, catchUpDismissed, notice, connected, catchUp, dismissCatchUp, dismissNotice],
+    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, markIncome, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion, catchUpOffer, catchUpDismissed, notice, connected, catchUp, dismissCatchUp, dismissNotice],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

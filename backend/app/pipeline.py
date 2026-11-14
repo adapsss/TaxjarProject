@@ -11,13 +11,15 @@ from sqlmodel import Session, select
 
 from app import db, fx
 from app.engine import classifier, owner_context, payer_history
+from app.engine.tax_rules import compute_tax
 from app.errors import ApiError
 from app.events import EventBus
-from app.models import BalanceRow, CounterpartyRow, TransactionRow
+from app.models import BalanceRow, CounterpartyRow, ReservationRow, TransactionRow
 from app.reservations import get_transaction, reserve
 
 REASON_CONFIRMED = "you confirmed this was for work"
 REASON_DENIED = "you said this wasn't for work"
+REASON_MARKED_INCOME = "you said this was for work"
 MAX_AMOUNT = 10**12  # ten billion in major units, far beyond any real payment
 
 
@@ -158,6 +160,42 @@ def answer(session: Session, bus: EventBus, tx_id: str, is_income: bool) -> Tran
         tx.reasons_json = json.dumps([REASON_DENIED])
         counterparty.status = "personal"
     session.add_all([tx, counterparty])
+    session.commit()
+
+    if reservation is not None:
+        bus.publish("reservation.created", db.transaction_event(session, tx))
+    return tx
+
+
+def mark_income(session: Session, bus: EventBus, tx_id: str) -> TransactionRow:
+    """Count a payment as work income after the fact, whatever it was labelled before, and set its tax aside.
+
+    The reverse of `reservations.undo`: it works on a payment labelled personal (by the engine, by the
+    user's answer, or by an undo) and brings an undone reservation back. It changes this one payment only,
+    not what we remember about the payer. A payment that is already income and taxed is left alone.
+    Fails without changing anything when the account no longer holds the money to set aside.
+    """
+    db.lock_account(session)
+    tx = get_transaction(session, tx_id)
+    if tx.direction != "in":
+        raise ApiError(409, "not_incoming", "Only a payment you received can be work income.")
+    profile = db.get_profile(session)
+    if not profile.enabled:
+        raise ApiError(409, "tax_profile_disabled", "Set up the Tax Jar first.")
+    if tx.label == "unknown":
+        return answer(session, bus, tx_id, True)  # an open question: the same as answering yes
+
+    existing = session.exec(select(ReservationRow).where(ReservationRow.transaction_id == tx.id)).first()
+    if tx.label == "income" and existing is not None and existing.status != "undone":
+        return tx
+
+    reservation = reserve(session, tx, profile)
+    if reservation is None and compute_tax(tx.amount, profile.rate_bp) > 0:
+        raise ApiError(409, "insufficient_balance", "There isn't enough left in that account to set the tax aside.")
+    tx.label = "income"
+    tx.confidence = 0.99
+    tx.reasons_json = json.dumps([REASON_MARKED_INCOME])
+    session.add(tx)
     session.commit()
 
     if reservation is not None:

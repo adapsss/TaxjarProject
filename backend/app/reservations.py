@@ -57,9 +57,11 @@ def reserve(session: Session, tx: TransactionRow, profile: ProfileRow) -> Option
     """Move tax from the balance the payment arrived in to the Tax Jar. Does not commit.
 
     Returns the existing reservation if there is one, None if there is nothing to reserve.
+    An undone reservation is brought back to life with today's rate and exchange rate: the row stays
+    (one per transaction), only its numbers and status change.
     """
     existing = session.exec(select(ReservationRow).where(ReservationRow.transaction_id == tx.id)).first()
-    if existing is not None:
+    if existing is not None and existing.status != "undone":
         return existing
 
     balance = session.get(BalanceRow, tx.currency, with_for_update=True, populate_existing=True)
@@ -73,8 +75,7 @@ def reserve(session: Session, tx: TransactionRow, profile: ProfileRow) -> Option
     balance.amount -= source
     jar.balance += reserved
 
-    reservation = ReservationRow(
-        transaction_id=tx.id,
+    fields = dict(
         source_amount=source,
         source_currency=tx.currency,
         rate_bp=profile.rate_bp,
@@ -85,6 +86,12 @@ def reserve(session: Session, tx: TransactionRow, profile: ProfileRow) -> Option
         country=profile.country,
         regime=profile.regime,
     )
+    if existing is not None:
+        reservation = existing
+        for name, value in fields.items():
+            setattr(reservation, name, value)
+    else:
+        reservation = ReservationRow(transaction_id=tx.id, **fields)
     tx.reservation_id = reservation.id
     session.add_all([balance, jar, reservation, tx])
     return reservation
