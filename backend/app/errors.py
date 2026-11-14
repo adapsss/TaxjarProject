@@ -58,7 +58,9 @@ def register_error_handlers(app: FastAPI) -> None:
         code = _HTTP_CODES.get(exc.status_code, "http_error")
         return error_response(exc.status_code, code, str(exc.detail), headers=getattr(exc, "headers", None))
 
+    # A fallback: app/request_log.py answers crashes first (with the request id) when it is installed.
     @app.exception_handler(Exception)
     async def handle_crash(request: Request, exc: Exception) -> JSONResponse:
-        logger.exception("Unhandled error on %s %s", request.method, request.url.path)
+        if not getattr(exc, "logged_with_request_id", False):
+            logger.exception("Unhandled error on %s %s", request.method, request.url.path)
         return error_response(500, "internal_error", "Something went wrong on our side.")

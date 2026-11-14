@@ -37,7 +37,9 @@ def get_transaction(session: Session, tx_id: str) -> TransactionRow:
     Rows are always locked in the same order (transaction, balance, Tax Jar), so concurrent requests
     wait for each other instead of deadlocking.
     """
-    tx = session.get(TransactionRow, tx_id, with_for_update=True, populate_existing=True)
+    # Ids are UUIDs; text that could not be one (a NUL byte fails in the database) is simply not found.
+    plausible = len(tx_id) <= 64 and tx_id.isascii() and tx_id.isprintable()
+    tx = session.get(TransactionRow, tx_id, with_for_update=True, populate_existing=True) if plausible else None
     if tx is None:
         raise ApiError(404, "transaction_not_found", f"There is no transaction {tx_id}.")
     return tx

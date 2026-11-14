@@ -2,6 +2,7 @@
 
 import csv
 import io
+import unicodedata
 from collections import OrderedDict
 from datetime import date
 from decimal import Decimal
@@ -88,10 +89,13 @@ def _total_breakdown(reserved: List[ReservationRow], profile, regime) -> Optiona
 def spreadsheet_text(value: str) -> str:
     """A cell starting with =, +, - or @ would run as a formula when the CSV is opened in a spreadsheet.
 
-    Spreadsheets skip leading whitespace before deciding, and a leading tab or carriage return is
-    itself a known way in, so those count too.
+    Spreadsheets skip leading whitespace (and may skip invisible characters) before deciding, and a
+    leading tab or carriage return is itself a known way in, so those count too.
     """
-    risky = value[:1] in ("\t", "\r", "\n") or value.lstrip()[:1] in ("=", "+", "-", "@")
+    start = 0  # past leading whitespace and invisible format characters (a byte-order mark, zero-width space)
+    while start < len(value) and (value[start].isspace() or unicodedata.category(value[start]) == "Cf"):
+        start += 1
+    risky = value[:1] in ("\t", "\r", "\n") or value[start : start + 1] in ("=", "+", "-", "@")
     return "'" + value if risky else value
 
 

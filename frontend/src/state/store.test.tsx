@@ -80,3 +80,36 @@ it('PayTax still draws when money is held but no reserved payment is loaded', as
   expect(await screen.findByText('Everything set aside so far')).toBeTruthy()
   expect(screen.getByRole('button', { name: /Confirm and pay/ })).toBeTruthy()
 })
+
+it('does not let a refresh that started before an event take that event’s payment off the screen', async () => {
+  stubApi(true)
+  const emit = stubEvents()
+  renderStore()
+  await screen.findByText('ready:1')
+
+  // Hold back the next two list answers, to decide when each refresh comes back.
+  const realFetch = globalThis.fetch
+  const gates: (() => void)[] = []
+  let toHold = 2
+  vi.stubGlobal('fetch', async (url: string, init?: RequestInit) => {
+    if (url === '/api/transactions' && toHold > 0) {
+      toHold -= 1
+      await new Promise<void>((open) => gates.push(open))
+    }
+    return realFetch(url, init)
+  })
+  const settle = () => act(() => new Promise<void>((r) => setTimeout(r, 30)))
+
+  act(() => emit('transaction.created', { transaction: { ...acme, id: 'first' } })) // starts the first refresh
+  await settle()
+  act(() => emit('reservation.created', { transaction: { ...acme, id: 'second' } })) // arrives while it runs
+  expect(screen.getByText('ready:3')).toBeTruthy()
+
+  gates[0]() // the first refresh answers: it read the backend before the second event (1 payment)
+  await settle()
+  expect(screen.getByText('ready:3')).toBeTruthy() // dropped: the second payment stays on screen
+
+  gates[1]() // the follow-up refresh, started after the second event, is the one that counts
+  await settle()
+  expect(screen.getByText('ready:1')).toBeTruthy()
+})

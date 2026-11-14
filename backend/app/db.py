@@ -14,6 +14,7 @@ from sqlalchemy import Connection, Engine, text
 from sqlmodel import Session, create_engine, delete, select
 
 from app import schemas, settings
+from app.limits import POOL_CONNECTIONS
 from app.engine.breakdown import split_tax
 from app.engine.classifier import infer_kind, normalize_name
 from app.engine.tax_rules import get_regime
@@ -33,18 +34,17 @@ _TABLES_IN_DELETE_ORDER = (ReservationRow, TransactionRow, CounterpartyRow, JarR
 
 _engine: Optional[Engine] = None
 
-# Route handlers run in worker threads, each holding one connection for the request.
-WORKER_THREADS = 20
+# How many connections the app may need at once follows from how many requests it admits: app/limits.py.
 POOL_SIZE = 10
-POOL_OVERFLOW = WORKER_THREADS + 2 - POOL_SIZE
+POOL_OVERFLOW = POOL_CONNECTIONS - POOL_SIZE
 
 
 def get_engine() -> Engine:
     global _engine
     if _engine is None:
         # pool_pre_ping: a connection dropped by the database (restart, idle timeout) is replaced, not served.
-        # Up to POOL_SIZE + POOL_OVERFLOW connections: one per worker thread (WORKER_THREADS) plus the
-        # tax-data reader, so a request never waits for a connection while others queue on the account lock.
+        # Up to POOL_CONNECTIONS: one per request the app works on at once (app/limits.py admits no
+        # more), plus the health check and the tax-data reader.
         _engine = create_engine(
             settings.database_url(), pool_pre_ping=True, pool_size=POOL_SIZE, max_overflow=POOL_OVERFLOW
         )

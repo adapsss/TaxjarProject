@@ -28,7 +28,8 @@ def _clean_text(value: Optional[str], field: str, max_length: int) -> str:
     """Trimmed text with single spaces. Rejects control characters (Postgres cannot store NUL) and
     anything longer than a bank would send, before a row is written or a name is analysed."""
     text = value or ""
-    if any(unicodedata.category(c) == "Cc" and c not in "\t\n\r" for c in text):
+    # Cc: control characters. Cs: a lone surrogate, which cannot be stored as UTF-8 either.
+    if any(unicodedata.category(c) in ("Cc", "Cs") and c not in "\t\n\r" for c in text):
         raise ApiError(422, "validation_error", f"{field} must not contain control characters.")
     text = " ".join(text.split())
     if len(text) > max_length:
@@ -82,7 +83,7 @@ def process_incoming(
 ) -> TransactionRow:
     # Reject bad input before anything is written.
     name = _clean_text(sender_name, "senderName", MAX_NAME_LENGTH)
-    if not name:
+    if not any(c.isalnum() for c in name):  # empty, or only spaces, punctuation or invisible characters
         raise ApiError(422, "validation_error", "senderName must not be blank.")
     if isinstance(amount, bool) or not isinstance(amount, int) or amount <= 0:
         raise ApiError(422, "validation_error", "amount must be a positive whole number of cents.")

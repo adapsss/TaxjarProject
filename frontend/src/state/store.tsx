@@ -77,6 +77,8 @@ const Ctx = createContext<Store | null>(null)
 
 /** How often a refresh triggered by a live event is retried after it failed. */
 const EVENT_REFRESH_RETRIES = 3
+/** After this long without an answer, an event refresh counts as failed. */
+const EVENT_REFRESH_TIMEOUT_MS = 15000
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
 const ignore = () => {}
@@ -100,6 +102,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const keyRef = useRef(0)
   const refreshSeq = useRef(0)
   const appliedSeq = useRef(0)
+  // Refreshes numbered up to this started before the newest live event, so they cannot know about it.
+  const staleUpTo = useRef(0)
   // Refreshes asked for by live events: at most one runs and one waits, however many events arrive.
   const eventRefresh = useRef({ running: false, again: false })
   const mounted = useRef(true)
@@ -117,8 +121,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   /**
    * Re-read everything the screens show. Of overlapping refreshes a result is applied only if it is
-   * newer than what is on screen: a late answer never overwrites a fresher one, and a newer refresh
-   * that failed does not throw away an older one that worked.
+   * newer than what is on screen and started after the newest live event: a late answer never
+   * overwrites a fresher one, and a newer refresh that failed does not throw away an older one that worked.
    */
   const refresh = useCallback(async () => {
     const seq = ++refreshSeq.current
@@ -129,7 +133,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       api.getTaxSummary(),
       api.getCatchUp(),
     ])
-    if (seq < appliedSeq.current) return
+    if (seq < appliedSeq.current || seq <= staleUpTo.current) return
     appliedSeq.current = seq
     setData({ profile, account, transactions })
     setTaxSummary(summary)
@@ -150,6 +154,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
    */
   const refreshSoon = useCallback(() => {
     const state = eventRefresh.current
+    // A refresh already on its way read the backend before this event: applying it would take the
+    // event's payment off the screen again until the next refresh. Drop it; a fresh one follows.
+    staleUpTo.current = refreshSeq.current
     if (state.running) {
       state.again = true
       return
@@ -157,7 +164,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     state.running = true
     const run = (attempt: number) => {
       state.again = false
-      void refresh().then(
+      // A request that never answers must not stop live refreshes for good.
+      const gaveUp = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('refresh timed out')), EVENT_REFRESH_TIMEOUT_MS))
+      void Promise.race([refresh(), gaveUp]).then(
         () => true,
         () => false,
       ).then((ok) => {

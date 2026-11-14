@@ -13,7 +13,7 @@ Rollback: delete the bad `dev-N` tag from both ECR repos, or push a fix.
 alembic downgrade <revision>
 ```
 
-Every migration in `backend/migrations/versions/` has a `downgrade()`. 0005 (CHECK constraints on the money tables) only drops its constraints again and changes no data.
+Every migration in `backend/migrations/versions/` has a `downgrade()`. 0005 (CHECK constraints on the money tables) only drops its constraints again and changes no data. Applying 0005 fails, and stops the rollout, if a row already breaks one of its checks: count such rows first on a database that has been edited by hand (the conditions are listed in the migration).
 
 **Backups.** Nothing in this repo backs up the database, and `alembic downgrade` does not bring back data. Before a release with a migration, and on a schedule in any environment whose data matters, take a dump (or use the database service's snapshots, configured in the infra repo):
 
@@ -21,6 +21,8 @@ Every migration in `backend/migrations/versions/` has a `downgrade()`. 0005 (CHE
 pg_dump --format=custom --file=taxjar-$(date +%F).dump "$DATABASE_URL_FOR_PSQL"   # postgresql://USER:PASSWORD@HOST:5432/DB
 pg_restore --clean --if-exists --dbname="$DATABASE_URL_FOR_PSQL" taxjar-YYYY-MM-DD.dump
 ```
+
+**Load.** The backend works on at most 16 API requests at once (12 reads, 4 writes; `backend/app/limits.py`) and uses up to 22 database connections per process; further requests wait their turn instead of failing. The event stream and the health check are not counted.
 
 **One backend replica.** Live updates (`GET /api/events`) come from an event bus inside the backend process. With two or more replicas a browser only hears about changes made through the replica its stream is connected to, until its next refresh. Money stays correct with any number of replicas (every write takes the account lock in Postgres); only the live updates need a single replica until the bus moves to a shared channel such as Postgres `LISTEN/NOTIFY`.
 
@@ -35,11 +37,11 @@ Everything environment-specific comes from environment variables; nothing is bak
 | Variable | Used by | Default | Meaning |
 |---|---|---|---|
 | `DATABASE_URL` | backend, migrate | none (required) | `postgresql+psycopg://USER:PASSWORD@HOST:5432/DB`. Never logged. |
-| `DEMO_MODE` | backend | off (`compose.yaml`: `true`) | Only `true` serves `POST /api/demo/reset`, `POST /api/simulate/incoming` and `GET /api/demo/scenarios`; otherwise they answer 404. They wipe the account and credit money without a login, so an unset variable means off. **The demo deployment must set `DEMO_MODE=true` in the infra repo**, or the simulator and Fresh start stop working. |
+| `DEMO_MODE` | backend | off (`compose.yaml`: `true`) | Only `true` (or `1`, `yes`, `on`) serves `POST /api/demo/reset`, `POST /api/simulate/incoming` and `GET /api/demo/scenarios`; otherwise they answer 404. They wipe the account and credit money without a login, so an unset variable means off. **The demo deployment must set `DEMO_MODE=true` in the infra repo**, or the simulator and Fresh start stop working. |
 | `TAX_DATA_REFRESH_SECONDS` | backend | `60` | How long tax data is kept in memory before it is read from the database again. |
 | `LOG_LEVEL` | backend | `INFO` | `DEBUG`, `INFO`, `WARNING` or `ERROR`. Logs go to stderr, one leveled line per record. |
 | `BACKEND_UPSTREAM` | web (Caddy) | `backend:8000` | Where Caddy proxies `/api/*`, `/docs` and `/openapi.json`. |
 
 Fixed contract: backend listens on `:8000`, web on `:80`; health check `GET /api/healthz` (process up and database answers, no demo data read; `GET /api/account` still works); migrations `sh -c "alembic upgrade head && python -m app.data_load"`. On SIGTERM the backend stops within about 10 s, closing open event streams.
 
-Logs: one line per request (`app.request`: method, path, status, milliseconds), and every line written while a request is handled carries its id in brackets. The id is the caller's `X-Request-ID` when it sent one (letters, digits, `.`, `_`, `-`; at most 64), else generated; it is returned in the `X-Request-ID` response header. There are no metrics yet.
+Logs: one line per request (`app.request`: method, path, status, milliseconds), and every line written while a request is handled carries its id in brackets, including the error line and the 500 response of a crash. The id is the caller's `X-Request-ID` when it sent one (letters, digits, `.`, `_`, `-`; at most 64), else generated; it is returned in the `X-Request-ID` response header. There are no metrics yet.

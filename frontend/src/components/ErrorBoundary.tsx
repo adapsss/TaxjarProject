@@ -29,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
       <main role="alert" className="mx-auto flex min-h-dvh max-w-[420px] flex-col items-center justify-center px-6 text-center">
         <h1 className="text-[22px] font-extrabold tracking-[-0.03em]">Something went wrong on this screen</h1>
         <p className="mt-2 text-[15px] leading-relaxed text-muted">
-          Your money is safe: nothing moved. Reload to carry on where you were.
+          Your money is safe, and anything you already confirmed is saved. Reload to carry on.
         </p>
         <button
           type="button"

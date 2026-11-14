@@ -2,7 +2,10 @@
 
 The tax tables have had such checks since 0002; the tables that hold the account's money had none,
 so a hand edit (or a bug) could store a negative balance or a 200% rate and the API served it.
-The same constraints are declared on the models (app/models.py); tests/test_db.py compares the two.
+The same constraints are declared on the models (app/models.py); tests/test_app_state_checks.py compares the two.
+
+Adding a constraint fails if a row already breaks it, which stops the migrate step and with it the
+rollout: check an existing database first (one SELECT count(*) ... WHERE NOT (<condition>) per entry).
 
 Rolling back: `alembic downgrade 0004` drops them again; no data changes either way.
 

@@ -40,7 +40,7 @@ def timestamp(index: bool = False):
 
 
 def checks(**conditions: str) -> tuple:
-    """Table CHECK constraints, name=condition. Kept equal to migration 0005 (tests/test_db.py compares)."""
+    """Table CHECK constraints, name=condition. Kept equal to migration 0005 (tests/test_app_state_checks.py compares)."""
     return tuple(CheckConstraint(condition, name=name) for name, condition in conditions.items())
 
 
