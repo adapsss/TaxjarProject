@@ -7,8 +7,8 @@
 # Image Updater orders tags by the image's `created` time (newest-build strategy): keep the real build time.
 # Do not set SOURCE_DATE_EPOCH or reproducible-build timestamp rewriting here. Never re-push an existing dev-N.
 #
-# Needs one repository variable (Settings → Secrets and variables → Actions → Variables):
-#   AWS_ROLE_ARN   the IAM role infra created for this repo, trusted via GitHub OIDC for refs/heads/main only
+# AWS access: GitHub OIDC into the role infra created (nisabu/goyslop-infra). The ARN is not a secret: the role
+# trusts only repo:adapsss/goyslop:ref:refs/heads/main. A repository variable AWS_ROLE_ARN, if set, overrides it.
 name: images
 
 on:
@@ -27,6 +27,7 @@ concurrency:
 
 env:
   AWS_REGION: eu-west-1
+  AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::331725468486:role/goyslop-dev-github-ci' }}
   TAG: dev-${{ github.run_number }}
 
 jobs:
@@ -61,14 +62,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.commit.outputs.sha }}
-      - name: Check the role is configured
-        if: ${{ vars.AWS_ROLE_ARN == '' }}
-        run: |
-          echo "::error::Set the repository variable AWS_ROLE_ARN to the role infra created for this repo."
-          exit 1
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
       - id: ecr
         uses: aws-actions/amazon-ecr-login@v2
