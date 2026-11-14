@@ -44,6 +44,7 @@ cd backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 export DATABASE_URL=postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar
+export DEMO_MODE=true   # the simulator and Fresh start; off unless set
 .venv/bin/alembic upgrade head
 .venv/bin/python -m app.data_load
 .venv/bin/uvicorn app.main:app --reload --port 8000

@@ -37,7 +37,7 @@ Copy `.env.example` to `.env` to change them:
 - `APP_PORT` (default 8080) and `SIMULATOR_PORT` (default 8081): the host ports.
 - `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` (default `taxjar` for all three). Change the password for anything but a laptop.
 - `DB_PORT` (default 5433): Postgres on `127.0.0.1` for local tools and the backend tests. Never published on other interfaces.
-- `DEMO_MODE` (default `true`): `false` removes the reset, simulator and demo-scenario routes.
+- `DEMO_MODE` (Compose default `true`): `false` removes the reset, simulator and demo-scenario routes. The backend itself treats an unset `DEMO_MODE` as off, so only a deployment that asks for these routes serves them.
 - `TAX_DATA_REFRESH_SECONDS` (default 60): how soon a tax rate edited in the database reaches the app.
 
 ## What runs

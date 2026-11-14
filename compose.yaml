@@ -33,6 +33,8 @@ services:
     command: ["sh", "-c", "alembic upgrade head && python -m app.data_load"]
     environment: &backend-env
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-taxjar}:${POSTGRES_PASSWORD:-taxjar}@db:5432/${POSTGRES_DB:-taxjar}
+      # On for this local demo. The backend's own default is off: the demo routes wipe the account and
+      # credit money without a login, so every other deployment has to ask for them.
       DEMO_MODE: ${DEMO_MODE:-true}
       TAX_DATA_REFRESH_SECONDS: ${TAX_DATA_REFRESH_SECONDS:-60}
     depends_on:

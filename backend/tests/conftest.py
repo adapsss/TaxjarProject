@@ -33,6 +33,9 @@ from app.events import EventBus, get_bus
 from app.main import create_app
 from app.models import PROFILE_ID, ProfileRow
 
+# The demo routes (reset, simulator, scenarios) are off unless asked for; most tests drive them.
+os.environ.setdefault("DEMO_MODE", "true")
+
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 TEST_DATABASE_URL = os.environ.get(
     "TEST_DATABASE_URL", "postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar_test"

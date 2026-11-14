@@ -35,7 +35,7 @@ Everything environment-specific comes from environment variables; nothing is bak
 | Variable | Used by | Default | Meaning |
 |---|---|---|---|
 | `DATABASE_URL` | backend, migrate | none (required) | `postgresql+psycopg://USER:PASSWORD@HOST:5432/DB`. Never logged. |
-| `DEMO_MODE` | backend | `true` | `false` removes `POST /api/demo/reset`, `POST /api/simulate/incoming` and `GET /api/demo/scenarios` (404). |
+| `DEMO_MODE` | backend | off (`compose.yaml`: `true`) | Only `true` serves `POST /api/demo/reset`, `POST /api/simulate/incoming` and `GET /api/demo/scenarios`; otherwise they answer 404. They wipe the account and credit money without a login, so an unset variable means off. **The demo deployment must set `DEMO_MODE=true` in the infra repo**, or the simulator and Fresh start stop working. |
 | `TAX_DATA_REFRESH_SECONDS` | backend | `60` | How long tax data is kept in memory before it is read from the database again. |
 | `LOG_LEVEL` | backend | `INFO` | `DEBUG`, `INFO`, `WARNING` or `ERROR`. Logs go to stderr, one leveled line per record. |
 | `BACKEND_UPSTREAM` | web (Caddy) | `backend:8000` | Where Caddy proxies `/api/*`, `/docs` and `/openapi.json`. |

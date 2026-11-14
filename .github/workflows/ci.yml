@@ -73,6 +73,7 @@ jobs:
         options: --health-cmd "pg_isready -U taxjar -d taxjar" --health-interval 2s --health-timeout 3s --health-retries 30
     env:
       DATABASE_URL: postgresql+psycopg://taxjar:taxjar@localhost:5433/taxjar
+      DEMO_MODE: "true" # the golden path drives the simulator; the backend's default is off
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
