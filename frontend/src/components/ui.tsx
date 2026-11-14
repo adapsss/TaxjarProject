@@ -334,10 +334,10 @@ export function ActivityIcon({ className = '' }: { className?: string }) {
 }
 
 export function SettingsIcon({ className = '' }: { className?: string }) {
+  // One solid gear: the hole is cut out of the same shape, so it reads as a single glyph.
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <circle cx="12" cy="12" r="3.1" />
-      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.9 1.9-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V20h-2.7v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.9-1.9.06-.06A1.7 1.7 0 0 0 7.7 15a1.7 1.7 0 0 0-1.55-1.03H6v-2.7h.09A1.7 1.7 0 0 0 7.64 10.2a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.9-1.9.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.1 5.2V5h2.7v.09a1.7 1.7 0 0 0 1.03 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.9 1.9-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.82 11H21v2.7h-.09A1.7 1.7 0 0 0 19.4 15Z" />
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" className={className}>
+      <path fillRule="evenodd" d="M10.23 4.92 L10.50 2.52 L13.50 2.52 L13.77 4.92 A7.3 7.3 0 0 1 15.76 5.74 L17.64 4.23 L19.77 6.36 L18.26 8.24 A7.3 7.3 0 0 1 19.08 10.23 L21.48 10.50 L21.48 13.50 L19.08 13.77 A7.3 7.3 0 0 1 18.26 15.76 L19.77 17.64 L17.64 19.77 L15.76 18.26 A7.3 7.3 0 0 1 13.77 19.08 L13.50 21.48 L10.50 21.48 L10.23 19.08 A7.3 7.3 0 0 1 8.24 18.26 L6.36 19.77 L4.23 17.64 L5.74 15.76 A7.3 7.3 0 0 1 4.92 13.77 L2.52 13.50 L2.52 10.50 L4.92 10.23 A7.3 7.3 0 0 1 5.74 8.24 L4.23 6.36 L6.36 4.23 L8.24 5.74 A7.3 7.3 0 0 1 10.23 4.92 Z M8.70 12.00 a3.3 3.3 0 1 0 6.6 0 a3.3 3.3 0 1 0 -6.6 0 Z" />
     </svg>
   )
 }
