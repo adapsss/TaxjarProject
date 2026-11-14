@@ -2,6 +2,10 @@
 #
 # Runs after the CI workflow succeeds on a push to main, for exactly the commit CI tested, or by hand on main.
 # Both images get the same tag, dev-<run number>; Argo CD Image Updater picks up the newest dev-N.
+# Nothing happens in GitHub after the push: deployment, migrations and rollback are in nisabu/goyslop-infra.
+#
+# Image Updater orders tags by the image's `created` time (newest-build strategy): keep the real build time.
+# Do not set SOURCE_DATE_EPOCH or reproducible-build timestamp rewriting here. Never re-push an existing dev-N.
 #
 # Needs one repository variable (Settings → Secrets and variables → Actions → Variables):
 #   AWS_ROLE_ARN   the IAM role infra created for this repo, trusted via GitHub OIDC for refs/heads/main only
@@ -43,6 +47,7 @@ jobs:
       id-token: write # GitHub OIDC → the infra role; no AWS keys stored in the repo
     strategy:
       fail-fast: true
+      max-parallel: 1 # backend first, then web
       matrix:
         include:
           - repository: goyslop-backend
@@ -50,10 +55,12 @@ jobs:
           - repository: goyslop-web
             dockerfile: docker/web.Dockerfile
     steps:
+      - id: commit
+        name: The commit CI tested (a manual run builds the tip of main)
+        run: echo "sha=${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
         with:
-          # The commit CI tested; a manual run builds the tip of main.
-          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ steps.commit.outputs.sha }}
       - name: Check the role is configured
         if: ${{ vars.AWS_ROLE_ARN == '' }}
         run: |
@@ -72,6 +79,7 @@ jobs:
           file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.ecr.outputs.registry }}/${{ matrix.repository }}:${{ env.TAG }}
+          labels: org.opencontainers.image.revision=${{ steps.commit.outputs.sha }}
           cache-from: type=gha,scope=${{ matrix.repository }}
           cache-to: type=gha,mode=max,scope=${{ matrix.repository }}
           provenance: false # plain image manifests for ECR and Image Updater

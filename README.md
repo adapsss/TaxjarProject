@@ -113,7 +113,7 @@ Do not use `Flag`, `Illustration` or other `@wise/art` components: they load ima
 
 ## Deployment
 
-Every push to `main` runs `.github/workflows/deploy.yml` on the team's EC2 server: it builds both images, runs the backend and frontend tests inside them, pushes the images to ECR and restarts the app from `compose.prod.yaml`. A failing test stops the deploy. Server setup, rollback and day-to-day commands: [docs/deploy.md](docs/deploy.md).
+Production runs on AWS EKS, managed in the infra repo `nisabu/goyslop-infra`. After CI passes on a push to `main`, `.github/workflows/images.yml` builds both images and pushes them to ECR as `dev-<run number>`; Argo CD picks up the new tag, runs the migrations and rolls out. The app repo only builds and pushes images. Flow, rollback and URL: [docs/deploy.md](docs/deploy.md). `compose.yaml` stays for local development.
 
 ## The API contract
 
