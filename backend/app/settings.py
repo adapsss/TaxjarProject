@@ -16,6 +16,11 @@ def demo_mode() -> bool:
     return os.environ.get("DEMO_MODE", "true").strip().lower() not in ("0", "false", "no", "off")
 
 
+def log_level() -> str:
+    """Log level for app/logging_setup.py (default INFO)."""
+    return os.environ.get("LOG_LEVEL", "INFO")
+
+
 def tax_data_refresh_seconds() -> int:
     """How long tax data is kept in memory before it is read from the database again."""
     return int(os.environ.get("TAX_DATA_REFRESH_SECONDS", "60"))

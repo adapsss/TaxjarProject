@@ -12,11 +12,22 @@
 }
 
 (taxjar) {
+	# Basic hardening: no MIME sniffing, no framing, no full referrer to other sites; small request bodies.
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	request_body {
+		max_size 1MB
+	}
 	# The API, the event stream and the backend's API docs go to FastAPI.
 	# No `encode` here: compressing would buffer the event stream.
 	@backend path /api/* /docs /docs/* /openapi.json
 	handle @backend {
-		reverse_proxy backend:8000
+		# BACKEND_UPSTREAM (default backend:8000): the backend's host:port, e.g. the Kubernetes Service.
+		reverse_proxy {$BACKEND_UPSTREAM:backend:8000}
 	}
 
 	# Everything else is the single-page app.

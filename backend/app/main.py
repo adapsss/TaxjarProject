@@ -4,6 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI
 
 from app import settings
+from app.logging_setup import configure_logging
 from app.db import get_engine, init_db
 from app.engine import data as tax_data
 from app.errors import register_error_handlers
@@ -56,6 +57,7 @@ def install_tax_data() -> None:
 
 
 def create_app() -> FastAPI:
+    configure_logging()
     app = FastAPI(title="Wise Tax Jar (hackathon prototype)", version="0.1.0", lifespan=lifespan)
     # Every error leaves as {"error": {"code", "message"}}.
     register_error_handlers(app)

@@ -15,3 +15,10 @@ docs
 *.md
 !backend/**/*.md
 main.py
+# Not needed in any image: tests, the tax-data build tools, local env files, CI and compose files.
+backend/tests
+backend/tools
+**/.env
+**/.env.*
+.github
+compose*.yaml

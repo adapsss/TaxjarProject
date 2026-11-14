@@ -3,8 +3,11 @@
 Owner: role B, Backend 1. Route declarations (paths, function names, models) are
 exactly those of Task S0, so the generated frontend types stay the same.
 """
+import logging
+
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
+from sqlalchemy import text
 from sqlmodel import Session, select
 
 from app import db, fx
@@ -16,9 +19,26 @@ from app.models import TAX_JAR_ID, JarRow, TransactionRow
 from app.routes.guards import require_demo_mode
 from app.taxdata import tables as t
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 MAX_RATE_BP = 10000
+
+
+@router.get("/healthz", responses={503: {"description": "The database does not answer"}})
+def healthz():
+    """Cheap liveness and readiness check: the process runs and the database answers. No demo data is read.
+
+    A plain `def`, so FastAPI runs it in a worker thread: a slow database cannot block the event loop
+    (and with it the live event stream). It publishes no events, so it needs no loop thread.
+    """
+    try:
+        with db.get_engine().connect() as connection:
+            connection.execute(text("SELECT 1"))
+    except Exception:  # noqa: BLE001 - any failure means not ready; details stay in the logs
+        logger.warning("health check: database does not answer", exc_info=True)
+        raise ApiError(503, "database_unavailable", "The database does not answer.")
+    return {"status": "ok"}
 
 
 @router.get("/account", response_model=s.Account)
