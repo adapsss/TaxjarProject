@@ -13,6 +13,7 @@
     "golden": "node scripts/golden.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
     "@fontsource-variable/inter": "^5.3.0",
     "@tailwindcss/vite": "^4.3.5",
     "@transferwise/components": "^46.169.1",

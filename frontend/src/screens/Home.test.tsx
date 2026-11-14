@@ -27,7 +27,7 @@ it('shows balances, the feed with its tax tag, and the Tax Jar total from the AP
   expect(screen.getByText('€2,450.00')).toBeTruthy()
   expect(screen.getByText('Acme Inc.')).toBeTruthy()
   expect(screen.getByText('€276 tax')).toBeTruthy()
-  expect(screen.getByText('set aside for taxes')).toBeTruthy()
+  expect(screen.getByText('Set aside for taxes')).toBeTruthy()
 })
 
 it('offers setup instead of the jar before onboarding', async () => {

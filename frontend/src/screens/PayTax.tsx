@@ -50,7 +50,7 @@ export default function PayTax() {
     return (
       <Shell>
         <Card className="px-6 py-10 text-center">
-          <span className="mx-auto grid size-14 place-items-center rounded-full bg-canvas text-forest/35">
+          <span className="mx-auto grid size-14 place-items-center rounded-full bg-soft text-muted">
             <JarIcon className="size-7" />
           </span>
           <h1 className="mt-4 text-[20px] font-extrabold tracking-[-0.03em]">Nothing to pay yet</h1>
@@ -102,7 +102,7 @@ export default function PayTax() {
           <dl className="border-t border-line/70 px-5">
             <Row k="From">
               <span className="flex items-center gap-1.5">
-                <JarIcon className="size-3.5 text-forest" /> Tax Jar
+                <JarIcon className="size-3.5 text-accent" /> Tax Jar
               </span>
             </Row>
             <Row k="To">{TAX_AUTHORITY}</Row>

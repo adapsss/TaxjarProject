@@ -65,7 +65,7 @@ npm run dev
 
 App: http://localhost:5173. It calls `/api`, which Vite proxies to the backend on port 8000, so start the backend first. Tests: `npm test`. Type-check and build: `npm run build`.
 
-It is an iPhone-style web app (Tailwind, Wise-inspired but not Wise's own look). On a phone it fills the screen with a bottom tab bar; on a desktop it sits inside a phone frame, so it demos well on a projector. Screens, on the frozen routes plus `/activity`:
+It is an iPhone-style web app (Tailwind) that follows the look of the Wise app, without using Wise's own assets: white or near-black canvas by the phone's light/dark setting, graphite cards, lime pill buttons, a swipeable account carousel on Home, a floating tab bar, and heavy condensed headlines for the big moments. On a phone it fills the screen with the tab bar; on a desktop it sits inside a phone frame, so it demos well on a projector. Screens, on the frozen routes plus `/activity`:
 
 | Route | Screen |
 |---|---|

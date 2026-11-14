@@ -84,7 +84,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
                   {s.reference || 'no reference'} · expect {s.expect === 'unknown' ? 'a question' : s.expect === 'income' ? 'tax set aside' : 'left untouched'}
                 </span>
               </span>
-              <span className="money flex shrink-0 items-center gap-1.5 text-[14px] font-bold text-forest">
+              <span className="money flex shrink-0 items-center gap-1.5 text-[14px] font-bold text-accent">
                 {busy === `sim:${s.id}` && <Spinner className="size-3" />}
                 {formatMoney(s.amount, s.currency)}
               </span>
@@ -106,7 +106,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
                 onChange={(e) => setCustom({ ...custom, senderName: e.target.value })}
                 placeholder="Judge Corp OÜ"
                 autoComplete="off"
-                className="mt-1 h-12 w-full rounded-xl bg-white px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-forest"
+                className="mt-1 h-12 w-full rounded-xl bg-surface px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-accent"
               />
             </label>
             <div className="grid grid-cols-[1fr_104px] gap-2.5">
@@ -121,7 +121,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
                   value={custom.amount}
                   onChange={(e) => setCustom({ ...custom, amount: e.target.value })}
                   placeholder="1500"
-                  className="mt-1 h-12 w-full rounded-xl bg-white px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-forest"
+                  className="mt-1 h-12 w-full rounded-xl bg-surface px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-accent"
                 />
               </label>
               <label className="block text-[13px] font-semibold text-muted">
@@ -129,7 +129,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
                 <select
                   value={custom.currency}
                   onChange={(e) => setCustom({ ...custom, currency: e.target.value })}
-                  className="mt-1 h-12 w-full rounded-xl bg-white px-3 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-forest"
+                  className="mt-1 h-12 w-full rounded-xl bg-surface px-3 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-accent"
                 >
                   {currencyChoices(null, profile.taxCurrency).concat(['JPY', 'PLN']).filter((c, i, all) => all.indexOf(c) === i).map((c) => (
                     <option key={c}>{c}</option>
@@ -144,7 +144,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
                 onChange={(e) => setCustom({ ...custom, reference: e.target.value })}
                 placeholder="INV-042"
                 autoComplete="off"
-                className="mt-1 h-12 w-full rounded-xl bg-white px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-forest"
+                className="mt-1 h-12 w-full rounded-xl bg-surface px-3.5 text-[16px] text-ink outline-none ring-1 ring-line focus:ring-2 focus:ring-accent"
               />
             </label>
             <Button type="submit" className="w-full" loading={busy === 'sim:custom'} disabled={!!busy}>
@@ -163,7 +163,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
               aria-pressed={preset === p.id}
               onClick={() => choose(p.id)}
               className={`press min-h-11 cursor-pointer rounded-full px-2 py-2.5 text-[14px] font-semibold ${
-                preset === p.id ? 'bg-forest text-white' : 'bg-soft text-ink hover:bg-[#e6e6de]'
+                preset === p.id ? 'bg-lime text-forest' : 'bg-soft text-ink hover:bg-line'
               }`}
             >
               {p.label}
@@ -188,7 +188,7 @@ export function DemoSheet({ open, onClose }: { open: boolean; onClose: () => voi
           href="/simulator"
           target="_blank"
           rel="noreferrer"
-          className="press mt-2 flex min-h-11 items-center justify-center rounded-full text-[15px] font-semibold text-forest"
+          className="press mt-2 flex min-h-11 items-center justify-center rounded-full text-[15px] font-semibold text-accent"
         >
           Open the full simulator on another screen ↗
         </a>

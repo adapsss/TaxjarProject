@@ -8,11 +8,12 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'dark' | 'danger' | 'soft'
 
 const VARIANTS: Record<Variant, string> = {
   primary: 'bg-lime text-forest hover:bg-lime-2 active:bg-[#8fdd60]',
-  secondary: 'bg-transparent text-forest ring-1 ring-inset ring-forest/30 hover:bg-forest/5',
-  ghost: 'text-forest hover:bg-forest/5',
+  // Wise's pills: lime for the one main action, a tint of green for the next, graphite for the rest.
+  secondary: 'bg-lime-soft text-accent hover:bg-soft',
+  ghost: 'text-accent hover:bg-soft',
   dark: 'bg-forest text-white hover:bg-forest-2',
-  danger: 'bg-white text-danger ring-1 ring-inset ring-danger/30 hover:bg-danger-soft',
-  soft: 'bg-lime-soft text-forest hover:bg-[#ddf4ce]',
+  danger: 'bg-surface text-danger hover:bg-danger-soft',
+  soft: 'bg-lime-soft text-accent hover:bg-soft',
 }
 
 export function Button({
@@ -57,8 +58,8 @@ export function CircleButton({
   size?: number
 }) {
   const styles = {
-    soft: 'bg-soft text-ink hover:bg-[#e6e6de]',
-    white: 'bg-white text-ink ring-1 ring-inset ring-black/5 hover:bg-canvas',
+    soft: 'bg-soft text-ink hover:bg-line',
+    white: 'bg-surface text-ink hover:bg-soft',
     lime: 'bg-lime text-forest hover:bg-lime-2',
     dark: 'bg-forest text-white hover:bg-forest-2',
   }
@@ -79,7 +80,7 @@ export function CircleButton({
 
 const TAG_STYLE: Record<Exclude<TagName, null>, string> = {
   'Tax set aside': 'bg-lime-soft text-lime-ink',
-  Income: 'bg-sky/40 text-forest',
+  Income: 'bg-sky/25 text-ink',
   'Tax paid': 'bg-forest text-white',
   Personal: 'bg-soft text-muted',
   'Needs your answer': 'bg-amber-soft text-amber-ink',
@@ -110,7 +111,7 @@ export function Avatar({ who, size = 46 }: { who: Counterparty; size?: number })
     <span
       style={{ width: size, height: size, fontSize: size * 0.34 }}
       className={`grid shrink-0 place-items-center font-bold ${
-        company ? 'rounded-[15px] bg-forest text-lime' : 'rounded-full bg-[#ebece5] text-forest'
+        company ? 'rounded-[15px] bg-forest text-lime' : 'rounded-full bg-soft text-ink'
       }`}
     >
       {initials(who.name)}
@@ -119,11 +120,11 @@ export function Avatar({ who, size = 46 }: { who: Counterparty; size?: number })
 }
 
 export function Card({ className = '', children }: { className?: string; children: ReactNode }) {
-  return <div className={`rounded-[24px] bg-white ${className}`}>{children}</div>
+  return <div className={`rounded-[28px] bg-surface ${className}`}>{children}</div>
 }
 
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse rounded-2xl bg-black/[0.055] ${className}`} />
+  return <div className={`animate-pulse rounded-2xl bg-ink/[0.07] ${className}`} />
 }
 
 export function Disclaimer({ dark, className = '' }: { dark?: boolean; className?: string }) {
@@ -145,7 +146,7 @@ export function Flag({ code, size = 40, className = '' }: { code: string; size?:
   const iso = /^[a-z]{2}$/.test(value) ? value : null
   if (!iso) {
     return (
-      <span style={{ width: size, height: size }} className={`flag-circle text-forest ${className}`} aria-hidden="true">
+      <span style={{ width: size, height: size }} className={`flag-circle text-accent ${className}`} aria-hidden="true">
         <GlobeIcon style={{ width: size * 0.55, height: size * 0.55 }} />
       </span>
     )
@@ -158,7 +159,7 @@ export function Flag({ code, size = 40, className = '' }: { code: string; size?:
 }
 
 export function ScreenTitle({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <h1 className={`text-[32px] leading-[1.06] font-extrabold tracking-[-0.04em] text-ink ${className}`}>{children}</h1>
+  return <h1 className={`text-[36px] leading-[1.04] font-bold tracking-[-0.04em] text-ink ${className}`}>{children}</h1>
 }
 
 export function Sheet({
@@ -228,7 +229,7 @@ export function Segmented<T extends string>({
   label: string
 }) {
   return (
-    <div role="tablist" aria-label={label} className="flex rounded-full bg-soft p-1">
+    <div role="tablist" aria-label={label} className="flex gap-2">
       {options.map((o) => (
         <button
           key={o.id}
@@ -236,8 +237,8 @@ export function Segmented<T extends string>({
           role="tab"
           aria-selected={value === o.id}
           onClick={() => onChange(o.id)}
-          className={`press min-h-11 flex-1 cursor-pointer rounded-full px-2.5 py-2 text-[15px] font-semibold whitespace-nowrap ${
-            value === o.id ? 'bg-white text-ink shadow-[0_1px_4px_rgba(14,15,12,0.12)]' : 'text-muted'
+          className={`press min-h-11 cursor-pointer rounded-full px-4 py-2 text-[15px] font-semibold whitespace-nowrap ${
+            value === o.id ? 'bg-lime text-forest' : 'bg-surface text-ink hover:bg-soft'
           }`}
         >
           {o.label}
@@ -425,6 +426,29 @@ export function AlertIcon({ className = '' }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <circle cx="12" cy="12" r="8.5" />
       <path d="M12 7.5v5.2M12 16.4v.1" />
+    </svg>
+  )
+}
+
+export function EyeIcon({ className = '', off }: { className?: string; off?: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {off ? (
+        <path d="M3 13c2.2 3.4 5.4 5 9 5s6.8-1.6 9-5M6.5 15.5 5 18M12 18v2.5M17.5 15.5 19 18" />
+      ) : (
+        <>
+          <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+          <circle cx="12" cy="12" r="3" />
+        </>
+      )}
+    </svg>
+  )
+}
+
+export function BarsIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M5 20V13M10 20V6M15 20V10M20 20V4M3 20h18" />
     </svg>
   )
 }

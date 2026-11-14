@@ -11,7 +11,6 @@ import {
   Disclaimer,
   Flag,
   SearchIcon,
-  ScreenTitle,
 } from '../components/ui'
 import { useStore } from '../state/store'
 import { exponent, formatMoney, formatRate } from '../lib/money'
@@ -127,7 +126,7 @@ function SetupFlow() {
       {!editing && (
         <div className="mt-4 flex gap-1.5" aria-hidden="true">
           {[1, 2, 3].map((i) => (
-            <span key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? 'bg-forest' : 'bg-black/[0.08]'}`} />
+            <span key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? 'bg-accent' : 'bg-soft'}`} />
           ))}
         </div>
       )}
@@ -153,7 +152,7 @@ function SetupFlow() {
               spellCheck={false}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={countries.length ? `Search ${countries.length - (other ? 1 : 0)} countries` : 'Search countries'}
-              className="h-[46px] w-full rounded-full bg-soft pr-4 pl-11 text-[15px] font-medium text-ink outline-none placeholder:text-muted focus:bg-white focus:ring-2 focus:ring-forest/25"
+              className="h-[46px] w-full rounded-full bg-soft pr-4 pl-11 text-[15px] font-medium text-ink outline-none placeholder:text-muted focus:bg-surface focus:ring-2 focus:ring-accent/25"
             />
           </label>
 
@@ -179,7 +178,7 @@ function SetupFlow() {
               </>
             )}
             {listed.length === 0 && (
-              <p role="status" className="mt-3 rounded-2xl bg-white px-5 py-8 text-center text-[14px] text-muted">
+              <p role="status" className="mt-3 rounded-2xl bg-surface px-5 py-8 text-center text-[14px] text-muted">
                 {countries.length === 0
                   ? 'Loading countries…'
                   : `No country matches “${query}”.${other ? ' You can still set your own rate below.' : ''}`}
@@ -209,14 +208,14 @@ function SetupFlow() {
             </Button>
           }
         >
-          <div className="mb-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
+          <div className="mb-4 flex items-center gap-3 rounded-2xl bg-surface px-4 py-3">
             <Flag code={c.code} size={34} />
             <div className="min-w-0">
               <p className="truncate text-[15px] font-semibold">{c.name}</p>
               <p className="truncate text-[13px] text-muted">{c.regimes.length} ways to work</p>
             </div>
           </div>
-          <div role="radiogroup" aria-label="Registration" className="overflow-hidden rounded-[22px] bg-white">
+          <div role="radiogroup" aria-label="Registration" className="overflow-hidden rounded-[22px] bg-surface">
             {c.regimes.map((g, i) => (
               <button
                 key={g.id}
@@ -231,7 +230,7 @@ function SetupFlow() {
               >
                 <span
                   className={`mt-0.5 grid size-[22px] shrink-0 place-items-center rounded-full border-2 ${
-                    regime === g.id ? 'border-forest bg-forest text-lime' : 'border-black/15'
+                    regime === g.id ? 'border-lime bg-lime text-forest' : 'border-ink/25'
                   }`}
                 >
                   {regime === g.id && <CheckIcon className="size-3" />}
@@ -239,12 +238,12 @@ function SetupFlow() {
                 <span className="min-w-0 flex-1">
                   <span className="flex items-start justify-between gap-3">
                     <span className="text-[15px] leading-snug font-semibold">{g.name}</span>
-                    <span className="money shrink-0 rounded-full bg-lime-soft px-2 py-0.5 text-[13px] font-bold text-forest">
+                    <span className="money shrink-0 rounded-full bg-lime-soft px-2 py-0.5 text-[13px] font-bold text-accent">
                       {formatRate(g.defaultRate)}
                     </span>
                   </span>
                   <span className="mt-1 block text-[13px] leading-relaxed text-muted">{g.hint}</span>
-                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-forest/70">{g.breakdownRule}</span>}
+                  {g.breakdownRule && <span className="mt-1 block text-[13px] font-semibold text-accent/80">{g.breakdownRule}</span>}
                 </span>
               </button>
             ))}
@@ -266,14 +265,14 @@ function SetupFlow() {
             <button
               type="button"
               onClick={() => (setChanging(true), setStep(1))}
-              className="press mb-4 flex w-full cursor-pointer items-center gap-3 rounded-2xl bg-white px-4 py-3 text-left"
+              className="press mb-4 flex w-full cursor-pointer items-center gap-3 rounded-2xl bg-surface px-4 py-3 text-left"
             >
               <Flag code={c.code} size={34} />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[15px] font-semibold">{c.name}</span>
                 <span className="block truncate text-[13px] text-muted">{r?.name ?? 'Choose registration'}</span>
               </span>
-              <span className="text-[13px] font-semibold text-forest">Change</span>
+              <span className="text-[13px] font-semibold text-accent">Change</span>
             </button>
           )}
 
@@ -295,9 +294,9 @@ function SetupFlow() {
                     const n = Number(e.target.value.replace(/[^\d.]/g, ''))
                     if (!Number.isNaN(n)) setRate(Math.min(10_000, Math.max(0, Math.round(n * 100))))
                   }}
-                  className="money w-[112px] bg-transparent text-right text-[54px] leading-none font-extrabold text-forest outline-none"
+                  className="money w-[112px] bg-transparent text-right text-[54px] leading-none font-extrabold text-accent outline-none"
                 />
-                <span className="text-[34px] leading-none font-extrabold text-forest">%</span>
+                <span className="text-[34px] leading-none font-extrabold text-accent">%</span>
               </div>
               <CircleButton label="Higher rate" size={40} onClick={() => setRate((v) => Math.min(10_000, v + 100))}>
                 <span className="text-xl font-bold">+</span>
@@ -310,14 +309,14 @@ function SetupFlow() {
                   type="button"
                   onClick={() => setRate(v)}
                   className={`press min-h-11 min-w-[56px] cursor-pointer rounded-full px-3 py-1.5 text-[15px] font-semibold ${
-                    rate === v ? 'bg-forest text-white' : 'bg-soft text-ink hover:bg-lime-soft'
+                    rate === v ? 'bg-lime text-forest' : 'bg-soft text-ink hover:bg-line'
                   }`}
                 >
                   {formatRate(v)}
                 </button>
               ))}
             </div>
-            <p className="mt-4 rounded-2xl bg-lime-soft px-4 py-3 text-center text-[14px] leading-relaxed text-forest">
+            <p className="mt-4 rounded-2xl bg-lime-soft px-4 py-3 text-center text-[14px] leading-relaxed text-accent">
               From a {formatMoney(example, currency)} client payment, we’ll keep{' '}
               <b className="money">{formatMoney(Math.round((example * rate) / 10_000), currency)}</b> for taxes.
             </p>
@@ -335,8 +334,8 @@ function SetupFlow() {
                   aria-checked={currency === x}
                   disabled={disabled}
                   onClick={() => setCurrency(x)}
-                  className={`press flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 bg-white py-3 text-[14px] font-semibold disabled:cursor-not-allowed disabled:opacity-35 ${
-                    currency === x ? 'border-forest' : 'border-transparent hover:border-forest/20'
+                  className={`press flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 bg-surface py-3 text-[14px] font-semibold disabled:cursor-not-allowed disabled:opacity-35 ${
+                    currency === x ? 'border-accent' : 'border-transparent hover:border-accent/20'
                   }`}
                 >
                   <Flag code={x} size={24} /> {x}
@@ -393,7 +392,7 @@ function CountryChoice({
       aria-checked={selected}
       aria-label={item.name}
       onClick={onClick}
-      className="press flex w-full cursor-pointer items-center gap-3.5 rounded-2xl px-1 py-2.5 text-left hover:bg-white/70"
+      className="press flex w-full cursor-pointer items-center gap-3.5 rounded-2xl px-1 py-2.5 text-left hover:bg-surface"
     >
       <Flag code={item.code} size={40} />
       <span className="min-w-0 flex-1">
@@ -404,7 +403,7 @@ function CountryChoice({
       </span>
       <span
         className={`grid size-[22px] shrink-0 place-items-center rounded-full border-2 ${
-          selected ? 'border-forest bg-forest text-lime' : 'border-black/15'
+          selected ? 'border-lime bg-lime text-forest' : 'border-ink/25'
         }`}
         aria-hidden="true"
       >
@@ -418,7 +417,7 @@ function Step({ title, sub, children, footer }: { title: string; sub?: string; c
   return (
     <section className="flex min-h-0 flex-1 flex-col animate-rise">
       <div className="pt-5">
-        <ScreenTitle>{title}</ScreenTitle>
+        <h1 className="display text-[44px]">{title}</h1>
         {sub && <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{sub}</p>}
       </div>
       <div className="mt-4 flex-1">{children}</div>

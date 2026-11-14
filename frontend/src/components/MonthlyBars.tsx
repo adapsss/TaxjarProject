@@ -30,13 +30,13 @@ export function MonthlyBars({
                 </span>
               )}
               <div
-                className={`flex w-full max-w-[34px] flex-col justify-end overflow-hidden rounded-full ${dark ? 'bg-forest/10' : 'bg-[#efefe8]'}`}
+                className={`flex w-full max-w-[34px] flex-col justify-end overflow-hidden rounded-full ${dark ? 'bg-forest/10' : 'bg-soft'}`}
                 style={{ height: `${Math.max(total ? 8 : 4, (total / max) * 100)}%` }}
                 title={`${monthShort(d.month)}: ${formatMoney(d.held, currency)} set aside, ${formatMoney(d.paid, currency)} paid`}
               >
                 {total === 0 ? null : (
                   <>
-                    <div className={`${i === last ? 'bg-lime' : dark ? 'bg-forest/70' : 'bg-[#c9c9bf]'}`} style={{ height: `${(d.held / total) * 100}%` }} />
+                    <div className={`${i === last ? 'bg-lime' : dark ? 'bg-forest/70' : 'bg-ink/25'}`} style={{ height: `${(d.held / total) * 100}%` }} />
                     <div className={dark ? 'bg-forest' : 'bg-forest/80'} style={{ height: `${(d.paid / total) * 100}%` }} />
                   </>
                 )}
@@ -50,7 +50,7 @@ export function MonthlyBars({
           <span
             key={d.month}
             className={`flex-1 text-center text-[12px] ${i === last ? 'font-bold' : 'font-medium'} ${
-              dark ? (i === last ? 'text-forest' : 'text-forest/55') : i === last ? 'text-ink' : 'text-muted'
+              dark ? (i === last ? 'text-accent' : 'text-forest/55') : i === last ? 'text-ink' : 'text-muted'
             }`}
           >
             {monthShort(d.month)}

@@ -20,7 +20,7 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
   const segments = s.exact ? s.taxes.map((t) => ({ id: t.id, name: t.name, rateBp: t.rateBp })) : [{ id: 'tax', name: 'Tax', rateBp: s.total.rateBp }]
 
   return (
-    <div className="rounded-[22px] bg-white ring-1 ring-line">
+    <div className="rounded-[22px] bg-surface ring-1 ring-line">
       <button
         type="button"
         aria-expanded={open}
@@ -78,7 +78,7 @@ export function TaxBreakdown({ tx, rule }: { tx: Transaction; rule?: string }) {
                   </tr>
                 )
               })}
-              <tr className="border-t-2 border-forest/15 font-bold">
+              <tr className="border-t-2 border-accent/15 font-bold">
                 <th scope="row" className="py-2.5 text-left">
                   Set aside
                   <span className="block text-[12.5px] font-normal text-muted">{formatRate(s.total.rateBp)} of this payment</span>

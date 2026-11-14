@@ -46,7 +46,7 @@ export function HowItWorks() {
   }
 
   return (
-    <section aria-labelledby="how-title" className="rounded-[24px] bg-white">
+    <section aria-labelledby="how-title" className="rounded-[24px] bg-surface">
       <button
         type="button"
         aria-expanded={!closed}
@@ -83,7 +83,7 @@ export function HowItWorks() {
                       disabled={!!busy}
                       onClick={() => send(s)}
                       aria-label={`Try it: ${s.senderName} sends ${formatMoney(s.amount, s.currency)}`}
-                      className="press flex h-11 shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-lime-soft px-3.5 text-[14px] font-semibold text-forest disabled:cursor-wait disabled:opacity-50"
+                      className="press flex h-11 shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-lime-soft px-3.5 text-[14px] font-semibold text-accent disabled:cursor-wait disabled:opacity-50"
                     >
                       {busy === `sim:${s.id}` ? <Spinner className="size-3.5" /> : null}
                       Try {formatMoney(s.amount, s.currency)}

@@ -44,7 +44,7 @@ export function WorkChoice({
             type="button"
             disabled={disabled}
             onClick={() => onChoose(false)}
-            className="press flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-3 text-[14px] font-bold text-ink ring-1 ring-inset ring-line disabled:cursor-wait disabled:opacity-60"
+            className="press flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-surface px-3 text-[14px] font-bold text-ink ring-1 ring-inset ring-line disabled:cursor-wait disabled:opacity-60"
           >
             {busy === false && <Spinner className="size-3.5" />}
             <span className="truncate">Personal</span>
@@ -76,7 +76,7 @@ export function WorkChoice({
         type="button"
         disabled={disabled}
         onClick={() => onChoose(false)}
-        className="press flex min-h-[64px] w-full cursor-pointer items-center gap-3 rounded-[22px] bg-white px-4 py-3 text-left ring-1 ring-inset ring-line disabled:cursor-wait disabled:opacity-60"
+        className="press flex min-h-[64px] w-full cursor-pointer items-center gap-3 rounded-[22px] bg-surface px-4 py-3 text-left ring-1 ring-inset ring-line disabled:cursor-wait disabled:opacity-60"
       >
         <span aria-hidden="true" className="grid size-9 shrink-0 place-items-center rounded-full bg-soft text-[18px] font-bold text-muted">
           {busy === false ? <Spinner /> : '–'}

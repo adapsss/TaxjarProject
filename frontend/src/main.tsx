@@ -1,5 +1,7 @@
 // Inter is bundled (no CDN): the demo must work with no network.
 import '@fontsource-variable/inter'
+// Display headlines: heavy, condensed, upper-case, in the spirit of Wise's own display face.
+import '@fontsource-variable/archivo/wdth.css'
 import './index.css'
 
 import { StrictMode } from 'react'

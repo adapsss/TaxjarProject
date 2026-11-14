@@ -43,34 +43,31 @@ export default function TaxJar() {
     <div className="animate-rise px-5 pt-3 pb-8">
       <header className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-[32px] leading-[1.06] font-extrabold tracking-[-0.04em]">Tax Jar</h1>
-          <p className="mt-1 flex items-center gap-1.5 text-[14px] text-muted">
+          <h1 className="text-[40px] leading-[1.02] font-bold tracking-[-0.045em]">Tax Jar</h1>
+          <p className="mt-2 flex items-center gap-2 text-[15px] text-muted">
             <Flag code={p.country} size={18} />
             {countryName(countries, p.country)} · {formatRate(p.rate)}
           </p>
         </div>
         <Link
           to="/onboarding"
-          className="press mt-1 flex h-11 shrink-0 items-center rounded-full bg-soft px-4 text-[15px] font-semibold text-ink hover:bg-[#e6e6de]"
+          className="press mt-1 flex h-12 shrink-0 items-center rounded-full bg-lime-soft px-5 text-[16px] font-semibold text-accent hover:bg-soft"
         >
           Edit
         </Link>
       </header>
 
-      <Card className="mt-5 px-5 py-6 text-center">
-        <span className="mx-auto grid size-12 place-items-center rounded-full bg-lime text-forest">
-          <JarIcon className="size-6" />
-        </span>
-        <p className="mt-2.5 text-[14px] font-medium text-muted">Set aside for taxes</p>
-        <div className="relative mt-1 flex items-start justify-center gap-2">
-          <CountUp value={summary.held} currency={summary.currency} className="text-[50px] leading-none font-extrabold text-ink" />
+      <section className="mt-7">
+        <p className="text-[16px] text-muted">Set aside for taxes</p>
+        <div className="relative mt-1 flex items-center gap-3">
+          <CountUp value={summary.held} currency={summary.currency} className="text-[44px] leading-[1.1] font-semibold text-ink" />
           {flash && (
-            <span key={flash.key} className="money animate-pop mt-1 rounded-full bg-lime px-2.5 py-1 text-[13px] font-bold text-forest">
+            <span key={flash.key} className="money animate-pop rounded-full bg-lime px-2.5 py-1 text-[13px] font-bold text-forest">
               +{formatMoney(flash.amount, summary.currency)}
             </span>
           )}
         </div>
-        <p className="mx-auto mt-2 max-w-[280px] text-[14px] leading-relaxed text-muted">
+        <p className="mt-2 text-[15px] leading-relaxed text-muted">
           {empty ? (
             'Nothing set aside yet. Income you receive will show up here.'
           ) : deadline ? (
@@ -84,26 +81,22 @@ export default function TaxJar() {
             </>
           )}
         </p>
+        <div className="mt-5 flex gap-2">
+          <Button disabled={summary.held === 0} onClick={() => nav('/tax-jar/pay')}>
+            Pay tax
+          </Button>
+          <Button variant="secondary" disabled={empty} onClick={download}>
+            <DownloadIcon className="size-4" /> Export CSV
+          </Button>
+        </div>
+      </section>
 
-        {!empty && taxLines.length > 0 && (
-          <div className="mt-4 rounded-2xl bg-canvas px-4 pt-3 text-left">
-            <h2 className="text-[12px] font-bold tracking-[0.08em] text-muted uppercase">What your tax pays for</h2>
-            <TaxLines lines={taxLines} currency={summary.currency} />
-          </div>
-        )}
-
-        <Button size="lg" className="mt-5 w-full" disabled={summary.held === 0} onClick={() => nav('/tax-jar/pay')}>
-          Pay tax
-        </Button>
-        <button
-          type="button"
-          disabled={empty}
-          onClick={download}
-          className="press mx-auto mt-2 flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full px-4 text-[15px] font-semibold text-forest disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <DownloadIcon className="size-4" /> Export CSV for accountant
-        </button>
-      </Card>
+      {!empty && taxLines.length > 0 && (
+        <Card className="mt-6 px-5 pt-4">
+          <h2 className="text-[17px] font-semibold tracking-[-0.02em]">What your tax pays for</h2>
+          <TaxLines lines={taxLines} currency={summary.currency} />
+        </Card>
+      )}
 
       <div className="mt-3 grid grid-cols-3 gap-2">
         <MiniStat k="Tax paid so far" v={formatMoney(summary.paid, summary.currency)} />
@@ -113,7 +106,7 @@ export default function TaxJar() {
 
       <Card className="mt-4 p-5">
         <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-[17px] font-extrabold tracking-[-0.02em]">By month</h2>
+          <h2 className="text-[17px] font-semibold tracking-[-0.02em]">By month</h2>
           <div className="flex gap-3 text-[12px] text-muted">
             <span className="flex items-center gap-1.5">
               <i className="size-2 rounded-full bg-lime" /> In the jar
@@ -173,13 +166,13 @@ export default function TaxJar() {
       </Card>
 
       <div className="mt-6 flex items-end justify-between">
-        <h2 className="text-[19px] font-extrabold tracking-[-0.025em]">What went in</h2>
+        <h2 className="text-[22px] font-semibold tracking-[-0.03em]">What went in</h2>
         <span className="text-[13px] text-muted">Tap for the breakdown</span>
       </div>
       <Card className="mt-3 overflow-hidden">
         {empty ? (
           <div className="px-5 pt-7 pb-9 text-center">
-            <span className="mx-auto grid size-12 place-items-center rounded-full bg-canvas text-forest/35">
+            <span className="mx-auto grid size-12 place-items-center rounded-full bg-soft text-muted">
               <JarIcon className="size-6" />
             </span>
             <p className="mt-3 text-[15px] font-semibold">Nothing set aside yet</p>
@@ -227,7 +220,7 @@ export default function TaxJar() {
 
 function MiniStat({ k, v }: { k: string; v: string }) {
   return (
-    <div className="rounded-[18px] bg-white px-3 py-3">
+    <div className="rounded-[18px] bg-surface px-3 py-3">
       <p className="text-[12px] leading-tight text-muted">{k}</p>
       <p className="money mt-1 text-[15px] font-bold">{v}</p>
     </div>
@@ -239,7 +232,7 @@ function Loading() {
     <div className="px-5 pt-3">
       <Skeleton className="h-9 w-40" />
       <Skeleton className="mt-2 h-4 w-52" />
-      <Skeleton className="mt-5 h-[330px] rounded-[24px]" />
+      <Skeleton className="mt-5 h-[330px] rounded-[28px]" />
       <div className="mt-3 grid grid-cols-3 gap-2">
         {[0, 1, 2].map((i) => (
           <Skeleton key={i} className="h-[62px] rounded-[18px]" />
@@ -259,20 +252,20 @@ function NotSetUp() {
   ]
   return (
     <div className="animate-rise px-5 pt-3 pb-8">
-      <div className="overflow-hidden rounded-[28px] bg-lime p-5 text-forest">
-        <span className="grid size-12 place-items-center rounded-full bg-forest text-lime">
+      <div className="rounded-[32px] bg-surface p-6">
+        <span className="grid size-12 place-items-center rounded-full bg-lime text-forest">
           <JarIcon className="size-6" />
         </span>
-        <h1 className="mt-5 text-[30px] leading-[1.04] font-extrabold tracking-[-0.04em]">Never be surprised by a tax bill</h1>
-        <p className="mt-2 text-[15px] leading-relaxed text-forest/70">
+        <h1 className="display mt-6 text-[46px]">Never be surprised by a tax bill</h1>
+        <p className="mt-4 text-[16px] leading-relaxed text-muted">
           Your Tax Jar isn’t set up yet. It takes three taps, and payments from friends are never touched.
         </p>
-        <Button variant="dark" size="lg" className="mt-5 w-full" onClick={() => nav('/onboarding')}>
+        <Button size="lg" className="mt-6 w-full" onClick={() => nav('/onboarding')}>
           Set up my Tax Jar
         </Button>
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-[24px] bg-white">
+      <div className="mt-4 overflow-hidden rounded-[28px] bg-surface">
         {steps.map(([t, d], i) => (
           <div key={t} className={`flex gap-3.5 px-4 py-4 ${i < steps.length - 1 ? 'border-b border-line/70' : ''}`}>
             <span className="grid size-7 shrink-0 place-items-center rounded-full bg-lime text-[13px] font-bold text-forest">{i + 1}</span>

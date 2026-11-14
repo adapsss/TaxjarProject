@@ -37,7 +37,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     viewport.current?.scrollTo?.({ top: 0 })
   }, [screenPath])
 
-  const screenStyle = { '--tab-offset': tabs ? '90px' : '12px' } as CSSProperties
+  // The tab bar floats over the content: the screen keeps clear of it, and toasts sit just above it.
+  const screenStyle = { '--tab-offset': tabs ? '100px' : '12px', '--tab-clear': tabs ? '104px' : '0px' } as CSSProperties
 
   return (
     <DemoSheetContext.Provider value={() => setDemoOpen(true)}>
@@ -57,6 +58,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               {children}
             </main>
             {tabs && <TabBar />}
+            <span className="home-indicator" aria-hidden="true" />
             <TaxToast />
             <NoticeToast />
             <DemoSheet open={demoOpen} onClose={() => setDemoOpen(false)} />
@@ -121,19 +123,16 @@ function TabBar() {
               request(to)
             }
           }}
-          className={({ isActive }) =>
-            `press flex w-[72px] flex-col items-center gap-1 rounded-2xl py-1 ${isActive ? 'text-forest' : 'text-[#87887f]'}`
-          }
+          className={({ isActive }) => `press ${isActive ? 'text-ink' : 'text-muted'}`}
         >
           {({ isActive }) => (
             <>
-              <Icon className={`size-[25px] ${isActive ? 'stroke-[2.1]' : 'stroke-[1.8]'}`} />
-              <span className={`text-[11px] tracking-[-0.01em] ${isActive ? 'font-semibold' : 'font-medium'}`}>{label}</span>
+              <Icon className={`size-6 ${isActive ? 'stroke-[2.1]' : 'stroke-[1.8]'}`} />
+              <span className={`text-[12px] leading-none tracking-[-0.01em] ${isActive ? 'font-semibold' : 'font-medium'}`}>{label}</span>
             </>
           )}
         </NavLink>
       ))}
-      <span className="home-indicator" aria-hidden="true" />
     </nav>
   )
 }

@@ -214,19 +214,19 @@ function Verdict({ tx, tag }: { tx: Transaction; tag: ReturnType<typeof tagFor> 
   const by = you ? 'You decided this' : 'Decided automatically'
   const v =
     r?.status === 'paid'
-      ? { tone: 'bg-lime-soft text-forest', mark: '✓', title: 'Work income · tax paid', note: by }
+      ? { tone: 'bg-lime-soft text-accent', mark: '✓', title: 'Work income · tax paid', note: by }
       : r?.status === 'reserved'
-        ? { tone: 'bg-lime-soft text-forest', mark: '✓', title: 'Work income · tax set aside', note: by }
+        ? { tone: 'bg-lime-soft text-accent', mark: '✓', title: 'Work income · tax set aside', note: by }
         : tag === 'Needs your answer'
           ? { tone: 'bg-amber-soft text-amber-ink', mark: '?', title: 'Waiting for your answer', note: 'Work income or personal?' }
           : tag === 'Income'
-            ? { tone: 'bg-sky/30 text-forest', mark: '✓', title: 'Work income · not taxed yet', note: 'Arrived before your Tax Jar' }
+            ? { tone: 'bg-sky/30 text-accent', mark: '✓', title: 'Work income · not taxed yet', note: 'Arrived before your Tax Jar' }
             : r?.status === 'undone'
               ? { tone: 'bg-soft text-ink', mark: '–', title: 'Personal · no tax taken', note: 'You took the tax back' }
               : { tone: 'bg-soft text-ink', mark: '–', title: 'Personal · no tax taken', note: by }
   return (
     <span className={`flex items-center gap-2.5 rounded-2xl px-3.5 py-2 ${v.tone}`}>
-      <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center rounded-full bg-white/70 text-[14px] font-bold">{v.mark}</span>
+      <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center rounded-full bg-ink/10 text-[14px] font-bold">{v.mark}</span>
       <span>
         <span className="block text-[15px] leading-tight font-bold">{v.title}</span>
         <span className="block text-[13px] leading-tight opacity-75">{v.note}</span>

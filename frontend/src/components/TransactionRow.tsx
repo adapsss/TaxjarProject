@@ -9,7 +9,7 @@ import { WorkChoice } from './WorkChoice'
 
 const FRESH_MS = 5000
 
-export function TransactionRow({ tx, enabled, last }: { tx: Transaction; enabled: boolean; last?: boolean }) {
+export function TransactionRow({ tx, enabled, showDay = true }: { tx: Transaction; enabled: boolean; showDay?: boolean }) {
   const nav = useNavigate()
   const { pathname } = useLocation()
   const tag = tagFor(tx, enabled)
@@ -24,22 +24,23 @@ export function TransactionRow({ tx, enabled, last }: { tx: Transaction; enabled
   return (
     <div
       data-tx-id={tx.id}
-      className={`${last ? '' : 'border-b border-line/70'} ${asking ? 'bg-amber-soft/50' : ''} ${fresh ? 'animate-arrive' : ''}`}
+      className={`my-0.5 rounded-[28px] ${asking ? 'bg-amber-soft' : ''} ${fresh ? 'animate-arrive' : ''}`}
     >
       <button
         type="button"
         onClick={() => nav(`/transactions/${tx.id}`, { state: { from: pathname } })}
-        className="press flex min-h-[68px] w-full cursor-pointer items-center gap-3.5 px-4 py-3 text-left hover:bg-canvas"
+        className="press flex min-h-[72px] w-full cursor-pointer items-center gap-3.5 rounded-[28px] px-2 py-3 text-left hover:bg-surface"
       >
-        <Avatar who={tx.counterparty} />
+        <Avatar who={tx.counterparty} size={48} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[16px] font-semibold tracking-[-0.01em]">{tx.counterparty.name}</div>
-          <div className="mt-0.5 truncate text-[13px] text-muted">
-            {relativeDay(tx.createdAt)} · {tx.reference || 'No reference'}
+          <div className="truncate text-[17px] font-semibold tracking-[-0.02em]">{tx.counterparty.name}</div>
+          <div className="mt-0.5 truncate text-[14px] text-muted">
+            {showDay ? `${relativeDay(tx.createdAt)} · ` : ''}
+            {tx.reference || 'No reference'}
           </div>
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1.5">
-          <span className={`money text-[16px] font-semibold ${tx.direction === 'in' ? 'text-ink' : 'text-ink/65'}`}>
+          <span className={`money text-[17px] font-semibold ${tx.direction === 'in' ? 'text-accent' : 'text-ink'}`}>
             {formatMoney(signed, tx.currency, { sign: true, cents: true })}
           </span>
           {tag && !asking && (
@@ -58,7 +59,7 @@ export function TransactionRow({ tx, enabled, last }: { tx: Transaction; enabled
         </div>
       </button>
       {asking && (
-        <div className="px-4 pb-3.5">
+        <div className="px-4 pb-4">
           <p className="mb-2 text-[14px] font-semibold text-amber-ink">Is this payment for work?</p>
           <WorkChoice
             compact
