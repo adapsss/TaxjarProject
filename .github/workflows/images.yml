@@ -1,11 +1,13 @@
 # Build the backend and web images and push them to ECR (eu-west-1) for the Kubernetes deployment (Argo CD).
 #
 # Runs after the CI workflow succeeds on a push to main, for exactly the commit CI tested, or by hand on main.
-# Both images get the same tag, dev-<run number>; Argo CD Image Updater picks up the newest dev-N.
+# Both images get the same tag, dev-<run number zero-padded to 6 digits> (dev-000011); Argo CD Image Updater
+# picks the alphabetically highest tag matching ^dev-[0-9]{6}$, which is the newest run.
 # Nothing happens in GitHub after the push: deployment, migrations and rollback are in nisabu/TaxjarProject-infra.
 #
-# Image Updater orders tags by the image's `created` time (newest-build strategy): keep the real build time.
-# Do not set SOURCE_DATE_EPOCH or reproducible-build timestamp rewriting here. Never re-push an existing dev-N.
+# The padding is what makes alphabetical order match run order ("dev-000010" > "dev-000008"). Ordering by build
+# time did not work: an image built entirely from cache keeps the previous build's `created` time, so an unchanged
+# backend tied with the old tag and was never deployed. A rerun reuses the run number and pushes the same tag.
 #
 # AWS access: GitHub OIDC into the role infra created (nisabu/TaxjarProject-infra); the role trusts only
 # repo:adapsss/TaxjarProject:ref:refs/heads/main. Every environment-specific value is in the env block below.
@@ -34,7 +36,6 @@ env:
   AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::331725468486:role/goyslop-dev-github-ci' }}
   BACKEND_REPOSITORY: goyslop-backend
   WEB_REPOSITORY: goyslop-web
-  TAG: dev-${{ github.run_number }}
 
 jobs:
   push:
@@ -75,6 +76,8 @@ jobs:
       - id: target
         name: Which ECR repository this image goes to
         run: echo "repository=${{ matrix.image == 'backend' && env.BACKEND_REPOSITORY || env.WEB_REPOSITORY }}" >> "$GITHUB_OUTPUT"
+      - name: Image tag (dev- and the run number padded to 6 digits, the same for both images)
+        run: echo "TAG=dev-$(printf '%06d' "$GITHUB_RUN_NUMBER")" >> "$GITHUB_ENV"
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
