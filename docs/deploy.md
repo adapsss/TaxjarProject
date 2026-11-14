@@ -1,10 +1,10 @@
 # Deployment
 
-Production runs on AWS EKS (eu-west-1), managed in the infra repo **nisabu/goyslop-infra** (Terraform + Argo CD). See its README for apply, operations and teardown.
+Production runs on AWS EKS (eu-west-1), managed in the infra repo **nisabu/TaxjarProject-infra** (Terraform + Argo CD). See its README for apply, operations and teardown.
 
-Flow: push to `main` → **CI** passes → **images** workflow builds `goyslop-backend` and `goyslop-web` and pushes both as `dev-<run number>` to ECR (OIDC role `goyslop-dev-github-ci`, set in the workflow) → Argo CD Image Updater commits the new tag to the infra repo → Argo CD runs the migrations (`alembic upgrade head && python -m app.data_load`) and rolls out backend and web.
+Flow: push to `main` → **CI** passes → **images** workflow builds `goyslop-backend` and `goyslop-web` and pushes both as `dev-NNNNNN` (the run number, zero-padded to 6 digits, e.g. `dev-000011`) to ECR (OIDC role `goyslop-dev-github-ci`, set in the workflow) → Argo CD Image Updater commits the new tag to the infra repo → Argo CD runs the migrations (`alembic upgrade head && python -m app.data_load`) and rolls out backend and web.
 
-Rollback: delete the bad `dev-N` tag from both ECR repos, or push a fix.
+Rollback: delete the bad `dev-NNNNNN` tag from both ECR repos, or push a fix. Image Updater deploys the alphabetically highest tag matching `^dev-[0-9]{6}$`; the older unpadded `dev-N` tags are ignored.
 
 Data: RDS is the source of truth. The JSON import files in the image (`backend/app/engine/*.json`, `demo/*.json`) are bootstrap-only: the migrate step uses them only to fill empty tables, and skips filled ones without reading them. On an empty database without usable files it exits 1 with the file and the problem named, so the rollout stops and nothing is written.
 
