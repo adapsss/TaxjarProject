@@ -72,7 +72,7 @@ def _since(day: Optional[date]) -> datetime:
 @router.get("/tax/catch-up", response_model=s.CatchUp)
 def catch_up_preview(
     since: Optional[date] = Query(None, description="Defaults to 1 January this year"),
-    session: Session = Depends(db.get_session),
+    session: Session = Depends(db.get_read_session),
 ):
     """Income that arrived before the Tax Jar, and the tax it would set aside now."""
     return s.CatchUp.model_validate(reservations.catch_up_preview(session, _since(since)))

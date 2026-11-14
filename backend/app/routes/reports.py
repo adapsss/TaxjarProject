@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.get("/tax/summary", response_model=s.TaxSummary)
-def tax_summary(session: Session = Depends(db.get_session)):
+def tax_summary(session: Session = Depends(db.get_read_session)):
     return summary.build_summary(session, date.today())
 
 
@@ -24,7 +24,7 @@ def tax_summary(session: Session = Depends(db.get_session)):
     response_class=Response,
     responses={200: {"content": {"text/csv": {}}, "description": "Reservations as CSV"}},
 )
-def export_csv(session: Session = Depends(db.get_session)):
+def export_csv(session: Session = Depends(db.get_read_session)):
     # The byte-order mark makes Excel open the file as UTF-8 (names like "OÜ").
     return Response(
         content="﻿" + summary.export_csv(session),

@@ -49,14 +49,14 @@ def healthz():
 
 
 @router.get("/account", response_model=s.Account)
-def get_account(session: Session = Depends(db.get_session)):
+def get_account(session: Session = Depends(db.get_read_session)):
     return db.to_account(session)
 
 
 @router.get("/transactions", response_model=list[s.Transaction])
 def list_transactions(
     limit: int = Query(DEFAULT_TRANSACTIONS, ge=1, le=MAX_TRANSACTIONS, description="Newest first; at most this many"),
-    session: Session = Depends(db.get_session),
+    session: Session = Depends(db.get_read_session),
 ):
     newest_first = (TransactionRow.created_at.desc(), TransactionRow.seq.desc())
     rows = session.exec(select(TransactionRow).order_by(*newest_first).limit(limit)).all()
