@@ -9,6 +9,21 @@
 {
 	auto_https off
 	admin off
+	# Every Caddy log (access and error, e.g. a reverse_proxy warning when a live event stream
+	# disconnects) can include the request headers. Behind the AWS load balancer they carry the
+	# Cognito session (X-Amzn-Oidc-*), so those and the usual credentials are removed from all logs.
+	log {
+		format filter {
+			wrap json
+			fields {
+				request>headers>X-Amzn-Oidc-Accesstoken delete
+				request>headers>X-Amzn-Oidc-Data delete
+				request>headers>X-Amzn-Oidc-Identity delete
+				request>headers>Authorization delete
+				request>headers>Cookie delete
+			}
+		}
+	}
 }
 
 (taxjar) {
