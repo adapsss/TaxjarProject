@@ -7,8 +7,9 @@ import logging
 import sys
 
 from app import settings
+from app.request_log import RequestIdFilter
 
-_FORMAT = "%(asctime)s %(levelname)s %(name)s %(message)s"
+_FORMAT = "%(asctime)s %(levelname)s %(name)s [%(request_id)s] %(message)s"
 
 
 def configure_logging() -> None:
@@ -20,5 +21,6 @@ def configure_logging() -> None:
     if not any(getattr(h, "_taxjar", False) for h in root.handlers):
         handler = logging.StreamHandler(sys.stderr)
         handler.setFormatter(logging.Formatter(_FORMAT))
+        handler.addFilter(RequestIdFilter())  # on the handler: records from every logger pass it
         handler._taxjar = True  # added once, however often this runs
         root.addHandler(handler)

@@ -1,18 +1,22 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+import anyio.to_thread
 from fastapi import FastAPI
 
 from app import settings
 from app.logging_setup import configure_logging
-from app.db import get_engine, init_db
+from app.db import WORKER_THREADS, get_engine, init_db
 from app.engine import data as tax_data
 from app.errors import register_error_handlers
+from app.request_log import RequestLogMiddleware
 from app.routes import core, payments, reports
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Handlers run in worker threads; no more of them than the connection pool can serve (see app/db.py).
+    anyio.to_thread.current_default_thread_limiter().total_tokens = WORKER_THREADS
     check_database(get_engine())
     install_tax_data()
     init_db()  # seed an empty database; the schema comes from `alembic upgrade head`
@@ -65,6 +69,8 @@ def create_app() -> FastAPI:
     app.include_router(core.router, prefix="/api")
     app.include_router(payments.router, prefix="/api")
     app.include_router(reports.router, prefix="/api")
+    # Outermost: every response carries X-Request-ID and every request leaves one log line.
+    app.add_middleware(RequestLogMiddleware)
     return app
 
 

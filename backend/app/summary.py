@@ -86,8 +86,13 @@ def _total_breakdown(reserved: List[ReservationRow], profile, regime) -> Optiona
 
 
 def spreadsheet_text(value: str) -> str:
-    """A leading =, +, - or @ would run as a formula when the CSV is opened in a spreadsheet."""
-    return "'" + value if value[:1] in ("=", "+", "-", "@") else value
+    """A cell starting with =, +, - or @ would run as a formula when the CSV is opened in a spreadsheet.
+
+    Spreadsheets skip leading whitespace before deciding, and a leading tab or carriage return is
+    itself a known way in, so those count too.
+    """
+    risky = value[:1] in ("\t", "\r", "\n") or value.lstrip()[:1] in ("=", "+", "-", "@")
+    return "'" + value if risky else value
 
 
 def major_units(amount: int) -> str:
@@ -117,9 +122,19 @@ def breakdown_text(reservation) -> str:
 def export_rows(session: Session) -> List[List[str]]:
     """Header first, then every reservation (undone and paid too), oldest first."""
     rows = [list(CSV_HEADER)]
-    for reservation in _reservations_oldest_first(session):
-        tx = session.get(TransactionRow, reservation.transaction_id)
-        payer = session.get(CounterpartyRow, tx.counterparty_key) if tx else None
+    reservations = _reservations_oldest_first(session)
+    # Two lookups for the whole file, not two per reservation.
+    tx_ids = {r.transaction_id for r in reservations}
+    txs = {t.id: t for t in session.exec(select(TransactionRow).where(TransactionRow.id.in_(tx_ids)))} if tx_ids else {}
+    payer_keys = {t.counterparty_key for t in txs.values()}
+    payers = (
+        {c.key: c for c in session.exec(select(CounterpartyRow).where(CounterpartyRow.key.in_(payer_keys)))}
+        if payer_keys
+        else {}
+    )
+    for reservation in reservations:
+        tx = txs.get(reservation.transaction_id)
+        payer = payers.get(tx.counterparty_key) if tx else None
         rows.append(
             [
                 db.as_utc(reservation.created_at).date().isoformat(),

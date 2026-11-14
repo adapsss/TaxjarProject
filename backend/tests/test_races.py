@@ -120,3 +120,65 @@ def test_fresh_start_racing_payments_never_fails(live):
         with Session(live) as s:
             assert_invariants(s)
             assert s.exec(select(ReservationRow)).all() is not None
+
+
+def test_catching_up_twice_at_once_reserves_once(live):
+    """Two catch-ups from two processes: the second waits for the account, then finds nothing left."""
+    from datetime import datetime, timezone
+
+    since = datetime(2000, 1, 1, tzinfo=timezone.utc)
+
+    def catch_up():
+        with Session(live) as s:
+            return reservations.catch_up(s, BUS, since)["count"]
+
+    errors, results = _together(live, [catch_up, catch_up])
+    assert errors == []
+    assert sorted(results)[0] == 0 and sorted(results)[1] > 0, results
+    with Session(live) as s:
+        reserved = s.exec(select(ReservationRow)).all()
+        assert len(reserved) == sorted(results)[1]
+        assert len({r.transaction_id for r in reserved}) == len(reserved)
+        assert_invariants(s)
+
+
+def test_catch_up_racing_a_currency_change_keeps_jar_and_profile_together(live):
+    """A profile change that lands while a catch-up runs must not leave the jar in the old currency."""
+    from datetime import datetime, timezone
+
+    from fastapi.testclient import TestClient
+
+    from app.events import get_bus
+    from app.main import create_app
+
+    app = create_app()
+    app.dependency_overrides[get_bus] = lambda: BUS
+
+    def live_session():
+        with Session(live) as s:
+            yield s
+
+    app.dependency_overrides[db.get_session] = live_session
+    client = TestClient(app)
+    since = datetime(2000, 1, 1, tzinfo=timezone.utc)
+
+    def catch_up():
+        with Session(live) as s:
+            return reservations.catch_up(s, BUS, since)["count"]
+
+    def to_usd():
+        body = {"country": "EE", "regime": "entrepreneur_account", "rate": 2000, "taxCurrency": "USD", "enabled": True}
+        return client.put("/api/tax-profile", json=body).status_code
+
+    for _ in range(4):
+        errors, results = _together(live, [catch_up, to_usd])
+        assert errors == [], errors
+        with Session(live) as s:
+            jar, profile = s.get(JarRow, TAX_JAR_ID), s.get(ProfileRow, PROFILE_ID)
+            assert jar.currency == profile.tax_currency, results
+            assert_invariants(s)
+            db.reset_to_seed(s)
+            p = s.get(ProfileRow, PROFILE_ID)
+            p.country, p.regime, p.rate_bp, p.tax_currency, p.enabled = "EE", "entrepreneur_account", 2000, "EUR", True
+            s.add(p)
+            s.commit()

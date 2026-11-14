@@ -67,7 +67,11 @@ export default function PayTax() {
 
   const held = summary.reservations.filter((t) => t.reservation!.status === 'reserved')
   const months = [...new Set(held.map((t) => t.createdAt.slice(0, 7)))].sort()
-  const span = months.length > 1 ? `${monthShort(months[0])} – ${monthShort(months[months.length - 1])}` : monthShort(months[0])
+  // The total comes from the server and the list from the loaded payments: for a moment after an
+  // undo in another tab (or past the list's size limit) there is money held and no payment to name.
+  const first = months[0]
+  const last = months[months.length - 1]
+  const span = first === undefined ? null : first === last ? monthShort(first) : `${monthShort(first)} – ${monthShort(last)}`
   const confirm = () => {
     setError(null)
     pay().then(setPaid, (e: Error) => setError(e.message))
@@ -108,7 +112,7 @@ export default function PayTax() {
             <Row k="To">{TAX_AUTHORITY}</Row>
             <Row k="Reference">Tax payment</Row>
             <Row k="Covers">
-              {held.length} payment{held.length > 1 ? 's' : ''} from {span}
+              {span === null ? 'Everything set aside so far' : `${held.length} payment${held.length > 1 ? 's' : ''} from ${span}`}
             </Row>
             <Row k="Arrives" last>
               Today

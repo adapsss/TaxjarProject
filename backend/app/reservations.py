@@ -192,6 +192,9 @@ def catch_up_preview(session: Session, since: datetime) -> dict:
 
 def catch_up(session: Session, bus: EventBus, since: datetime) -> dict:
     """Set tax aside for every earlier income payment at once. Commits once; a second call moves nothing."""
+    # Before reading the profile and the candidates: a profile change or a second catch-up in another
+    # process then runs before or after this one, never in between.
+    db.lock_account(session)
     profile = db.get_profile(session)
     if not profile.enabled:
         raise ApiError(409, "tax_profile_disabled", "Set up the Tax Jar first.")

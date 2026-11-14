@@ -569,7 +569,10 @@ export interface operations {
     };
     list_transactions_api_transactions_get: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Newest first; at most this many */
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
