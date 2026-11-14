@@ -1,14 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Transaction } from '../api/client'
-import { useEscape } from '../lib/useEscape'
-import { WorkChoice } from './WorkChoice'
 import { useStore } from '../state/store'
 import { linesSummary, paymentLines } from '../lib/breakdown'
 import { formatMoney } from '../lib/money'
 import { regimeRule } from '../lib/taxjar'
 import { whyLine } from '../lib/why'
 import {
-  Avatar,
   Button,
   CircleButton,
   CloseIcon,
@@ -126,75 +123,6 @@ function NoticeCard({ title, detail, onDone }: { title: string; detail: string; 
     </div>
   )
 }
-
-/** "Is this payment for work?" for the classifier's middle band. */
-export function WorkQuestionDialog() {
-  const { question, transactions } = useStore()
-  const tx = question ? transactions.find((t) => t.id === question) : null
-  if (!tx) return null
-  // Keyed per payment, so a new question starts clean.
-  return <QuestionCard key={tx.id} tx={tx} />
-}
-
-function QuestionCard({ tx }: { tx: Transaction }) {
-  const { profile, answer, busy, closeQuestion } = useStore()
-  const [error, setError] = useState<string | null>(null)
-  const dialog = useRef<HTMLDivElement>(null)
-  useEscape(closeQuestion)
-  // Move keyboard focus to the card, so Tab reaches Yes / No first and a screen reader announces it.
-  useEffect(() => dialog.current?.focus(), [])
-
-  const go = (yes: boolean) => answer(tx.id, yes).catch((e: Error) => setError(e.message))
-  const inFlight = busy?.startsWith(`answer:${tx.id}`)
-
-  return (
-    <div className="pointer-events-none absolute inset-x-3 z-[55]" style={{ bottom: 'calc(var(--tab-offset, 90px) + 8px)' }}>
-      <div
-        ref={dialog}
-        tabIndex={-1}
-        role="dialog"
-        aria-modal="false"
-        aria-labelledby="q-title"
-        className="pointer-events-auto animate-rise rounded-[28px] bg-white p-5 shadow-[0_24px_60px_-12px_rgba(14,15,12,0.5)] ring-2 ring-amber outline-none"
-      >
-        <div className="flex items-center gap-3">
-          <Avatar who={tx.counterparty} size={46} />
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-[15px] font-semibold">{tx.counterparty.name}</p>
-            <p className="truncate text-[13px] text-muted">{tx.reference || 'No reference'}</p>
-          </div>
-          <span className="money text-[20px] font-extrabold tracking-[-0.04em]">{formatMoney(tx.amount, tx.currency, { sign: true })}</span>
-        </div>
-        <h2 id="q-title" className="mt-4 text-[24px] leading-[1.06] font-extrabold tracking-[-0.04em]">
-          Is this payment for work?
-        </h2>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-muted">
-          Pick one. We’ll remember it for {tx.counterparty.name.split(' ')[0]} next time.
-        </p>
-        {error && <p role="alert" className="mt-4 rounded-2xl bg-danger-soft px-3.5 py-2.5 text-[14px] text-danger">{error}</p>}
-        <div className="mt-4">
-          <WorkChoice
-            amount={tx.amount}
-            currency={tx.currency}
-            rate={profile.rate}
-            busy={busy === `answer:${tx.id}:true` ? true : busy === `answer:${tx.id}:false` ? false : null}
-            disabled={!!inFlight}
-            onChoose={go}
-          />
-        </div>
-        <button
-          type="button"
-          onClick={closeQuestion}
-          className="press mx-auto mt-3 block cursor-pointer rounded-full px-3 py-1.5 text-[14px] font-semibold text-muted hover:text-ink"
-        >
-          Decide later
-        </button>
-      </div>
-    </div>
-  )
-}
-
-
 
 export function StatusPill({ status }: { status: 'reserved' | 'undone' | 'paid' }) {
   const s = {

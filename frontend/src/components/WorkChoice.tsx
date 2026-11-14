@@ -12,6 +12,7 @@ export function WorkChoice({
   rate,
   busy,
   disabled,
+  compact,
   onChoose,
 }: {
   amount: number
@@ -21,9 +22,40 @@ export function WorkChoice({
   /** Which answer is being sent right now, if any. */
   busy: boolean | null
   disabled?: boolean
+  /** Two short side-by-side buttons for a feed row, instead of the two big ones of the payment sheet. */
+  compact?: boolean
   onChoose: (isIncome: boolean) => void
 }) {
   const tax = formatMoney(Math.round((amount * rate) / 10_000), currency)
+  if (compact) {
+    return (
+      <div>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => onChoose(true)}
+            className="press flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-lime px-3 text-[14px] font-bold text-forest disabled:cursor-wait disabled:opacity-60"
+          >
+            {busy === true ? <Spinner className="size-3.5" /> : <JarMark />}
+            <span className="truncate">For work</span>
+          </button>
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => onChoose(false)}
+            className="press flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-3 text-[14px] font-bold text-ink ring-1 ring-inset ring-line disabled:cursor-wait disabled:opacity-60"
+          >
+            {busy === false && <Spinner className="size-3.5" />}
+            <span className="truncate">Personal</span>
+          </button>
+        </div>
+        <p className="mt-2 text-[13px] leading-snug text-muted">
+          For work: {tax} ({formatRate(rate)}) goes to your Tax Jar. Personal: no tax.
+        </p>
+      </div>
+    )
+  }
   return (
     <div className="space-y-2.5">
       <button

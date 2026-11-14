@@ -87,11 +87,11 @@ What a freelancer gets beyond the golden path:
 
 - **Catch-up after setup.** Client income that arrived before the Tax Jar existed is offered in one card ("Clients paid you €5,554 before your Tax Jar existed. Set aside €1,110.80?"), backed by `GET/POST /api/tax/catch-up`.
 - **Any country's currency.** The jar can be kept in the currency of any of the 80 countries (fixed, offline rates in `backend/app/fx.py`, with each currency's own minor units: none for JPY, three for KWD).
-- **Nothing blocks the screen.** "Is this payment for work?" is a card above the tab bar; "Decide later" leaves the payment tagged in the list.
+- **Nothing blocks the screen.** An unsure payment is not a popup: it sits in the payments feed with "For work" and "Personal" buttons right in its row (and what each does in money), and waits there until you choose.
 - **Honest when offline.** If the live connection drops, a banner says so and goes away when it recovers.
 - **Easy to use.** Text is at least 13px (body 15-17px), every button and link is at least 44pt (checked by the browser test), sheets keep focus inside them and close with Escape, Tax Jar rows open with Enter, "Reduce Motion" turns animations off, and on a real phone there is no fake status bar.
 
-The toast and the "Is this payment for work?" question are driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The lime **Demo** button on Home opens the same controls as a sheet (test payments, a custom payment, screen states) and can be ignored in the product.
+The tax toast is driven by the backend's event stream (`/api/events`), so a payment sent from the simulator tab or with `curl` shows up in the app tab. The lime **Demo** button on Home opens the same controls as a sheet (test payments, a custom payment, screen states) and can be ignored in the product.
 
 End-to-end check in a real browser (once: `npx playwright install chromium`; both servers must be running; it resets the backend's demo data):
 

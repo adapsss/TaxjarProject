@@ -89,19 +89,21 @@ await app.waitForTimeout(600)
 if (await app.getByRole('status').count()) throw new Error('Mari must not show a toast')
 await shot('3-mari-personal')
 
-// 4. Unclear → question → Yes → €80
+// 4. Unclear → no popup; the choice sits in the feed row → Work → €80
 await send(/Unclear €400/)
-await expectText(app.getByRole('dialog'), /Is this payment for work\?/, 'John question')
-await expectText(app.getByRole('dialog'), /Tax: €80 \(20%\) goes to your Tax Jar/, 'the work choice says what it does: tax set aside')
-await expectText(app.getByRole('dialog'), /No tax: the whole €400 stays yours/, 'the personal choice says what it does: no tax')
+const john = app.locator('[data-tx-id]').filter({ hasText: 'John Smith' }).first()
+await expectText(john, /Is this payment for work\?/, 'John asks in the feed')
+await expectText(john, /For work: €80 \(20%\) goes to your Tax Jar\. Personal: no tax\./, 'the choices say what they do in money')
+if (await app.getByRole('dialog').count()) throw new Error('An unclear payment must not open a popup')
 await shot('4a-john-question')
-await app.getByRole('button', { name: /Yes, it’s for work/ }).click()
+await john.getByRole('button', { name: 'For work' }).click()
 await expectText(app.getByRole('status'), /€80 set aside for taxes/, 'John toast €80')
 // The answer is remembered: John's next payment is reserved with no question.
 await app.getByRole('button', { name: 'Dismiss' }).click()
 await send(/Unclear €400/)
 await expectText(app.getByRole('status'), /€80 set aside for taxes/, 'John is remembered as a client')
-if (await app.getByRole('dialog').count()) throw new Error('A known client must not be asked about again')
+// The newest row is the second John: reserved at once, no question. (The unclear payment sent before onboarding still waits for an answer.)
+if (await app.locator('[data-tx-id]').first().getByText('Is this payment for work?').count()) throw new Error('A known client must not be asked about again')
 await app.getByRole('button', { name: 'Dismiss' }).click()
 
 // 5. Tax Jar screen

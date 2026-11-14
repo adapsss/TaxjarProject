@@ -1,6 +1,6 @@
 // App state for every screen, backed by the real backend through the frozen api/client.ts.
 // One provider owns all fetching and the app's only EventSource (plan Task A3): actions call the
-// API, and the toast and the work question come from the live event stream, so a payment sent
+// API, and the tax toast comes from the live event stream, so a payment sent
 // from the simulator tab (or curl) shows up here too.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import * as api from '../api/client'
@@ -46,7 +46,6 @@ interface Store extends Data {
   preset: PresetChoice
   screen: ScreenState
   toast: Toast | null
-  question: string | null
   flash: { key: number; amount: number } | null
   /** Earlier client income with no tax set aside (it predates the Tax Jar); null while none. */
   catchUpOffer: CatchUp | null
@@ -70,8 +69,6 @@ interface Store extends Data {
   setPreset: (p: PresetChoice) => Promise<void>
   retry: () => void
   dismissToast: () => void
-  closeQuestion: () => void
-  openQuestion: (txId: string) => void
   setFailNext: (v: boolean) => void
 }
 
@@ -87,7 +84,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [preset, setPresetState] = useState<PresetChoice>('live')
   const [screen, setScreen] = useState<ScreenState>('loading')
   const [toast, setToast] = useState<Toast | null>(null)
-  const [question, setQuestion] = useState<string | null>(null)
   const [flash, setFlash] = useState<Store['flash']>(null)
   const [catchUpOffer, setCatchUpOffer] = useState<CatchUp | null>(null)
   const [catchUpDismissed, setCatchUpDismissed] = useState(false)
@@ -98,7 +94,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const failRef = useRef(false)
   const keyRef = useRef(0)
   const refreshSeq = useRef(0)
-  // While the demo controls set up a state, its payments must not pop toasts or questions.
+  // While the demo controls set up a state, its payments must not pop toasts.
   const quietRef = useRef(false)
   const quietTx = useRef(new Set<string>())
   // Another tab (the simulator) is setting up a demo state: the payments it replays are setup, not news.
@@ -175,7 +171,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             setCatchUpDismissed(false)
             setNotice(null)
             setToast(null)
-            setQuestion(null)
             setFlash(null)
             refresh().catch(ignore)
             return
@@ -185,8 +180,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           if (quietRef.current || quietTx.current.has(e.transaction.id) || remoteQuiet.current) return
           if (e.type === 'reservation.created' && e.transaction.reservation) {
             showReserved(e.transaction.id, e.transaction.reservation.reservedAmount)
-          } else if (e.type === 'question.asked') {
-            setQuestion(e.transaction.id)
           } else if (e.type === 'reservation.undone') {
             setToast((t) => (t?.txId === e.transaction.id ? null : t))
           }
@@ -253,7 +246,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const answer = useCallback(
     async (txId: string, isIncome: boolean) => {
       await call(`answer:${txId}:${isIncome}`, () => api.answerTransaction(txId, isIncome))
-      setQuestion(null)
     },
     [call],
   )
@@ -307,7 +299,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     async (p: PresetChoice) => {
       setPresetState(p)
       setToast(null)
-      setQuestion(null)
       setFlash(null)
       setNotice(null)
       setCatchUpDismissed(false)
@@ -353,8 +344,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const dismissToast = useCallback(() => setToast(null), [])
   const dismissNotice = useCallback(() => setNotice(null), [])
   const dismissCatchUp = useCallback(() => setCatchUpDismissed(true), [])
-  const closeQuestion = useCallback(() => setQuestion(null), [])
-  const openQuestion = useCallback((id: string) => setQuestion(id), [])
 
   const value = useMemo<Store>(
     () => ({
@@ -364,7 +353,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       preset,
       screen,
       toast,
-      question,
       flash,
       catchUpOffer: catchUpDismissed ? null : catchUpOffer,
       notice,
@@ -383,11 +371,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setPreset,
       retry,
       dismissToast,
-      closeQuestion,
-      openQuestion,
       setFailNext,
     }),
-    [data, taxSummary, countries, preset, screen, toast, question, flash, busy, failNext, simulate, answer, undo, markIncome, pay, saveProfile, setPreset, retry, dismissToast, closeQuestion, openQuestion, catchUpOffer, catchUpDismissed, notice, connected, catchUp, dismissCatchUp, dismissNotice],
+    [data, taxSummary, countries, preset, screen, toast, flash, busy, failNext, simulate, answer, undo, markIncome, pay, saveProfile, setPreset, retry, dismissToast, catchUpOffer, catchUpDismissed, notice, connected, catchUp, dismissCatchUp, dismissNotice],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

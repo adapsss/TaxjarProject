@@ -5,7 +5,7 @@ import { DemoSheet } from './DemoSheet'
 import { DemoSheetContext } from './demoSheetContext'
 import { LeaveConfirm } from './LeaveConfirm'
 import { LeaveGuardContext, type LeaveGuard } from './leaveGuardContext'
-import { NoticeToast, TaxToast, WorkQuestionDialog } from './Overlays'
+import { NoticeToast, TaxToast } from './Overlays'
 import { ActivityIcon, HomeIcon, JarIcon, SettingsIcon } from './ui'
 
 const TABS = [
@@ -58,7 +58,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </main>
             {tabs && <TabBar />}
             <TaxToast />
-            <WorkQuestionDialog />
             <NoticeToast />
             <DemoSheet open={demoOpen} onClose={() => setDemoOpen(false)} />
             {pending !== null && guard && (
