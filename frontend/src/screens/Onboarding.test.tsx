@@ -39,7 +39,7 @@ it('leaves settings straight away when nothing was changed', async () => {
 it('asks "Are you sure?" before leaving while switching region, and names both regions', async () => {
   stubApi(true)
   await switchToPoland()
-  fireEvent.click(await screen.findByRole('button', { name: /Back|Close/ }))
+  fireEvent.click(within(screen.getByRole('navigation', { name: 'Main' })).getByRole('link', { name: 'Tax Jar' }))
   const sheet = await screen.findByRole('dialog', { name: 'Are you sure?' })
   expect(within(sheet).getByText(/switching your tax region from Estonia to Poland/)).toBeTruthy()
   expect(within(sheet).getByText(/your Tax Jar keeps using Estonia/)).toBeTruthy()
@@ -83,4 +83,34 @@ it('does not guard after the changes are undone', async () => {
   const event = new Event('beforeunload', { cancelable: true })
   window.dispatchEvent(event)
   expect(event.defaultPrevented).toBe(false)
+})
+
+it('tapping Settings inside the "Change" flow takes you back to the summary, not nowhere', async () => {
+  stubApi(true)
+  open('/onboarding')
+  fireEvent.click(await screen.findByRole('button', { name: /Change/ }))
+  expect(await screen.findByRole('heading', { name: 'Where do you pay taxes?' })).toBeTruthy()
+  fireEvent.click(within(screen.getByRole('navigation', { name: 'Main' })).getByRole('link', { name: 'Settings' }))
+  expect(await screen.findByRole('heading', { name: 'Tax settings' })).toBeTruthy()
+})
+
+it('tapping Settings with an unsaved region switch asks first, and leaving starts the summary fresh', async () => {
+  stubApi(true)
+  await switchToPoland()
+  fireEvent.click(within(screen.getByRole('navigation', { name: 'Main' })).getByRole('link', { name: 'Settings' }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Leave without saving' }))
+  expect(await screen.findByRole('heading', { name: 'Tax settings' })).toBeTruthy()
+  expect(screen.getAllByText(/Estonia/).length).toBeGreaterThan(0)
+  expect(screen.queryByText(/Poland/)).toBeNull()
+})
+
+it('the arrow on the country list steps back to the summary and drops the half-made pick', async () => {
+  stubApi(true)
+  await switchToPoland()
+  fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+  expect(await screen.findByRole('heading', { name: 'Tax settings' })).toBeTruthy()
+  expect(screen.queryByRole('dialog', { name: 'Are you sure?' })).toBeNull()
+  // Nothing is left to lose: the way out is open again.
+  fireEvent.click(screen.getByRole('button', { name: 'Back to Tax Jar' }))
+  expect(screen.queryByRole('dialog', { name: 'Are you sure?' })).toBeNull()
 })

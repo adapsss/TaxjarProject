@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useGuardedNavigate, useLeaveGuard } from '../components/leaveGuardContext'
 import {
   ArrowLeftIcon,
@@ -24,7 +24,9 @@ const OTHER = '*'
 /** Remount when the demo state switches or the profile arrives, so the wizard starts from the right step. */
 export default function Setup() {
   const { preset, profile } = useStore()
-  return <SetupFlow key={`${preset}:${profile.enabled}`} />
+  // Tapping the Settings tab again lands on the same path with a fresh location key: start over at the summary.
+  const { key } = useLocation()
+  return <SetupFlow key={`${preset}:${profile.enabled}:${key}`} />
 }
 
 function SetupFlow() {
@@ -91,10 +93,19 @@ function SetupFlow() {
   )
   const leave = useGuardedNavigate()
 
-  // In settings the arrow leaves, unless you came in through "Change" and are stepping back through the choices.
-  const leaves = step === 1 || (editing && step === 3 && !changing)
+  // In settings the arrow leaves from the summary. Inside "Change" it steps back instead: from the country list to the
+  // summary (keeping what was picked), from the registration list to the country list.
+  const leaves = editing ? step === 3 && !changing : step === 1
   const back = () => {
     if (leaves) leave(editing ? '/tax-jar' : '/')
+    else if (editing && changing && step === 1) {
+      // Backing out of the country list cancels the change: the summary shows what is saved, not a half-made pick.
+      setCountry(profile.country)
+      setRegime(profile.regime)
+      setCurrency(profile.taxCurrency)
+      setChanging(false)
+      setStep(3)
+    }
     else setStep(step - 1)
   }
 
